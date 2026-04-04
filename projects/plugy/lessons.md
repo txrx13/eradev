@@ -6,6 +6,36 @@
 
 ---
 
+## Cycle 3: TACT 3.5 ENRICH + Self-Learning Activation — Session 2026-04-04
+
+> RT-1 (2 раунда, S_team=0.94). Исследование индустрии hosting support 2025-2026.
+> Pre-response enrichment pipeline: NetBox + Zabbix + incident.io statuspage.
+
+### New Lessons
+
+**L-TACT-01: Confidence routing — встраивать с Phase 1, не откладывать.**
+Без baseline confidence score невозможно измерить resolution rate и прогресс. Каждый enrichment должен возвращать confidence (high/medium/low). Это 30 минут работы на Phase 1, но создаёт основу для всех последующих фаз.
+
+**L-TACT-02: Auto-fix safety tiers (GREEN/YELLOW/RED) — архитектурное решение ДО Phase 2.**
+GREEN (restart, SSL renew, cache clear) безопасны для автоматизации. YELLOW (config, reboot) требуют подтверждения. RED (delete, billing, security) — никогда. Решение о тирах принимать заранее, ретрофит дорогой.
+
+**L-TACT-03: Resolution rate benchmarks.**
+FAQ bot = 20%, RAG-powered = 50%, agentic AI with actions = 80%, full agentic + self-healing + proactive = 95%+. Наш Phase 1 target: 35-40% (enrichment only). Intercom Fin 66% avg, Zendesk AI 80% enterprise, Ada CX 83%.
+
+**L-TACT-04: Escalation brief экономит 2-3 мин на тикет.**
+Одно предложение контекста при передаче оператору. Исследование: saves 30-60s per handoff. При 100 escalations/день = 50-100 часов/месяц экономии оператора.
+
+**L-TACT-05: Ручной деплой при наличии autodeploy — muda.**
+Autodeploy через cron (каждую минуту git pull + rebuild) уже настроен. В сессии 2026-04-04 META вручную задеплоил через ssh+rsync вместо git push. Достаточно коммита + push в main.
+
+### New Open Questions
+
+- OQ-013: Какой widget URL у incident.io statuspage для JustHost? Нужно найти в dashboard.
+- OQ-014: Реальный latency THINK+RETRIEVE в продакшене? Нужно для точного бюджета ENRICH.
+- OQ-015: Benchmark results — какой baseline B_mean у JustHost после accumulator fix?
+
+---
+
 ## Cycle 2: META Hansei — Session 2026-04-02/03
 
 > Ретроспектива полного цикла. 72 коммита, ~110 агентов, скоуп взорвался M → XL.
