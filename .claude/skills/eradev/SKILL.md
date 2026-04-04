@@ -30,11 +30,11 @@ On activation, you MUST read these files using the Read tool, in this order:
 
 | Step | File | Purpose |
 |------|------|---------|
-| 1 | `eradev/eradev.md` | Universal Core (ODTOE + TPS + RT) |
-| 2 | `eradev/meta.md` | META operating protocol |
-| 3 | `eradev/projects/{project}/config.md` | Project context (if exists) |
-| 4 | `eradev/projects/{project}/lessons.md` | Project memory (if exists) |
-| 5 | `eradev/BOOTSTRAP_LESSONS.md` | Cold-start Lambda |
+| 1 | `eradev.md` | Universal Core (ODTOE + TPS + RT) |
+| 2 | `meta.md` | META operating protocol |
+| 3 | `projects/{project}/config.md` | Project context (if exists) |
+| 4 | `projects/{project}/lessons.md` | Project memory (if exists) |
+| 5 | `BOOTSTRAP_LESSONS.md` | Cold-start Lambda |
 
 Consult `references/loading-manifest.md` for the complete file inventory, tiers, and role-agent loading paths.
 
@@ -102,15 +102,7 @@ Reclassification trigger: if cumulative work exceeds 2x initial estimate, STOP a
 
 ## 5. Round Table Dispatch
 
-### RT-1: START (Understanding)
-
-Spawn 5 Agent calls in PARALLEL. Each agent receives:
-1. The task description
-2. Their role-specific prompt (from the appropriate `{role}_EN.md` or `{role}.md`)
-3. Project config (`projects/{name}/config.md`)
-4. Relevant Bootstrap Lessons
-
-The 5 RT-1 prompts MUST include role-specific questions:
+Spawn 5 Agent calls in PARALLEL for RT-1. Each agent receives: task description, role prompt (`{role}_EN.md` or `{role}.md`), project config, relevant Bootstrap Lessons.
 
 | Role | Agent prompt MUST ask | Dominant B |
 |------|----------------------|------------|
@@ -120,27 +112,11 @@ The 5 RT-1 prompts MUST include role-specific questions:
 | **Validator** | How to test? Edge cases? Error paths? Acceptance criteria? | (1-sigma) |
 | **Coherencer** | Connection to previous work? Which lessons from MEMORY apply? 3 lessons + 2 patterns announced. | Balanced |
 
-After all 5 agents respond: synthesize into a Unified Plan.
-
-### RT-2: MIDPOINT (Course Correction)
-
-After first build phase. Spawn the same 5 roles to check:
-"Are we still on track? Anything diverged?"
-If S < 0.5 -- trigger Kill-Switch (managed dissonance).
-If >40% of RT-2 phrases repeat RT-1 verbatim -- attractor detected, apply Kill-Switch.
-
-### RT-3: FINISH (Acceptance)
-
-Go / no-go decision. Mandatory steps:
-1. Hansei: "Why did our PROCESS lead to this result?" (process, not blame -- BL-12)
-2. Crystallization: 3-5 key distinctions of this task
-3. A3 template: Context | Current State | True North | Gap | Distinctions | Open Questions (~2%)
-4. Prediction Delta: compare RT-1 predictions with RT-3 reality
-5. Compute S_session = (1 - fix_rate) * (1 - chain_ratio) * delta_improvement * B_mean
+After all 5 respond: synthesize into Unified Plan. RT-2 (midpoint) and RT-3 (acceptance) protocols are in `meta.md`.
 
 ---
 
-## 6. ODTOE Formulas (Compact Reference)
+## 6. ODTOE Formulas (Critical Three)
 
 ```
 Agent coherence:    B = F^w1 * E^w2 * (1-sigma)^w3 * Lambda^w4
@@ -151,24 +127,26 @@ Team coherence:     S_team = 1 - (2/n(n-1)) * Sum|Bi - Bj|
 
 Adjusted coherence: S_adjusted = S_team * B_mean
                     where B_mean = (1/n) * Sum(Bi)
-
-Collective prob:    P_coll = 1 - Product(1 - Bi^k)
-                    5 agents at B=0.3 -> P_coll = 0.83
-
-Spiral gap:         ~(pi-3)^2 ~ 0.02 per cycle
-
-Session score:      S_session = (1 - fix_rate) * (1 - chain_ratio) * delta_improvement * B_mean
 ```
 
 WEAK LINK PRINCIPLE: B is multiplicative. ANY component = 0 collapses ALL coherence to 0. You CANNOT compensate zero focus with vast experience.
 
 Phantom coherence: S_team > 0.8 but B_mean < 0.4 means everyone agrees on the wrong answer. Trigger Kill-Switch level 2.
 
+Full formula set (P_coll, spiral gap, S_session) is in `eradev.md`.
+
+### Jidoka Self-Check (after each work block)
+Every agent rates before submitting output:
+Banality: X/10 (>7 = attractor risk, trigger Kill-Switch)
+F ___/1.0  E ___/1.0  (1-sigma) ___/1.0  Lambda ___/1.0  B=___ (product)
+If B < 0.5: which component weak? Fix before submitting.
+If min < 0.3: ANDON — weak link zeros everything.
+
 ---
 
 ## 7. Key Bootstrap Lessons
 
-These are the most critical lessons from cold-start Lambda. You MUST internalize and enforce them.
+Critical subset from cold-start Lambda. Full details are in `BOOTSTRAP_LESSONS.md` (loaded at step 5).
 
 | ID | Lesson | Enforcement |
 |----|--------|-------------|
