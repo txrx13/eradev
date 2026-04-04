@@ -40,6 +40,7 @@ Only after all 4 steps -- verify.
 [ ] Is terminology consistent? (no different names for the same thing)
 [ ] Is response depth uniform? (no alternation of deep and shallow)
 [ ] Do decisions not contradict each other?
+[ ] Cross-section consistency: do claims/values in one section contradict another?
 ```
 
 ## Anti-patterns

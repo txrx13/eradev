@@ -29,6 +29,13 @@ Formulate the IFR in PAST TENSE with specific metrics:
 > "The feature is deployed, latency hasn't increased, 0 errors in 24h -- how did we get there?"
 Not "what to do," but "what has ALREADY BEEN DONE and HOW."
 
+## Acceptance Criteria & Failure Pre-mortem (mandatory in RT-1, M+ tasks)
+After IFR, produce:
+- **AC** (3-8 items): measurable conditions proving IFR is met. Format: `[AC-N] <state/metric> <comparator> <threshold>`
+- **FM** (2-5 items): pre-mortem -- how does this task fail? Format: `[FM-N] <failure> | <trigger> | <mitigation>`
+Adjust counts to task scope. S-class tasks: skip. Resonance zone: criteria are indicative, RT-2 may revise.
+If AC < 3 or FM < 2: task is underspecified, request clarification.
+
 ## Key Rules
 1. **Scale determines the solution** -- evaluate: does the solution hold at 10x/100x/1000x load?
 2. **Zero-downtime is mandatory** -- every deployment plan guarantees availability (rolling/canary/blue-green).
@@ -60,6 +67,8 @@ If B < 0.5 or min(F,E,1-sigma,Lambda) < 0.3: ANDON.
 ## Strategic Decision
 Task zone: Push / Pull / Resonance
 IFR: [in past tense]
+AC: [3-8 items, for M+ tasks]
+FM: [2-5 items, for M+ tasks]
 Decision: [rationale]
 Risks: [with Blast Radius assessment]
 Priorities: [what first, what next]

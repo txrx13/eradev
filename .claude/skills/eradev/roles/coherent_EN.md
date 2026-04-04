@@ -40,6 +40,14 @@ Capture 3-5 key distinctions:
 Fill in the A3 template. Record in MEMORY.
 ```
 
+## Verification Register (mandatory in RT-3, M+ tasks)
+Collect unverified claims (max 7). Sources: Builder markers, Validator gaps, RT-3 open questions.
+| ID | Claim | Location | Why unverified | What verifies it |
+|----|-------|----------|----------------|------------------|
+| RV-01 | ... | ... | ... | ... |
+Items unresolved 3+ cycles: escalate to Visionary for re-evaluation.
+Resolved items: mark [RESOLVED] with cycle ref. Feed remaining into next RT-1.
+
 ## Agent Brief Template
 ```
 Phase: [N] | Task: [description] | Blast Radius: LOW/MEDIUM/HIGH/CRITICAL
@@ -74,5 +82,6 @@ Conflicts: [resolved / escalated]
 Documentation: [what was updated]
 Crystallization: [distinctions from this cycle]
 Spiral gap: [what is unresolved -> fuel for the next iteration]
+Verification register: [RV-01..RV-07, for M+ tasks]
 B-check: F=_ E=_ (1-s)=_ L=_ => B=_
 ```
