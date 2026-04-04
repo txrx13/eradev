@@ -1,6 +1,6 @@
 ---
 name: eradev
-description: "Bootstrap EraDev META-Orchestrator (Level 9). Multi-agent framework with 5 roles, ODTOE coherence, Round Tables. Use when starting EraDev session or working on EraDev-managed projects."
+description: "Bootstrap EraDev META-Orchestrator (Level 9). Self-contained multi-agent framework with 5 roles, ODTOE coherence, Round Tables. Activates on /eradev or when working on EraDev-managed projects."
 ---
 
 # EraDev META-Orchestrator Bootstrap
@@ -28,15 +28,15 @@ STRUCTURAL GATE: If you catch yourself about to type code, edit a file, or run a
 
 On activation, you MUST read these files using the Read tool, in this order:
 
-| Step | File | Purpose |
-|------|------|---------|
-| 1 | `eradev.md` | Universal Core (ODTOE + TPS + RT) |
-| 2 | `meta.md` | META operating protocol |
-| 3 | `projects/{project}/config.md` | Project context (if exists) |
-| 4 | `projects/{project}/lessons.md` | Project memory (if exists) |
-| 5 | `BOOTSTRAP_LESSONS.md` | Cold-start Lambda |
+| Step | File | Location | Purpose |
+|------|------|----------|---------|
+| 1 | eradev.md | [core/eradev.md](core/eradev.md) | Universal Core |
+| 2 | meta.md | [meta/meta.md](meta/meta.md) | META Protocol |
+| 3 | BOOTSTRAP_LESSONS.md | [meta/BOOTSTRAP_LESSONS.md](meta/BOOTSTRAP_LESSONS.md) | Cold-start Lambda |
+| 4 | projects/{project}/config.md | PROJECT working directory | Project context (if exists) |
+| 5 | projects/{project}/lessons.md | PROJECT working directory | Project memory (if exists) |
 
-Consult `references/loading-manifest.md` for the complete file inventory, tiers, and role-agent loading paths.
+> **Note:** Steps 1-3 load from bundled skill files (paths relative to this SKILL.md). Steps 4-5 load from the current project's working directory.
 
 Language stack selection (BEFORE loading, per eradev.md Section 0):
 
@@ -102,7 +102,7 @@ Reclassification trigger: if cumulative work exceeds 2x initial estimate, STOP a
 
 ## 5. Round Table Dispatch
 
-Spawn 5 Agent calls in PARALLEL for RT-1. Each agent receives: task description, role prompt (`{role}_EN.md` or `{role}.md`), project config, relevant Bootstrap Lessons.
+Spawn 5 Agent calls in PARALLEL for RT-1. Each agent receives: task description, role prompt, project config, relevant Bootstrap Lessons.
 
 | Role | Agent prompt MUST ask | Dominant B |
 |------|----------------------|------------|
@@ -112,7 +112,19 @@ Spawn 5 Agent calls in PARALLEL for RT-1. Each agent receives: task description,
 | **Validator** | How to test? Edge cases? Error paths? Acceptance criteria? | (1-sigma) |
 | **Coherencer** | Connection to previous work? Which lessons from MEMORY apply? 3 lessons + 2 patterns announced. | Balanced |
 
-After all 5 respond: synthesize into Unified Plan. RT-2 (midpoint) and RT-3 (acceptance) protocols are in `meta.md`.
+### Role File References (bundled)
+
+| Role | EN file | RU file |
+|------|---------|---------|
+| Visionary | [roles/visionary_EN.md](roles/visionary_EN.md) | [roles/visionary.md](roles/visionary.md) |
+| Analyst | [roles/analyst_EN.md](roles/analyst_EN.md) | [roles/analyst.md](roles/analyst.md) |
+| Builder | [roles/builder_EN.md](roles/builder_EN.md) | [roles/builder.md](roles/builder.md) |
+| Validator | [roles/validator_EN.md](roles/validator_EN.md) | [roles/validator.md](roles/validator.md) |
+| Coherencer | [roles/coherent_EN.md](roles/coherent_EN.md) | [roles/coherent.md](roles/coherent.md) |
+
+**When spawning a role agent via the Agent tool, include the CONTENT of the appropriate role file in the agent's prompt.** Read the file first, then embed its content in the agent spawn call so the agent has its full role definition in context.
+
+After all 5 respond: synthesize into Unified Plan. RT-2 (midpoint) and RT-3 (acceptance) protocols are in [meta/meta.md](meta/meta.md).
 
 ---
 
@@ -133,7 +145,7 @@ WEAK LINK PRINCIPLE: B is multiplicative. ANY component = 0 collapses ALL cohere
 
 Phantom coherence: S_team > 0.8 but B_mean < 0.4 means everyone agrees on the wrong answer. Trigger Kill-Switch level 2.
 
-Full formula set (P_coll, spiral gap, S_session) is in `eradev.md`.
+Full formula set (P_coll, spiral gap, S_session) is in [core/eradev.md](core/eradev.md).
 
 ### Jidoka Self-Check (after each work block)
 Every agent rates before submitting output:
@@ -146,7 +158,7 @@ If min < 0.3: ANDON — weak link zeros everything.
 
 ## 7. Key Bootstrap Lessons
 
-Critical subset from cold-start Lambda. Full details are in `BOOTSTRAP_LESSONS.md` (loaded at step 5).
+Critical subset from cold-start Lambda. Full details in [meta/BOOTSTRAP_LESSONS.md](meta/BOOTSTRAP_LESSONS.md).
 
 | ID | Lesson | Enforcement |
 |----|--------|-------------|
@@ -182,3 +194,37 @@ These are hard constraints. Violating any invariant is a system failure.
 7. **Unverified artifacts are REJECTED (BL-27).** Builder MUST attach build/lint/parse output. "It looks correct" is not verification.
 
 STRUCTURAL GATE: If you detect yourself violating any invariant, STOP immediately. Output which invariant was violated and restart the correct procedure.
+
+---
+
+## 9. Bundled File Inventory
+
+This skill is self-contained. All framework files are bundled in subdirectories:
+
+### core/ -- Universal Core (loaded by every agent)
+- [eradev.md](core/eradev.md) -- ODTOE formulas, TPS, RT protocol, roles, classification
+- [eradev_RU.md](core/eradev_RU.md) -- Russian theoretical counterpart
+
+### meta/ -- META-Orchestrator Files
+- [meta.md](meta/meta.md) -- META protocol, Session Entry, prompt evolution
+- [meta_RU.md](meta/meta_RU.md) -- Russian META protocol
+- [BOOTSTRAP_LESSONS.md](meta/BOOTSTRAP_LESSONS.md) -- BL-01..BL-27 cold-start Lambda
+- [LOADING_PROTOCOL.md](meta/LOADING_PROTOCOL.md) -- Agent context loading sequence
+
+### roles/ -- Role Agent Prompts (bilingual)
+- [visionary_EN.md](roles/visionary_EN.md) / [visionary.md](roles/visionary.md)
+- [analyst_EN.md](roles/analyst_EN.md) / [analyst.md](roles/analyst.md)
+- [builder_EN.md](roles/builder_EN.md) / [builder.md](roles/builder.md)
+- [validator_EN.md](roles/validator_EN.md) / [validator.md](roles/validator.md)
+- [coherent_EN.md](roles/coherent_EN.md) / [coherent.md](roles/coherent.md)
+
+### reference/ -- On-Demand Reference Material
+- [interfaces.md](reference/interfaces.md) -- Interface contracts between roles
+- [glossary_EN.md](reference/glossary_EN.md) / [glossary.md](reference/glossary.md) -- ODTOE/TPS glossary
+- [CHECKLIST_EN.md](reference/CHECKLIST_EN.md) / [CHECKLIST.md](reference/CHECKLIST.md) -- Deploy checklists
+- [README_EN.md](reference/README_EN.md) / [README.md](reference/README.md) -- Framework overview
+
+### templates/ -- Scaffolding
+- [MEMORY_TEMPLATE_EN.md](templates/MEMORY_TEMPLATE_EN.md) / [MEMORY_TEMPLATE.md](templates/MEMORY_TEMPLATE.md) -- A3 template
+- [CLAUDE.md.template](templates/CLAUDE.md.template) -- CLAUDE.md for EraDev projects
+- [CLAUDE.md.universal](templates/CLAUDE.md.universal) -- CLAUDE.md bootstrap
