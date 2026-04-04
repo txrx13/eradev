@@ -6,6 +6,34 @@
 
 ---
 
+## Cycle 4: ONDA-LOOP Service + Post-Convergence Roadmap — Session 2026-04-04
+
+### L-LOOP-01: Single-lever convergence is not the ceiling
+**Pattern:** B_mean stabilizes at ~0.70-0.72 with persona-only optimization. This is NOT the system ceiling — it's the persona ceiling. Six operators exist: persona, rules, retrieval, model, meta, eval.
+**Action:** Sequential spiral: converge L1 → unlock L2 → converge → unlock L3. Each ~2% residual feeds next level.
+
+### L-LOOP-02: 50 fixed dialogs = overfitting by design
+**Pattern:** Benchmark convergence means fitness to 50 dialogs, not production quality. Production has edge cases, multi-language, adversarial inputs.
+**Action:** Rotate 20/50 dialogs from production (PII scrubbed). Held-out validation set to detect overfitting. If opt B↑ but val B↓ → auto-halt.
+
+### L-LOOP-03: SCW rules affect (1-σ) more than persona
+**Pattern:** Consistency weight is 0.35 (highest). Rules control which knowledge is served. Contradictory rules spike σ. Persona text cannot fix factual errors in rules.
+**Action:** L2 rule optimization after persona converges. One rule per iteration. Factual verification layer (not just B-score).
+
+### L-LOOP-04: Production feedback is the binding constraint after L4
+**Pattern:** After synthetic benchmark optimization (L1-L4), the binding constraint shifts to novel situations. Production escalation rate, repeat contacts, conversation length are behavioral signals that B-score doesn't capture.
+**Action:** Phase 4 (production feedback collection) runs parallel to L1-L3, but only influences optimization after minimum sample size (30 rated conversations per project).
+
+### L-LOOP-05: ONDA-LOOP as service = zero manual deploys
+**Pattern:** Первая итерация запущена вручную → потом скрипт → потом cron → потом внутренний APScheduler. Каждый шаг убирает ручное вмешательство.
+**Action:** Service deployed on :8092, APScheduler every 4h (justhost) / 8h (meduzavpn). Next: convergence → auto-switch to L2.
+
+### OQ-016: PII scrubbing pipeline for production dialog sampling
+### OQ-017: Optimal benchmark rotation frequency (every 3 iterations? every convergence?)
+### OQ-018: DSPy integration for RAG retrieval optimization (L3)
+
+---
+
 ## Cycle 3: TACT 3.5 ENRICH + Self-Learning Activation — Session 2026-04-04
 
 > RT-1 (2 раунда, S_team=0.94). Исследование индустрии hosting support 2025-2026.
