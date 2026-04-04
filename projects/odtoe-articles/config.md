@@ -11,6 +11,7 @@ Formatting, verification, and publication of scientific articles for the ODTOE (
 [ ] 2. FORMULAS: List ALL formulas. Recompute each independently to 50 digits. Do NOT copy from other articles.
 [ ] 3. CONSTANTS: Prepare 50-digit values for π, φ, (π−3)² and all derived constants needed.
 [ ] 4. SOURCES: List ALL bibliography entries. Verify each: DOI exists, publisher/year correct, page numbers match.
+[ ] 4b. SOURCE REGISTER: For every key assertion, create mapping {Section | Claim | Source | Trust: T1/T2/T3/T4} where T1=peer-reviewed with DOI, T2=ODTOE corpus (verified in prior articles), T3=preprint/conference, T4=novel claim (requires DERIVATION.md per L-23). If >30% claims are T3/T4, flag for additional review.
 [ ] 5. STRUCTURE: Define section plan (Roman numerals). Verify no overlap with existing corpus articles.
 [ ] 6. CONSISTENCY: Check terminology matches ODTOE glossary (46 terms). No contradictions with corpus.
 [ ] 7. LANGUAGE: Confirm both RU and EN versions will be produced simultaneously (BL-19).
@@ -58,7 +59,7 @@ Builder MUST produce EN version in the SAME session as RU. Do NOT defer EN to "l
 
 ## Full Pipeline for One Article
 ```
-1. Check-First (7 items above)
+1. Check-First (8 items above)
 2. Write ODTOE_{topic}.tex (RU)
 3. Compile: tectonic ODTOE_{topic}.tex → .pdf
 4. Write ODTOE_{topic}_EN.tex (EN translation)
@@ -173,6 +174,7 @@ NOTE: Preamble must have comment group headers (% Fonts, % Language, % Math pack
 - Check for internal contradictions between formulas within the article
 - Bibliography: every [N] reference in text must have a matching entry in the bibliography
 - Every bibliography entry must be REAL: verify DOI resolves, verify publisher/year/volume/pages
+- Assign Trust Index to each entry: T1 (peer-reviewed + DOI), T2 (ODTOE corpus internal), T3 (preprint/conference), T4 (novel claim this article). Count distribution — if >30% of cited claims rely on T3/T4, article requires additional review
 - No dangling references, no phantom citations
 - Study the relevant theories for any corrections being made — all must be scientifically grounded
 
@@ -233,14 +235,26 @@ ALL substitutions into formulas use these 50-digit values. ALL intermediate comp
 - Table/figure references must resolve correctly
 - The article must be self-contained: a reader unfamiliar with ODTOE should be able to follow the argument with only the bibliography for external references
 
+### Check 8: Evidence classification — epistemic status of every claim
+- During .tex generation, Builder MUST annotate each substantive claim with an epistemic marker as a LaTeX comment:
+  - `% [FACT: source]` — experimentally confirmed or published peer-reviewed result
+  - `% [DERIVATION: from axiom/postulate]` — follows from ODTOE axioms/postulates via explicit derivation chain
+  - `% [HYPOTHESIS: testable via X]` — testable prediction, not yet verified
+  - `% [OPEN: reason]` — open question, feeds into spiral gap (~2%)
+- Markers are LaTeX comments — they do NOT appear in the compiled PDF but are auditable in .tex source
+- Validator MUST audit marker accuracy: a claim tagged [FACT] must have a citation or recomputation artifact; a claim tagged [DERIVATION] must have explicit steps; [HYPOTHESIS] must specify what would verify it
+- Unmarked substantive claims = YELLOW on A_sigma (missing epistemic classification)
+- A claim tagged [DERIVATION] that is actually a post-hoc fit = Check 4 violation (L-23 enforcement)
+- Source: Rybakov Approach integration (RT-1 analysis 2026-04-04)
+
 ## EraDev Role Mapping for Articles
 
 | Role | Article Task | Checks Owned |
 |------|-------------|-------------|
 | Visionary | Thesis, structure, place in ODTOE corpus, strategic significance | Check 4 (no fitting — strategic integrity) |
 | Analyst | Section decomposition, formula inventory, source requirements, dependencies | Check 1 (bibliography), Check 2 (formulas — decompose), Check 5 (AI markers) |
-| Builder | Write .tex, formulas, compile PDF/DOCX/MD — Check-First BEFORE writing | Check 3 (50-digit precision during writing) |
-| Validator | Post-generation verification of ALL 7 checks, formula recomputation | ALL checks (final gate) |
+| Builder | Write .tex, formulas, compile PDF/DOCX/MD — Check-First BEFORE writing | Check 3 (50-digit precision), Check 8 (evidence markers during writing) |
+| Validator | Post-generation verification of ALL 8 checks, formula recomputation | ALL checks (final gate) |
 | Coherencer | Consistency with ODTOE corpus, terminology alignment, bilingual parity | Check 6 (plagiarism), Check 7 (consistency), BL-19 (bilingual sync) |
 
 ## Working Directory
