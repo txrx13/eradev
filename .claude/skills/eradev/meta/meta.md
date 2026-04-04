@@ -110,6 +110,20 @@ Adversarial bypass: [known evasion scenario]
 ```
 **Core principle:** mega-pattern without enforcement = Lambda zero.
 
+### 7b. Agent Prompt Template (Mandatory Context Prefix)
+
+Agents spawned via the Agent tool do NOT inherit EraDev context. Every Agent call MUST include:
+
+1. **Role identity**: "You are the [ROLE] role in EraDev framework."
+2. **Task description**: The specific task, not just "do your role."
+3. **File paths**: Explicit paths to files the agent needs to read.
+4. **Output format**: Expected structure (e.g., "=== RESULT [ROLE] ===").
+5. **Project config**: Relevant project constraints and context.
+
+Agent call WITHOUT this prefix = YELLOW on A_F. Repeated violation = RED.
+
+**Why:** In the gravity session, Visionary, Validator, and Coherencer refused to work — insufficient directive. Agents are subprocesses with blank context; they need explicit instructions, not implicit framework knowledge.
+
 ---
 
 ## 8. Coherent Hierarchy L1/L2/L3
@@ -134,6 +148,15 @@ Conflict at L2: priority by blast radius; equal = merge sequentially.
 | XL | 10+ | 3+L2 | L1+L2+L3 | > 50 |
 
 `I(C) = files * coupling * legacy_factor`, `v = alpha/(I(C)+eps)`, `N_teams = ceil(N_modules/3)`.
+
+### Cross-Builder Consistency Check (XL tasks)
+
+When 2+ Builders work in parallel on the same task:
+1. After Build phase, Coherencer runs a cross-check: do outputs use the same terminology, conventions, and assumptions?
+2. Validator spot-checks shared variables, formulas, and interfaces across Builder outputs.
+3. Any inconsistency = YELLOW. Contradictory outputs = RED (Andon).
+
+**Why:** Three parallel Builders in the gravity session produced conflicting notation and a formula error (6π⁵) that propagated across sections. File Ownership (existing rule) prevents merge conflicts but not semantic divergence.
 
 ---
 
