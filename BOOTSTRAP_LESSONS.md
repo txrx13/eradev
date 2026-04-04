@@ -196,3 +196,15 @@
 **Rule:** Before any artifact (code, document, config) can be committed, Builder MUST run the relevant validity check (compile, lint, parse, render) and attach the output as proof. An artifact that "looks correct" but was never validated is treated as unverified — commit REJECTED, counted as fix in fix_rate.
 **Why:** "It compiles in my head" is the #1 source of (1-sigma) collapse. Compilation catches errors that visual review misses. The cost of running a build command is seconds; the cost of a fix chain from an uncompiled artifact is 5-10 commits. This generalizes BL-22's "verify before act" principle from endpoints to ALL artifacts.
 **Applies to:** Builder (run validity check), Validator (require proof artifact), META (enforce gate)
+
+### BL-28: Agent Prompt Must Include Explicit Context
+**Source:** Hansei — gravity session (April 2026), agents refused roleplay due to insufficient directive
+**Rule:** Every Agent tool call MUST include: (1) role identity, (2) concrete task description, (3) explicit file paths to read, (4) expected output format, (5) project config. An agent spawned without this context prefix will either refuse or hallucinate.
+**Why:** Agents spawned via the Agent tool are subprocesses with blank context — they do NOT inherit the parent session's EraDev knowledge, loaded files, or role assignments. Three of five RT-1 agents refused to work in the gravity session because the prompt said "act as Visionary" without providing the Visionary role file, task details, or output format.
+**Applies to:** META-Orchestrator (agent spawning), all roles (when delegating sub-tasks)
+
+### BL-29: Verify Established Terminology Before Generating
+**Source:** Hansei — gravity session (April 2026), terminology drift across parallel Builder outputs
+**Rule:** Before generating any artifact for an existing project, grep/read the project's existing outputs to identify established terminology, naming conventions, and notation patterns. Use them exactly. Do not invent new terms, transliterations, or abbreviations when the project already has established ones.
+**Why:** Three Builders working in parallel each chose different transliterations and notation styles, creating inconsistencies that required manual cleanup. The cost of reading existing conventions first is seconds; the cost of harmonizing divergent terminology after generation is hours. This generalizes beyond articles to code (variable naming, API conventions), docs (glossary terms), and configs (key naming patterns).
+**Applies to:** Builder (pre-generation check), Validator (terminology consistency audit), Coherencer (cross-Builder sync)
