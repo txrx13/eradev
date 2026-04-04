@@ -143,3 +143,23 @@ plugy/
 | **Tegas** | `tegas` | Low | JIVO | Sales flow, KEY_TO_OPERATOR |
 
 Migration order: Tegas (canary) → MeduzaVPN → JustHost (last, most complex).
+
+---
+
+## Deployment (VPS: 150.251.139.218)
+
+**Autodeploy:** `scripts/autodeploy.sh` via cron (every minute). On any git push to main:
+1. `git fetch` + `git reset --hard origin/main`
+2. Rebuild ALL Go services → `/opt/plugy/bin/`
+3. Install AI Provider deps (`services/ai-provider/requirements.txt`) via `/opt/plugy/venv/`
+4. Install Self-Learning deps (`services/self-learning/requirements.txt`) via `/opt/plugy/venv/`
+5. Apply SQL migrations (`deploy/migrations/*.sql`)
+6. Sync nginx configs, static files, prompts
+
+**Key rule:** Never deploy manually — just `git push`, VPS picks up in <1 minute.
+
+**Python dependencies that MUST be in autodeploy:**
+- `services/ai-provider/requirements.txt` — LiteLLM, FastAPI
+- `services/self-learning/requirements.txt` — httpx, numpy, pydantic, google-generativeai
+
+**Adding new dependencies:** Add to the relevant `requirements.txt`. Autodeploy will install on next push. For system-level packages (not pip), add install step to `autodeploy.sh` section 3b.
