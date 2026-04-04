@@ -3,6 +3,7 @@
 > Loaded when MEMORY.md is empty (Lambda has no project-specific grounding).
 > These lessons act as Lambda=0.5 bootstrap: not zero (blind), not high (overfit).
 > Source: framework invariants, A/B experiments, RT post-mortems.
+> Budget cap: maximum 30 BL entries. Adding BL-N (N>30) requires merging or retiring existing entries first.
 
 ---
 
@@ -138,7 +139,7 @@
 
 ### BL-18: Session Scope Must Be Formally Reclassified at 2x Initial Estimate
 **Source:** META Hansei — session grew from M to XL without reclassification
-**Rule:** If cumulative work exceeds 2x the initial task classification estimate (e.g., started as M but spawned 80+ agents), STOP and formally reclassify. Announce the new classification and adjust team structure accordingly.
+**Rule:** If cumulative work exceeds 2x the initial task classification estimate (e.g., started as M but spawned 80+ agents), STOP and formally reclassify. Graduated: 1.5x = YELLOW (log warning, continue with monitoring), 2x = RED (mandatory stop and reclassify). Announce the new classification and adjust team structure accordingly.
 **Why:** Scope creep without reclassification means the process is undersized for the actual work. The META-Orchestrator continues running M-level protocols for XL-level work, resulting in insufficient RT cycles and oversight.
 **Applies to:** META-Orchestrator, Coherencer (scope monitoring)
 
@@ -187,7 +188,7 @@
 ### BL-26: META Zero Quick-Fix Rule
 **Source:** Cycle-7 — ~8 unreviewed M-size commits bypassed the pipeline under time pressure
 **Rule:** Fixes classified M or larger require Builder + Validator minimum (no solo META coding). META-Orchestrator MUST NOT directly implement M+ fixes, even "obvious" ones. If time pressure demands a quick fix, classify it S and scope it to S (<=3 lines, 1 file). Anything larger goes through the pipeline.
-**Why:** META bypassing its own pipeline is the recursive Lambda problem: the enforcer stops enforcing. ~8 unreviewed commits in cycle-7 introduced regressions that cost more time than the pipeline would have taken. Quick fixes under pressure are the #1 source of pipeline bypass.
+**Why:** META bypassing its own pipeline is the recursive Lambda problem: the enforcer stops enforcing. ~8 unreviewed commits in cycle-7 introduced regressions that cost more time than the pipeline would have taken. Quick fixes under pressure are the #1 source of pipeline bypass. Confirmed by L-016: META coded directly for 2.5 hours in session 2026-04-02/03 despite reading the framework.
 **Applies to:** META-Orchestrator (self-constraint), Coherencer (monitor for bypass), Validator (reject unreviewed M+ commits)
 
 ### BL-27: Artifact Validity Gate — "Looks Correct" ≠ Verified
