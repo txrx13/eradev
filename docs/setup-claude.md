@@ -7,7 +7,7 @@ Paste this prompt into a new Claude Code session at your project root:
 ```
 Deploy EraDev ({PROJECT} = basename of current directory):
 
-1. Spawn [SETUP] agent:
+1. Spawn [BUILDER] agent:
    - git clone https://github.com/txrx13/eradev.git eradev (or git pull if exists)
    - mkdir -p .claude/hooks .githooks
    - Copy eradev/.claude/hooks/*.sh to .claude/hooks/, make executable
@@ -40,7 +40,7 @@ Deploy EraDev ({PROJECT} = basename of current directory):
 ```
 Обнови eradev:
 
-1. Spawn [SETUP] agent:
+1. Spawn [BUILDER] agent:
    - cd eradev && git pull origin main && cd ..
    - Copy eradev/.claude/hooks/*.sh to .claude/hooks/, make executable
    - Copy eradev/.claude/settings.json to .claude/settings.json

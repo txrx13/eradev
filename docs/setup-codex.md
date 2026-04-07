@@ -9,7 +9,7 @@ Paste this prompt into your first Codex/Jules session:
 ```
 Deploy EraDev ({PROJECT} = basename of current directory):
 
-1. Spawn [SETUP] agent:
+1. Spawn [BUILDER] agent:
    - git clone https://github.com/txrx13/eradev.git eradev (or git pull if exists)
    - mkdir -p .githooks
    - Copy eradev/.githooks/pre-commit to .githooks/pre-commit, make executable
@@ -39,7 +39,7 @@ No hooks available. All enforcement is text-based via `AGENTS.md`:
 ```
 Update eradev:
 
-1. Spawn [SETUP] agent:
+1. Spawn [BUILDER] agent:
    - cd eradev && git pull origin main && cd ..
    - Copy eradev/.githooks/pre-commit to .githooks/pre-commit, make executable
    - Update AGENTS.md from eradev/templates/AGENTS.md.template (replace {PROJECT})

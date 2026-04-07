@@ -9,7 +9,7 @@ Paste this prompt into your first Windsurf session:
 ```
 Deploy EraDev ({PROJECT} = basename of current directory):
 
-1. Spawn [SETUP] agent:
+1. Spawn [BUILDER] agent:
    - git clone https://github.com/txrx13/eradev.git eradev (or git pull if exists)
    - mkdir -p .claude/hooks .windsurf .githooks
    - Copy eradev/.claude/hooks/*.sh to .claude/hooks/, make executable
@@ -39,7 +39,7 @@ Same hook scripts as Claude Code (shared `.claude/hooks/` directory):
 ```
 Обнови eradev:
 
-1. Spawn [SETUP] agent:
+1. Spawn [BUILDER] agent:
    - cd eradev && git pull origin main && cd ..
    - Copy eradev/.claude/hooks/*.sh to .claude/hooks/, make executable
    - Copy eradev/.githooks/pre-commit to .githooks/pre-commit, make executable
