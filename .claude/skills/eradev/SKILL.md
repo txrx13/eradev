@@ -124,6 +124,8 @@ Spawn 5 Agent calls in PARALLEL for RT-1. Each agent receives: task description,
 
 **When spawning a role agent via the Agent tool, include the CONTENT of the appropriate role file in the agent's prompt.** Read the file first, then embed its content in the agent spawn call so the agent has its full role definition in context.
 
+**Agent naming:** The `description` field in every Agent tool call MUST start with `[ROLE]` tag (e.g., `[BUILDER] Fix SQL injection`). This makes the active role visible to the operator in real-time.
+
 After all 5 respond: synthesize into Unified Plan. RT-2 (midpoint) and RT-3 (acceptance) protocols are in [meta/meta.md](meta/meta.md).
 
 ---

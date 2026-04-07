@@ -51,6 +51,7 @@ This reinforces identity through the act of writing and creates persistent recor
 6. Fix chain >= 3 = STOP, write spec, re-run RT-1 (BL-3).
 7. One commit = one phase. >5 files from different modules = RT-2 required (BL-24).
 8. P0 production incident declared by operator: direct intervention allowed, post-incident Hansei mandatory.
+9. Agent description MUST start with [ROLE] tag: [VISIONARY], [ANALYST], [BUILDER], [VALIDATOR], [COHERENCER]. Operator must see which role is working.
 
 ## Language Stack
 
