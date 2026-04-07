@@ -40,6 +40,11 @@ eradev/
 ├── .claude/
 │   ├── hooks/                      # PreToolUse enforcement hook (блокирует Edit/Write)
 │   └── settings.json               # Конфигурация hooks
+├── docs/
+│   ├── setup-claude.md             # Claude Code setup guide
+│   ├── setup-cursor.md             # Cursor setup guide
+│   ├── setup-codex.md              # Codex/Jules setup guide
+│   └── setup-windsurf.md           # Windsurf setup guide
 ├── templates/
 │   ├── CLAUDE.md.template          # Шаблон CLAUDE.md для проектов
 │   ├── CLAUDE.md.universal         # Универсальный CLAUDE.md (без проекта)
@@ -68,81 +73,33 @@ META-Orchestrator никогда не пишет код напрямую. Это
 
 ---
 
-## Bootstrap -- запуск агента
+## Быстрый старт по агентам
 
-### Автоматический (Claude Code) -- РЕКОМЕНДУЕТСЯ
+| Агент | Guide | Hooks | Config file |
+|-------|-------|-------|------------|
+| **Claude Code** | [docs/setup-claude.md](docs/setup-claude.md) | Full (Edit/Write/Bash block) | `CLAUDE.md` |
+| **Cursor** | [docs/setup-cursor.md](docs/setup-cursor.md) | Text-only | `.cursorrules` |
+| **Codex / Jules** | [docs/setup-codex.md](docs/setup-codex.md) | Text-only | `AGENTS.md` |
+| **Windsurf** | [docs/setup-windsurf.md](docs/setup-windsurf.md) | Hooks support | `.windsurfrules` |
 
-CLAUDE.md уже находится в корне репозитория. Bootstrap срабатывает **автоматически** при каждой сессии Claude Code. Пользователь просто пишет задачу -- без копирования промптов.
-
-### Для новых проектов -- DEPLOY_PROMPT.md
-
-Вставьте содержимое `templates/DEPLOY_PROMPT.md` в новую сессию Claude Code в корне целевого проекта. Скрипт выполнит 8 шагов:
-
-1. Clone/update eradev
-2. Создать AGENTS.md (универсальный -- Codex, Jules, Cursor, Windsurf, Aider)
-3. Установить CLAUDE.md
-4. Создать .cursorrules (Cursor)
-5. Создать enforcement hooks + settings.json (Claude Code + Windsurf)
-6. Создать project skeleton (config.md + lessons.md)
-7. Сохранить META identity в memory
-8. Вывести checklist подтверждения
-
----
-
-### Ручной (Cursor, Codex, Jules, Windsurf, любые LLM)
-
-Вставьте содержимое `templates/AGENTS.md.template` как system prompt или rules file. Или используйте промт ниже:
+**Универсальный промт** (для любого агента без специфичной настройки):
 
 ```
 You are the META-ORCHESTRATOR (EraDev Level 9).
 You ALWAYS delegate ALL work via agent calls.
 
-6 OUTPUT TYPES (nothing else):
-Agent calls | Decisions | Synthesis | Lessons | Reports | Check Agent
+6 OUTPUT TYPES: Agent calls | Decisions | Synthesis | Lessons | Reports | Check Agent
 
-LOAD:
-1. eradev/eradev.md
-2. eradev/meta.md
-3. eradev/projects/{PROJECT}/config.md
-4. eradev/projects/{PROJECT}/lessons.md
-5. eradev/BOOTSTRAP_LESSONS.md
+LOAD: eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md,
+      eradev/projects/{PROJECT}/config.md, eradev/projects/{PROJECT}/lessons.md
 
-RULES:
-- S-tasks: Builder + Validator. M+: 5-role team (V/A/B/Val/C).
-- M+ ALWAYS through RT-1 before implementation.
-- Bash: operational (git, ls, cp) = direct. Diagnostic (grep, curl, ssh, jq) = delegate.
-- Agent descriptions start with [ROLE] tag.
-- KILL-TEST: first action = agent call. edit/code = VIOLATION.
-
-PERSIST: Save META identity + 6 output types + Bash classification to memory.
-Classify → RT-1 (if M+) → Build (delegated) → RT-2 → RT-3.
+RULES: S-tasks = Builder+Validator. M+ = 5-role RT-1. Bash: operational direct, diagnostic delegate.
+KILL-TEST: first action = agent call.
 
 Task: [описание задачи]
 ```
 
-Замените `{PROJECT}` на имя проекта. Без проекта — уберите шаги 3-4 из LOAD.
-
----
-
-## Обновление EraDev в существующем проекте
-
-Вставьте этот промт в активную сессию проекта:
-
-```
-Обнови eradev инструкции:
-1. cd eradev && git pull origin main && cd ..
-2. Sync hooks: cp eradev/.claude/hooks/*.sh .claude/hooks/ && chmod +x .claude/hooks/*.sh
-3. Sync settings: cp eradev/.claude/settings.json .claude/settings.json
-4. Прочитай eradev/CLAUDE.md — сверь 6 output types и 10 invariants
-5. Прочитай eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md
-6. Прочитай eradev/projects/{PROJECT}/config.md и lessons.md
-7. Выведи SESSION BOOTSTRAP checklist из meta.md Section 14 (12 items)
-8. Сохрани META identity (6 output types + Bash classification) в Claude Code memory
-
-Далее продолжаем работу по текущим задачам.
-```
-
-Замените `{PROJECT}` на имя вашего проекта.
+Подробные инструкции -- в guides выше. Для deploy нового проекта: `templates/DEPLOY_PROMPT.md`.
 
 ---
 

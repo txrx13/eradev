@@ -14,59 +14,33 @@ Each agent's quality is measured by `B = F * E * (1-sigma) * Lambda` -- zeroing 
 
 ---
 
-## Bootstrap
+## Quick Start by Agent
 
-### Automatic (CLAUDE.md -- already deployed)
+| Agent | Guide | Hooks | Config file |
+|-------|-------|-------|------------|
+| **Claude Code** | [docs/setup-claude.md](docs/setup-claude.md) | Full (Edit/Write/Bash block) | `CLAUDE.md` |
+| **Cursor** | [docs/setup-cursor.md](docs/setup-cursor.md) | Text-only | `.cursorrules` |
+| **Codex / Jules** | [docs/setup-codex.md](docs/setup-codex.md) | Text-only | `AGENTS.md` |
+| **Windsurf** | [docs/setup-windsurf.md](docs/setup-windsurf.md) | Hooks support | `.windsurfrules` |
 
-When CLAUDE.md exists at project root, Claude Code loads it automatically at session start. No manual prompt needed.
-
-CLAUDE.md enforces: META identity, 6 output types, session entry checklist, invariants, KILL-TEST, language stack detection.
-
-### For New Projects (DEPLOY_PROMPT.md)
-
-Paste `templates/DEPLOY_PROMPT.md` into a new Claude Code session at the project root. It executes 8 steps:
-
-1. **Clone/pull** EraDev into `eradev/`
-2. **AGENTS.md** -- universal entry point (Codex, Jules, Cursor, Windsurf, Aider)
-3. **CLAUDE.md** -- copy from template, adapt paths
-4. **.cursorrules** -- copy AGENTS.md for Cursor
-5. **Enforcement hooks** -- `.claude/hooks/` + `settings.json` + `.windsurf/hooks.json`
-6. **Project skeleton** -- `projects/{name}/config.md` + `lessons.md`
-7. **Memory persistence** -- META identity + LOAD sequence written to MEMORY.md
-8. **Confirmation** -- checklist output
-
-### Manual (Cursor, Codex, Jules, Windsurf, any LLM)
-
-Use `templates/AGENTS.md.template` as system prompt or rules file. Or paste this prompt:
+**Universal prompt** (for any agent without specific setup):
 
 ```
 You are the META-ORCHESTRATOR (EraDev Level 9).
 You ALWAYS delegate ALL work via agent calls.
 
-6 OUTPUT TYPES (nothing else):
-Agent calls | Decisions | Synthesis | Lessons | Reports | Check Agent
+6 OUTPUT TYPES: Agent calls | Decisions | Synthesis | Lessons | Reports | Check Agent
 
-LOAD:
-1. eradev/eradev.md
-2. eradev/meta.md
-3. eradev/projects/{PROJECT}/config.md
-4. eradev/projects/{PROJECT}/lessons.md
-5. eradev/BOOTSTRAP_LESSONS.md
+LOAD: eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md,
+      eradev/projects/{PROJECT}/config.md, eradev/projects/{PROJECT}/lessons.md
 
-RULES:
-- S-tasks: Builder + Validator. M+: 5-role team (V/A/B/Val/C).
-- M+ ALWAYS through RT-1 before implementation.
-- Bash: operational (git, ls, cp) = direct. Diagnostic (grep, curl, ssh, jq) = delegate.
-- Agent descriptions start with [ROLE] tag.
-- KILL-TEST: first action = agent call. edit/code = VIOLATION.
-
-PERSIST: Save META identity + 6 output types + Bash classification to memory.
-Classify → RT-1 (if M+) → Build (delegated) → RT-2 → RT-3.
+RULES: S-tasks = Builder+Validator. M+ = 5-role RT-1. Bash: operational direct, diagnostic delegate.
+KILL-TEST: first action = agent call.
 
 Task: [task description]
 ```
 
-Replace `{PROJECT}` with project name. Without a project -- remove steps 3-4 from LOAD.
+Detailed instructions in guides above. For new project deploy: `templates/DEPLOY_PROMPT.md`.
 
 ---
 
@@ -95,6 +69,11 @@ eradev/
 ├── .claude/
 │   ├── hooks/enforce-delegation.sh  # PreToolUse hook (blocks META from Edit/Write)
 │   └── settings.json                # Hook wiring config
+├── docs/
+│   ├── setup-claude.md          # Claude Code setup guide
+│   ├── setup-cursor.md          # Cursor setup guide
+│   ├── setup-codex.md           # Codex/Jules setup guide
+│   └── setup-windsurf.md        # Windsurf setup guide
 ├── templates/
 │   ├── CLAUDE.md.template       # CLAUDE.md template for new projects
 │   ├── CLAUDE.md.universal      # Universal variant (no project paths)
@@ -119,28 +98,6 @@ eradev/
 | **Memory persistence** | MEMORY.md entries | META identity + LOAD sequence survive across sessions. Checked at each start. |
 
 Without all three layers, META drifts back to solo Builder behavior within 2-3 tasks (BL-16: knowledge without enforcement = Lambda zero).
-
----
-
-## Update EraDev in Existing Project
-
-Paste this prompt into your active project session:
-
-```
-Update eradev instructions:
-1. cd eradev && git pull origin main && cd ..
-2. Sync hooks: cp eradev/.claude/hooks/*.sh .claude/hooks/ && chmod +x .claude/hooks/*.sh
-3. Sync settings: cp eradev/.claude/settings.json .claude/settings.json
-4. Read eradev/CLAUDE.md — verify 6 output types and 10 invariants
-5. Read eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md
-6. Read eradev/projects/{PROJECT}/config.md and lessons.md
-7. Output SESSION BOOTSTRAP checklist from meta.md Section 14 (12 items)
-8. Save META identity (6 output types + Bash classification) to memory
-
-Continue with current tasks.
-```
-
-Replace `{PROJECT}` with your project name.
 
 ---
 
