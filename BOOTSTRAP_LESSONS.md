@@ -3,7 +3,7 @@
 > Loaded when MEMORY.md is empty (Lambda has no project-specific grounding).
 > These lessons act as Lambda=0.5 bootstrap: not zero (blind), not high (overfit).
 > Source: framework invariants, A/B experiments, RT post-mortems.
-> Budget cap: maximum 30 BL entries. Adding BL-N (N>30) requires merging or retiring existing entries first.
+> Budget cap: maximum 30 BL entries (current count: 27). Adding BL-N requires merging or retiring existing entries first.
 
 ---
 
@@ -47,11 +47,11 @@
 
 ---
 
-### BL-6: Verify Before Act
-**Source:** Framework invariant (Activation Operator Step 1-3)
-**Rule:** Before modifying any artifact, verify its current state on the target. Read the file, check the endpoint, confirm the configuration. Never assume state from memory or plan alone.
-**Why:** Stale mental models are the top source of (1-sigma) collapse. The gap between "what I think is there" and "what is actually there" grows with every unverified step. Verification costs seconds; a wrong assumption costs a full fix chain.
-**Applies to:** Builder, Analyst, Validator
+### BL-6: Verify Before Act — Artifact Validity Gate
+**Source:** Framework invariant (Activation Operator Step 1-3) + META Hansei Cycle 2 L-017
+**Rule:** Before modifying or committing any artifact, verify its current state. Read the file, check the endpoint, confirm the configuration. Before any artifact (code, document, config) can be committed, Builder MUST run the relevant validity check (compile, lint, parse, render) and attach output as proof. An artifact that "looks correct" but was never validated is treated as unverified — commit REJECTED, counted as fix in fix_rate.
+**Why:** Stale mental models are the top source of (1-sigma) collapse. "It compiles in my head" is the #1 source of unverified artifacts. Verification costs seconds; a wrong assumption or uncompiled artifact costs a full fix chain (5-10 commits).
+**Applies to:** Builder (run validity check + verify state), Validator (require proof artifact), Analyst (verify endpoints pre-RT-1), META (enforce gate)
 
 ---
 
@@ -103,11 +103,11 @@
 
 ---
 
-### BL-13: Yokoten -- One Lesson, All Analogous Cases
-**Source:** Framework invariant (TPS Yokoten)
-**Rule:** When a lesson is learned from an incident, propagate it horizontally to ALL analogous contexts -- not just the module where it occurred. Update MEMORY.md patterns with cross-references.
+### BL-13: Yokoten — One Lesson, All Analogous Cases (+ Grep Gate)
+**Source:** Framework invariant (TPS Yokoten) + Cycle-7 incident #8 (dialog dedup fix applied to one site, 3 missed)
+**Rule:** When a lesson is learned from an incident, propagate it horizontally to ALL analogous contexts. After every fix commit, grep the codebase for analogous patterns. A single-site fix is incomplete by definition. Log grep results and either fix all sites or document why each non-fix is safe.
 **Why:** A bug found in one API endpoint likely exists in sibling endpoints built from the same template. Fixing only the discovered instance leaves n-1 copies of the same defect. Yokoten converts a point fix into a systemic improvement, raising Lambda for the entire team.
-**Applies to:** Validator, Coherencer, Analyst
+**Applies to:** Coherencer (gate owner), Builder (grep execution), Validator (verify completeness), Analyst (propagation scope)
 
 ---
 
@@ -167,12 +167,6 @@
 **Why:** Hallucinating that an endpoint exists, returns a certain schema, or behaves a certain way is the top source of F=0 collapse in boundary tasks. Verification costs seconds; a fix chain on a nonexistent endpoint costs 10+ commits.
 **Applies to:** Analyst (RT-1 execution), Validator (deploy re-verification), Builder (must refuse to start without artifact), META (enforce gate)
 
-### BL-23: Yokoten Gate — Grep After Every Fix
-**Source:** Cycle-7 incident #8 — dialog dedup fix applied to one site, 3 analogous sites missed
-**Rule:** After every fix commit, Coherencer (or Builder if solo) MUST grep the codebase for analogous patterns. A single-site fix is incomplete by definition. Log the grep results and either fix all sites or document why each non-fix is safe.
-**Why:** A bug found in one API endpoint likely exists in sibling endpoints built from the same template. Fixing only the discovered instance leaves n-1 copies of the same defect (BL-13 enforcement). Yokoten converts a point fix into a systemic improvement.
-**Applies to:** Coherencer (gate owner), Builder (grep execution), Validator (verify completeness)
-
 ### BL-24: Single-Responsibility Commits
 **Source:** Cycle-7 — big bang commits (16 files, 14 files) made rollback catastrophic
 **Rule:** One commit = one phase. A commit that touches >5 files from different modules requires RT-2 review before merge. If a single task produces changes across many modules, split into sequential commits by phase (e.g., schema first, then logic, then tests).
@@ -190,12 +184,6 @@
 **Rule:** META ALWAYS delegates via Agent tool, regardless of task size. S-tasks: spawn 1 Builder agent. M+ tasks: spawn full 5-role team. No "quick fix" exception exists. The S-task loophole ("classify it S to code it directly") is eliminated — it trained the pattern of pipeline bypass. P0 production incidents declared by operator are the sole exception; post-incident Hansei is mandatory.
 **Why:** META bypassing its own pipeline is the recursive Lambda problem: the enforcer stops enforcing. The pluggy session started with "just fix this small thing" and ended with 2.5 hours of solo coding. S-task delegation costs seconds (one Agent call); the behavioral precedent of skipping it costs entire sessions.
 **Applies to:** META-Orchestrator (absolute self-constraint), Coherencer (monitor for any direct META output not in the 5 permitted types), Validator (reject any META-authored artifact)
-
-### BL-27: Artifact Validity Gate — "Looks Correct" ≠ Verified
-**Source:** META Hansei — Cycle 2, L-017 (uncompiled artifacts shipped as "done")
-**Rule:** Before any artifact (code, document, config) can be committed, Builder MUST run the relevant validity check (compile, lint, parse, render) and attach the output as proof. An artifact that "looks correct" but was never validated is treated as unverified — commit REJECTED, counted as fix in fix_rate.
-**Why:** "It compiles in my head" is the #1 source of (1-sigma) collapse. Compilation catches errors that visual review misses. The cost of running a build command is seconds; the cost of a fix chain from an uncompiled artifact is 5-10 commits. This generalizes BL-22's "verify before act" principle from endpoints to ALL artifacts.
-**Applies to:** Builder (run validity check), Validator (require proof artifact), META (enforce gate)
 
 ### BL-28: Agent Prompt Must Include Explicit Context
 **Source:** Hansei — gravity session (April 2026), agents refused roleplay due to insufficient directive

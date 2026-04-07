@@ -5,6 +5,20 @@
 
 ---
 
+## Table of Contents
+
+**PART I — Theoretical Foundation (ODTOE Core)**
+- I. True North | II. Formula B | III. Collective Formulas
+- V. Five Roles | VIII. Levels 3-6-9 | IX. Spiral Gap | XVI. Glossary
+
+**PART II — Operational Protocol**
+- 0. Language Policy | IV. Activation Operator + Enforcement Gates
+- VI. Round Table + RT Phase Protocols | VII. Andon
+- X. Task Classification | XI. TPS Integration | XII. Bottleneck Protocol
+- XIII. Kill-Switch | XIV. Jidoka Self-Check | XV. Output Format | XVII. File Map
+
+> Agents: PART I rarely changes. PART II evolves each cycle. For S/M tasks, PART II is the primary reference.
+
 ## 0. Language Policy (Dual-Language Architecture)
 
 EraDev operates as a **bilingual system** based on A/B experiment findings:
