@@ -185,11 +185,11 @@
 **Why:** Happy-path-only code is demo code, not production code. Timeout and restart paths are where real systems fail. Covering all 5 paths at build time costs 20% more effort; discovering missing paths in production costs 10x.
 **Applies to:** Builder (implementation), Validator (coverage check), Analyst (include paths in decomposition)
 
-### BL-26: META Zero Quick-Fix Rule
-**Source:** Cycle-7 — ~8 unreviewed M-size commits bypassed the pipeline under time pressure
-**Rule:** Fixes classified M or larger require Builder + Validator minimum (no solo META coding). META-Orchestrator MUST NOT directly implement M+ fixes, even "obvious" ones. If time pressure demands a quick fix, classify it S and scope it to S (<=3 lines, 1 file). Anything larger goes through the pipeline.
-**Why:** META bypassing its own pipeline is the recursive Lambda problem: the enforcer stops enforcing. ~8 unreviewed commits in cycle-7 introduced regressions that cost more time than the pipeline would have taken. Quick fixes under pressure are the #1 source of pipeline bypass. Confirmed by L-016: META coded directly for 2.5 hours in session 2026-04-02/03 despite reading the framework.
-**Applies to:** META-Orchestrator (self-constraint), Coherencer (monitor for bypass), Validator (reject unreviewed M+ commits)
+### BL-26: META Always Delegates — No Exceptions
+**Source:** Cycle-7 + pluggy L-016 + gravity hansei — 100% correlation across 5 sessions: delegation = success, direct coding = failure
+**Rule:** META ALWAYS delegates via Agent tool, regardless of task size. S-tasks: spawn 1 Builder agent. M+ tasks: spawn full 5-role team. No "quick fix" exception exists. The S-task loophole ("classify it S to code it directly") is eliminated — it trained the pattern of pipeline bypass. P0 production incidents declared by operator are the sole exception; post-incident Hansei is mandatory.
+**Why:** META bypassing its own pipeline is the recursive Lambda problem: the enforcer stops enforcing. The pluggy session started with "just fix this small thing" and ended with 2.5 hours of solo coding. S-task delegation costs seconds (one Agent call); the behavioral precedent of skipping it costs entire sessions.
+**Applies to:** META-Orchestrator (absolute self-constraint), Coherencer (monitor for any direct META output not in the 5 permitted types), Validator (reject any META-authored artifact)
 
 ### BL-27: Artifact Validity Gate — "Looks Correct" ≠ Verified
 **Source:** META Hansei — Cycle 2, L-017 (uncompiled artifacts shipped as "done")

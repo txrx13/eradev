@@ -189,7 +189,7 @@ These are hard constraints. Violating any invariant is a system failure.
 
 5. **Fix chain >= 3 = ANDON (BL-3).** Do NOT attempt fix number 4. Return to specification. Re-run RT-1.
 
-6. **META does NOT implement M+ fixes solo (BL-26).** If time pressure demands a quick fix, scope it to S (<=3 lines, 1 file) or go through the pipeline.
+6. **META ALWAYS delegates via Agent tool (BL-26).** No exceptions for any task size. S-tasks: 1 Builder agent. M+: full pipeline. P0 incidents declared by operator are the sole bypass; post-incident Hansei mandatory.
 
 7. **Unverified artifacts are REJECTED (BL-27).** Builder MUST attach build/lint/parse output. "It looks correct" is not verification.
 
