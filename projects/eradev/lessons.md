@@ -63,3 +63,5 @@ Source: AutoAgent analysis (April 2026) -- AutoAgent achieves speed through scor
 13. **RT-1 can REJECT a proposal — this is healthy.** RT-1 on eradev.md decomposition ran 5 roles, 3/5 rejected the split. In-place Part I/II markers accepted as alternative. REJECT is the system working correctly.
 
 14. **BL Budget requires active merge, not just append.** At 27/30, adding new entries required merging BL-13+23 and BL-6+27. Append-only BL management hits the wall; active compression is required.
+
+15. **Bash classification: operational vs diagnostic is the correct boundary.** Research confirmed: restricting META to git-only breaks skill bundle sync (cp/zip), enforcement setup (chmod), and decision-making (ls). The correct split: operational commands (git, ls, cp, mkdir, zip, chmod, diff) stay with META for infrastructure management. Diagnostic commands (grep, curl, ssh, psql, redis-cli, jq) are blocked and delegated to [EXPLORE] Check Agent. Hook enforces this at Layer 2.
