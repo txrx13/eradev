@@ -36,13 +36,15 @@ Setup EraDev for this project ({PROJECT} = basename of current directory):
 ```
 Обнови eradev инструкции:
 1. cd eradev && git pull origin main && cd ..
-2. Sync hooks: cp eradev/.claude/hooks/*.sh .claude/hooks/ && chmod +x .claude/hooks/*.sh
-3. Sync settings: cp eradev/.claude/settings.json .claude/settings.json
-4. Прочитай eradev/CLAUDE.md — сверь 6 output types и 10 invariants
-5. Прочитай eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md
-6. Прочитай eradev/projects/{PROJECT}/config.md и lessons.md
-7. Выведи SESSION BOOTSTRAP checklist из meta.md Section 14 (12 items)
-8. Сохрани META identity (6 output types + Bash classification) в Claude Code memory
+2. Sync hooks: скопируй eradev/.claude/hooks/*.sh в .claude/hooks/, сделай executable
+3. Sync settings: скопируй eradev/.claude/settings.json в .claude/settings.json
+4. Sync .githooks: скопируй eradev/.githooks/pre-commit в .githooks/pre-commit, сделай executable
+5. Обнови AGENTS.md: скопируй eradev/templates/AGENTS.md.template в ./AGENTS.md, замени {PROJECT}
+6. Прочитай eradev/CLAUDE.md — сверь 6 output types и 10 invariants
+7. Прочитай eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md
+8. Прочитай eradev/projects/{PROJECT}/config.md и lessons.md
+9. Выведи SESSION BOOTSTRAP checklist из meta.md Section 14 (12 items)
+10. Сохрани META identity (6 output types + Bash classification + LOAD sequence) в memory
 
 Далее продолжаем работу по текущим задачам.
 ```
