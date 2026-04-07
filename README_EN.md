@@ -24,15 +24,16 @@ CLAUDE.md enforces: META identity, 5-step loading sequence, session entry checkl
 
 ### For New Projects (DEPLOY_PROMPT.md)
 
-Paste `templates/DEPLOY_PROMPT.md` into a new Claude Code session at the project root. It executes 7 steps:
+Paste `templates/DEPLOY_PROMPT.md` into a new Claude Code session at the project root. It executes 8 steps:
 
 1. **Clone/pull** EraDev into `eradev/`
-2. **CLAUDE.md** -- copy from template, adapt paths
-3. **Enforcement hook** -- `.claude/hooks/enforce-delegation.sh` (blocks META from Edit/Write)
-4. **Settings** -- `.claude/settings.json` (wires hook to PreToolUse)
-5. **Project skeleton** -- `projects/{name}/config.md` + `lessons.md`
-6. **Memory persistence** -- META identity + LOAD sequence written to MEMORY.md
-7. **Confirmation** -- checklist output
+2. **AGENTS.md** -- universal entry point (Codex, Jules, Cursor, Windsurf, Aider)
+3. **CLAUDE.md** -- copy from template, adapt paths
+4. **.cursorrules** -- copy AGENTS.md for Cursor
+5. **Enforcement hooks** -- `.claude/hooks/` + `settings.json` + `.windsurf/hooks.json`
+6. **Project skeleton** -- `projects/{name}/config.md` + `lessons.md`
+7. **Memory persistence** -- META identity + LOAD sequence written to MEMORY.md
+8. **Confirmation** -- checklist output
 
 ### Manual Prompt (universal, no automation)
 
@@ -101,7 +102,7 @@ eradev/
 ├── templates/
 │   ├── CLAUDE.md.template       # CLAUDE.md template for new projects
 │   ├── CLAUDE.md.universal      # Universal variant (no project paths)
-│   └── DEPLOY_PROMPT.md         # 7-step deploy prompt for new projects
+│   └── DEPLOY_PROMPT.md         # 8-step deploy prompt for new projects
 ├── reports/
 │   ├── HANSEI_TEMPLATE.md       # Structured Hansei reflection template
 │   └── *.md                     # Round Table and analytical reports
@@ -131,13 +132,14 @@ Paste this prompt into your active project session:
 
 ```
 Update eradev instructions:
-1. cd eradev && git pull origin main
-2. Verify hooks: chmod +x .claude/hooks/*.sh (if present)
-3. Read eradev/CLAUDE.md — verify 6 output types and 10 invariants
-4. Read eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md
-5. Read eradev/projects/{PROJECT}/config.md and lessons.md
-6. Output SESSION BOOTSTRAP checklist from meta.md Section 14 (12 items)
-7. Save META identity (6 output types + Bash classification) to Claude Code memory
+1. cd eradev && git pull origin main && cd ..
+2. Sync hooks: cp eradev/.claude/hooks/*.sh .claude/hooks/ && chmod +x .claude/hooks/*.sh
+3. Sync settings: cp eradev/.claude/settings.json .claude/settings.json
+4. Read eradev/CLAUDE.md — verify 6 output types and 10 invariants
+5. Read eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md
+6. Read eradev/projects/{PROJECT}/config.md and lessons.md
+7. Output SESSION BOOTSTRAP checklist from meta.md Section 14 (12 items)
+8. Save META identity (6 output types + Bash classification) to memory
 
 Continue with current tasks.
 ```
@@ -212,7 +214,7 @@ Golden ratio proportion: Round Table ~38%, Build ~62%.
 | `interfaces.md` | Role Interface Contracts (5 handoff schemas with YAML) |
 | `LOADING_PROTOCOL.md` | Agent loading sequence (4 steps, 400-line budget) |
 | `BOOTSTRAP_LESSONS.md` | 30 cold-start lessons (BL-1..BL-32) for Lambda bootstrap |
-| `templates/DEPLOY_PROMPT.md` | 7-step deploy prompt for new projects |
+| `templates/DEPLOY_PROMPT.md` | 8-step deploy prompt for new projects |
 | `reports/HANSEI_TEMPLATE.md` | Structured Hansei reflection template |
 
 ---

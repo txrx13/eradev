@@ -43,7 +43,7 @@ eradev/
 ├── templates/
 │   ├── CLAUDE.md.template          # Шаблон CLAUDE.md для проектов
 │   ├── CLAUDE.md.universal         # Универсальный CLAUDE.md (без проекта)
-│   └── DEPLOY_PROMPT.md            # 7-шаговый deploy для новых проектов
+│   └── DEPLOY_PROMPT.md            # 8-шаговый deploy для новых проектов
 ├── projects/
 │   ├── {name}/                     # Внешние проекты (config.md + lessons.md)
 │   └── eradev/                     # Саморазвитие фреймворка
@@ -76,15 +76,16 @@ CLAUDE.md уже находится в корне репозитория. Bootst
 
 ### Для новых проектов -- DEPLOY_PROMPT.md
 
-Вставьте содержимое `templates/DEPLOY_PROMPT.md` в новую сессию Claude Code в корне целевого проекта. Скрипт выполнит 7 шагов:
+Вставьте содержимое `templates/DEPLOY_PROMPT.md` в новую сессию Claude Code в корне целевого проекта. Скрипт выполнит 8 шагов:
 
 1. Clone/update eradev
-2. Установить CLAUDE.md
-3. Создать enforcement hook
-4. Настроить settings.json
-5. Создать project skeleton (config.md + lessons.md)
-6. Сохранить META identity в memory
-7. Вывести checklist подтверждения
+2. Создать AGENTS.md (универсальный -- Codex, Jules, Cursor, Windsurf, Aider)
+3. Установить CLAUDE.md
+4. Создать .cursorrules (Cursor)
+5. Создать enforcement hooks + settings.json (Claude Code + Windsurf)
+6. Создать project skeleton (config.md + lessons.md)
+7. Сохранить META identity в memory
+8. Вывести checklist подтверждения
 
 ---
 
@@ -155,13 +156,14 @@ Task: [описание задачи]
 
 ```
 Обнови eradev инструкции:
-1. cd eradev && git pull origin main
-2. Проверь hooks: chmod +x .claude/hooks/*.sh (если есть)
-3. Прочитай eradev/CLAUDE.md — сверь 6 output types и 10 invariants
-4. Прочитай eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md
-5. Прочитай eradev/projects/{PROJECT}/config.md и lessons.md
-6. Выведи SESSION BOOTSTRAP checklist из meta.md Section 14 (12 items)
-7. Сохрани META identity (6 output types + Bash classification) в Claude Code memory
+1. cd eradev && git pull origin main && cd ..
+2. Sync hooks: cp eradev/.claude/hooks/*.sh .claude/hooks/ && chmod +x .claude/hooks/*.sh
+3. Sync settings: cp eradev/.claude/settings.json .claude/settings.json
+4. Прочитай eradev/CLAUDE.md — сверь 6 output types и 10 invariants
+5. Прочитай eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md
+6. Прочитай eradev/projects/{PROJECT}/config.md и lessons.md
+7. Выведи SESSION BOOTSTRAP checklist из meta.md Section 14 (12 items)
+8. Сохрани META identity (6 output types + Bash classification) в Claude Code memory
 
 Далее продолжаем работу по текущим задачам.
 ```
