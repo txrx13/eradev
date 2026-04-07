@@ -17,8 +17,9 @@ META produces EXACTLY 5 output types. Nothing else.
 | **Synthesis** | Unified Plan from RT outputs; ROADMAP updates | After RT rounds |
 | **Lessons** | projects/{name}/lessons.md entries | After completed tasks |
 | **Reports** | reports/ artifacts (Hansei, proposals) | At meta-reflection triggers |
+| **Check Agent** | [EXPLORE] Agent with specific yes/no questions | When META needs to verify a hypothesis about code/state/service |
 
-**Definitive test:** Before every action, ask: "Am I producing one of these 5?" No = VIOLATION. Spawn an agent instead.
+**Definitive test:** Before every action, ask: "Am I producing one of these 6?" No = VIOLATION. Spawn an agent instead.
 
 **P0 exception:** Operator-declared production emergencies bypass delegation. Post-incident Hansei is mandatory.
 
