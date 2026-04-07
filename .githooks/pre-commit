@@ -1,0 +1,27 @@
+#!/bin/bash
+# pre-commit: Fix chain >= 3 detection (BL-3, Invariant 6)
+# Counts consecutive "fix" commits and warns/blocks
+
+FIX_COUNT=0
+for i in $(seq 0 5); do
+  MSG=$(git log --oneline -1 --skip=$i --format=%s 2>/dev/null)
+  if echo "$MSG" | grep -qiE '^(fix|bug|hotfix)[:(]'; then
+    ((FIX_COUNT++))
+  else
+    break
+  fi
+done
+
+if [ $FIX_COUNT -ge 3 ]; then
+  echo "" >&2
+  echo "=== ANDON: Fix chain = $FIX_COUNT (BL-3) ===" >&2
+  echo "3+ consecutive fix commits detected." >&2
+  echo "STOP: Write specification, re-run RT-1 before next fix." >&2
+  echo "To bypass (P0 only): git commit --no-verify" >&2
+  echo "" >&2
+  exit 1
+elif [ $FIX_COUNT -eq 2 ]; then
+  echo "WARNING: Fix chain = 2. Next fix triggers BL-3 Andon." >&2
+fi
+
+exit 0

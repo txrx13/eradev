@@ -9,6 +9,19 @@
             "command": ".claude/hooks/enforce-delegation.sh"
           }
         ]
+      },
+      {
+        "matcher": "Agent",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/agent-role-tag.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/agent-context-check.sh"
+          }
+        ]
       }
     ]
   }
