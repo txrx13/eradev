@@ -5,23 +5,21 @@
 Paste this prompt into a new Claude Code session at your project root:
 
 ```
-Setup EraDev for this project ({PROJECT} = basename of current directory):
+Deploy EraDev ({PROJECT} = basename of current directory):
 
-Operational steps (direct):
-1. git clone https://github.com/txrx13/eradev.git eradev (or git pull if exists)
-2. cp eradev/.claude/hooks/*.sh .claude/hooks/ && chmod +x .claude/hooks/*.sh
-3. cp eradev/.claude/settings.json .claude/settings.json
-4. cp eradev/.githooks/pre-commit .githooks/pre-commit && chmod +x .githooks/pre-commit && git config core.hooksPath .githooks
-
-Delegated steps (spawn one [SETUP] agent):
-5. Spawn [SETUP] agent with task: create these files —
+1. Spawn [SETUP] agent:
+   - git clone https://github.com/txrx13/eradev.git eradev (or git pull if exists)
+   - mkdir -p .claude/hooks .githooks
+   - Copy eradev/.claude/hooks/*.sh to .claude/hooks/, make executable
+   - Copy eradev/.claude/settings.json to .claude/settings.json
+   - Copy eradev/.githooks/pre-commit to .githooks/pre-commit, make executable
+   - Run: git config core.hooksPath .githooks
    - Read eradev/templates/CLAUDE.md.template, save as ./CLAUDE.md (replace {PROJECT})
    - Read eradev/templates/AGENTS.md.template, save as ./AGENTS.md (replace {PROJECT})
-   - Create projects/{PROJECT}/config.md with sections: True North, Architecture, Iron Rules
+   - Create projects/{PROJECT}/config.md (True North, Architecture, Iron Rules)
    - Create projects/{PROJECT}/lessons.md with header
 
-Validation:
-6. Spawn [VALIDATOR] agent: прочитай eradev/CLAUDE.md, eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, eradev/projects/{PROJECT}/config.md и lessons.md. Сверь: 6 output types, 10 invariants, 30 BL. Выведи SESSION BOOTSTRAP checklist (12 items). Сохрани META identity (6 output types + Bash classification + LOAD sequence) в memory. Report: PASS/BLOCK.
+2. Spawn [VALIDATOR] agent: прочитай eradev/CLAUDE.md, eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, eradev/projects/{PROJECT}/config.md и lessons.md. Сверь: 6 output types, 10 invariants, 30 BL. Выведи SESSION BOOTSTRAP checklist (12 items). Сохрани META identity (6 output types + Bash classification + LOAD sequence) в memory. Report: PASS/BLOCK.
 
 Далее общаемся на русском.
 ```
@@ -40,19 +38,16 @@ Validation:
 ## Update (existing project)
 
 ```
-Обнови eradev инструкции:
+Обнови eradev:
 
-Operational (direct):
-1. cd eradev && git pull origin main && cd ..
-2. cp eradev/.claude/hooks/*.sh .claude/hooks/ && chmod +x .claude/hooks/*.sh
-3. cp eradev/.claude/settings.json .claude/settings.json
-4. cp eradev/.githooks/pre-commit .githooks/pre-commit && chmod +x .githooks/pre-commit
+1. Spawn [SETUP] agent:
+   - cd eradev && git pull origin main && cd ..
+   - Copy eradev/.claude/hooks/*.sh to .claude/hooks/, make executable
+   - Copy eradev/.claude/settings.json to .claude/settings.json
+   - Copy eradev/.githooks/pre-commit to .githooks/pre-commit, make executable
+   - Update AGENTS.md from eradev/templates/AGENTS.md.template (replace {PROJECT})
 
-Delegated:
-5. Spawn [SETUP] agent: обнови AGENTS.md из eradev/templates/AGENTS.md.template (replace {PROJECT})
-
-Validation:
-6. Spawn [VALIDATOR] agent: прочитай eradev/CLAUDE.md, eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, eradev/projects/{PROJECT}/config.md и lessons.md. Сверь: 6 output types, 10 invariants, 30 BL. Выведи SESSION BOOTSTRAP checklist (12 items). Сохрани META identity (6 output types + Bash classification + LOAD sequence) в memory. Report: PASS/BLOCK.
+2. Spawn [VALIDATOR] agent: прочитай eradev/CLAUDE.md, eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, eradev/projects/{PROJECT}/config.md и lessons.md. Сверь: 6 output types, 10 invariants, 30 BL. Выведи SESSION BOOTSTRAP checklist (12 items). Сохрани META identity (6 output types + Bash classification + LOAD sequence) в memory. Report: PASS/BLOCK.
 
 Далее продолжаем работу.
 ```

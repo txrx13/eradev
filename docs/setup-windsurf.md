@@ -7,23 +7,21 @@ Windsurf reads `.windsurfrules` or `.windsurf/rules/*.md` and supports hooks via
 Paste this prompt into your first Windsurf session:
 
 ```
-Setup EraDev for this project ({PROJECT} = basename of current directory):
+Deploy EraDev ({PROJECT} = basename of current directory):
 
-Operational steps (direct):
-1. git clone https://github.com/txrx13/eradev.git eradev (or git pull if exists)
-2. cp eradev/.claude/hooks/*.sh .claude/hooks/ && chmod +x .claude/hooks/*.sh
-3. cp eradev/.githooks/pre-commit .githooks/pre-commit && chmod +x .githooks/pre-commit && git config core.hooksPath .githooks
-
-Delegated:
-4. Spawn [SETUP] agent: create these files —
+1. Spawn [SETUP] agent:
+   - git clone https://github.com/txrx13/eradev.git eradev (or git pull if exists)
+   - mkdir -p .claude/hooks .windsurf .githooks
+   - Copy eradev/.claude/hooks/*.sh to .claude/hooks/, make executable
+   - Copy eradev/.githooks/pre-commit to .githooks/pre-commit, make executable
+   - Run: git config core.hooksPath .githooks
    - Read eradev/templates/AGENTS.md.template, save as ./AGENTS.md (replace {PROJECT})
    - Copy AGENTS.md to .windsurfrules
    - Create .windsurf/hooks.json with PreToolUse hooks (Edit|Write|Bash → enforce-delegation.sh, Agent → agent-role-tag.sh + agent-context-check.sh)
    - Create projects/{PROJECT}/config.md (True North, Architecture, Iron Rules)
    - Create projects/{PROJECT}/lessons.md with header
 
-Validation:
-5. Spawn [VALIDATOR] agent: прочитай .windsurfrules, eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, eradev/projects/{PROJECT}/config.md и lessons.md. Сверь 6 output types, Core Rules. Выведи SESSION BOOTSTRAP checklist. Report: PASS/BLOCK.
+2. Spawn [VALIDATOR] agent: прочитай .windsurfrules, eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, eradev/projects/{PROJECT}/config.md и lessons.md. Сверь 6 output types. Выведи SESSION BOOTSTRAP checklist. Report: PASS/BLOCK.
 
 Далее общаемся на русском.
 ```
@@ -40,11 +38,15 @@ Same hook scripts as Claude Code (shared `.claude/hooks/` directory):
 
 ```
 Обнови eradev:
-1. cd eradev && git pull origin main && cd ..
-2. cp eradev/.claude/hooks/*.sh .claude/hooks/ && chmod +x .claude/hooks/*.sh
-3. cp eradev/.githooks/pre-commit .githooks/pre-commit && chmod +x .githooks/pre-commit
-4. Spawn [SETUP] agent: обнови AGENTS.md из eradev/templates/AGENTS.md.template (replace {PROJECT}), скопируй в .windsurfrules
-5. Spawn [VALIDATOR] agent: прочитай .windsurfrules, eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, eradev/projects/{PROJECT}/config.md и lessons.md. Сверь 6 output types, Core Rules. Выведи SESSION BOOTSTRAP checklist. Report: PASS/BLOCK.
+
+1. Spawn [SETUP] agent:
+   - cd eradev && git pull origin main && cd ..
+   - Copy eradev/.claude/hooks/*.sh to .claude/hooks/, make executable
+   - Copy eradev/.githooks/pre-commit to .githooks/pre-commit, make executable
+   - Update AGENTS.md from eradev/templates/AGENTS.md.template (replace {PROJECT})
+   - Copy AGENTS.md to .windsurfrules
+
+2. Spawn [VALIDATOR] agent: прочитай .windsurfrules, eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, eradev/projects/{PROJECT}/config.md и lessons.md. Сверь 6 output types. Выведи SESSION BOOTSTRAP checklist. Report: PASS/BLOCK.
 
 Далее продолжаем работу.
 ```
