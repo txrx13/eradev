@@ -1,90 +1,39 @@
 # EraDev Universal Deploy Prompt
-# Paste this into ANY AI coding agent (Claude Code, Cursor, Codex, Jules, Windsurf).
-# The agent will set up EraDev framework in the current project.
 
-You are a setup agent. Execute all steps sequentially. {PROJECT} = basename of current working directory.
+Paste this into ANY AI coding agent (Claude Code, Cursor, Codex, Jules, Windsurf).
+The agent will set up EraDev framework in the current project.
+{PROJECT} = basename of current working directory.
 
-## Step 1: Clone or Update EraDev
+## Deploy Steps
 
-```bash
-[ -d "eradev" ] && (cd eradev && git pull origin main && cd ..) || git clone https://github.com/txrx13/eradev.git eradev
-```
-Always pull latest — eradev evolves every session.
+Execute all steps sequentially:
 
-## Step 2: Create AGENTS.md (universal — all AI agents read this)
+1. **Clone or update EraDev.** If `eradev/` directory exists, run git pull inside it. If not, clone https://github.com/txrx13/eradev.git into `eradev/`.
 
-Read `eradev/templates/AGENTS.md.template` and write it to `./AGENTS.md` at project root.
-Replace `{PROJECT}` with the actual project name.
-This file is read by: Codex, Jules, Cursor, Windsurf, Aider.
+2. **Create AGENTS.md.** Read `eradev/templates/AGENTS.md.template`, replace `{PROJECT}` with actual project name, save as `./AGENTS.md` at project root. This is the universal config read by all AI agents.
 
-## Step 3: Create CLAUDE.md (Claude Code specific)
+3. **Create CLAUDE.md.** Read `eradev/templates/CLAUDE.md.template`, replace `{PROJECT}` with actual project name, save as `./CLAUDE.md` at project root. This is Claude Code specific.
 
-Read `eradev/templates/CLAUDE.md.template` and write it to `./CLAUDE.md` at project root.
-Replace `{PROJECT}` with the actual project name.
-Paths reference `eradev/` prefix (since eradev is a subfolder).
+4. **Create .cursorrules.** Copy AGENTS.md content to `.cursorrules` at project root. Cursor reads this file.
 
-## Step 4: Create .cursorrules (Cursor)
+5. **Create .windsurfrules.** Copy AGENTS.md content to `.windsurfrules` at project root. Windsurf reads this file.
 
-Copy AGENTS.md to `.cursorrules`:
-```bash
-cp AGENTS.md .cursorrules
-```
+6. **Install enforcement hooks.** Create `.claude/hooks/` directory. Copy all `.sh` files from `eradev/.claude/hooks/` into it. Make them executable. Copy `eradev/.claude/settings.json` to `.claude/settings.json`. Create `.windsurf/hooks.json` with the same hook configuration (PreToolUse matchers for Edit|Write|Bash and Agent).
 
-## Step 5: Create enforcement hooks (Claude Code + Windsurf)
+7. **Create project skeleton.** Create `projects/{PROJECT}/` directory. Create `config.md` inside with sections: True North, Architecture, Iron Rules. Create `lessons.md` inside with header.
 
-```bash
-mkdir -p .claude/hooks .windsurf
-cp eradev/.claude/hooks/*.sh .claude/hooks/
-chmod +x .claude/hooks/*.sh
-cp eradev/.claude/settings.json .claude/settings.json
-```
+8. **Save to memory.** Save META identity to the agent's persistent memory: META-Orchestrator L9, 6 output types (Agent calls, Decisions, Synthesis, Lessons, Reports, Check Agent), Bash classification (operational vs diagnostic), LOAD sequence.
 
-For Windsurf, create `.windsurf/hooks.json`:
-```json
-{"hooks":{"PreToolUse":[{"matcher":"Edit|Write|Bash","hooks":[{"type":"command","command":".claude/hooks/enforce-delegation.sh"}]},{"matcher":"Agent","hooks":[{"type":"command","command":".claude/hooks/agent-role-tag.sh"},{"type":"command","command":".claude/hooks/agent-context-check.sh"}]}]}}
-```
-
-## Step 6: Create project skeleton
-
-```bash
-mkdir -p projects/{PROJECT}
-```
-
-Create `projects/{PROJECT}/config.md`:
-```
-# {PROJECT} — EraDev Project Config
-## True North
-[Define direction here]
-## Architecture
-[Describe tech stack]
-## Iron Rules
-1. Self-application: apply EraDev processes to this project.
-2. Bilingual sync: EN + RU files updated together (BL-19).
-```
-
-Create `projects/{PROJECT}/lessons.md`:
-```
-# {PROJECT} — Lessons & Patterns
-```
-
-## Step 7: Save to memory
-
-Save two items to the agent's persistent memory:
-- **META identity:** META-Orchestrator L9. 6 outputs: Agent calls, Decisions, Synthesis, Lessons, Reports, Check Agent. ALWAYS delegates. Hook blocks Edit/Write/diagnostic Bash from main session. Bash classification: operational (git, ls, cp) = direct, diagnostic (grep, curl, ssh) = delegate to [EXPLORE].
-- **LOAD sequence:** AGENTS.md/CLAUDE.md auto-loads → eradev/eradev.md, meta.md, BOOTSTRAP_LESSONS.md, projects/{PROJECT}/config.md, lessons.md → Session Bootstrap (12 items) → KILL-TEST.
-
-## Step 8: Confirmation
+9. **Confirmation.** Output this checklist:
 
 ```
 === EraDev Deploy Complete ===
 [x] eradev/ cloned/updated    [x] AGENTS.md (universal)
 [x] CLAUDE.md (Claude Code)   [x] .cursorrules (Cursor)
-[x] .claude/hooks/ (3 scripts) [x] .claude/settings.json
+[x] .windsurfrules (Windsurf)  [x] .claude/hooks/ (enforcement)
 [x] .windsurf/hooks.json       [x] projects/{PROJECT}/
 [x] Memory: META identity + LOAD sequence
-
-Next: open a new session — META loads automatically.
-Operator language: Russian. Agents: EN.
+Next: open new session — META loads automatically.
 ```
 
 ---
@@ -94,8 +43,8 @@ Operator language: Russian. Agents: EN.
 ```
 Обнови eradev инструкции:
 1. cd eradev && git pull origin main && cd ..
-2. Sync hooks: cp eradev/.claude/hooks/*.sh .claude/hooks/ && chmod +x .claude/hooks/*.sh
-3. Sync settings: cp eradev/.claude/settings.json .claude/settings.json
+2. Sync hooks: скопируй eradev/.claude/hooks/*.sh в .claude/hooks/, сделай executable
+3. Sync settings: скопируй eradev/.claude/settings.json в .claude/settings.json
 4. Прочитай eradev/CLAUDE.md — сверь 6 output types и 10 invariants
 5. Прочитай eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md
 6. Прочитай eradev/projects/{PROJECT}/config.md и lessons.md
