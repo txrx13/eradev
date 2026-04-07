@@ -149,6 +149,25 @@ Task: [описание задачи]
 
 ---
 
+## Обновление EraDev в существующем проекте
+
+Вставьте этот промт в активную сессию проекта:
+
+```
+Обнови eradev инструкции:
+1. cd eradev && git pull origin main
+2. Прочитай eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md
+3. Прочитай eradev/projects/{PROJECT}/config.md и eradev/projects/{PROJECT}/lessons.md
+4. Выведи SESSION BOOTSTRAP checklist из meta.md Section 14 (12 items)
+5. Сохрани META identity + LOAD sequence в Claude Code memory
+
+Далее продолжаем работу по текущим задачам.
+```
+
+Замените `{PROJECT}` на имя вашего проекта.
+
+---
+
 ## Быстрый старт (для человека)
 
 ### 1. Инициализация проекта

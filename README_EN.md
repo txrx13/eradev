@@ -125,6 +125,25 @@ Without all three layers, META drifts back to solo Builder behavior within 2-3 t
 
 ---
 
+## Update EraDev in Existing Project
+
+Paste this prompt into your active project session:
+
+```
+Update eradev instructions:
+1. cd eradev && git pull origin main
+2. Read eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md
+3. Read eradev/projects/{PROJECT}/config.md and eradev/projects/{PROJECT}/lessons.md
+4. Output SESSION BOOTSTRAP checklist from meta.md Section 14 (12 items)
+5. Save META identity + LOAD sequence to Claude Code memory
+
+Continue with current tasks.
+```
+
+Replace `{PROJECT}` with your project name.
+
+---
+
 ## Quick Start (for humans)
 
 ### 1. Project Initialization
