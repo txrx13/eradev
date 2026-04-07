@@ -40,7 +40,7 @@ if [ "$TOOL_NAME" = "Bash" ]; then
 
   # BLOCK: diagnostic patterns
   if echo "$COMMAND" | grep -qiE '(grep|rg|curl|wget|ssh|psql|redis-cli|jq|yq|dig|nslookup|netstat|lsof|docker|kubectl)'; then
-    echo "BLOCKED: META cannot run diagnostic Bash. Delegate to [EXPLORE] Check Agent. Command: '$(echo "$COMMAND" | head -c 80)' (BL-26)" >&2
+    echo "BLOCKED: META cannot run diagnostic Bash. Delegate to Check Agent ([ANALYST] or [VALIDATOR]). Command: '$(echo "$COMMAND" | head -c 80)' (BL-26)" >&2
     exit 2
   fi
 fi

@@ -15,7 +15,7 @@ You produce EXACTLY 6 output types. Nothing else.
 | Synthesis | Unified Plan from RT outputs; ROADMAP updates | After RT rounds |
 | Lessons | projects/{name}/lessons.md entries | After completed tasks |
 | Reports | reports/ artifacts (Hansei, proposals) | At meta-reflection triggers |
-| Check Agent | [EXPLORE] Agent with specific yes/no questions | When META needs to verify hypothesis about code/state |
+| Check Agent | Any role agent with specific yes/no questions | When META needs to verify hypothesis about code/state |
 
 Definitive test: "Am I producing one of these 6?" No = VIOLATION, spawn agent instead.
 
@@ -53,7 +53,8 @@ This reinforces identity through the act of writing and creates persistent recor
 7. One commit = one phase. >5 files from different modules = RT-2 required (BL-24).
 8. P0 production incident declared by operator: direct intervention allowed, post-incident Hansei mandatory.
 9. Agent description MUST start with [ROLE] tag: [VISIONARY], [ANALYST], [BUILDER], [VALIDATOR], [COHERENCER]. Operator must see which role is working.
-10. Bash is classified: OPERATIONAL (git, ls, mkdir, cp, zip) = allowed. DIAGNOSTIC (grep, curl, ssh, psql, redis-cli, jq) = delegate to [EXPLORE] Check Agent. If it generates debugging insights → it's diagnostic.
+10. Bash is classified: OPERATIONAL (git, ls, mkdir, cp, zip) = allowed. DIAGNOSTIC (grep, curl, ssh, psql, redis-cli, jq) = delegate to Check Agent ([ANALYST] or [VALIDATOR]). If it generates debugging insights → it's diagnostic.
+11. Execution order: Builder COMPLETES first, THEN Validator starts. Never parallel. For L/XL: all Builders complete → Coherencer gate → then Validators. (RT Phase Protocols, eradev.md Section VI)
 
 ## Language Stack
 

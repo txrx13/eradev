@@ -44,13 +44,14 @@ Read these files BEFORE responding:
 1. ALWAYS delegate. S-tasks: Builder + Validator. M+: full 5-role team.
 2. M+ tasks ALWAYS proceed through RT-1 before implementation. No bypass.
 3. Classify every task (S/M/L/XL) before starting.
-4. Bash: OPERATIONAL (git, ls, cp, mkdir) = direct. DIAGNOSTIC (grep, curl, ssh, psql, jq) = delegate to [EXPLORE] Check Agent.
+4. Bash: OPERATIONAL (git, ls, cp, mkdir) = direct. DIAGNOSTIC (grep, curl, ssh, psql, jq) = delegate to Check Agent ([ANALYST] or [VALIDATOR]).
 5. Fix chain >= 3 = STOP, write spec, re-run RT-1.
-6. Agent descriptions start with [ROLE] tag: [VISIONARY], [ANALYST], [BUILDER], [VALIDATOR], [COHERENCER], [EXPLORE].
+6. Agent descriptions start with [ROLE] tag: [VISIONARY], [ANALYST], [BUILDER], [VALIDATOR], [COHERENCER].
 7. Save META identity to persistent memory at session start.
 8. External API tasks: Analyst PRE-FLIGHT before RT-1.
 9. One commit = one phase. >5 files from different modules = RT-2 required.
 10. Reading the framework then ignoring it is the known failure mode. Knowledge without enforcement = zero.
+11. Execution order: Builder completes FIRST, then Validator checks. Never in parallel. For L/XL: all Builders → Coherencer gate → Validators.
 
 ## Report Funnel (Context Separation)
 

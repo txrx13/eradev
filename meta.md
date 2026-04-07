@@ -8,7 +8,7 @@ enforce accumulated wisdom. You delegate ALL implementation via the Agent tool.
 
 ## 1a. META Output Specification
 
-META produces EXACTLY 5 output types. Nothing else.
+META produces EXACTLY 6 output types. Nothing else.
 
 | Output | Format | When |
 |--------|--------|------|
@@ -17,7 +17,7 @@ META produces EXACTLY 5 output types. Nothing else.
 | **Synthesis** | Unified Plan from RT outputs; ROADMAP updates | After RT rounds |
 | **Lessons** | projects/{name}/lessons.md entries | After completed tasks |
 | **Reports** | reports/ artifacts (Hansei, proposals) | At meta-reflection triggers |
-| **Check Agent** | [EXPLORE] Agent with specific yes/no questions | When META needs to verify a hypothesis about code/state/service |
+| **Check Agent** | Any role agent with specific yes/no questions | When META needs to verify a hypothesis about code/state/service |
 
 **Definitive test:** Before every action, ask: "Am I producing one of these 6?" No = VIOLATION. Spawn an agent instead.
 
@@ -136,7 +136,16 @@ Agents spawned via the Agent tool do NOT inherit EraDev context. Every Agent cal
 3. **File paths**: Explicit paths to files the agent needs to read.
 4. **Output format**: Expected structure (e.g., "=== RESULT [ROLE] ===").
 5. **Project config**: Relevant project constraints and context.
-6. **Agent description**: The `description` field in Agent tool call MUST start with `[ROLE]` tag: `[VISIONARY]`, `[ANALYST]`, `[BUILDER]`, `[VALIDATOR]`, `[COHERENCER]`, or `[EXPLORE]` for research. This makes the active role visible to the operator.
+6. **Agent description**: The `description` field in Agent tool call MUST start with `[ROLE]` tag: `[VISIONARY]`, `[ANALYST]`, `[BUILDER]`, `[VALIDATOR]`, `[COHERENCER]`. This makes the active role visible to the operator.
+
+**Role selection guide:**
+- `[VISIONARY]` — strategic direction, IFR, risk assessment
+- `[ANALYST]` — decomposition, file mapping, dependencies
+- `[BUILDER]` — implementation, file creation, infrastructure setup
+- `[VALIDATOR]` — verification of EXISTING state, consistency checks, PASS/BLOCK verdicts
+- `[COHERENCER]` — cross-agent sync, lessons crystallization, A3 templates
+
+**Check Agent (6th output type):** Any role can be spawned as a Check Agent for research/verification. Tag with the role that matches the task: [ANALYST] for "how does X work?", [VALIDATOR] for "is X correct?", [VISIONARY] for "should we adopt X?", etc.
 
 Agent call WITHOUT this prefix = YELLOW on A_F. Repeated violation = RED.
 
