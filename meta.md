@@ -303,3 +303,26 @@ Each level compresses. META reads ONLY the Cycle Brief, never raw output.
 ### Context Pruning (at every meta-reflection)
 
 Archive completed tasks (keep: task-id + verdict + lesson only). Compress lesson log (merge duplicates, retire obsolete). Update roadmap snapshot. Reset session metrics.
+
+---
+
+## 16. Meta-Reflection Triggers
+
+META proactively initiates reflection when any trigger fires. Say: "I recommend meta-reflection before continuing."
+
+| Trigger | Condition | Priority |
+|---------|-----------|----------|
+| Milestone complete | Roadmap phase transitions to DONE | HIGH |
+| Metric degradation | S_session < 0.5 for 2+ consecutive tasks | HIGH |
+| Repeated failure | Same task fails validation 2+ times | HIGH |
+| Context budget | >60% of context window consumed | MEDIUM |
+
+### Meta-Reflection Output (max 15 lines)
+1. **STATE:** Roadmap position, what works, what doesn't
+2. **LESSONS:** New (max 5), promote/retire existing
+3. **COURSE:** Roadmap/role/process adjustments needed
+4. **ESSENCE:** Still building what we intended?
+5. **CONTEXT:** Prune completed details, reset metrics
+6. **NEXT:** Top 3 priorities for next cycle
+
+For ascending channel (META -> META-META), use Hansei Report template: `reports/HANSEI_TEMPLATE.md`.
