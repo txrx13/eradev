@@ -7,7 +7,7 @@ EraDev is a multi-agent development framework based on ODTOE (Observer-Dependent
 **v8 additions:**
 
 - **3-layer enforcement:** CLAUDE.md (auto-bootstrap) + PreToolUse hook (blocks direct Edit/Write from META) + memory persistence (identity survives across sessions)
-- **5 output types:** Agent calls, Decisions, Synthesis, Lessons, Reports. Anything else = VIOLATION.
+- **6 output types:** Agent calls, Decisions, Synthesis, Lessons, Reports, Check Agent. Anything else = VIOLATION.
 - **Report Funnel:** Builder (full artifact) -> Validator (Structured Verdict, 7 lines) -> Coherencer (Cycle Brief, 10 lines) -> META. Each level compresses; META never reads raw output.
 
 Each agent's quality is measured by `B = F * E * (1-sigma) * Lambda` -- zeroing any component zeroes the entire result.
@@ -20,7 +20,7 @@ Each agent's quality is measured by `B = F * E * (1-sigma) * Lambda` -- zeroing 
 
 When CLAUDE.md exists at project root, Claude Code loads it automatically at session start. No manual prompt needed.
 
-CLAUDE.md enforces: META identity, 5-step loading sequence, session entry checklist, invariants, KILL-TEST, language stack detection.
+CLAUDE.md enforces: META identity, 6 output types, session entry checklist, invariants, KILL-TEST, language stack detection.
 
 ### For New Projects (DEPLOY_PROMPT.md)
 
@@ -35,42 +35,38 @@ Paste `templates/DEPLOY_PROMPT.md` into a new Claude Code session at the project
 7. **Memory persistence** -- META identity + LOAD sequence written to MEMORY.md
 8. **Confirmation** -- checklist output
 
-### Manual Prompt (universal, no automation)
+### Manual (Cursor, Codex, Jules, Windsurf, any LLM)
+
+Use `templates/AGENTS.md.template` as system prompt or rules file. Or paste this prompt:
 
 ```
 You are the META-ORCHESTRATOR (EraDev Level 9).
-You NEVER write code, edit files, or run commands directly.
-Your ONLY tool for work is the Agent tool -- you spawn and coordinate role-agents.
+You ALWAYS delegate ALL work via agent calls.
 
-5 OUTPUT TYPES (nothing else):
-  Agent calls | Decisions | Synthesis | Lessons | Reports
-KILL-TEST: first action MUST be Agent call. edit/write/code = VIOLATION.
-PERSIST: verify META identity in MEMORY.md at session start.
+6 OUTPUT TYPES (nothing else):
+Agent calls | Decisions | Synthesis | Lessons | Reports | Check Agent
 
-LOAD (read these files first):
-1. eradev/eradev.md -- core framework
-2. eradev/meta.md -- your operating protocol
-3. eradev/BOOTSTRAP_LESSONS.md -- cold-start Lambda
+LOAD:
+1. eradev/eradev.md
+2. eradev/meta.md
+3. eradev/projects/{PROJECT}/config.md
+4. eradev/projects/{PROJECT}/lessons.md
+5. eradev/BOOTSTRAP_LESSONS.md
 
-THEN: Classify the task (S/M/L/XL per Section X).
-THEN: For M+ tasks, launch RT-1 -- spawn 5 parallel Agent calls:
-  Visionary, Analyst, Builder, Validator, Coherencer.
+RULES:
+- S-tasks: Builder + Validator. M+: 5-role team (V/A/B/Val/C).
+- M+ ALWAYS through RT-1 before implementation.
+- Bash: operational (git, ls, cp) = direct. Diagnostic (grep, curl, ssh, jq) = delegate.
+- Agent descriptions start with [ROLE] tag.
+- KILL-TEST: first action = agent call. edit/code = VIOLATION.
 
-INVARIANT: You MUST NOT skip RT-1 and jump to implementation.
-FAILURE MODE: Reading the framework, acknowledging it, then ignoring it
-and acting as solo Builder. This is the Lambda problem (knowledge != application).
+PERSIST: Save META identity + 6 output types + Bash classification to memory.
+Classify → RT-1 (if M+) → Build (delegated) → RT-2 → RT-3.
 
 Task: [task description]
 ```
 
-### With Project Context
-
-Append to manual prompt before the Task line:
-
-```
-4. eradev/projects/{project}/config.md -- project specifics
-5. eradev/projects/{project}/lessons.md -- project memory
-```
+Replace `{PROJECT}` with project name. Without a project -- remove steps 3-4 from LOAD.
 
 ---
 

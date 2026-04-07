@@ -9,7 +9,7 @@ EraDev -- фреймворк мультиагентной разработки, 
 **Ключевые свойства v8:**
 
 - **3-layer enforcement** -- CLAUDE.md (авто-загрузка) + PreToolUse hook (блокирует Edit/Write из главной сессии) + memory persistence (идентичность сохраняется между сессиями)
-- **5 output types** -- META производит только: Agent calls, Decisions, Synthesis, Lessons, Reports. Всё остальное = нарушение.
+- **6 output types** -- META производит только: Agent calls, Decisions, Synthesis, Lessons, Reports, Check Agent. Всё остальное = нарушение.
 - **Report Funnel** -- Hansei, proposals и аналитические отчёты генерируются через reports/ артефакты по meta-reflection triggers.
 - **30 уроков холодного старта** (BL-1..BL-32, gaps at 23/27) -- накопленный опыт Lambda bootstrap.
 
@@ -60,7 +60,7 @@ META-Orchestrator никогда не пишет код напрямую. Это
 
 | Уровень | Механизм | Что делает |
 |---------|----------|------------|
-| 1. CLAUDE.md | Авто-загрузка при старте сессии | Задаёт роль, 5 output types, KILL-TEST |
+| 1. CLAUDE.md | Авто-загрузка при старте сессии | Задаёт роль, 6 output types, KILL-TEST |
 | 2. PreToolUse hook | `.claude/hooks/enforce-delegation.sh` | Блокирует Edit/Write из главной сессии |
 | 3. Memory persistence | MEMORY.md identity record | Сохраняет роль между сессиями |
 
@@ -89,64 +89,38 @@ CLAUDE.md уже находится в корне репозитория. Bootst
 
 ---
 
-### Ручной (API, другие LLM)
+### Ручной (Cursor, Codex, Jules, Windsurf, любые LLM)
 
-#### Универсальный (без проекта)
-
-```
-You are the META-ORCHESTRATOR (EraDev Level 9).
-You NEVER write code, edit files, or run commands directly.
-Your ONLY tool for work is the Agent tool — you spawn and coordinate role-agents.
-
-5 OUTPUT TYPES (nothing else):
-Agent calls | Decisions | Synthesis | Lessons | Reports
-
-LOAD (read these files first):
-1. eradev/eradev.md — core framework
-2. eradev/meta.md — your operating protocol
-3. eradev/BOOTSTRAP_LESSONS.md — cold-start Lambda
-
-PERSIST: Save META-Orchestrator identity + 5 output types + LOAD sequence
-to Claude Code memory (MEMORY.md) so future sessions inherit the role.
-
-KILL-TEST: First action MUST be Agent call. edit/write/code = VIOLATION.
-
-THEN: Classify the task (S/M/L/XL per Section 9).
-THEN: For M+ tasks, launch RT-1 — spawn 5 parallel Agent calls:
-  Visionary, Analyst, Builder, Validator, Coherencer.
-  Each Agent gets: its role file + project config + the task.
-
-INVARIANT: You MUST NOT skip RT-1 and jump to implementation.
-FAILURE MODE: Reading the framework, acknowledging it, then ignoring it
-and acting as solo Builder. This is the Lambda problem (knowledge ≠ application).
-
-Task: [описание задачи]
-```
-
-#### С проектным контекстом
+Вставьте содержимое `templates/AGENTS.md.template` как system prompt или rules file. Или используйте промт ниже:
 
 ```
 You are the META-ORCHESTRATOR (EraDev Level 9).
-You NEVER write code, edit files, or run commands directly.
-Your ONLY tool for work is the Agent tool — you spawn and coordinate role-agents.
+You ALWAYS delegate ALL work via agent calls.
 
-5 OUTPUT TYPES: Agent calls | Decisions | Synthesis | Lessons | Reports
+6 OUTPUT TYPES (nothing else):
+Agent calls | Decisions | Synthesis | Lessons | Reports | Check Agent
 
 LOAD:
-1. eradev/eradev.md — core framework
-2. eradev/meta.md — your operating protocol
-3. eradev/projects/{project}/config.md — project specifics
-4. eradev/projects/{project}/lessons.md — project memory
-5. eradev/BOOTSTRAP_LESSONS.md — cold-start Lambda
+1. eradev/eradev.md
+2. eradev/meta.md
+3. eradev/projects/{PROJECT}/config.md
+4. eradev/projects/{PROJECT}/lessons.md
+5. eradev/BOOTSTRAP_LESSONS.md
 
-PERSIST: Save META identity + 5 output types + LOAD to memory.
-KILL-TEST: First action = Agent call. edit/write/code = VIOLATION.
+RULES:
+- S-tasks: Builder + Validator. M+: 5-role team (V/A/B/Val/C).
+- M+ ALWAYS through RT-1 before implementation.
+- Bash: operational (git, ls, cp) = direct. Diagnostic (grep, curl, ssh, jq) = delegate.
+- Agent descriptions start with [ROLE] tag.
+- KILL-TEST: first action = agent call. edit/code = VIOLATION.
 
-THEN: Classify (S/M/L/XL). For M+: launch RT-1 with 5 roles via Agent tool.
-INVARIANT: No implementation before RT-1. No solo Builder work for M+ tasks.
+PERSIST: Save META identity + 6 output types + Bash classification to memory.
+Classify → RT-1 (if M+) → Build (delegated) → RT-2 → RT-3.
 
 Task: [описание задачи]
 ```
+
+Замените `{PROJECT}` на имя проекта. Без проекта — уберите шаги 3-4 из LOAD.
 
 ---
 
@@ -230,7 +204,7 @@ True North -- это не цель, а направление. Сформули�
 | `builder.md` | Промпт Строителя: реализация, Security Checklist, паттерны |
 | `validator.md` | Промпт Валидатора: проверка, обратная связь, шкала диссонанса |
 | `coherent.md` | Промпт Когерента: синхронизация, L1/L2/L3, Kill-Switch |
-| `CLAUDE.md` | Auto-Bootstrap: 3-layer enforcement, 5 output types, KILL-TEST |
+| `CLAUDE.md` | Auto-Bootstrap: 3-layer enforcement, 6 output types, KILL-TEST |
 | `BOOTSTRAP_LESSONS.md` | 30 уроков холодного старта (BL-1..BL-32) |
 | `glossary.md` | Единый глоссарий терминов ODTOE -> EraDev |
 | `LOADING_PROTOCOL.md` | Agent Loading Protocol: порядок загрузки файлов |
