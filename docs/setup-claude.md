@@ -20,10 +20,8 @@ Delegated steps (spawn one [SETUP] agent):
    - Create projects/{PROJECT}/config.md with sections: True North, Architecture, Iron Rules
    - Create projects/{PROJECT}/lessons.md with header
 
-Verification:
-6. Read eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md — verify load
-7. Save META identity (6 output types + Bash classification + LOAD sequence) to memory
-8. Output deploy confirmation with [x] checkmarks for all created files
+Validation:
+6. Spawn [VALIDATOR] agent: прочитай eradev/CLAUDE.md, eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, eradev/projects/{PROJECT}/config.md и lessons.md. Сверь: 6 output types, 10 invariants, 30 BL. Выведи SESSION BOOTSTRAP checklist (12 items). Сохрани META identity (6 output types + Bash classification + LOAD sequence) в memory. Report: PASS/BLOCK.
 
 Далее общаемся на русском.
 ```
@@ -53,12 +51,8 @@ Operational (direct):
 Delegated:
 5. Spawn [SETUP] agent: обнови AGENTS.md из eradev/templates/AGENTS.md.template (replace {PROJECT})
 
-Verification:
-6. Прочитай eradev/CLAUDE.md — сверь 6 output types и 10 invariants
-7. Прочитай eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md
-8. Прочитай eradev/projects/{PROJECT}/config.md и lessons.md
-9. Выведи SESSION BOOTSTRAP checklist из meta.md Section 14 (12 items)
-10. Сохрани META identity (6 output types + Bash classification + LOAD sequence) в memory
+Validation:
+6. Spawn [VALIDATOR] agent: прочитай eradev/CLAUDE.md, eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, eradev/projects/{PROJECT}/config.md и lessons.md. Сверь: 6 output types, 10 invariants, 30 BL. Выведи SESSION BOOTSTRAP checklist (12 items). Сохрани META identity (6 output types + Bash classification + LOAD sequence) в memory. Report: PASS/BLOCK.
 
 Далее продолжаем работу.
 ```

@@ -16,7 +16,7 @@ Setup EraDev for this project ({PROJECT} = basename of current directory):
    - Copy AGENTS.md to .cursorrules
    - Create projects/{PROJECT}/config.md (True North, Architecture, Iron Rules)
    - Create projects/{PROJECT}/lessons.md with header
-4. Read .cursorrules — output SESSION BOOTSTRAP checklist (6 items)
+4. Spawn [VALIDATOR] agent: прочитай .cursorrules, eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, eradev/projects/{PROJECT}/config.md и lessons.md. Сверь 6 output types, Core Rules. Выведи SESSION BOOTSTRAP checklist. Report: PASS/BLOCK.
 
 Далее общаемся на русском.
 ```
@@ -39,10 +39,7 @@ No hooks available. All enforcement is text-based via `.cursorrules`:
 1. cd eradev && git pull origin main && cd ..
 2. cp eradev/.githooks/pre-commit .githooks/pre-commit && chmod +x .githooks/pre-commit
 3. Spawn [SETUP] agent: обнови AGENTS.md из eradev/templates/AGENTS.md.template (replace {PROJECT}), скопируй в .cursorrules
-4. Прочитай .cursorrules — сверь 6 output types и Core Rules
-5. Прочитай eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md
-6. Прочитай eradev/projects/{PROJECT}/config.md и lessons.md
-7. Выведи SESSION BOOTSTRAP checklist (6 items из AGENTS.md)
+4. Spawn [VALIDATOR] agent: прочитай .cursorrules, eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, eradev/projects/{PROJECT}/config.md и lessons.md. Сверь 6 output types, Core Rules. Выведи SESSION BOOTSTRAP checklist. Report: PASS/BLOCK.
 
 Далее продолжаем работу.
 ```

@@ -22,8 +22,8 @@ Delegated:
    - Create projects/{PROJECT}/config.md (True North, Architecture, Iron Rules)
    - Create projects/{PROJECT}/lessons.md with header
 
-Verification:
-5. Read .windsurfrules — output SESSION BOOTSTRAP checklist (6 items)
+Validation:
+5. Spawn [VALIDATOR] agent: прочитай .windsurfrules, eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, eradev/projects/{PROJECT}/config.md и lessons.md. Сверь 6 output types, Core Rules. Выведи SESSION BOOTSTRAP checklist. Report: PASS/BLOCK.
 
 Далее общаемся на русском.
 ```
@@ -44,10 +44,7 @@ Same hook scripts as Claude Code (shared `.claude/hooks/` directory):
 2. cp eradev/.claude/hooks/*.sh .claude/hooks/ && chmod +x .claude/hooks/*.sh
 3. cp eradev/.githooks/pre-commit .githooks/pre-commit && chmod +x .githooks/pre-commit
 4. Spawn [SETUP] agent: обнови AGENTS.md из eradev/templates/AGENTS.md.template (replace {PROJECT}), скопируй в .windsurfrules
-5. Прочитай .windsurfrules — сверь 6 output types
-6. Прочитай eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md
-7. Прочитай eradev/projects/{PROJECT}/config.md и lessons.md
-8. Выведи SESSION BOOTSTRAP checklist (6 items)
+5. Spawn [VALIDATOR] agent: прочитай .windsurfrules, eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, eradev/projects/{PROJECT}/config.md и lessons.md. Сверь 6 output types, Core Rules. Выведи SESSION BOOTSTRAP checklist. Report: PASS/BLOCK.
 
 Далее продолжаем работу.
 ```
