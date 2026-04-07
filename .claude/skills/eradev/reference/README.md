@@ -45,9 +45,7 @@ eradev/
 │   ├── CLAUDE.md.universal         # Универсальный CLAUDE.md (без проекта)
 │   └── DEPLOY_PROMPT.md            # 7-шаговый deploy для новых проектов
 ├── projects/
-│   ├── academic-lab/               # Проект Web3-платформы
-│   ├── odtoe-articles/             # Проект научных статей
-│   ├── plugy/                      # Проект Plugy
+│   ├── {name}/                     # Внешние проекты (config.md + lessons.md)
 │   └── eradev/                     # Саморазвитие фреймворка
 └── reports/
     ├── HANSEI_TEMPLATE.md          # Шаблон Hansei-рефлексии

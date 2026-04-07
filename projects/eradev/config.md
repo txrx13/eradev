@@ -36,6 +36,7 @@ Every file in the framework exists in two language variants:
 4. **Check-First for articles:** Read reference format BEFORE generation. 7 checks BEFORE writing .tex. (BL-17, BL-21)
 5. **Bootstrap tested:** Any change to CLAUDE.md templates or README bootstrap prompts must be adversarially tested before deployment. (BL-20)
 6. **Scope reclassification:** If work exceeds 2x initial estimate, formally reclassify task size. (BL-18)
+7. **Core isolation:** Core framework files (outside projects/) MUST NOT reference specific external projects by name. Use `{name}` as placeholder. External project data lives ONLY in `projects/{name}/`.
 
 ## Key Metrics
 - S_team across framework files (sync audit): target > 0.9

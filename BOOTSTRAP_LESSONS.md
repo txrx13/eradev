@@ -126,7 +126,7 @@
 **Applies to:** ALL roles (especially Visionary and Coherencer)
 
 ### BL-16: Reading the Framework ≠ Applying the Framework
-**Source:** A/B experiment — pluggy session analysis (5-agent RT, April 2026)
+**Source:** A/B experiment — real-world deployment session analysis (5-agent RT, April 2026)
 **Rule:** A bootstrap prompt that says "read the framework and proceed" results in 95% solo Builder behavior. The agent reads about Round Tables, classifies XL correctly, then ignores everything and writes code directly. The fix: bootstrap must declare META identity, mandate Agent tool delegation, and include explicit INVARIANT against skipping RT-1.
 **Why:** Claude's default attractor is "helpful solo assistant." Without an explicit identity override ("You are META-Orchestrator, you NEVER write code"), the framework becomes informational context rather than binding protocol. Knowledge without enforcement = Lambda zero (BL-4 recursive application).
 **Applies to:** META-Orchestrator (session bootstrap), all roles (awareness of the failure mode)
@@ -150,9 +150,9 @@
 **Applies to:** ALL roles, META-Orchestrator (enforce bilingual sync rule)
 
 ### BL-20: Adversarially Test Bootstrap Prompts Before Deployment
-**Source:** META Hansei — pluggy session used untested bootstrap
+**Source:** META Hansei — deployment session used untested bootstrap
 **Rule:** Before deploying a new bootstrap prompt (CLAUDE.md, README bootstrap, or any session-start instruction), run an adversarial test: give the bootstrap to an agent with a concrete task and verify it follows the protocol. Do NOT trust that "it looks right" — test it.
-**Why:** The original 3-line bootstrap "looked reasonable" but produced 95% solo Builder behavior. Only the pluggy session analysis (real-world failure) revealed the problem. Testing would have caught it before deployment.
+**Why:** The original 3-line bootstrap "looked reasonable" but produced 95% solo Builder behavior. Only the deployment session analysis (real-world failure) revealed the problem. Testing would have caught it before deployment.
 **Applies to:** META-Orchestrator, Validator (bootstrap testing)
 
 ### BL-21: Format Specifications Are Inputs, Not Afterthoughts
@@ -180,9 +180,9 @@
 **Applies to:** Builder (implementation), Validator (coverage check), Analyst (include paths in decomposition)
 
 ### BL-26: META Always Delegates — No Exceptions
-**Source:** Cycle-7 + pluggy L-016 + gravity hansei — 100% correlation across 5 sessions: delegation = success, direct coding = failure
+**Source:** Cycle-7 + incident L-016 + gravity hansei — 100% correlation across 5 sessions: delegation = success, direct coding = failure
 **Rule:** META ALWAYS delegates via Agent tool, regardless of task size. S-tasks: spawn Builder + Validator agents. M+ tasks: spawn full 5-role team. No "quick fix" exception exists. The S-task loophole ("classify it S to code it directly") is eliminated — it trained the pattern of pipeline bypass. P0 production incidents declared by operator are the sole exception; post-incident Hansei is mandatory.
-**Why:** META bypassing its own pipeline is the recursive Lambda problem: the enforcer stops enforcing. The pluggy session started with "just fix this small thing" and ended with 2.5 hours of solo coding. S-task delegation costs seconds (one Agent call); the behavioral precedent of skipping it costs entire sessions.
+**Why:** META bypassing its own pipeline is the recursive Lambda problem: the enforcer stops enforcing. The deployment session started with "just fix this small thing" and ended with 2.5 hours of solo coding. S-task delegation costs seconds (one Agent call); the behavioral precedent of skipping it costs entire sessions.
 **Applies to:** META-Orchestrator (absolute self-constraint), Coherencer (monitor for any direct META output not in the 5 permitted types), Validator (reject any META-authored artifact)
 
 ### BL-28: Agent Prompt Must Include Explicit Context
@@ -200,7 +200,7 @@
 ### BL-30: Defense-In-Depth for Enforcement
 **Source:** v8 session — 3-layer identity enforcement design (CLAUDE.md + hook + memory persistence)
 **Rule:** Any critical enforcement mechanism must have at least 2 independent layers. A single enforcement point is a single point of failure. If the mechanism can be bypassed by skipping one file/step, add redundant layers.
-**Why:** CLAUDE.md alone failed (pluggy: 95% solo). Hook alone can be bypassed. Memory alone is informational. Three layers together create defense-in-depth where any single layer failing leaves two active.
+**Why:** CLAUDE.md alone failed (deployment test: 95% solo). Hook alone can be bypassed. Memory alone is informational. Three layers together create defense-in-depth where any single layer failing leaves two active.
 **Applies to:** META-Orchestrator (identity), Validator (verification gates), Builder (build checks)
 
 ### BL-31: Constrain Output Types to Constrain Behavior

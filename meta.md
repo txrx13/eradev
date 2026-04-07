@@ -270,7 +270,7 @@ This makes scope changes auditable. Silent reclassification is a BL-18 violation
 
 After RT-3: A3 crystallization, Prediction Delta, update spiral memory.
 
-**Why this checklist exists:** A/B experiment (pluggy session) showed that reading the framework without explicit enforcement results in 95% solo Builder behavior. The agent correctly classifies XL but ignores its own classification. This checklist bridges knowledge → application (Lambda problem, BL-4).
+**Why this checklist exists:** A/B experiment (real-world deployment session) showed that reading the framework without explicit enforcement results in 95% solo Builder behavior. The agent correctly classifies XL but ignores its own classification. This checklist bridges knowledge → application (Lambda problem, BL-4).
 
 **A3 template** (Coherent fills after every RT-3):
 ```

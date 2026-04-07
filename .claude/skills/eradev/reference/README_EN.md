@@ -107,10 +107,8 @@ eradev/
 │   └── *.md                     # Round Table and analytical reports
 └── projects/
     ├── README.md / _EN.md       # Project structure description
-    ├── plugy/                   # Plugy project (config, lessons, checklists)
-    ├── eradev/                  # EraDev self-improvement project
-    ├── academic-lab/            # Web3 platform project
-    └── odtoe-articles/          # Scientific articles project
+    ├── {name}/                  # External projects (config.md + lessons.md)
+    └── eradev/                  # EraDev self-improvement project
 ```
 
 ---
