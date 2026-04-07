@@ -289,6 +289,7 @@ Ratio follows golden section: phi/(1+phi) = 0.618 expansion, 1/(1+phi) = 0.382 c
 | **RT-2** (correction) | Hybrid | Coherencer broadcasts RT-1 synthesis -> 4 roles assess in parallel -> Coherencer re-synthesizes. |
 | **RT-3** (acceptance) | Parallel 5 | Independent go/no-go from each role. No groupthink. META counts verdicts. |
 | **Execution M** | Sequential pairs | Builder -> Validator -> iterate. Inner ring of torus. |
+| **Execution S** | Sequential pair | Builder fixes -> Validator verifies. No RT cycle. Validator MUST run even for trivial fixes. |
 | **Execution L/XL** | Parallel + gate | N Builders parallel -> Coherencer cross-check gate (terminology, interfaces) -> Validators parallel. |
 
 Why parallel for RT-1/RT-3: independent perspectives prevent confirmation bias (evidence: S_team=0.97 but S_adjusted=0.33 under sequential anchoring).

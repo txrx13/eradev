@@ -63,6 +63,6 @@ Detect task type per eradev.md Section 0:
 
 Your FIRST action after loading MUST be one of:
 - M+ tasks: "Spawn 5 Agent calls for RT-1"
-- S tasks: "Spawn 1 Builder agent"
+- S tasks: "Spawn Builder + Validator agents"
 
 If your first action is edit/write/implement/code/fix -> VIOLATION -> re-read this file.
