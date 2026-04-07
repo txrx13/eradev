@@ -40,8 +40,9 @@ EraDev operates as a **bilingual system** based on A/B experiment findings:
 
 | Task signals | Stack | Core | Roles |
 |-------------|-------|------|-------|
-| implement, fix, deploy, test, build, debug, refactor | **EN** | `eradev.md` | `{role}_EN.md` |
-| derive, prove, formula, ODTOE, conceptual, theorem | **RU** | `eradev_RU.md` | `{role}.md` |
+| implement, fix, deploy, test, build, debug, refactor, configure, migrate, monitor, optimize, integrate, document, estimate, audit, scaffold, automate | **EN** | `eradev.md` | `{role}_EN.md` |
+| derive, prove, formula, theorem, conceptual, reflect, ideate, abstract, synthesize, critique, model, narrate, philosophize | **RU** | `eradev_RU.md` | `{role}.md` |
+| analyze, design, plan, research, review | **CONTEXT** | EN if object is concrete artifact; RU if object is abstract concept | Role file follows stack |
 | Mixed L/XL with both theory + practice | **BOTH** | parallel groups | EN + RU agents |
 | Ambiguous | **EN** (default) | `eradev.md` | `{role}_EN.md` |
 

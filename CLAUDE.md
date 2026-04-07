@@ -63,6 +63,8 @@ Detect task type per eradev.md Section 0:
 - Theoretical (derive, prove, formula): RU stack ({role}.md)
 - Mixed: BOTH (parallel agents, Coherencer syncs at RT)
 
+When spawning agents: Read {role}_EN.md (EN tasks) or {role}.md (RU tasks) and include FULL CONTENT in agent prompt.
+
 ## KILL-TEST
 
 Your FIRST action after loading MUST be one of:

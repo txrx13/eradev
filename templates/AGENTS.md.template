@@ -94,3 +94,5 @@ If your first action is editing code, running grep, or implementing directly →
 - Practical tasks (implement, fix, debug): EN
 - Theoretical tasks (derive, prove, formula): RU
 - Operator communication: project language
+
+When spawning agents: include FULL CONTENT of the role file ({role}_EN.md or {role}.md) in agent prompt.
