@@ -8,12 +8,14 @@ Paste this prompt into your first Codex/Jules session:
 
 ```
 Setup EraDev for this project ({PROJECT} = basename of current directory):
+
 1. git clone https://github.com/txrx13/eradev.git eradev (or git pull if exists)
-2. Read eradev/templates/AGENTS.md.template, save as ./AGENTS.md — replace {PROJECT}
-3. Create projects/{PROJECT}/config.md with sections: True North, Architecture, Iron Rules
-4. Create projects/{PROJECT}/lessons.md with header
-5. Copy eradev/.githooks/pre-commit to ./.githooks/pre-commit, make executable, run: git config core.hooksPath .githooks
-6. Read AGENTS.md, output SESSION BOOTSTRAP checklist (6 items)
+2. cp eradev/.githooks/pre-commit .githooks/pre-commit && chmod +x .githooks/pre-commit && git config core.hooksPath .githooks
+3. Spawn [SETUP] agent: create these files —
+   - Read eradev/templates/AGENTS.md.template, save as ./AGENTS.md (replace {PROJECT})
+   - Create projects/{PROJECT}/config.md (True North, Architecture, Iron Rules)
+   - Create projects/{PROJECT}/lessons.md with header
+4. Read AGENTS.md — output SESSION BOOTSTRAP checklist (6 items)
 
 Continue in Russian.
 ```
@@ -34,11 +36,12 @@ No hooks available. All enforcement is text-based via `AGENTS.md`:
 ```
 Update eradev:
 1. cd eradev && git pull origin main && cd ..
-2. cp eradev/templates/AGENTS.md.template AGENTS.md
-3. Read AGENTS.md — verify 6 output types and Core Rules
-4. Read eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md
-5. Read eradev/projects/{PROJECT}/config.md and lessons.md
-6. Output SESSION BOOTSTRAP checklist (6 items from AGENTS.md)
+2. cp eradev/.githooks/pre-commit .githooks/pre-commit && chmod +x .githooks/pre-commit
+3. Spawn [SETUP] agent: update AGENTS.md from eradev/templates/AGENTS.md.template (replace {PROJECT})
+4. Read AGENTS.md — verify 6 output types and Core Rules
+5. Read eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md
+6. Read eradev/projects/{PROJECT}/config.md and lessons.md
+7. Output SESSION BOOTSTRAP checklist (6 items from AGENTS.md)
 
 Continue with current tasks.
 ```

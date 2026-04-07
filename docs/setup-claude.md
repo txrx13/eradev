@@ -6,16 +6,24 @@ Paste this prompt into a new Claude Code session at your project root:
 
 ```
 Setup EraDev for this project ({PROJECT} = basename of current directory):
-1. Clone: git clone https://github.com/txrx13/eradev.git eradev (or git pull if exists)
-2. Read eradev/templates/CLAUDE.md.template, save as ./CLAUDE.md — replace {PROJECT}
-3. Read eradev/templates/AGENTS.md.template, save as ./AGENTS.md — replace {PROJECT}
-4. Create .claude/hooks/ directory, copy all .sh from eradev/.claude/hooks/, make executable
-5. Copy eradev/.claude/settings.json to ./.claude/settings.json
-6. Copy eradev/.githooks/pre-commit to ./.githooks/pre-commit, make executable, run: git config core.hooksPath .githooks
-7. Create projects/{PROJECT}/config.md (True North, Architecture, Iron Rules) + lessons.md
-8. Read eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md — verify they load
-9. Save to memory: META identity + 6 output types + Bash classification + LOAD sequence (5 files)
-10. Output deploy confirmation: list all created files with [x] checkmarks
+
+Operational steps (direct):
+1. git clone https://github.com/txrx13/eradev.git eradev (or git pull if exists)
+2. cp eradev/.claude/hooks/*.sh .claude/hooks/ && chmod +x .claude/hooks/*.sh
+3. cp eradev/.claude/settings.json .claude/settings.json
+4. cp eradev/.githooks/pre-commit .githooks/pre-commit && chmod +x .githooks/pre-commit && git config core.hooksPath .githooks
+
+Delegated steps (spawn one [SETUP] agent):
+5. Spawn [SETUP] agent with task: create these files —
+   - Read eradev/templates/CLAUDE.md.template, save as ./CLAUDE.md (replace {PROJECT})
+   - Read eradev/templates/AGENTS.md.template, save as ./AGENTS.md (replace {PROJECT})
+   - Create projects/{PROJECT}/config.md with sections: True North, Architecture, Iron Rules
+   - Create projects/{PROJECT}/lessons.md with header
+
+Verification:
+6. Read eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md — verify load
+7. Save META identity (6 output types + Bash classification + LOAD sequence) to memory
+8. Output deploy confirmation with [x] checkmarks for all created files
 
 Далее общаемся на русском.
 ```
@@ -35,18 +43,24 @@ Setup EraDev for this project ({PROJECT} = basename of current directory):
 
 ```
 Обнови eradev инструкции:
+
+Operational (direct):
 1. cd eradev && git pull origin main && cd ..
-2. Sync hooks: скопируй eradev/.claude/hooks/*.sh в .claude/hooks/, сделай executable
-3. Sync settings: скопируй eradev/.claude/settings.json в .claude/settings.json
-4. Sync .githooks: скопируй eradev/.githooks/pre-commit в .githooks/pre-commit, сделай executable
-5. Обнови AGENTS.md: скопируй eradev/templates/AGENTS.md.template в ./AGENTS.md, замени {PROJECT}
+2. cp eradev/.claude/hooks/*.sh .claude/hooks/ && chmod +x .claude/hooks/*.sh
+3. cp eradev/.claude/settings.json .claude/settings.json
+4. cp eradev/.githooks/pre-commit .githooks/pre-commit && chmod +x .githooks/pre-commit
+
+Delegated:
+5. Spawn [SETUP] agent: обнови AGENTS.md из eradev/templates/AGENTS.md.template (replace {PROJECT})
+
+Verification:
 6. Прочитай eradev/CLAUDE.md — сверь 6 output types и 10 invariants
 7. Прочитай eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md
 8. Прочитай eradev/projects/{PROJECT}/config.md и lessons.md
 9. Выведи SESSION BOOTSTRAP checklist из meta.md Section 14 (12 items)
 10. Сохрани META identity (6 output types + Bash classification + LOAD sequence) в memory
 
-Далее продолжаем работу по текущим задачам.
+Далее продолжаем работу.
 ```
 
 ## Files Created

@@ -8,13 +8,15 @@ Paste this prompt into your first Cursor session:
 
 ```
 Setup EraDev for this project ({PROJECT} = basename of current directory):
+
 1. git clone https://github.com/txrx13/eradev.git eradev (or git pull if exists)
-2. Read eradev/templates/AGENTS.md.template, save as ./AGENTS.md — replace {PROJECT}
-3. Read eradev/templates/AGENTS.md.template, save as ./.cursorrules — replace {PROJECT}
-4. Create projects/{PROJECT}/config.md with sections: True North, Architecture, Iron Rules
-5. Create projects/{PROJECT}/lessons.md with header
-6. Copy eradev/.githooks/pre-commit to ./.githooks/pre-commit, make executable, run: git config core.hooksPath .githooks
-7. Read .cursorrules, output SESSION BOOTSTRAP checklist (6 items)
+2. cp eradev/.githooks/pre-commit .githooks/pre-commit && chmod +x .githooks/pre-commit && git config core.hooksPath .githooks
+3. Spawn [SETUP] agent: create these files —
+   - Read eradev/templates/AGENTS.md.template, save as ./AGENTS.md (replace {PROJECT})
+   - Copy AGENTS.md to .cursorrules
+   - Create projects/{PROJECT}/config.md (True North, Architecture, Iron Rules)
+   - Create projects/{PROJECT}/lessons.md with header
+4. Read .cursorrules — output SESSION BOOTSTRAP checklist (6 items)
 
 Далее общаемся на русском.
 ```
@@ -35,8 +37,8 @@ No hooks available. All enforcement is text-based via `.cursorrules`:
 ```
 Обнови eradev:
 1. cd eradev && git pull origin main && cd ..
-2. cp eradev/templates/AGENTS.md.template .cursorrules
-3. cp eradev/templates/AGENTS.md.template AGENTS.md
+2. cp eradev/.githooks/pre-commit .githooks/pre-commit && chmod +x .githooks/pre-commit
+3. Spawn [SETUP] agent: обнови AGENTS.md из eradev/templates/AGENTS.md.template (replace {PROJECT}), скопируй в .cursorrules
 4. Прочитай .cursorrules — сверь 6 output types и Core Rules
 5. Прочитай eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md
 6. Прочитай eradev/projects/{PROJECT}/config.md и lessons.md
