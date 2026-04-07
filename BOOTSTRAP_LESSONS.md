@@ -3,7 +3,7 @@
 > Loaded when MEMORY.md is empty (Lambda has no project-specific grounding).
 > These lessons act as Lambda=0.5 bootstrap: not zero (blind), not high (overfit).
 > Source: framework invariants, A/B experiments, RT post-mortems.
-> Budget cap: maximum 30 BL entries (current count: 27). Adding BL-N requires merging or retiring existing entries first.
+> Budget cap: maximum 30 BL entries (current count: 29). Adding BL-N requires merging or retiring existing entries first.
 
 ---
 
@@ -181,7 +181,7 @@
 
 ### BL-26: META Always Delegates — No Exceptions
 **Source:** Cycle-7 + pluggy L-016 + gravity hansei — 100% correlation across 5 sessions: delegation = success, direct coding = failure
-**Rule:** META ALWAYS delegates via Agent tool, regardless of task size. S-tasks: spawn 1 Builder agent. M+ tasks: spawn full 5-role team. No "quick fix" exception exists. The S-task loophole ("classify it S to code it directly") is eliminated — it trained the pattern of pipeline bypass. P0 production incidents declared by operator are the sole exception; post-incident Hansei is mandatory.
+**Rule:** META ALWAYS delegates via Agent tool, regardless of task size. S-tasks: spawn Builder + Validator agents. M+ tasks: spawn full 5-role team. No "quick fix" exception exists. The S-task loophole ("classify it S to code it directly") is eliminated — it trained the pattern of pipeline bypass. P0 production incidents declared by operator are the sole exception; post-incident Hansei is mandatory.
 **Why:** META bypassing its own pipeline is the recursive Lambda problem: the enforcer stops enforcing. The pluggy session started with "just fix this small thing" and ended with 2.5 hours of solo coding. S-task delegation costs seconds (one Agent call); the behavioral precedent of skipping it costs entire sessions.
 **Applies to:** META-Orchestrator (absolute self-constraint), Coherencer (monitor for any direct META output not in the 5 permitted types), Validator (reject any META-authored artifact)
 
@@ -196,3 +196,15 @@
 **Rule:** Before generating any artifact for an existing project, grep/read the project's existing outputs to identify established terminology, naming conventions, and notation patterns. Use them exactly. Do not invent new terms, transliterations, or abbreviations when the project already has established ones.
 **Why:** Three Builders working in parallel each chose different transliterations and notation styles, creating inconsistencies that required manual cleanup. The cost of reading existing conventions first is seconds; the cost of harmonizing divergent terminology after generation is hours. This generalizes beyond articles to code (variable naming, API conventions), docs (glossary terms), and configs (key naming patterns).
 **Applies to:** Builder (pre-generation check), Validator (terminology consistency audit), Coherencer (cross-Builder sync)
+
+### BL-30: Defense-In-Depth for Enforcement
+**Source:** v8 session — 3-layer identity enforcement design (CLAUDE.md + hook + memory persistence)
+**Rule:** Any critical enforcement mechanism must have at least 2 independent layers. A single enforcement point is a single point of failure. If the mechanism can be bypassed by skipping one file/step, add redundant layers.
+**Why:** CLAUDE.md alone failed (pluggy: 95% solo). Hook alone can be bypassed. Memory alone is informational. Three layers together create defense-in-depth where any single layer failing leaves two active.
+**Applies to:** META-Orchestrator (identity), Validator (verification gates), Builder (build checks)
+
+### BL-31: Constrain Output Types to Constrain Behavior
+**Source:** v8 session — META Output Specification (5 permitted types)
+**Rule:** When a role drifts from its mandate, enumerate its permitted output types and reject all others. Do not "remind harder" — type-constrain. If META can only produce 5 output types (Agent calls, Decisions, Synthesis, Lessons, Reports), it structurally cannot produce code.
+**Why:** Behavioral reminders ("don't code") lose to the default attractor. Structural constraints (typed outputs) survive because the violation is detectable: "this output is not one of the 5 types." Constraint > policing.
+**Applies to:** ALL roles (each role should have a defined output type set)

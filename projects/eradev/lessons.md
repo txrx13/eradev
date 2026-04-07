@@ -53,3 +53,13 @@ Every optimization loop must be embedded within an orientation loop. The optimiz
 Rule: At every 10th iteration of any score-driven loop, pause optimization and run a mini-RT with at least Visionary + Coherencer. The question is not "is the score improving?" but "is the thing we are scoring still the right thing to score?" If the answer is no, redefine the score function before resuming.
 
 Source: AutoAgent analysis (April 2026) -- AutoAgent achieves speed through score-driven hill climbing but lacks orientation mechanism. EraDev achieves orientation through RT deliberation but lacks optimization speed. The synthesis: embed optimization within orientation.
+
+### Session 2: v8 META-Orchestration Architecture (April 2026)
+
+11. **3-Layer Identity Enforcement eliminates single-point collapse.** Single CLAUDE.md enforcement failed in pluggy (95% solo Builder). Adding hook + memory persistence creates 3 independent firing points. Any single layer failing leaves 2 active.
+
+12. **META Output Type Spec is the structural fix for context pollution.** Identity drift was diagnosed not as behavioral but structural: untyped outputs allow any behavior. Enumerating 5 permitted output types makes code output structurally impossible.
+
+13. **RT-1 can REJECT a proposal — this is healthy.** RT-1 on eradev.md decomposition ran 5 roles, 3/5 rejected the split. In-place Part I/II markers accepted as alternative. REJECT is the system working correctly.
+
+14. **BL Budget requires active merge, not just append.** At 27/30, adding new entries required merging BL-13+23 and BL-6+27. Append-only BL management hits the wall; active compression is required.

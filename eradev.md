@@ -190,7 +190,7 @@ This replaces the previous binary pass/fail: instead of "stop or go", agents now
 - **PRE-FLIGHT:** For tasks with external API, Analyst verifies endpoints before RT-1. Unverified = RED on A_F (BL-22).
 - **LAMBDA AUDIT:** At RT-1, Coherencer announces 3 lessons + 2 patterns. Builder cannot name one = Lambda=0, ANDON.
 - **FIX-TO-SPEC:** Fix chain >= 3 = ANDON. Builder writes specification. Spec passes RT before implementation resumes (BL-3).
-- **BUILD-VERIFY:** Builder MUST run build/compile/lint for every artifact before commit. Unverified artifact = RED on A_sigma. Commit REJECTED until build output attached (BL-27).
+- **BUILD-VERIFY:** Builder MUST run build/compile/lint for every artifact before commit. Unverified artifact = RED on A_sigma. Commit REJECTED until build output attached (BL-6).
 
 ### Enforcement Failure Escalation
 
@@ -201,7 +201,7 @@ If an Enforcement Gate is violated (detected at any point during the cycle):
 | PRE-FLIGHT skipped (BL-22) | Re-verify all endpoints. Work done without verification gets fix_rate penalty. | All unverified commits counted as fixes. |
 | LAMBDA AUDIT failed | Builder output REJECTED. Coherencer re-announces lessons. Builder regenerates. | No commit until audit passes. |
 | FIX-TO-SPEC triggered (3+ fixes) | Current work FROZEN. Spec-first: write specification, pass RT, then resume. | chain_ratio resets only after spec passes RT. |
-| BUILD-VERIFY skipped (BL-27) | Commit REJECTED. Builder re-runs build, attaches output. | Unverified commit counted as fix in fix_rate. |
+| BUILD-VERIFY skipped (BL-6) | Commit REJECTED. Builder re-runs build, attaches output. | Unverified commit counted as fix in fix_rate. |
 
 **Dead Gate Rule:** An Enforcement Gate that fires but does not change behavior is a dead gate. If the same gate fires 2x in one session without preventing the failure, escalate to META for gate redesign.
 
@@ -490,7 +490,7 @@ eradev/
   glossary.md / glossary_EN.md -- Bilingual glossary
   {role}.md            -- RU role prompts (visionary, analyst, builder, validator, coherent)
   {role}_EN.md         -- EN role prompts
-  BOOTSTRAP_LESSONS.md -- Cold-start Lambda (BL-01..BL-26)
+  BOOTSTRAP_LESSONS.md -- Cold-start Lambda (BL-01..BL-29)
   LOADING_PROTOCOL.md  -- Agent context loading sequence
   CHECKLIST.md / CHECKLIST_EN.md -- Deploy/review checklists
   MEMORY_TEMPLATE.md / MEMORY_TEMPLATE_EN.md -- A3 template

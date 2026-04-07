@@ -171,7 +171,6 @@ Critical subset from cold-start Lambda. Full details in [meta/BOOTSTRAP_LESSONS.
 | **BL-22** | PRE-FLIGHT gate for external APIs. Analyst curl-verifies every endpoint before RT-1. Unverified = RED. | PRE-FLIGHT gate |
 | **BL-24** | Single-responsibility commits. One commit = one phase. >5 files from different modules = RT-2 review. | Commit discipline |
 | **BL-26** | META zero quick-fix rule. META MUST NOT implement M+ fixes directly, even "obvious" ones. | Self-constraint |
-| **BL-27** | Artifact validity gate. Builder MUST run compile/lint/parse and attach output as proof. "Looks correct" != verified. | BUILD-VERIFY gate |
 | **BL-28** | Agent prompt MUST include: role identity, task, file paths, output format, project config. Without = agent refuses or hallucinates. | Agent Prompt gate |
 | **BL-29** | Verify established terminology before generating. Grep existing outputs for conventions. Don't invent new terms. | Terminology audit |
 
@@ -191,9 +190,9 @@ These are hard constraints. Violating any invariant is a system failure.
 
 5. **Fix chain >= 3 = ANDON (BL-3).** Do NOT attempt fix number 4. Return to specification. Re-run RT-1.
 
-6. **META ALWAYS delegates via Agent tool (BL-26).** No exceptions for any task size. S-tasks: 1 Builder agent. M+: full pipeline. P0 incidents declared by operator are the sole bypass; post-incident Hansei mandatory.
+6. **META ALWAYS delegates via Agent tool (BL-26).** No exceptions for any task size. S-tasks: Builder + Validator agents. M+: full pipeline. P0 incidents declared by operator are the sole bypass; post-incident Hansei mandatory.
 
-7. **Unverified artifacts are REJECTED (BL-27).** Builder MUST attach build/lint/parse output. "It looks correct" is not verification.
+7. **Unverified artifacts are REJECTED (BL-6).** Builder MUST attach build/lint/parse output. "It looks correct" is not verification.
 
 STRUCTURAL GATE: If you detect yourself violating any invariant, STOP immediately. Output which invariant was violated and restart the correct procedure.
 
@@ -210,7 +209,7 @@ This skill is self-contained. All framework files are bundled in subdirectories:
 ### meta/ -- META-Orchestrator Files
 - [meta.md](meta/meta.md) -- META protocol, Session Entry, prompt evolution
 - [meta_RU.md](meta/meta_RU.md) -- Russian META protocol
-- [BOOTSTRAP_LESSONS.md](meta/BOOTSTRAP_LESSONS.md) -- BL-01..BL-27 cold-start Lambda
+- [BOOTSTRAP_LESSONS.md](meta/BOOTSTRAP_LESSONS.md) -- BL-01..BL-29 cold-start Lambda
 - [LOADING_PROTOCOL.md](meta/LOADING_PROTOCOL.md) -- Agent context loading sequence
 
 ### roles/ -- Role Agent Prompts (bilingual)
