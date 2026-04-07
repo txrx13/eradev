@@ -4,48 +4,20 @@ Windsurf reads `.windsurfrules` or `.windsurf/rules/*.md` and supports hooks via
 
 ## Deploy (new project)
 
-```bash
-# 1. Clone EraDev
-git clone https://github.com/txrx13/eradev.git eradev
+Paste this prompt into your first Windsurf session:
 
-# 2. Install .windsurfrules (universal agent config)
-cp eradev/templates/AGENTS.md.template .windsurfrules
-
-# 3. Also create AGENTS.md (for Codex/Jules compatibility)
-cp eradev/templates/AGENTS.md.template AGENTS.md
-
-# 4. Install enforcement hooks (shared with Claude Code)
-mkdir -p .claude/hooks .windsurf
-cp eradev/.claude/hooks/*.sh .claude/hooks/
-chmod +x .claude/hooks/*.sh
 ```
+Setup EraDev for this project ({PROJECT} = basename of current directory):
+1. git clone https://github.com/txrx13/eradev.git eradev (or git pull if exists)
+2. Read eradev/templates/AGENTS.md.template, save as ./.windsurfrules — replace {PROJECT}
+3. Read eradev/templates/AGENTS.md.template, save as ./AGENTS.md — replace {PROJECT}
+4. Create .claude/hooks/ directory, copy all .sh files from eradev/.claude/hooks/, make executable
+5. Create .windsurf/ directory, create hooks.json with PreToolUse hooks matching Edit|Write|Bash and Agent (see eradev/.claude/settings.json for format)
+6. Create projects/{PROJECT}/config.md with sections: True North, Architecture, Iron Rules
+7. Create projects/{PROJECT}/lessons.md with header
+8. Read .windsurfrules, output SESSION BOOTSTRAP checklist (6 items)
 
-Create `.windsurf/hooks.json`:
-```json
-{
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Edit|Write|Bash",
-        "hooks": [{"type": "command", "command": ".claude/hooks/enforce-delegation.sh"}]
-      },
-      {
-        "matcher": "Agent",
-        "hooks": [
-          {"type": "command", "command": ".claude/hooks/agent-role-tag.sh"},
-          {"type": "command", "command": ".claude/hooks/agent-context-check.sh"}
-        ]
-      }
-    ]
-  }
-}
-```
-
-```bash
-# 5. Create project skeleton
-mkdir -p projects/YOUR_PROJECT
-echo "# YOUR_PROJECT — Config" > projects/YOUR_PROJECT/config.md
-echo "# YOUR_PROJECT — Lessons" > projects/YOUR_PROJECT/lessons.md
+Далее общаемся на русском.
 ```
 
 ## Enforcement

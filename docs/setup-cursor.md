@@ -4,20 +4,18 @@ Cursor reads `.cursorrules` or `.cursor/rules/*.mdc` at project root. No hooks s
 
 ## Deploy (new project)
 
-```bash
-# 1. Clone EraDev
-git clone https://github.com/txrx13/eradev.git eradev
+Paste this prompt into your first Cursor session:
 
-# 2. Install .cursorrules (universal agent config)
-cp eradev/templates/AGENTS.md.template .cursorrules
+```
+Setup EraDev for this project ({PROJECT} = basename of current directory):
+1. git clone https://github.com/txrx13/eradev.git eradev (or git pull if exists)
+2. Read eradev/templates/AGENTS.md.template, save as ./AGENTS.md — replace {PROJECT}
+3. Read eradev/templates/AGENTS.md.template, save as ./.cursorrules — replace {PROJECT}
+4. Create projects/{PROJECT}/config.md with sections: True North, Architecture, Iron Rules
+5. Create projects/{PROJECT}/lessons.md with header
+6. Read .cursorrules, output SESSION BOOTSTRAP checklist (6 items)
 
-# 3. Also create AGENTS.md (for Codex/Jules compatibility)
-cp eradev/templates/AGENTS.md.template AGENTS.md
-
-# 4. Create project skeleton
-mkdir -p projects/YOUR_PROJECT
-echo "# YOUR_PROJECT — Config" > projects/YOUR_PROJECT/config.md
-echo "# YOUR_PROJECT — Lessons" > projects/YOUR_PROJECT/lessons.md
+Далее общаемся на русском.
 ```
 
 ## Enforcement

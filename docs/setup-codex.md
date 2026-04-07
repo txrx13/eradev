@@ -4,17 +4,17 @@ Both Codex and Jules read `AGENTS.md` at project root. No hooks support — enfo
 
 ## Deploy (new project)
 
-```bash
-# 1. Clone EraDev
-git clone https://github.com/txrx13/eradev.git eradev
+Paste this prompt into your first Codex/Jules session:
 
-# 2. Install AGENTS.md (universal agent config)
-cp eradev/templates/AGENTS.md.template AGENTS.md
+```
+Setup EraDev for this project ({PROJECT} = basename of current directory):
+1. git clone https://github.com/txrx13/eradev.git eradev (or git pull if exists)
+2. Read eradev/templates/AGENTS.md.template, save as ./AGENTS.md — replace {PROJECT}
+3. Create projects/{PROJECT}/config.md with sections: True North, Architecture, Iron Rules
+4. Create projects/{PROJECT}/lessons.md with header
+5. Read AGENTS.md, output SESSION BOOTSTRAP checklist (6 items)
 
-# 3. Create project skeleton
-mkdir -p projects/YOUR_PROJECT
-echo "# YOUR_PROJECT — Config" > projects/YOUR_PROJECT/config.md
-echo "# YOUR_PROJECT — Lessons" > projects/YOUR_PROJECT/lessons.md
+Continue in Russian.
 ```
 
 ## Enforcement

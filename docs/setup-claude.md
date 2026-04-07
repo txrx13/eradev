@@ -2,28 +2,22 @@
 
 ## Deploy (new project)
 
-Paste `templates/DEPLOY_PROMPT.md` into a new Claude Code session at your project root. It executes 8 steps automatically.
+**Option A (recommended):** Paste `templates/DEPLOY_PROMPT.md` contents into a new Claude Code session. It does everything automatically.
 
-Or manually:
+**Option B:** Paste this prompt:
 
-```bash
-# 1. Clone EraDev
-git clone https://github.com/txrx13/eradev.git eradev
+```
+Setup EraDev for this project ({PROJECT} = basename of current directory):
+1. git clone https://github.com/txrx13/eradev.git eradev (or git pull if exists)
+2. Read eradev/templates/CLAUDE.md.template, save as ./CLAUDE.md — replace {PROJECT}
+3. Create .claude/hooks/ directory, copy all .sh files from eradev/.claude/hooks/, make executable
+4. Read eradev/.claude/settings.json, save as ./.claude/settings.json
+5. Create projects/{PROJECT}/config.md with sections: True North, Architecture, Iron Rules
+6. Create projects/{PROJECT}/lessons.md with header
+7. Save META identity (6 output types + Bash classification) to Claude Code memory
+8. Output SESSION BOOTSTRAP checklist from eradev/meta.md Section 14
 
-# 2. Install CLAUDE.md
-cp eradev/templates/CLAUDE.md.template CLAUDE.md
-# Edit CLAUDE.md: replace {PROJECT} with your project name
-
-# 3. Install enforcement hooks
-mkdir -p .claude/hooks
-cp eradev/.claude/hooks/*.sh .claude/hooks/
-chmod +x .claude/hooks/*.sh
-cp eradev/.claude/settings.json .claude/settings.json
-
-# 4. Create project skeleton
-mkdir -p projects/YOUR_PROJECT
-echo "# YOUR_PROJECT — Config" > projects/YOUR_PROJECT/config.md
-echo "# YOUR_PROJECT — Lessons" > projects/YOUR_PROJECT/lessons.md
+Далее общаемся на русском.
 ```
 
 ## Enforcement Layers
