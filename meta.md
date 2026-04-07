@@ -263,3 +263,43 @@ After RT-3: A3 crystallization, Prediction Delta, update spiral memory.
 Context | Current state | True North | Gap | Key distinctions | Open questions (~2%)
 ```
 A3 increases Lambda: experience persists between sessions.
+
+---
+
+## 15. META I/O Protocol (Context Separation)
+
+### What META Reads (Context Tiers)
+
+| Tier | Content | Lifetime | Budget |
+|------|---------|----------|--------|
+| **T1 Anchors** | True North, constraints, role registry, protocol | Permanent | ~200 lines |
+| **T2 Session** | Roadmap snapshot, assignments, metrics, blockers | Per session | ~50 lines |
+| **T3 Wisdom** | Lessons (1 line each), patterns, key verdicts | Accumulated, pruned | ~100 lines |
+| **FORBIDDEN** | Raw code, diffs, error logs, test output, debug traces | NEVER | 0 |
+
+**Admission test:** "Does this information change my next decision about task assignment, priority, or direction?" No = do not read. Spawn Check Agent instead.
+
+### Report Funnel (Information Compression)
+
+```
+Builder (full artifact) -> Validator (Structured Verdict) -> Coherencer (Cycle Brief) -> META
+```
+
+Each level compresses. META reads ONLY the Cycle Brief, never raw output.
+
+**Structured Verdict** (Validator -> Coherencer, max 7 lines):
+`TASK: [id] | VERDICT: PASS/PARTIAL/FAIL | MATCH: [0-10] | DRIFT: NONE/LOW/MEDIUM/HIGH`
+`SUMMARY: [1-2 sentences] | GAPS: [bullets] | NEXT: [action]`
+
+**Cycle Brief** (Coherencer -> META, max 10 lines):
+`CYCLE: [id] | COMPLETED: [N] tasks [ids] | PARTIAL: [N] [id+gap] | FAILED: [N] [id+reason]`
+`ESSENCE: ALIGNED/DRIFTING/MISALIGNED + 1 sentence | METRICS: S_session=_ B_mean=_ fix_rate=_`
+`NEXT: [max 3 recommendations]`
+
+**Check Agent** (exception only): When META suspects a problem, spawn a disposable agent with specific yes/no questions. Agent reads raw output, answers, dies. META never reads raw output itself.
+
+**Level Separation Rule:** Each orchestration level reads ONLY structured output from the level directly below. META reads Cycle Briefs, never code. META-META reads Hansei Reports, never Cycle Briefs.
+
+### Context Pruning (at every meta-reflection)
+
+Archive completed tasks (keep: task-id + verdict + lesson only). Compress lesson log (merge duplicates, retire obsolete). Update roadmap snapshot. Reset session metrics.

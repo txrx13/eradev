@@ -267,6 +267,21 @@ Go / no-go decision. Mandatory steps:
 
 Ratio follows golden section: phi/(1+phi) = 0.618 expansion, 1/(1+phi) = 0.382 compression.
 
+### RT Phase Protocols (Reference)
+
+| Phase | Model | Protocol |
+|-------|-------|----------|
+| **RT-1** (understanding) | Parallel 5 | All agents receive raw task simultaneously. No agent sees another's output. META synthesizes. |
+| **RT-2** (correction) | Hybrid | Coherencer broadcasts RT-1 synthesis -> 4 roles assess in parallel -> Coherencer re-synthesizes. |
+| **RT-3** (acceptance) | Parallel 5 | Independent go/no-go from each role. No groupthink. META counts verdicts. |
+| **Execution M** | Sequential pairs | Builder -> Validator -> iterate. Inner ring of torus. |
+| **Execution L/XL** | Parallel + gate | N Builders parallel -> Coherencer cross-check gate (terminology, interfaces) -> Validators parallel. |
+
+Why parallel for RT-1/RT-3: independent perspectives prevent confirmation bias (evidence: S_team=0.97 but S_adjusted=0.33 under sequential anchoring).
+Why hybrid for RT-2: shared frame exists from RT-1; assessment itself is parallel.
+Why sequential for M execution: fast Builder-Validator feedback on inner torus ring.
+Why parallel+gate for L/XL: speed of parallel + Coherencer sync gate (BL-29 terminology, BL-28 context).
+
 ---
 
 ## VII. Andon -- Permission to Stop
