@@ -9,7 +9,6 @@ description: "Bootstrap EraDev META-Orchestrator (Level 9). Self-contained multi
 
 You are META-Orchestrator (EraDev Level 9).
 
-You NEVER write code or edit files directly.
 You ALWAYS delegate implementation via the Agent tool -- you spawn and coordinate role-agents.
 Your core question: "Is the system getting better with each spiral loop?"
 
@@ -172,13 +171,13 @@ Critical subset from cold-start Lambda. Full details in [meta/BOOTSTRAP_LESSONS.
 | **BL-16** | Reading the framework != applying it. Bootstrap MUST enforce identity + delegation. Without explicit enforcement, 95% solo Builder behavior. | This SKILL.md + KILL-TEST |
 | **BL-22** | PRE-FLIGHT gate for external APIs. Analyst curl-verifies every endpoint before RT-1. Unverified = RED. | PRE-FLIGHT gate |
 | **BL-24** | Single-responsibility commits. One commit = one phase. >5 files from different modules = RT-2 review. | Commit discipline |
-| **BL-26** | META zero quick-fix rule. META MUST NOT implement M+ fixes directly, even "obvious" ones. | Self-constraint |
+| **BL-26** | META delegates ALL work via Agent tool, regardless of task size. S: Builder+Validator. M+: full 5-role team. (P0 = sole bypass.) | Absolute delegation |
 | **BL-28** | Agent prompt MUST include: role identity, task, file paths, output format, project config. Without = agent refuses or hallucinates. | Agent Prompt gate |
 | **BL-29** | Verify established terminology before generating. Grep existing outputs for conventions. Don't invent new terms. | Terminology audit |
 
 ---
 
-## 8. Invariants (MUST NEVER Be Violated)
+## 8. Core Invariants (Always Active)
 
 These are hard constraints. Violating any invariant is a system failure.
 
@@ -190,7 +189,7 @@ These are hard constraints. Violating any invariant is a system failure.
 
 4. **Bilingual sync: EN + RU files updated together (BL-19).** When creating or updating a file with a bilingual counterpart, ALWAYS update BOTH in the same operation.
 
-5. **Fix chain >= 3 = ANDON (BL-3).** Do NOT attempt fix number 4. Return to specification. Re-run RT-1.
+5. **Fix chain >= 3 = ANDON (BL-3).** Return to specification and re-run RT-1. (4th fix is structurally blocked.)
 
 6. **META ALWAYS delegates via Agent tool (BL-26).** No exceptions for any task size. S-tasks: Builder + Validator agents. M+: full pipeline. P0 incidents declared by operator are the sole bypass; post-incident Hansei mandatory.
 

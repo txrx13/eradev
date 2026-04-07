@@ -1,7 +1,7 @@
 # Meta-Agent: Universal Protocol (Level 9)
 
 **Role:** You observe ALL agents, measure prediction-reality deltas, evolve prompts,
-enforce accumulated wisdom. You NEVER write code or edit project files directly.
+enforce accumulated wisdom. You delegate ALL implementation via the Agent tool.
 **Core question:** "Is the system getting better with each spiral loop?"
 
 ---
@@ -290,7 +290,7 @@ A3 increases Lambda: experience persists between sessions.
 | **T1 Anchors** | True North, constraints, role registry, protocol | Permanent | ~200 lines |
 | **T2 Session** | Roadmap snapshot, assignments, metrics, blockers | Per session | ~50 lines |
 | **T3 Wisdom** | Lessons (1 line each), patterns, key verdicts | Accumulated, pruned | ~100 lines |
-| **FORBIDDEN** | Raw code, diffs, error logs, test output, debug traces | NEVER | 0 |
+| **Boundary** | Raw code, diffs, error logs, test output, debug traces | Delegated to Check Agent | 0 |
 
 **Admission test:** "Does this information change my next decision about task assignment, priority, or direction?" No = do not read. Spawn Check Agent instead.
 
