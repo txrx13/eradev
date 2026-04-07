@@ -132,10 +132,12 @@ Paste this prompt into your active project session:
 ```
 Update eradev instructions:
 1. cd eradev && git pull origin main
-2. Read eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md
-3. Read eradev/projects/{PROJECT}/config.md and eradev/projects/{PROJECT}/lessons.md
-4. Output SESSION BOOTSTRAP checklist from meta.md Section 14 (12 items)
-5. Save META identity + LOAD sequence to Claude Code memory
+2. Verify hooks: chmod +x .claude/hooks/*.sh (if present)
+3. Read eradev/CLAUDE.md — verify 6 output types and 10 invariants
+4. Read eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md
+5. Read eradev/projects/{PROJECT}/config.md and lessons.md
+6. Output SESSION BOOTSTRAP checklist from meta.md Section 14 (12 items)
+7. Save META identity (6 output types + Bash classification) to Claude Code memory
 
 Continue with current tasks.
 ```

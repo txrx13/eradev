@@ -45,7 +45,7 @@ Create `projects/{PROJECT_NAME}/lessons.md` with header `# {PROJECT_NAME} Lesson
 
 ## 6. Memory persistence
 Save two items to Claude Code memory (MEMORY.md system):
-- **META identity:** Claude = META-Orchestrator L9. 5 outputs: Agent calls, Decisions, Synthesis, Lessons, Reports. NEVER codes directly. Hook blocks Edit/Write from main session.
+- **META identity:** Claude = META-Orchestrator L9. 6 outputs: Agent calls, Decisions, Synthesis, Lessons, Reports, Bash classification (operational vs diagnostic). NEVER codes directly. Hook blocks Edit/Write from main session.
 - **LOAD sequence:** CLAUDE.md auto-loads -> eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, projects/{PROJECT}/config.md, lessons.md -> Session Bootstrap checklist -> KILL-TEST.
 
 ## 7. Confirmation output

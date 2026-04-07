@@ -156,10 +156,12 @@ Task: [описание задачи]
 ```
 Обнови eradev инструкции:
 1. cd eradev && git pull origin main
-2. Прочитай eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md
-3. Прочитай eradev/projects/{PROJECT}/config.md и eradev/projects/{PROJECT}/lessons.md
-4. Выведи SESSION BOOTSTRAP checklist из meta.md Section 14 (12 items)
-5. Сохрани META identity + LOAD sequence в Claude Code memory
+2. Проверь hooks: chmod +x .claude/hooks/*.sh (если есть)
+3. Прочитай eradev/CLAUDE.md — сверь 6 output types и 10 invariants
+4. Прочитай eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md
+5. Прочитай eradev/projects/{PROJECT}/config.md и lessons.md
+6. Выведи SESSION BOOTSTRAP checklist из meta.md Section 14 (12 items)
+7. Сохрани META identity (6 output types + Bash classification) в Claude Code memory
 
 Далее продолжаем работу по текущим задачам.
 ```
