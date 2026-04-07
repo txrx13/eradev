@@ -15,7 +15,8 @@ Setup EraDev for this project ({PROJECT} = basename of current directory):
 5. Create .windsurf/ directory, create hooks.json with PreToolUse hooks matching Edit|Write|Bash and Agent (see eradev/.claude/settings.json for format)
 6. Create projects/{PROJECT}/config.md with sections: True North, Architecture, Iron Rules
 7. Create projects/{PROJECT}/lessons.md with header
-8. Read .windsurfrules, output SESSION BOOTSTRAP checklist (6 items)
+8. Copy eradev/.githooks/pre-commit to ./.githooks/pre-commit, make executable, run: git config core.hooksPath .githooks
+9. Read .windsurfrules, output SESSION BOOTSTRAP checklist (6 items)
 
 Далее общаемся на русском.
 ```
@@ -53,6 +54,8 @@ project/
 │   ├── enforce-delegation.sh
 │   ├── agent-role-tag.sh
 │   └── agent-context-check.sh
+├── .githooks/
+│   └── pre-commit             # Fix chain >= 3 detection (BL-3)
 ├── .windsurf/
 │   └── hooks.json             # Windsurf hook configuration
 └── eradev/                    # Framework (git clone)

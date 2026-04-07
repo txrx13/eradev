@@ -40,7 +40,7 @@ KILL-TEST: first action = agent call.
 Task: [task description]
 ```
 
-Detailed instructions in guides above. For new project deploy: `templates/DEPLOY_PROMPT.md`.
+Detailed instructions in guides above. For new project deploy: `docs/setup-{agent}.md` guides.
 
 ---
 
@@ -77,7 +77,6 @@ eradev/
 ├── templates/
 │   ├── CLAUDE.md.template       # CLAUDE.md template for new projects
 │   ├── CLAUDE.md.universal      # Universal variant (no project paths)
-│   └── DEPLOY_PROMPT.md         # 8-step deploy prompt for new projects
 ├── reports/
 │   ├── HANSEI_TEMPLATE.md       # Structured Hansei reflection template
 │   └── *.md                     # Round Table and analytical reports
@@ -167,7 +166,6 @@ Golden ratio proportion: Round Table ~38%, Build ~62%.
 | `interfaces.md` | Role Interface Contracts (5 handoff schemas with YAML) |
 | `LOADING_PROTOCOL.md` | Agent loading sequence (4 steps, 400-line budget) |
 | `BOOTSTRAP_LESSONS.md` | 30 cold-start lessons (BL-1..BL-32) for Lambda bootstrap |
-| `templates/DEPLOY_PROMPT.md` | 8-step deploy prompt for new projects |
 | `reports/HANSEI_TEMPLATE.md` | Structured Hansei reflection template |
 
 ---

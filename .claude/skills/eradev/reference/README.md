@@ -48,7 +48,6 @@ eradev/
 ├── templates/
 │   ├── CLAUDE.md.template          # Шаблон CLAUDE.md для проектов
 │   ├── CLAUDE.md.universal         # Универсальный CLAUDE.md (без проекта)
-│   └── DEPLOY_PROMPT.md            # 8-шаговый deploy для новых проектов
 ├── projects/
 │   ├── {name}/                     # Внешние проекты (config.md + lessons.md)
 │   └── eradev/                     # Саморазвитие фреймворка
@@ -99,7 +98,7 @@ KILL-TEST: first action = agent call.
 Task: [описание задачи]
 ```
 
-Подробные инструкции -- в guides выше. Для deploy нового проекта: `templates/DEPLOY_PROMPT.md`.
+Подробные инструкции -- в guides выше. Для deploy нового проекта: `docs/setup-{agent}.md` guides.
 
 ---
 

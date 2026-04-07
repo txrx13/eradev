@@ -13,7 +13,8 @@ Setup EraDev for this project ({PROJECT} = basename of current directory):
 3. Read eradev/templates/AGENTS.md.template, save as ./.cursorrules — replace {PROJECT}
 4. Create projects/{PROJECT}/config.md with sections: True North, Architecture, Iron Rules
 5. Create projects/{PROJECT}/lessons.md with header
-6. Read .cursorrules, output SESSION BOOTSTRAP checklist (6 items)
+6. Copy eradev/.githooks/pre-commit to ./.githooks/pre-commit, make executable, run: git config core.hooksPath .githooks
+7. Read .cursorrules, output SESSION BOOTSTRAP checklist (6 items)
 
 Далее общаемся на русском.
 ```
@@ -27,6 +28,7 @@ No hooks available. All enforcement is text-based via `.cursorrules`:
 - Bash classification (operational vs diagnostic)
 - Report Funnel (Builder → Verdict → Brief → META)
 - Context Tiers + Meta-Reflection Triggers
+- Git pre-commit hook detects fix chains >= 3 (BL-3)
 
 ## Update (existing project)
 
@@ -49,5 +51,7 @@ No hooks available. All enforcement is text-based via `.cursorrules`:
 project/
 ├── .cursorrules           # Cursor reads this (copy of AGENTS.md)
 ├── AGENTS.md              # Universal (Codex/Jules also read this)
+├── .githooks/
+│   └── pre-commit             # Fix chain >= 3 detection (BL-3)
 └── eradev/                # Framework (git clone)
 ```

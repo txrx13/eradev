@@ -12,7 +12,8 @@ Setup EraDev for this project ({PROJECT} = basename of current directory):
 2. Read eradev/templates/AGENTS.md.template, save as ./AGENTS.md — replace {PROJECT}
 3. Create projects/{PROJECT}/config.md with sections: True North, Architecture, Iron Rules
 4. Create projects/{PROJECT}/lessons.md with header
-5. Read AGENTS.md, output SESSION BOOTSTRAP checklist (6 items)
+5. Copy eradev/.githooks/pre-commit to ./.githooks/pre-commit, make executable, run: git config core.hooksPath .githooks
+6. Read AGENTS.md, output SESSION BOOTSTRAP checklist (6 items)
 
 Continue in Russian.
 ```
@@ -26,6 +27,7 @@ No hooks available. All enforcement is text-based via `AGENTS.md`:
 - Bash classification (operational vs diagnostic)
 - Report Funnel + Context Tiers
 - Meta-Reflection Triggers + Mid-Session Reclassification
+- Git pre-commit hook detects fix chains >= 3 (BL-3)
 
 ## Update (existing project)
 
@@ -46,6 +48,8 @@ Continue with current tasks.
 ```
 project/
 ├── AGENTS.md              # Universal (Codex and Jules read this)
+├── .githooks/
+│   └── pre-commit             # Fix chain >= 3 detection (BL-3)
 └── eradev/                # Framework (git clone)
 ```
 
