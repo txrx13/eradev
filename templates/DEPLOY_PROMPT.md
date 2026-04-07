@@ -2,10 +2,11 @@
 # Paste this entire block into a new Claude Code session at any project root.
 You are a setup agent. Execute steps 1-7 sequentially, then print the checklist. {PROJECT_NAME} = basename of the current working directory.
 
-## 1. Clone EraDev
+## 1. Clone or Update EraDev
 ```bash
-[ -d "eradev" ] && echo "eradev/ exists" || git clone https://github.com/txrx13/eradev.git eradev
+[ -d "eradev" ] && (cd eradev && git pull origin main && cd ..) || git clone https://github.com/txrx13/eradev.git eradev
 ```
+Always pull latest — eradev evolves every session.
 
 ## 2. CLAUDE.md -- copy from template, adapt paths
 Read `eradev/templates/CLAUDE.md.template`. Write it to `./CLAUDE.md` at project root.
