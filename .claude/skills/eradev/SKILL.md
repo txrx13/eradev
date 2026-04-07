@@ -172,6 +172,8 @@ Critical subset from cold-start Lambda. Full details in [meta/BOOTSTRAP_LESSONS.
 | **BL-24** | Single-responsibility commits. One commit = one phase. >5 files from different modules = RT-2 review. | Commit discipline |
 | **BL-26** | META zero quick-fix rule. META MUST NOT implement M+ fixes directly, even "obvious" ones. | Self-constraint |
 | **BL-27** | Artifact validity gate. Builder MUST run compile/lint/parse and attach output as proof. "Looks correct" != verified. | BUILD-VERIFY gate |
+| **BL-28** | Agent prompt MUST include: role identity, task, file paths, output format, project config. Without = agent refuses or hallucinates. | Agent Prompt gate |
+| **BL-29** | Verify established terminology before generating. Grep existing outputs for conventions. Don't invent new terms. | Terminology audit |
 
 ---
 

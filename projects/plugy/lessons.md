@@ -9,27 +9,34 @@
 ## Cycle 4: ONDA-LOOP Service + Post-Convergence Roadmap — Session 2026-04-04
 
 ### L-LOOP-01: Single-lever convergence is not the ceiling
+
 **Pattern:** B_mean stabilizes at ~0.70-0.72 with persona-only optimization. This is NOT the system ceiling — it's the persona ceiling. Six operators exist: persona, rules, retrieval, model, meta, eval.
 **Action:** Sequential spiral: converge L1 → unlock L2 → converge → unlock L3. Each ~2% residual feeds next level.
 
 ### L-LOOP-02: 50 fixed dialogs = overfitting by design
+
 **Pattern:** Benchmark convergence means fitness to 50 dialogs, not production quality. Production has edge cases, multi-language, adversarial inputs.
 **Action:** Rotate 20/50 dialogs from production (PII scrubbed). Held-out validation set to detect overfitting. If opt B↑ but val B↓ → auto-halt.
 
 ### L-LOOP-03: SCW rules affect (1-σ) more than persona
+
 **Pattern:** Consistency weight is 0.35 (highest). Rules control which knowledge is served. Contradictory rules spike σ. Persona text cannot fix factual errors in rules.
 **Action:** L2 rule optimization after persona converges. One rule per iteration. Factual verification layer (not just B-score).
 
 ### L-LOOP-04: Production feedback is the binding constraint after L4
+
 **Pattern:** After synthetic benchmark optimization (L1-L4), the binding constraint shifts to novel situations. Production escalation rate, repeat contacts, conversation length are behavioral signals that B-score doesn't capture.
 **Action:** Phase 4 (production feedback collection) runs parallel to L1-L3, but only influences optimization after minimum sample size (30 rated conversations per project).
 
 ### L-LOOP-05: ONDA-LOOP as service = zero manual deploys
+
 **Pattern:** Первая итерация запущена вручную → потом скрипт → потом cron → потом внутренний APScheduler. Каждый шаг убирает ручное вмешательство.
 **Action:** Service deployed on :8092, APScheduler every 4h (justhost) / 8h (meduzavpn). Next: convergence → auto-switch to L2.
 
 ### OQ-016: PII scrubbing pipeline for production dialog sampling
+
 ### OQ-017: Optimal benchmark rotation frequency (every 3 iterations? every convergence?)
+
 ### OQ-018: DSPy integration for RAG retrieval optimization (L3)
 
 ---
@@ -111,12 +118,14 @@ Started as "research + ROADMAP" (M), ended with 72 commits across 10+ modules (X
 
 ### Prediction Delta
 
-| Aspect | Plan | Actual |
-|--------|------|--------|
-| Scope | Research + ROADMAP (M) | 72 commits, 10+ modules (XL) |
-| ONDA level | Not planned | L6 deployed |
-| Quality | Not measured | B_mean=0.845 (canary), 0.0 (LOOP broken) |
-| Protocol | Full EraDev compliance | 40%→85% after 5+ reminders |
+
+| Aspect     | Plan                   | Actual                                   |
+| ---------- | ---------------------- | ---------------------------------------- |
+| Scope      | Research + ROADMAP (M) | 72 commits, 10+ modules (XL)             |
+| ONDA level | Not planned            | L6 deployed                              |
+| Quality    | Not measured           | B_mean=0.845 (canary), 0.0 (LOOP broken) |
+| Protocol   | Full EraDev compliance | 40%→85% after 5+ reminders               |
+
 
 ---
 
@@ -163,28 +172,33 @@ ROADMAP Section 3.3 defined Python ABC for modules that are implemented in Go. P
 ### RT-1 Findings (Round Table — Start)
 
 **Visionary:**
+
 - The project is not "fix the n8n bot" — it is "build a platform that makes n8n-style bot creation obsolete."
 - True North: any business creates a working AI support bot in under 10 minutes.
 - Biggest risk: scope creep. 5 phases from MVP to ecosystem — each must deliver standalone value.
 
 **Analyst:**
+
 - OpenAI Assistants API shuts down August 26, 2026. This is a hard deadline with zero flexibility.
 - Current n8n architecture: Webhook → MongoDB (thread lookup) → OpenAI Assistants → KEY_ parsing → routing → JIVO response. All three bots follow this pattern with variations.
 - JustHost is 10x more complex than Tegas/MeduzaVPN: service checks, incident correlation, retention flows, GeoIP correction, complaint handling, operator escalation rules.
 - Go + Python split is clean: Go owns all business logic and data; Python only handles AI inference and ML. The gRPC boundary is the critical interface contract.
 
 **Builder:**
+
 - JIVO 3-second timeout is the hardest technical constraint. The entire pipeline (receive → AI inference → format → respond) must complete in <3 sec or the chat transfers to a human.
 - Streaming from AI providers helps: start sending response chunks while still generating.
 - For JIVO specifically: response must be in the HTTP response body, not a separate API call. This means the Go adapter must wait for AI completion synchronously.
 
 **Validator:**
+
 - Migration is the riskiest phase. Three production bots serving real customers. Zero tolerance for downtime.
 - Shadow mode + canary rollout (Tegas first) is the safe path.
 - Need automated comparison: n8n response vs OmniBot response for the same input. Diff report → fix → re-compare.
 - B-score validation: after migration, B-score per project must be >= pre-migration baseline.
 
 **Coherencer:**
+
 - This is a greenfield project with a clear migration path. No legacy code to fight.
 - ODTOE principles (B-score, READ/WRITE/VERIFY/SYNC, strange loop) are not decorative — they provide concrete metrics and architectural patterns. Keep them actionable, not theoretical.
 - SCW matrix (4-tact cognitive cycle) proved useful for strategic decisions in the ROADMAP. Embed it in AI Studio for instruction generation.
@@ -222,29 +236,34 @@ JustHost prompt has elaborate rules: check client's language → check message �
 ### Architectural Decisions & Rationale
 
 **AD-001: Go + Python (not Node.js + Python, not Python-only)**
+
 - Go: goroutines for concurrency, single binary deployment, low memory, strong typing
 - Python: only for AI/ML where ecosystem is irreplaceable (LiteLLM, DSPy, LangChain)
 - Rejected Node.js: adds a third runtime with no unique advantage over Go for this use case
 - Rejected Python-only: GIL limits concurrency, higher memory footprint for non-AI services
 
 **AD-002: Expo (not React Web + later migration)**
+
 - Single codebase for Web + iOS + Android from day one
 - Eliminates future migration cost (React Web → React Native)
 - Expo Router provides file-based routing similar to Next.js
 - Trade-off: slightly more complex setup than pure React Web, but pays off immediately
 
 **AD-003: PostgreSQL (not MongoDB continuation)**
+
 - RLS for multi-tenant isolation at database level
 - pgvector extension for RAG (zero additional infrastructure on MVP)
 - Strong ACID guarantees for billing and conversation state
 - MongoDB was only used for simple key-value (chat_id → thread_id) — PostgreSQL handles this trivially
 
 **AD-004: Payment Abstraction Layer (not Stripe-only)**
+
 - Target markets: global (Stripe, PayPal) + Russia (T-Bank, YooMoney) + crypto (Cryptomus) + local methods (Payssion)
 - Same pattern as LiteLLM for AI providers: unified interface, adapter per gateway
 - Gateways without native subscriptions get internal subscription manager wrapper
 
 **AD-005: NATS (not RabbitMQ, not Kafka)**
+
 - Sub-millisecond latency, single binary, minimal ops overhead
 - JetStream for persistence when needed (conversation events, billing events)
 - Not Kafka: overkill for chatbot volumes; Kafka's strength (massive throughput, event sourcing) isn't needed at MVP
