@@ -254,6 +254,20 @@ Output it as your FIRST visible message so the operator can verify compliance.
 === BOOTSTRAP COMPLETE — PROCEED ===
 ```
 
+### Mid-Session Reclassification (BL-18)
+
+If cumulative work exceeds 1.5x initial estimate: YELLOW — log warning, continue with monitoring.
+If exceeds 2x: RED — STOP and formally reclassify. Output:
+
+```
+=== RECLASSIFICATION ===
+Previous: [S/M/L/XL] | New: [S/M/L/XL]
+Trigger: [what caused reclassification — agent count, file count, scope expansion]
+Action: [adjust team size, add RT cycles, escalate Coherencer level]
+```
+
+This makes scope changes auditable. Silent reclassification is a BL-18 violation.
+
 After RT-3: A3 crystallization, Prediction Delta, update spiral memory.
 
 **Why this checklist exists:** A/B experiment (pluggy session) showed that reading the framework without explicit enforcement results in 95% solo Builder behavior. The agent correctly classifies XL but ignores its own classification. This checklist bridges knowledge → application (Lambda problem, BL-4).

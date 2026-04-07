@@ -3,7 +3,7 @@
 > Loaded when MEMORY.md is empty (Lambda has no project-specific grounding).
 > These lessons act as Lambda=0.5 bootstrap: not zero (blind), not high (overfit).
 > Source: framework invariants, A/B experiments, RT post-mortems.
-> Budget cap: maximum 30 BL entries (current count: 29). Adding BL-N requires merging or retiring existing entries first.
+> Budget cap: maximum 30 BL entries (current count: 30). Adding BL-N requires merging or retiring existing entries first.
 
 ---
 
@@ -208,3 +208,9 @@
 **Rule:** When a role drifts from its mandate, enumerate its permitted output types and reject all others. Do not "remind harder" — type-constrain. If META can only produce 5 output types (Agent calls, Decisions, Synthesis, Lessons, Reports), it structurally cannot produce code.
 **Why:** Behavioral reminders ("don't code") lose to the default attractor. Structural constraints (typed outputs) survive because the violation is detectable: "this output is not one of the 5 types." Constraint > policing.
 **Applies to:** ALL roles (each role should have a defined output type set)
+
+### BL-32: Grep After BL Merge — Reference Cleanup
+**Source:** Hansei v8 session — BL-27 stale references found in 5 files after merge into BL-6
+**Rule:** After merging BL entries (e.g., BL-13+BL-23 → BL-13), immediately grep the entire repo for all old BL-N references. Replace orphan references with the merged BL-N ID. Commit reference cleanup in the same commit as the merge.
+**Why:** BL numbers are referenced across 20+ files (CLAUDE.md, SKILL.md, eradev.md, role files, reports). Merging without grepping creates Lambda gaps: agents encounter "BL-27" but find no definition. The cost of grepping is seconds; the cost of stale refs is agent confusion (A_F collapse).
+**Applies to:** META-Orchestrator (merge execution), Coherencer (verify completeness), Validator (post-merge audit)
