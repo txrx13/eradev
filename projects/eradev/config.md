@@ -18,8 +18,8 @@ EraDev is a self-improving multi-agent framework that applies its own principles
 
 ## Bilingual Architecture (BL-19)
 Every file in the framework exists in two language variants:
-- EN (primary for agents): `eradev.md`, `{role}_EN.md`, `glossary_EN.md`, `meta.md`
-- RU (for theoretical depth): `eradev_RU.md`, `{role}.md`, `glossary.md`, `meta_RU.md`
+- EN (primary for agents): `eradev.md`, `roles/{role}_EN.md`, `glossary_EN.md`, `meta.md`
+- RU (for theoretical depth): `eradev_RU.md`, `roles/{role}.md`, `glossary.md`, `meta_RU.md`
 
 **Iron Rule:** Creating or updating ANY file without its bilingual counterpart is INCOMPLETE work. Both versions must be updated in the same operation.
 

@@ -55,15 +55,16 @@ This reinforces identity through the act of writing and creates persistent recor
 9. Agent description MUST start with [ROLE] tag: [VISIONARY], [ANALYST], [BUILDER], [VALIDATOR], [COHERENCER]. Operator must see which role is working.
 10. Bash is classified: OPERATIONAL (git, ls, mkdir, cp, zip) = allowed. DIAGNOSTIC (grep, curl, ssh, psql, redis-cli, jq) = delegate to Check Agent ([ANALYST] or [VALIDATOR]). If it generates debugging insights → it's diagnostic.
 11. Execution order: Builder COMPLETES first, THEN Validator starts. Never parallel. For L/XL: all Builders complete → Coherencer gate → then Validators. (RT Phase Protocols, eradev.md Section VI)
+12. Every Agent call MUST include FULL CONTENT of the role file (roles/{role}_EN.md or roles/{role}.md). Inline "You are Builder" is NOT enough — the agent needs Activation Operator, Responsibilities, Jidoka Self-Check from the file.
 
 ## Language Stack
 
 Detect task type per eradev.md Section 0:
-- Practical (implement, fix, debug): EN stack ({role}_EN.md)
-- Theoretical (derive, prove, formula): RU stack ({role}.md)
+- Practical (implement, fix, debug): EN stack (roles/{role}_EN.md)
+- Theoretical (derive, prove, formula): RU stack (roles/{role}.md)
 - Mixed: BOTH (parallel agents, Coherencer syncs at RT)
 
-When spawning agents: Read {role}_EN.md (EN tasks) or {role}.md (RU tasks) and include FULL CONTENT in agent prompt.
+When spawning agents: Read roles/{role}_EN.md (EN tasks) or roles/{role}.md (RU tasks) and include FULL CONTENT in agent prompt.
 
 ## KILL-TEST
 
@@ -72,3 +73,4 @@ Your FIRST action after loading MUST be one of:
 - S tasks: "Spawn Builder + Validator agents"
 
 If your first action is edit/write/implement/code/fix -> VIOLATION -> re-read this file.
+Before spawning: did I Read the role file and include its content? If no → Read it first.

@@ -40,10 +40,10 @@ EraDev работает как **билингвальная система** н�
 
 | Сигналы задачи | Стек | Ядро | Роли |
 |----------------|------|------|------|
-| implement, fix, deploy, test, build, debug, refactor | **EN** | `eradev.md` | `{role}_EN.md` |
-| derive, prove, formula, ODTOE, conceptual, theorem | **RU** | `eradev_RU.md` | `{role}.md` |
+| implement, fix, deploy, test, build, debug, refactor | **EN** | `eradev.md` | `roles/{role}_EN.md` |
+| derive, prove, formula, ODTOE, conceptual, theorem | **RU** | `eradev_RU.md` | `roles/{role}.md` |
 | Смешанные L/XL с теорией + практикой | **BOTH** | параллельные группы | EN + RU агенты |
-| Неоднозначные | **EN** (по умолчанию) | `eradev.md` | `{role}_EN.md` |
+| Неоднозначные | **EN** (по умолчанию) | `eradev.md` | `roles/{role}_EN.md` |
 
 Один агент = один стек. Без смешивания. Режим BOTH = параллельные агенты, Когерент синхронизирует на RT.
 
@@ -490,8 +490,9 @@ eradev/
   eradev_RU.md        -- Русский теоретический аналог
   meta.md / meta_RU.md -- Протокол META-Оркестратора
   glossary.md / glossary_EN.md -- Двуязычный глоссарий
-  {role}.md            -- RU промпты ролей (visionary, analyst, builder, validator, coherent)
-  {role}_EN.md         -- EN промпты ролей
+  roles/
+    {role}.md          -- RU промпты ролей (visionary, analyst, builder, validator, coherent)
+    {role}_EN.md       -- EN промпты ролей
   BOOTSTRAP_LESSONS.md -- Холодный старт Lambda (BL-01..BL-29)
   LOADING_PROTOCOL.md  -- Последовательность загрузки контекста агента
   CHECKLIST.md / CHECKLIST_EN.md -- Чек-листы деплоя/ревью

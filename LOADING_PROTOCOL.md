@@ -19,14 +19,14 @@ The universal constitution. Loads ODTOE formulas, TPS principles, Round Table pr
 
 **Every agent loads this file. No exceptions.**
 
-### Step 2: Role Prompt -- `{role}.md` (~70 lines)
+### Step 2: Role Prompt -- `roles/{role}.md` (~70 lines)
 
 The agent's specialized observation operator O_hat. One of:
-- `visionary.md` -- strategy, True North, Zone Detection
-- `analyst.md` -- decomposition, File Ownership, pipeline
-- `builder.md` -- implementation, Security Checklist, patterns
-- `validator.md` -- verification, feedback, dissonance scale
-- `coherent.md` -- synchronization, L1/L2/L3, Kill-Switch
+- `roles/visionary.md` -- strategy, True North, Zone Detection
+- `roles/analyst.md` -- decomposition, File Ownership, pipeline
+- `roles/builder.md` -- implementation, Security Checklist, patterns
+- `roles/validator.md` -- verification, feedback, dissonance scale
+- `roles/coherent.md` -- synchronization, L1/L2/L3, Kill-Switch
 
 **Each agent loads exactly ONE role file matching their assigned role.**
 

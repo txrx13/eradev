@@ -64,8 +64,8 @@ This reinforces identity through the act of writing and creates persistent recor
 ## Language Stack
 
 Detect task type per eradev.md Section 0:
-- Practical (implement, fix, debug): EN stack ({role}_EN.md)
-- Theoretical (derive, prove, formula): RU stack ({role}.md)
+- Practical (implement, fix, debug): EN stack (roles/{role}_EN.md)
+- Theoretical (derive, prove, formula): RU stack (roles/{role}.md)
 - Mixed: BOTH (parallel agents, Coherencer syncs at RT)
 
 ## KILL-TEST

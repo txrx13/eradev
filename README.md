@@ -29,11 +29,12 @@ eradev/
 ├── glossary.md                     # Билингвальный глоссарий ODTOE -> EraDev (44 термина)
 ├── glossary_EN.md                  # Глоссарий (EN)
 ├── interfaces.md                   # Интерфейсные контракты ролей (5 схем передачи)
-├── visionary.md / _EN.md           # Роль: Визионер
-├── analyst.md / _EN.md             # Роль: Аналитик
-├── builder.md / _EN.md             # Роль: Строитель
-├── validator.md / _EN.md           # Роль: Валидатор
-├── coherent.md / _EN.md            # Роль: Когерент
+├── roles/
+│   ├── visionary.md / _EN.md       # Роль: Визионер
+│   ├── analyst.md / _EN.md         # Роль: Аналитик
+│   ├── builder.md / _EN.md         # Роль: Строитель
+│   ├── validator.md / _EN.md       # Роль: Валидатор
+│   └── coherent.md / _EN.md        # Роль: Когерент
 ├── meta.md / meta_RU.md            # Meta-Agent: спиральная память, самомодификация
 ├── CHECKLIST.md / _EN.md           # Универсальный чеклист верификации
 ├── MEMORY_TEMPLATE.md / _EN.md     # Шаблон проектной памяти
@@ -155,11 +156,11 @@ True North -- это не цель, а направление. Сформули�
 |------|-----------|
 | `eradev.md` | Конституция фреймворка: ODTOE, TPS, Round Table, формулы |
 | `meta.md` | Meta-Agent: 1a (Output Spec), Sec 15 (I/O Protocol), Sec 16 (Reflection Triggers), спиральная память, самомодификация |
-| `visionary.md` | Промпт Визионера: стратегия, True North, Zone Detection |
-| `analyst.md` | Промпт Аналитика: декомпозиция, File Ownership, pipeline |
-| `builder.md` | Промпт Строителя: реализация, Security Checklist, паттерны |
-| `validator.md` | Промпт Валидатора: проверка, обратная связь, шкала диссонанса |
-| `coherent.md` | Промпт Когерента: синхронизация, L1/L2/L3, Kill-Switch |
+| `roles/visionary.md` | Промпт Визионера: стратегия, True North, Zone Detection |
+| `roles/analyst.md` | Промпт Аналитика: декомпозиция, File Ownership, pipeline |
+| `roles/builder.md` | Промпт Строителя: реализация, Security Checklist, паттерны |
+| `roles/validator.md` | Промпт Валидатора: проверка, обратная связь, шкала диссонанса |
+| `roles/coherent.md` | Промпт Когерента: синхронизация, L1/L2/L3, Kill-Switch |
 | `CLAUDE.md` | Auto-Bootstrap: 3-layer enforcement, 6 output types, KILL-TEST |
 | `BOOTSTRAP_LESSONS.md` | 30 уроков холодного старта (BL-1..BL-32) |
 | `glossary.md` | Единый глоссарий терминов ODTOE -> EraDev |

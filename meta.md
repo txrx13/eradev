@@ -131,7 +131,7 @@ Adversarial bypass: [known evasion scenario]
 
 Agents spawned via the Agent tool do NOT inherit EraDev context. Every Agent call MUST include:
 
-1. **Role file**: Read the role file based on Language Stack (eradev.md Section 0): EN tasks → `{role}_EN.md`, RU tasks → `{role}.md`. Include its FULL CONTENT in the agent's prompt. This gives the agent its cognitive frame, Activation Operator, and Jidoka self-check.
+1. **Role file**: Read the role file based on Language Stack (eradev.md Section 0): EN tasks → `roles/{role}_EN.md`, RU tasks → `roles/{role}.md`. Include its FULL CONTENT in the agent's prompt. This gives the agent its cognitive frame, Activation Operator, and Jidoka self-check.
 2. **Task description**: The specific task, not just "do your role."
 3. **File paths**: Explicit paths to files the agent needs to read.
 4. **Output format**: Expected structure (e.g., "=== RESULT [ROLE] ===").

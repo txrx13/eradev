@@ -35,6 +35,11 @@ if ! echo "$PROMPT" | grep -qiE '(output|format|result)'; then
   WARNINGS="${WARNINGS}NO_FORMAT "
 fi
 
+# Check 5: Role file content loaded (signature phrases)
+if ! echo "$PROMPT" | grep -qiE '(activation operator|jidoka self-check|jidoka|B-diagnostics|blast radius)'; then
+  WARNINGS="${WARNINGS}NO_ROLE_FILE "
+fi
+
 # Report warnings (advisory, not blocking)
 if [ -n "$WARNINGS" ]; then
   echo "BL-28 advisory: Agent prompt may be missing context. Flags: $WARNINGS (Prompt length: $PROMPT_LEN chars)" >&2

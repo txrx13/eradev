@@ -58,11 +58,12 @@ eradev/
 ├── glossary.md                  # Bilingual glossary (44 terms)
 ├── glossary_EN.md               # Glossary (EN)
 ├── interfaces.md                # Role Interface Contracts (5 handoff schemas)
-├── visionary.md / _EN.md        # Role: Visionary
-├── analyst.md / _EN.md          # Role: Analyst
-├── builder.md / _EN.md          # Role: Builder
-├── validator.md / _EN.md        # Role: Validator
-├── coherent.md / _EN.md         # Role: Coherencer
+├── roles/
+│   ├── visionary.md / _EN.md    # Role: Visionary
+│   ├── analyst.md / _EN.md      # Role: Analyst
+│   ├── builder.md / _EN.md      # Role: Builder
+│   ├── validator.md / _EN.md    # Role: Validator
+│   └── coherent.md / _EN.md     # Role: Coherencer
 ├── meta.md / meta_RU.md         # Meta-Agent: spiral memory, self-modification
 ├── CHECKLIST.md / _EN.md        # Universal verification checklist
 ├── MEMORY_TEMPLATE.md / _EN.md  # Project memory template
@@ -157,11 +158,11 @@ Golden ratio proportion: Round Table ~38%, Build ~62%.
 | `CLAUDE.md` | Auto-bootstrap: META identity, loading sequence, invariants, KILL-TEST |
 | `eradev.md` | Framework constitution: ODTOE, TPS, Round Table, formulas, protocols |
 | `meta.md` | Meta-Agent protocol: Sec 1a (Output Spec), Sec 15 (I/O Protocol), Sec 16 (Reflection Triggers) |
-| `visionary.md` | Visionary: strategy, True North, Zone Detection |
-| `analyst.md` | Analyst: decomposition, File Ownership, pipeline |
-| `builder.md` | Builder: implementation, Security Checklist, patterns |
-| `validator.md` | Validator: verification, feedback, dissonance scale |
-| `coherent.md` | Coherencer: synchronization, L1/L2/L3, Kill-Switch |
+| `roles/visionary.md` | Visionary: strategy, True North, Zone Detection |
+| `roles/analyst.md` | Analyst: decomposition, File Ownership, pipeline |
+| `roles/builder.md` | Builder: implementation, Security Checklist, patterns |
+| `roles/validator.md` | Validator: verification, feedback, dissonance scale |
+| `roles/coherent.md` | Coherencer: synchronization, L1/L2/L3, Kill-Switch |
 | `glossary.md` | Bilingual glossary (44 terms, canonical forms) |
 | `interfaces.md` | Role Interface Contracts (5 handoff schemas with YAML) |
 | `LOADING_PROTOCOL.md` | Agent loading sequence (4 steps, 400-line budget) |

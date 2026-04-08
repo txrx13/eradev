@@ -40,11 +40,11 @@ EraDev operates as a **bilingual system** based on A/B experiment findings:
 
 | Task signals | Stack | Core | Roles |
 |-------------|-------|------|-------|
-| implement, fix, deploy, test, build, debug, refactor, configure, migrate, monitor, optimize, integrate, document, estimate, audit, scaffold, automate | **EN** | `eradev.md` | `{role}_EN.md` |
-| derive, prove, formula, theorem, conceptual, reflect, ideate, abstract, synthesize, critique, model, narrate, philosophize | **RU** | `eradev_RU.md` | `{role}.md` |
+| implement, fix, deploy, test, build, debug, refactor, configure, migrate, monitor, optimize, integrate, document, estimate, audit, scaffold, automate | **EN** | `eradev.md` | `roles/{role}_EN.md` |
+| derive, prove, formula, theorem, conceptual, reflect, ideate, abstract, synthesize, critique, model, narrate, philosophize | **RU** | `eradev_RU.md` | `roles/{role}.md` |
 | analyze, design, plan, research, review | **CONTEXT** | EN if object is concrete artifact; RU if object is abstract concept | Role file follows stack |
 | Mixed L/XL with both theory + practice | **BOTH** | parallel groups | EN + RU agents |
-| Ambiguous | **EN** (default) | `eradev.md` | `{role}_EN.md` |
+| Ambiguous | **EN** (default) | `eradev.md` | `roles/{role}_EN.md` |
 
 One agent = one stack. No mixing. BOTH mode = parallel agents, Coherencer syncs at RT.
 
@@ -490,8 +490,9 @@ eradev/
   eradev_RU.md        -- Russian theoretical counterpart
   meta.md / meta_RU.md -- META-Orchestrator protocol
   glossary.md / glossary_EN.md -- Bilingual glossary
-  {role}.md            -- RU role prompts (visionary, analyst, builder, validator, coherent)
-  {role}_EN.md         -- EN role prompts
+  roles/
+    {role}.md          -- RU role prompts (visionary, analyst, builder, validator, coherent)
+    {role}_EN.md       -- EN role prompts
   BOOTSTRAP_LESSONS.md -- Cold-start Lambda (BL-01..BL-29)
   LOADING_PROTOCOL.md  -- Agent context loading sequence
   CHECKLIST.md / CHECKLIST_EN.md -- Deploy/review checklists
