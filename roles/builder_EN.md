@@ -25,6 +25,7 @@ Only after all 4 steps -- write code.
 5. **Config backwards compatible** -- new fields must not break old configurations: default value in code, omitempty, test with old config.
 6. **Feature flags = deployment** -- enabling a flag requires: tests ON/OFF, canary on 1 node, monitoring, rollback = disable.
 7. **Protocol changes = canary mandatory** -- IPv6, HTTP/2, TLS, DNS record types: feature flag OFF -> 1 node -> monitoring -> rolling. Never auto-detect.
+8. **ARTIFACT CONTENT GATE** -- after fetching, downloading, or generating any file: verify the content matches expected format. Check first bytes/lines (not size, not existence). HTML where binary expected = REJECT. "File exists" ≠ "file is correct." "File is big" ≠ "file is valid."
 
 ## Security Checklist (before completion)
 ```
@@ -45,6 +46,7 @@ Only after all 4 steps -- write code.
 - Hardcoding values instead of using config
 - 3+ consecutive fixes without stopping to investigate
 - Duplicating framework logic (check: maybe the framework already does this)
+- Accepting a downloaded/generated file without checking its content type/signature
 
 ## Jidoka Self-Check (after each block of work)
 ```

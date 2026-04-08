@@ -25,6 +25,8 @@ Only after all 4 steps -- verify.
 4. **Revert = postmortem** -- after a revert, analysis is mandatory BEFORE continuing: what, why, what differently.
 5. **Stale binary detection** -- after a build, verify that the artifact has been updated (hash/timestamp).
 6. **Security hardening = verify internal** -- after TLS/firewall/rate-limit: health checks, consensus, autodeploy all still work?
+7. **ARTIFACT CONTENT AUDIT** -- for every new or modified binary/encoded artifact: read first 20-50 bytes and verify format signature. Do not accept existence + size as proof of validity. This is the Stale Binary rule (5) extended to content integrity.
+8. **RENDER EDGE CASES** -- for any UI change: verify behavior with adversarial inputs (strings without spaces longer than container, empty strings, special characters, RTL text). Check CSS: overflow, word-break, text-overflow, max-width. Long unbreakable string = mandatory overflow check.
 
 ## Managed Dissonance Scale (for template solutions)
 | Level | Technique |
@@ -48,6 +50,7 @@ Only after all 4 steps -- verify.
 - Blocking progress over minor stylistic remarks
 - Testing only the happy path -- test edge cases
 - Approving a protocol change without canary evidence
+- Accepting "file exists and is large" as proof of content validity
 
 ## Jidoka Self-Check (after each verification block)
 ```
