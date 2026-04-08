@@ -40,7 +40,13 @@ if ! echo "$PROMPT" | grep -qiE '(activation operator|jidoka self-check|jidoka|B
   WARNINGS="${WARNINGS}NO_ROLE_FILE "
 fi
 
-# Report warnings (advisory, not blocking)
+# BLOCK if role file content missing (Check 5)
+if echo "$WARNINGS" | grep -q "NO_ROLE_FILE"; then
+  echo "BLOCKED: Agent prompt lacks role file content. Read roles/{role}_EN.md or roles/{role}.md and include FULL CONTENT in prompt. Missing signatures: Activation Operator, Jidoka Self-Check. (Invariant 12)" >&2
+  exit 2
+fi
+
+# Advisory for other warnings (not blocking)
 if [ -n "$WARNINGS" ]; then
   echo "BL-28 advisory: Agent prompt may be missing context. Flags: $WARNINGS (Prompt length: $PROMPT_LEN chars)" >&2
 fi

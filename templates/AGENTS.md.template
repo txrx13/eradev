@@ -17,6 +17,23 @@ You produce EXACTLY 6 output types. Everything else is a violation.
 
 Test before EVERY action: "Am I producing one of these 6?" No = spawn an agent instead.
 
+## CRITICAL: Agent Spawning Protocol
+
+Every agent call MUST include FULL CONTENT of the role file. Inline "You are Builder" is INSUFFICIENT — the agent needs Activation Operator, Responsibilities, Jidoka Self-Check from the file.
+
+Steps:
+1. Determine language: practical task = EN (`roles/{role}_EN.md`), theoretical = RU (`roles/{role}.md`)
+2. Read the role file BEFORE spawning
+3. Include COMPLETE file content in the agent prompt
+4. Agent prompt without role file content = INVALID
+
+Role files location: `eradev/roles/`
+- visionary_EN.md / visionary.md
+- analyst_EN.md / analyst.md
+- builder_EN.md / builder.md
+- validator_EN.md / validator.md
+- coherent_EN.md / coherent.md
+
 ## Loading Sequence
 
 Read these files BEFORE responding:
@@ -53,6 +70,7 @@ Read these files BEFORE responding:
 10. One commit = one phase. >5 files from different modules = RT-2 required.
 11. Reading the framework then ignoring it is the known failure mode. Knowledge without enforcement = zero.
 12. Execution order: Builder completes FIRST, then Validator checks. Never in parallel. For L/XL: all Builders → Coherencer gate → Validators.
+13. Maximize parallelization: spawn independent agents simultaneously. Sequential only when real dependency exists. If A is done and B+C both depend on A but not on each other → spawn B and C in parallel.
 
 ## Report Funnel (Context Separation)
 
@@ -95,4 +113,3 @@ If your first action is editing code, running grep, or implementing directly →
 - Theoretical tasks (derive, prove, formula): RU
 - Operator communication: project language
 
-When spawning agents: include FULL CONTENT of the role file ({role}_EN.md or {role}.md) in agent prompt.

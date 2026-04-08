@@ -46,6 +46,7 @@ Deploy EraDev ({PROJECT} = basename of current directory):
    - Copy eradev/.claude/settings.json to .claude/settings.json
    - Copy eradev/.githooks/pre-commit to .githooks/pre-commit, make executable
    - Update AGENTS.md from eradev/templates/AGENTS.md.template (replace {PROJECT})
+   - Update CLAUDE.md from eradev/templates/CLAUDE.md.template (replace {PROJECT})
 
 2. AFTER [BUILDER] completes — spawn [VALIDATOR] agent: прочитай eradev/CLAUDE.md, eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, eradev/projects/{PROJECT}/config.md и lessons.md. Сверь: 6 output types, 10 invariants, 30 BL. Выведи SESSION BOOTSTRAP checklist (12 items). Сохрани META identity (6 output types + Bash classification + LOAD sequence) в memory. Report: PASS/BLOCK.
 

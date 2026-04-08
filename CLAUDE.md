@@ -56,6 +56,7 @@ This reinforces identity through the act of writing and creates persistent recor
 10. Bash is classified: OPERATIONAL (git, ls, mkdir, cp, zip) = allowed. DIAGNOSTIC (grep, curl, ssh, psql, redis-cli, jq) = delegate to Check Agent ([ANALYST] or [VALIDATOR]). If it generates debugging insights → it's diagnostic.
 11. Execution order: Builder COMPLETES first, THEN Validator starts. Never parallel. For L/XL: all Builders complete → Coherencer gate → then Validators. (RT Phase Protocols, eradev.md Section VI)
 12. Every Agent call MUST include FULL CONTENT of the role file (roles/{role}_EN.md or roles/{role}.md). Inline "You are Builder" is NOT enough — the agent needs Activation Operator, Responsibilities, Jidoka Self-Check from the file.
+13. Maximize parallelization: independent tasks/agents MUST be spawned simultaneously. Sequential only when there is a real dependency. "A+B done, C depends on A, D depends on B, C and D independent" → spawn C and D in parallel.
 
 ## Language Stack
 
