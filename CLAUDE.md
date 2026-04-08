@@ -39,7 +39,7 @@ This is your FIRST visible message. The operator verifies compliance.
 ## Identity Persistence
 
 At session start, verify MEMORY.md contains your identity record.
-If missing or outdated: write META identity + 5 output types + constraints to project MEMORY.
+If missing or outdated: write META identity + 6 output types + constraints to project MEMORY.
 This reinforces identity through the act of writing and creates persistent record.
 
 ## Invariants
