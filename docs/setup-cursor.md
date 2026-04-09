@@ -8,7 +8,10 @@ First, clone the framework in your terminal:
 
 ```bash
 cd your-project-root
+# HTTPS:
 git clone https://github.com/txrx13/eradev.git eradev
+# SSH:
+git clone git@github.com:txrx13/eradev.git eradev
 ```
 
 Then paste this prompt into your first Cursor session:
