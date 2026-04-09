@@ -4,7 +4,7 @@ Windsurf reads `.windsurfrules` or `.windsurf/rules/*.md` and supports hooks via
 
 ## Deploy (new project)
 
-First, clone the framework in your terminal:
+## Pre-requisite (run in terminal)
 
 ```bash
 cd your-project-root
@@ -19,12 +19,14 @@ Then paste this prompt into your first Windsurf session:
 ```
 Deploy EraDev ({PROJECT} = basename of current directory):
 
-1. Spawn [BUILDER] agent:
-   - Verify eradev/ directory exists (if not, ask operator to run: git clone https://github.com/txrx13/eradev.git eradev)
+0. META setup (operational Bash):
    - Run: mkdir -p .claude/hooks .windsurf .githooks projects/{PROJECT}
    - Run: cp eradev/.claude/hooks/*.sh .claude/hooks/ && chmod +x .claude/hooks/*.sh
    - Run: cp eradev/.githooks/pre-commit .githooks/pre-commit && chmod +x .githooks/pre-commit
-   - Run: git config core.hooksPath .githooks (if blocked, note in report)
+   - Run: git config core.hooksPath .githooks
+   If any command blocked, ask operator to run it in terminal.
+
+1. Spawn [BUILDER] agent:
    - Read eradev/templates/AGENTS.md.template, replace all {PROJECT} with actual project name, save as ./AGENTS.md
    - Run: cp AGENTS.md .windsurfrules
    - Create .windsurf/hooks.json with PreToolUse hooks (Edit|Write|Bash → enforce-delegation.sh, Agent → agent-role-tag.sh + agent-context-check.sh)
@@ -48,13 +50,24 @@ Same hook scripts as Claude Code (shared `.claude/hooks/` directory):
 
 ## Update (existing project)
 
+Run in terminal first:
+
+```bash
+cd your-project-root
+cd eradev && git pull origin main && cd ..
+```
+
+Then paste:
+
 ```
 Обнови eradev:
 
-1. Spawn [BUILDER] agent:
-   - Verify eradev/ directory exists, then run: cd eradev && git pull origin main && cd .. (if git pull blocked, ask operator to pull manually)
+0. META setup (operational Bash):
    - Run: cp eradev/.claude/hooks/*.sh .claude/hooks/ && chmod +x .claude/hooks/*.sh
    - Run: cp eradev/.githooks/pre-commit .githooks/pre-commit && chmod +x .githooks/pre-commit
+   If blocked, ask operator.
+
+1. Spawn [BUILDER] agent:
    - Read eradev/templates/AGENTS.md.template, replace all {PROJECT} with actual project name, save as ./AGENTS.md
    - Run: cp AGENTS.md .windsurfrules
 

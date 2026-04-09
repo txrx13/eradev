@@ -2,7 +2,7 @@
 
 ## Deploy (new project)
 
-First, clone the framework in your terminal:
+## Pre-requisite (run in terminal)
 
 ```bash
 cd your-project-root
@@ -17,13 +17,15 @@ Then paste this prompt into a new Claude Code session:
 ```
 Deploy EraDev ({PROJECT} = basename of current directory):
 
-1. Spawn [BUILDER] agent:
-   - Verify eradev/ directory exists (if not, ask operator to run: git clone https://github.com/txrx13/eradev.git eradev)
+0. META setup (operational Bash — run directly, not via agent):
    - Run: mkdir -p .claude/hooks .githooks projects/{PROJECT}
    - Run: cp eradev/.claude/hooks/*.sh .claude/hooks/ && chmod +x .claude/hooks/*.sh
    - Run: cp eradev/.claude/settings.json .claude/settings.json
    - Run: cp eradev/.githooks/pre-commit .githooks/pre-commit && chmod +x .githooks/pre-commit
-   - Run: git config core.hooksPath .githooks (if blocked by permissions, note in report — operator runs manually)
+   - Run: git config core.hooksPath .githooks
+   If any command blocked by sandbox, ask operator to run it in terminal.
+
+1. Spawn [BUILDER] agent:
    - Read eradev/templates/CLAUDE.md.template, replace all {PROJECT} with actual project name, save as ./CLAUDE.md
    - Create projects/{PROJECT}/config.md (True North, Architecture, Iron Rules)
    - Create projects/{PROJECT}/lessons.md with header
@@ -48,14 +50,25 @@ Deploy EraDev ({PROJECT} = basename of current directory):
 
 ## Update (existing project)
 
+Run in terminal first:
+
+```bash
+cd your-project-root
+cd eradev && git pull origin main && cd ..
+```
+
+Then paste:
+
 ```
 Обнови eradev:
 
-1. Spawn [BUILDER] agent:
-   - Verify eradev/ directory exists, then run: cd eradev && git pull origin main && cd .. (if git pull blocked, ask operator to pull manually)
+0. META setup (operational Bash):
    - Run: cp eradev/.claude/hooks/*.sh .claude/hooks/ && chmod +x .claude/hooks/*.sh
    - Run: cp eradev/.claude/settings.json .claude/settings.json
    - Run: cp eradev/.githooks/pre-commit .githooks/pre-commit && chmod +x .githooks/pre-commit
+   If any command blocked, ask operator to run it in terminal.
+
+1. Spawn [BUILDER] agent:
    - Read eradev/templates/CLAUDE.md.template, replace all {PROJECT} with actual project name, save as ./CLAUDE.md
 
 2. AFTER [BUILDER] completes — spawn [VALIDATOR] agent: verify deploy artifacts (hooks executable, no literal {PROJECT} in CLAUDE.md, git hooksPath configured). Report: PASS/BLOCK.
