@@ -10,11 +10,11 @@ Paste this prompt into your first Codex/Jules session:
 Deploy EraDev ({PROJECT} = basename of current directory):
 
 1. Spawn [BUILDER] agent:
-   - git clone https://github.com/txrx13/eradev.git eradev (or git pull if exists)
-   - mkdir -p .githooks
-   - Copy eradev/.githooks/pre-commit to .githooks/pre-commit, make executable
-   - Run: git config core.hooksPath .githooks
-   - Read eradev/templates/AGENTS.md.template, save as ./AGENTS.md (replace {PROJECT})
+   - Run: git clone https://github.com/txrx13/eradev.git eradev (or cd eradev && git pull origin main && cd .. if exists)
+   - Run: mkdir -p .githooks projects/{PROJECT}
+   - Run: cp eradev/.githooks/pre-commit .githooks/pre-commit && chmod +x .githooks/pre-commit
+   - Run: git config core.hooksPath .githooks (if blocked, note in report)
+   - Read eradev/templates/AGENTS.md.template, replace all {PROJECT} with actual project name, save as ./AGENTS.md
    - Create projects/{PROJECT}/config.md (True North, Architecture, Iron Rules)
    - Create projects/{PROJECT}/lessons.md with header
 
@@ -42,9 +42,9 @@ No hooks available. All enforcement is text-based via `AGENTS.md`:
 Update eradev:
 
 1. Spawn [BUILDER] agent:
-   - cd eradev && git pull origin main && cd ..
-   - Copy eradev/.githooks/pre-commit to .githooks/pre-commit, make executable
-   - Update AGENTS.md from eradev/templates/AGENTS.md.template (replace {PROJECT})
+   - Run: cd eradev && git pull origin main && cd ..
+   - Run: cp eradev/.githooks/pre-commit .githooks/pre-commit && chmod +x .githooks/pre-commit
+   - Read eradev/templates/AGENTS.md.template, replace all {PROJECT} with actual project name, save as ./AGENTS.md
 
 2. AFTER [BUILDER] completes — spawn [VALIDATOR] agent: verify deploy artifacts (AGENTS.md has no literal {PROJECT}, pre-commit executable). Report: PASS/BLOCK.
 

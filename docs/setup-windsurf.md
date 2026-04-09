@@ -10,13 +10,13 @@ Paste this prompt into your first Windsurf session:
 Deploy EraDev ({PROJECT} = basename of current directory):
 
 1. Spawn [BUILDER] agent:
-   - git clone https://github.com/txrx13/eradev.git eradev (or git pull if exists)
-   - mkdir -p .claude/hooks .windsurf .githooks
-   - Copy eradev/.claude/hooks/*.sh to .claude/hooks/, make executable
-   - Copy eradev/.githooks/pre-commit to .githooks/pre-commit, make executable
-   - Run: git config core.hooksPath .githooks
-   - Read eradev/templates/AGENTS.md.template, save as ./AGENTS.md (replace {PROJECT})
-   - Copy AGENTS.md to .windsurfrules
+   - Run: git clone https://github.com/txrx13/eradev.git eradev (or cd eradev && git pull origin main && cd .. if exists)
+   - Run: mkdir -p .claude/hooks .windsurf .githooks projects/{PROJECT}
+   - Run: cp eradev/.claude/hooks/*.sh .claude/hooks/ && chmod +x .claude/hooks/*.sh
+   - Run: cp eradev/.githooks/pre-commit .githooks/pre-commit && chmod +x .githooks/pre-commit
+   - Run: git config core.hooksPath .githooks (if blocked, note in report)
+   - Read eradev/templates/AGENTS.md.template, replace all {PROJECT} with actual project name, save as ./AGENTS.md
+   - Run: cp AGENTS.md .windsurfrules
    - Create .windsurf/hooks.json with PreToolUse hooks (Edit|Write|Bash → enforce-delegation.sh, Agent → agent-role-tag.sh + agent-context-check.sh)
    - Create projects/{PROJECT}/config.md (True North, Architecture, Iron Rules)
    - Create projects/{PROJECT}/lessons.md with header
@@ -42,11 +42,11 @@ Same hook scripts as Claude Code (shared `.claude/hooks/` directory):
 Обнови eradev:
 
 1. Spawn [BUILDER] agent:
-   - cd eradev && git pull origin main && cd ..
-   - Copy eradev/.claude/hooks/*.sh to .claude/hooks/, make executable
-   - Copy eradev/.githooks/pre-commit to .githooks/pre-commit, make executable
-   - Update AGENTS.md from eradev/templates/AGENTS.md.template (replace {PROJECT})
-   - Copy AGENTS.md to .windsurfrules
+   - Run: cd eradev && git pull origin main && cd ..
+   - Run: cp eradev/.claude/hooks/*.sh .claude/hooks/ && chmod +x .claude/hooks/*.sh
+   - Run: cp eradev/.githooks/pre-commit .githooks/pre-commit && chmod +x .githooks/pre-commit
+   - Read eradev/templates/AGENTS.md.template, replace all {PROJECT} with actual project name, save as ./AGENTS.md
+   - Run: cp AGENTS.md .windsurfrules
 
 2. AFTER [BUILDER] completes — spawn [VALIDATOR] agent: verify deploy artifacts (.windsurfrules matches AGENTS.md, hooks executable, no literal {PROJECT}). Report: PASS/BLOCK.
 

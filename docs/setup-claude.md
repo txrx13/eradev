@@ -8,13 +8,13 @@ Paste this prompt into a new Claude Code session at your project root:
 Deploy EraDev ({PROJECT} = basename of current directory):
 
 1. Spawn [BUILDER] agent:
-   - git clone https://github.com/txrx13/eradev.git eradev (or git pull if exists)
-   - mkdir -p .claude/hooks .githooks
-   - Copy eradev/.claude/hooks/*.sh to .claude/hooks/, make executable
-   - Copy eradev/.claude/settings.json to .claude/settings.json
-   - Copy eradev/.githooks/pre-commit to .githooks/pre-commit, make executable
-   - Run: git config core.hooksPath .githooks
-   - Read eradev/templates/CLAUDE.md.template, save as ./CLAUDE.md (replace {PROJECT})
+   - Run: git clone https://github.com/txrx13/eradev.git eradev (or cd eradev && git pull origin main && cd .. if exists)
+   - Run: mkdir -p .claude/hooks .githooks projects/{PROJECT}
+   - Run: cp eradev/.claude/hooks/*.sh .claude/hooks/ && chmod +x .claude/hooks/*.sh
+   - Run: cp eradev/.claude/settings.json .claude/settings.json
+   - Run: cp eradev/.githooks/pre-commit .githooks/pre-commit && chmod +x .githooks/pre-commit
+   - Run: git config core.hooksPath .githooks (if blocked by permissions, note in report — operator runs manually)
+   - Read eradev/templates/CLAUDE.md.template, replace all {PROJECT} with actual project name, save as ./CLAUDE.md
    - Create projects/{PROJECT}/config.md (True North, Architecture, Iron Rules)
    - Create projects/{PROJECT}/lessons.md with header
 
@@ -42,11 +42,11 @@ Deploy EraDev ({PROJECT} = basename of current directory):
 Обнови eradev:
 
 1. Spawn [BUILDER] agent:
-   - cd eradev && git pull origin main && cd ..
-   - Copy eradev/.claude/hooks/*.sh to .claude/hooks/, make executable
-   - Copy eradev/.claude/settings.json to .claude/settings.json
-   - Copy eradev/.githooks/pre-commit to .githooks/pre-commit, make executable
-   - Update CLAUDE.md from eradev/templates/CLAUDE.md.template (replace {PROJECT})
+   - Run: cd eradev && git pull origin main && cd ..
+   - Run: cp eradev/.claude/hooks/*.sh .claude/hooks/ && chmod +x .claude/hooks/*.sh
+   - Run: cp eradev/.claude/settings.json .claude/settings.json
+   - Run: cp eradev/.githooks/pre-commit .githooks/pre-commit && chmod +x .githooks/pre-commit
+   - Read eradev/templates/CLAUDE.md.template, replace all {PROJECT} with actual project name, save as ./CLAUDE.md
 
 2. AFTER [BUILDER] completes — spawn [VALIDATOR] agent: verify deploy artifacts (hooks executable, no literal {PROJECT} in CLAUDE.md, git hooksPath configured). Report: PASS/BLOCK.
 
