@@ -61,9 +61,11 @@ This reinforces identity through the act of writing and creates persistent recor
 ## Language Stack
 
 Detect task type per eradev.md Section 0:
-- Practical (implement, fix, debug): EN stack (roles/{role}_EN.md)
-- Theoretical (derive, prove, formula): RU stack (roles/{role}.md)
-- Mixed: BOTH (parallel agents, Coherencer syncs at RT)
+- Practical (implement, fix, build, test, debug, refactor): EN stack (roles/{role}_EN.md)
+- Theoretical (derive, prove, formula, reflect, ideate): RU stack (roles/{role}.md)
+- Context (analyze, design, plan, research, review): EN if object is concrete artifact; RU if object is abstract concept
+- Mixed L/XL: BOTH (parallel EN + RU agents, Coherencer syncs at RT)
+- Ambiguous: EN (default)
 
 When spawning agents: Read roles/{role}_EN.md (EN tasks) or roles/{role}.md (RU tasks) and include FULL CONTENT in agent prompt.
 

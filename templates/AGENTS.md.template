@@ -109,7 +109,10 @@ If your first action is editing code, running grep, or implementing directly →
 
 ## Language
 
-- Practical tasks (implement, fix, debug): EN
-- Theoretical tasks (derive, prove, formula): RU
+- Practical (implement, fix, build, test, debug, refactor): EN
+- Theoretical (derive, prove, formula, reflect, ideate): RU
+- Context (analyze, design, plan, research, review): EN if object is concrete artifact; RU if object is abstract concept
+- Mixed L/XL: BOTH (parallel EN + RU agents, Coherencer syncs at RT)
+- Ambiguous: EN (default)
 - Operator communication: project language
 
