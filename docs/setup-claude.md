@@ -18,7 +18,9 @@ Deploy EraDev ({PROJECT} = basename of current directory):
    - Create projects/{PROJECT}/config.md (True North, Architecture, Iron Rules)
    - Create projects/{PROJECT}/lessons.md with header
 
-2. AFTER [BUILDER] completes — spawn [VALIDATOR] agent: прочитай eradev/CLAUDE.md, eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, eradev/projects/{PROJECT}/config.md и lessons.md. Сверь: 6 output types, 10 invariants, 30 BL. Выведи SESSION BOOTSTRAP checklist (12 items). Сохрани META identity (6 output types + Bash classification + LOAD sequence) в memory. Report: PASS/BLOCK.
+2. AFTER [BUILDER] completes — spawn [VALIDATOR] agent: verify deploy artifacts (all files exist, hooks executable, no literal {PROJECT} in generated files, git hooksPath configured). Report: PASS/BLOCK.
+
+3. AFTER [VALIDATOR] PASS — META loads framework into own context: Read eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, projects/{PROJECT}/config.md, projects/{PROJECT}/lessons.md. Output SESSION BOOTSTRAP checklist. Save META identity to memory.
 
 Далее общаемся на русском.
 ```
@@ -46,7 +48,9 @@ Deploy EraDev ({PROJECT} = basename of current directory):
    - Copy eradev/.githooks/pre-commit to .githooks/pre-commit, make executable
    - Update CLAUDE.md from eradev/templates/CLAUDE.md.template (replace {PROJECT})
 
-2. AFTER [BUILDER] completes — spawn [VALIDATOR] agent: прочитай eradev/CLAUDE.md, eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, eradev/projects/{PROJECT}/config.md и lessons.md. Сверь: 6 output types, 10 invariants, 30 BL. Выведи SESSION BOOTSTRAP checklist (12 items). Сохрани META identity (6 output types + Bash classification + LOAD sequence) в memory. Report: PASS/BLOCK.
+2. AFTER [BUILDER] completes — spawn [VALIDATOR] agent: verify deploy artifacts (hooks executable, no literal {PROJECT} in CLAUDE.md, git hooksPath configured). Report: PASS/BLOCK.
+
+3. AFTER [VALIDATOR] PASS — META loads framework: Read eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, projects/{PROJECT}/config.md, projects/{PROJECT}/lessons.md. Output SESSION BOOTSTRAP checklist.
 
 Далее продолжаем работу.
 ```
@@ -56,7 +60,6 @@ Deploy EraDev ({PROJECT} = basename of current directory):
 ```
 project/
 ├── CLAUDE.md                  # Auto-bootstrap (loaded every session)
-├── AGENTS.md                  # Universal agent config
 ├── .claude/
 │   ├── settings.json          # Hook configuration
 │   └── hooks/

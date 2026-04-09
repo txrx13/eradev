@@ -21,7 +21,9 @@ Deploy EraDev ({PROJECT} = basename of current directory):
    - Create projects/{PROJECT}/config.md (True North, Architecture, Iron Rules)
    - Create projects/{PROJECT}/lessons.md with header
 
-2. AFTER [BUILDER] completes — spawn [VALIDATOR] agent: прочитай .windsurfrules, eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, eradev/projects/{PROJECT}/config.md и lessons.md. Сверь 6 output types. Выведи SESSION BOOTSTRAP checklist. Report: PASS/BLOCK.
+2. AFTER [BUILDER] completes — spawn [VALIDATOR] agent: verify deploy artifacts (.windsurfrules and AGENTS.md exist with no literal {PROJECT}, hooks executable, .windsurf/hooks.json valid, git hooksPath configured). Report: PASS/BLOCK.
+
+3. AFTER [VALIDATOR] PASS — META loads framework: Read eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, projects/{PROJECT}/config.md, projects/{PROJECT}/lessons.md. Output SESSION BOOTSTRAP checklist. Save META identity to memory.
 
 Далее общаемся на русском.
 ```
@@ -46,7 +48,9 @@ Same hook scripts as Claude Code (shared `.claude/hooks/` directory):
    - Update AGENTS.md from eradev/templates/AGENTS.md.template (replace {PROJECT})
    - Copy AGENTS.md to .windsurfrules
 
-2. AFTER [BUILDER] completes — spawn [VALIDATOR] agent: прочитай .windsurfrules, eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, eradev/projects/{PROJECT}/config.md и lessons.md. Сверь 6 output types. Выведи SESSION BOOTSTRAP checklist. Report: PASS/BLOCK.
+2. AFTER [BUILDER] completes — spawn [VALIDATOR] agent: verify deploy artifacts (.windsurfrules matches AGENTS.md, hooks executable, no literal {PROJECT}). Report: PASS/BLOCK.
+
+3. AFTER [VALIDATOR] PASS — META loads framework: Read eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, projects/{PROJECT}/config.md, projects/{PROJECT}/lessons.md. Output SESSION BOOTSTRAP checklist.
 
 Далее продолжаем работу.
 ```
