@@ -40,9 +40,21 @@ if ! echo "$PROMPT" | grep -qiE '(activation operator|jidoka self-check|jidoka|B
   WARNINGS="${WARNINGS}NO_ROLE_FILE "
 fi
 
-# BLOCK if role file content missing (Check 5)
-if echo "$WARNINGS" | grep -q "NO_ROLE_FILE"; then
-  echo "BLOCKED: Agent prompt lacks role file content. Read roles/{role}_EN.md or roles/{role}.md and include FULL CONTENT in prompt. Missing signatures: Activation Operator, Jidoka Self-Check. (Invariant 12)" >&2
+# Check 6: Role file completeness (last section present = not truncated)
+if ! echo "$PROMPT" | grep -qiE '(output format|формат выхода|Builder Result|Результат Строителя|Validator Report|Отчёт Валидатора)'; then
+  WARNINGS="${WARNINGS}TRUNCATED_ROLE "
+fi
+
+# BLOCK if role file content missing (Check 5) or truncated (Check 6)
+if echo "$WARNINGS" | grep -qE "NO_ROLE_FILE|TRUNCATED_ROLE"; then
+  REASON=""
+  if echo "$WARNINGS" | grep -q "NO_ROLE_FILE"; then
+    REASON="Missing signatures: Activation Operator, Jidoka Self-Check."
+  fi
+  if echo "$WARNINGS" | grep -q "TRUNCATED_ROLE"; then
+    REASON="${REASON} Role file appears truncated: Output Format section missing."
+  fi
+  echo "BLOCKED: Agent prompt lacks FULL role file content. Read roles/{role}_EN.md or roles/{role}.md and include COMPLETE file in prompt.${REASON} (Invariant 12)" >&2
   exit 2
 fi
 

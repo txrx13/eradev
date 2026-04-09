@@ -189,7 +189,7 @@
 
 ### BL-28: Agent Prompt Must Include Explicit Context
 **Source:** Hansei — gravity session (April 2026), agents refused roleplay due to insufficient directive
-**Rule:** Every Agent tool call MUST include: (1) role identity, (2) concrete task description, (3) explicit file paths to read, (4) expected output format, (5) project config. An agent spawned without this context prefix will either refuse or hallucinate.
+**Rule:** Every Agent tool call MUST include: (1) COMPLETE role file content (not excerpts — the full file from first line to Output Format section), (2) concrete task description, (3) explicit file paths to read, (4) expected output format, (5) project config. An agent spawned without this context will either refuse or hallucinate. Truncating the role file to save tokens is a violation — hook Check 6 detects missing Output Format section and blocks the call.
 **Why:** Agents spawned via the Agent tool are subprocesses with blank context — they do NOT inherit the parent session's EraDev knowledge, loaded files, or role assignments. Three of five RT-1 agents refused to work in the gravity session because the prompt said "act as Visionary" without providing the Visionary role file, task details, or output format.
 **Applies to:** META-Orchestrator (agent spawning), all roles (when delegating sub-tasks)
 
