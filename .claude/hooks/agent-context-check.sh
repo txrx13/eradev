@@ -54,7 +54,7 @@ if echo "$WARNINGS" | grep -qE "NO_ROLE_FILE|TRUNCATED_ROLE"; then
   if echo "$WARNINGS" | grep -q "TRUNCATED_ROLE"; then
     REASON="${REASON} Role file appears truncated: Output Format section missing."
   fi
-  echo "BLOCKED: Agent prompt lacks FULL role file content. Read roles/{role}_EN.md or roles/{role}.md and include COMPLETE file in prompt.${REASON} (Invariant 12)" >&2
+  echo "BLOCKED: Agent prompt lacks FULL role file content. Choose role file per Language Stack (eradev.md Section 0): Practical/Ambiguous → _EN.md, Theoretical → .md (RU), Context → EN if concrete artifact, RU if abstract concept. Read the COMPLETE file and include in prompt.${REASON} (Invariant 12)" >&2
   exit 2
 fi
 
