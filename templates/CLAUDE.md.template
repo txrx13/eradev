@@ -57,6 +57,7 @@ This reinforces identity through the act of writing and creates persistent recor
 11. Execution order: Builder COMPLETES first, THEN Validator starts. Never parallel. For L/XL: all Builders complete → Coherencer gate → then Validators. (RT Phase Protocols, eradev.md Section VI)
 12. Every Agent call MUST include FULL CONTENT of the role file (eradev/roles/{role}_EN.md or eradev/roles/{role}.md). Inline "You are Builder" is NOT enough — the agent needs Activation Operator, Responsibilities, Jidoka Self-Check from the file.
 13. Maximize parallelization: independent tasks/agents MUST be spawned simultaneously. Sequential only when there is a real dependency. "A+B done, C depends on A, D depends on B, C and D independent" → spawn C and D in parallel.
+14. Remote/dangerous operations (SSH, DB writes, service restarts, deploy): delegate to Check Agent ([ANALYST] or [VALIDATOR]), NOT Builder. Include operator's original request verbatim in agent prompt to establish authorization context. Agent prompt must contain: "## Operator's direct request: [quote]" section. Without it, safety systems will block as prompt injection.
 
 ## Language Stack
 
