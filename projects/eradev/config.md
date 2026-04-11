@@ -3,6 +3,38 @@
 ## True North
 EraDev is a self-improving multi-agent framework that applies its own principles to its own development. The framework evolves through the same Round Table, 5-role, and ODTOE coherence mechanisms it prescribes for other projects.
 
+## Domain Adapter (v9)
+
+```yaml
+domain:
+  type: code
+  artifact:
+    primary: source_file
+    secondary: [design_doc, test_file, role_file]
+  verify:
+    method: build
+    command: "markdown-lint *.md && shellcheck scripts/*.sh"
+    success_criteria: "all markdown files parse cleanly, all shell scripts pass shellcheck, bilingual pairs present (BL-19)"
+  metrics:
+    - name: B_modality
+      value: text
+    - name: strictness
+      value: strict
+  ood_scope: text-discrete
+  examples:
+    - "edit role file -> update RU mirror -> verify bilingual sync -> git commit"
+    - "add BL entry -> update BOOTSTRAP_LESSONS -> tag [UNIVERSAL|CODE-ADAPTER] -> commit"
+    - "propose architectural change -> RT-1 (5 agents) -> synthesize -> commit"
+  subdomains:
+    - "framework-core"
+    - "role-files"
+    - "bootstrap-lessons"
+    - "project-configs"
+  skin: "templates/domain_skin.code.md"
+```
+
+**Notes:** `B_modality=text` — eradev artifacts are text-discrete markdown, not creative prose. `strictness=strict` because framework changes need bilingual sync + RT gates. `verify.command` uses markdown linting instead of compile (no binary output), but method stays `build` because the conceptual step is "produce valid deployable artifact."
+
 ## Architecture
 - **Core files** (eradev.md, meta.md, role files) — universal, project-agnostic
 - **Templates** (templates/CLAUDE.md.*) — auto-bootstrap for Claude Code

@@ -12,6 +12,41 @@ Universal AI chatbot platform that replaces fragile n8n workflows with a modular
 
 ---
 
+## Domain Adapter (v9)
+
+```yaml
+domain:
+  type: code
+  artifact:
+    primary: source_file
+    secondary: [proto_file, sql_migration, requirements_txt, nginx_config]
+  verify:
+    method: build
+    command: "cd services/gateway && go build -o /dev/null ./... && cd ../../services/ai-provider && python -m pytest && cd ../self-learning && python -m pytest"
+    success_criteria: "all Go services build cleanly, all Python services pass pytest, gRPC proto contracts match between Go and Python sides, no manual VPS intervention needed (autodeploy handles deploy)"
+  metrics:
+    - name: B_modality
+      value: text
+    - name: strictness
+      value: strict
+  ood_scope: text-discrete
+  examples:
+    - "edit gateway -> local go build -> git push -> VPS autodeploy picks up in <1 min -> monitor"
+    - "add Python dep -> update requirements.txt -> git push -> autodeploy installs in venv -> verify"
+    - "add channel adapter -> update proto -> regen Go+Python stubs -> build both sides -> deploy"
+  subdomains:
+    - "go-services"
+    - "python-ai-ml"
+    - "expo-mobile"
+    - "astro-marketing"
+    - "grpc-nats-boundary"
+  skin: "templates/domain_skin.code.md"
+```
+
+**Notes:** `B_modality=text` — plugy is text-discrete multi-language code (Go + Python + TS). `strictness=strict` because gRPC/NATS cross-language contracts are the #1 failure mode. `verify.method=build` runs both Go and Python build+test. The existing `## B-weight Override` section below stays SEPARATE from this block (per v9 OQ-A3 resolution: quality weights are independent of structural metadata). `domain.metrics` declares modality/strictness; B-weight override modifies F/E/(1-σ)/Λ weights.
+
+---
+
 ## Classification
 
 - **Size:** XL (4+ modules, architecture change)

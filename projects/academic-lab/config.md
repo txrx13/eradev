@@ -1,5 +1,38 @@
 # Academic Lab -- Project Configuration
 
+## Domain Adapter (v9)
+
+```yaml
+domain:
+  type: code
+  artifact:
+    primary: source_file
+    secondary: [config_file, deploy_script, nodes_json]
+  verify:
+    method: build
+    command: "cd eradns && GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o /dev/null . && cd ../eraweb && GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o /dev/null . && cd ../eradeploy && go build -o /dev/null ."
+    success_criteria: "all Go services build cleanly for Linux target, local tests pass, no manual server intervention needed (autodeploy handles deploy)"
+  metrics:
+    - name: B_modality
+      value: text
+    - name: strictness
+      value: strict
+  ood_scope: text-discrete
+  examples:
+    - "edit eradns -> local build -> git push -> autodeploy picks up -> rolling deploy across nodes"
+    - "add new node -> copy deploy key -> clone repo -> crontab autodeploy -> autodeploy installs stack"
+    - "bug fix -> RT-1 pipeline -> Builder + Validator -> git push -> monitor logs read-only"
+  subdomains:
+    - "eradns-go"
+    - "eraweb-go"
+    - "eradeploy-go"
+    - "erachain-java"
+    - "nextjs-frontend"
+  skin: "templates/domain_skin.code.md"
+```
+
+**Notes:** `B_modality=text` — academic-lab is multi-service Go/TS/Java code, text-discrete. `strictness=strict` because Iron Rule #1 prohibits manual server modifications — only git push deploys. `verify.method=build` compiles for Linux target matching deploy environment. Servers are read-only via SSH (observe, don't act), so runtime verification happens post-deploy via monitoring not via builder actions.
+
 ## Architecture
 - **eradns** (Go) -- DNS resolver: `eradns/`
 - **eraweb** (Go) -- Reverse proxy: `eraweb/`

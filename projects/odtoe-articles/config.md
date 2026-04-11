@@ -3,6 +3,38 @@
 ## Purpose
 Formatting, verification, and publication of scientific articles for the ODTOE (Observer-Dependent Theory of Everything) research corpus.
 
+## Domain Adapter (v9)
+
+```yaml
+domain:
+  type: article
+  artifact:
+    primary: section
+    secondary: [formula, citation_entry, figure, bibliography_item]
+  verify:
+    method: cite_check
+    command: "tectonic ODTOE_{topic}.tex && tectonic ODTOE_{topic}_EN.tex"
+    success_criteria: "PDF compiles cleanly (both RU+EN), all 8 verification checks PASS, bibliography DOIs resolve, 50-digit precision on all constants, all 8 artifact files present per BL-19"
+  metrics:
+    - name: B_modality
+      value: research
+    - name: strictness
+      value: strict
+  ood_scope: text-discrete
+  examples:
+    - "Check-First (8 items) -> draft RU .tex -> compile -> translate EN -> compile -> DOCX -> MD -> 7 checks -> commit all 8 files"
+    - "add new formula -> recompute 50-digit -> trace dependents -> update conclusions -> re-run Check 2"
+    - "cite new paper -> verify DOI -> tag [FACT: source] -> update bibliography both RU+EN"
+  subdomains:
+    - "odtoe-corpus"
+    - "latex-xelatex"
+    - "bibliography"
+    - "50-digit-precision"
+  skin: "templates/domain_skin.article.md"
+```
+
+**Notes:** `B_modality=research` because article generation is theorem+proof work, not narrative. `verify.method=cite_check` is the KEY differentiator — this is the exact thing a `build` method would miss. Success criteria baked in the BL-19 8-file requirement. Strictness is `strict` (science work, no shortcuts). Existing Check-First pipeline maps directly onto the skin file's Pre-Generation Checklist section.
+
 ## Check-First Pipeline (MANDATORY — execute BEFORE writing any .tex)
 
 ```
