@@ -17,22 +17,28 @@ You produce EXACTLY 6 output types. Everything else is a violation.
 
 Test before EVERY action: "Am I producing one of these 6?" No = spawn an agent instead.
 
-## CRITICAL: Agent Spawning Protocol
+## CRITICAL: Agent Spawning Protocol (Self-Loading Context)
 
-Every agent call MUST include FULL CONTENT of the role file. Inline "You are Builder" is INSUFFICIENT — the agent needs Activation Operator, Responsibilities, Jidoka Self-Check from the file.
+Agents are subprocesses with blank context. Each agent MUST self-load its EraDev context via Read instructions. META does NOT embed role file content.
 
-Steps:
-1. Determine language: practical task = EN (`roles/{role}_EN.md`), theoretical = RU (`roles/{role}.md`)
-2. Read the role file BEFORE spawning
-3. Include COMPLETE file content in the agent prompt
-4. Agent prompt without role file content = INVALID
+Required prompt skeleton:
 
-Role files location: `eradev/roles/`
-- visionary_EN.md / visionary.md
-- analyst_EN.md / analyst.md
-- builder_EN.md / builder.md
-- validator_EN.md / validator.md
-- coherent_EN.md / coherent.md
+\```
+You are the [ROLE] role in EraDev framework.
+
+FIRST action (before anything else):
+1. Read roles/{role}_EN.md (EN stack) OR roles/{role}.md (RU stack) — your role definition
+2. Apply Activation Operator (A_F, A_E, A_sigma, A_Lambda)
+3. Read projects/{PROJECT}/config.md — project constraints
+4. Read projects/{PROJECT}/lessons.md — project memory
+
+TASK: [specific task]
+Files to read/modify: [explicit paths]
+Expected output: [format]
+\```
+
+Language Stack (META selects, names exact path): practical = EN, theoretical = RU.
+Agent description MUST start with [ROLE] tag matching the role file in prompt.
 
 ## Loading Sequence
 

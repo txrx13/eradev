@@ -35,32 +35,51 @@ if ! echo "$PROMPT" | grep -qiE '(output|format|result)'; then
   WARNINGS="${WARNINGS}NO_FORMAT "
 fi
 
-# Check 5: Role file content loaded (signature phrases)
-if ! echo "$PROMPT" | grep -qiE '(activation operator|jidoka self-check|jidoka|B-diagnostics|blast radius)'; then
-  WARNINGS="${WARNINGS}NO_ROLE_FILE "
+# Check 5: Role file Read directive
+# Verify prompt instructs agent to Read a role file (path must be present)
+ROLE_FILE_PATTERN='roles/(visionary|analyst|builder|validator|coherent)(_EN)?\.md'
+
+if ! echo "$PROMPT" | grep -qiE "read[^\"]{0,80}${ROLE_FILE_PATTERN}"; then
+  WARNINGS="${WARNINGS}NO_ROLE_READ "
 fi
 
-# Check 6: Role file completeness (last section present = not truncated)
-if ! echo "$PROMPT" | grep -qiE '(output format|формат выхода|Builder Result|Результат Строителя|Validator Report|Отчёт Валидатора)'; then
-  WARNINGS="${WARNINGS}TRUNCATED_ROLE "
+# Check 5b: Role tag in description matches role file path in prompt
+DESCRIPTION=$(echo "$INPUT" | jq -r '.tool_input.description // empty')
+ROLE_TAG=$(echo "$DESCRIPTION" | grep -oiE '\[(visionary|analyst|builder|validator|coherencer)\]' | head -1 | tr '[:upper:]' '[:lower:]' | tr -d '[]')
+
+if [ -n "$ROLE_TAG" ]; then
+  if [ "$ROLE_TAG" = "coherencer" ]; then
+    EXPECTED_FILE_STEM="coherent"
+  else
+    EXPECTED_FILE_STEM="$ROLE_TAG"
+  fi
+
+  if ! echo "$PROMPT" | grep -qiE "roles/${EXPECTED_FILE_STEM}(_EN)?\.md"; then
+    WARNINGS="${WARNINGS}ROLE_MISMATCH "
+  fi
 fi
 
-# BLOCK if role file content missing (Check 5) or truncated (Check 6)
-if echo "$WARNINGS" | grep -qE "NO_ROLE_FILE|TRUNCATED_ROLE"; then
+# Check 6: Activation Operator directive (advisory)
+if ! echo "$PROMPT" | grep -qiE '(activation operator|apply.*operator|A_F.*A_E)'; then
+  WARNINGS="${WARNINGS}NO_OPERATOR_DIRECTIVE "
+fi
+
+# BLOCK if Read directive missing or role mismatch (Check 5, 5b)
+if echo "$WARNINGS" | grep -qE "NO_ROLE_READ|ROLE_MISMATCH"; then
   REASON=""
-  if echo "$WARNINGS" | grep -q "NO_ROLE_FILE"; then
-    REASON="Missing signatures: Activation Operator, Jidoka Self-Check."
+  if echo "$WARNINGS" | grep -q "NO_ROLE_READ"; then
+    REASON="Prompt does NOT instruct agent to Read a role file. Required: 'Read roles/{role}_EN.md' (EN tasks) or 'roles/{role}.md' (RU). META names the path, agent reads in its own context. Do NOT paste role file content. "
   fi
-  if echo "$WARNINGS" | grep -q "TRUNCATED_ROLE"; then
-    REASON="${REASON} Role file appears truncated: Output Format section missing."
+  if echo "$WARNINGS" | grep -q "ROLE_MISMATCH"; then
+    REASON="${REASON}Role tag in description does not match role file path in prompt. "
   fi
-  echo "BLOCKED: Agent prompt lacks FULL role file content. Choose role file per Language Stack (eradev.md Section 0): Practical/Ambiguous → _EN.md, Theoretical → .md (RU), Context → EN if concrete artifact, RU if abstract concept. Read the COMPLETE file and include in prompt.${REASON} (Invariant 12)" >&2
+  echo "BLOCKED: ${REASON}(Invariant 12 — self-loading pattern)" >&2
   exit 2
 fi
 
-# Advisory for other warnings (not blocking)
+# Advisory for non-blocking warnings
 if [ -n "$WARNINGS" ]; then
-  echo "BL-28 advisory: Agent prompt may be missing context. Flags: $WARNINGS (Prompt length: $PROMPT_LEN chars)" >&2
+  echo "BL-28 advisory: Flags: $WARNINGS (Prompt length: $PROMPT_LEN chars)" >&2
 fi
 
 exit 0
