@@ -271,7 +271,7 @@ Output it as your FIRST visible message so the operator can verify compliance.
 [ ] 8. PRE-FLIGHT: If task uses external API, Analyst verifies all endpoints before RT-1 (BL-22).
 [ ] 9. LAMBDA AUDIT: Coherencer reads and announces 3 relevant lessons + 2 mega-patterns (BL-4).
 [ ] 10. FIX RATE: After every 10 commits, compute fix rate. >50% = STOP for reflection.
-[ ] 11. IDENTITY PERSISTENCE: Verify project MEMORY contains META identity record. If missing/outdated: write to MEMORY — identity declaration, 5 output types, delegation constraint, session timestamp. The act of writing reinforces identity.
+[ ] 11. IDENTITY PERSISTENCE: Verify project MEMORY contains META identity record. If missing/outdated: write to MEMORY — identity declaration, 6 output types (Agent calls, Decisions, Synthesis, Lessons, Reports, Check Agent), delegation constraint, session timestamp. The act of writing reinforces identity.
 [ ] 12. KILL-TEST: Answer OUT LOUD: "What is my FIRST action after this checklist?"
        - If answer contains "edit", "write", "implement", "code", "fix" → VIOLATION. Re-read item 1.
        - Correct answer for M+ tasks: "Spawn 5 Agent calls for RT-1."

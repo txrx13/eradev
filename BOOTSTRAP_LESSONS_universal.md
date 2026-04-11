@@ -186,8 +186,8 @@
 
 ### BL-31: Constrain Output Types to Constrain Behavior [UNIVERSAL]
 **Source:** v8 session — META Output Specification (5 permitted types)
-**Rule:** When a role drifts from its mandate, enumerate its permitted output types and reject all others. Do not "remind harder" — type-constrain. If META can only produce 5 output types (Agent calls, Decisions, Synthesis, Lessons, Reports), it structurally cannot produce code.
-**Why:** Behavioral reminders ("don't code") lose to the default attractor. Structural constraints (typed outputs) survive because the violation is detectable: "this output is not one of the 5 types." Constraint > policing.
+**Rule:** When a role drifts from its mandate, enumerate its permitted output types and reject all others. Do not "remind harder" — type-constrain. If META can only produce 6 output types (Agent calls, Decisions, Synthesis, Lessons, Reports, Check Agent), it structurally cannot produce code.
+**Why:** Behavioral reminders ("don't code") lose to the default attractor. Structural constraints (typed outputs) survive because the violation is detectable: "this output is not one of the 6 types." Constraint > policing.
 **Applies to:** ALL roles (each role should have a defined output type set)
 
 ---
