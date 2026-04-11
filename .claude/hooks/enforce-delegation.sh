@@ -18,9 +18,21 @@ if [ -n "$AGENT_ID" ]; then
   exit 0
 fi
 
-# Main session (META) — BLOCK Edit/Write
+# Main session (META) — Edit/Write whitelist (META output types only)
 if [ "$TOOL_NAME" = "Edit" ] || [ "$TOOL_NAME" = "Write" ]; then
-  echo "BLOCKED: META delegates file edits via Agent tool. (BL-26, BL-31)" >&2
+  FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // .tool_input.path // empty')
+
+  # ALLOW: META output types
+  # 1. Reports: reports/*.md
+  # 2. Lessons: projects/*/lessons.md
+  # 3. Memory: ~/.claude/projects/*/memory/*.md
+  # 4. MEMORY.md at any project root
+  if echo "$FILE_PATH" | grep -qE '(/reports/[^/]+\.md$|/projects/[^/]+/lessons\.md$|/memory/[^/]+\.md$|/MEMORY\.md$)'; then
+    exit 0
+  fi
+
+  # BLOCK: everything else (code, configs, framework files)
+  echo "BLOCKED: META can only Write/Edit own output types (reports/, lessons.md, memory). For code/config/framework changes, delegate to [BUILDER] agent. Path: $FILE_PATH (BL-26, BL-31)" >&2
   exit 2
 fi
 
