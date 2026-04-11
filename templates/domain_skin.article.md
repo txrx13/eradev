@@ -50,6 +50,7 @@ This skin overrides the abstract role-file vocabulary for article tasks. When an
 | 20 | **smoke test** | abstract read + TOC scan + render of first PDF page (sanity check before full render) | Analogous to `validator_EN.md` Key Rules 5 ("Stale output detection") |
 | 21 | **glossary / canonical terms** | the 46-term ODTOE glossary — canonical terminology set that every article must align with | `odtoe-articles/config.md` line 48, line 265 |
 | 22 | **symbol collision** | two corpus artifacts using the same LaTeX symbol (e.g., `\Lambda`) with different meanings | `analyst_EN.md` Example 2 |
+| 23 | **numerical consistency / factual check** | C6 factual consistency across the article — every numerical claim (N, δB/B, Profile values, constants to 50 digits) must agree across abstract, body, tables, figure captions, and conclusion; Validator recomputes independently and cross-references all occurrences | body Section "Verification Protocol (cite_check expanded)" — C6 row in Section "The six cite_check checks"; didactic case = Example 3 ("Numerical inconsistency abstract vs table"); config.md Check 2 (full recomputation) and Check 7 (no internal contradictions) |
 
 **Unified with `odtoe-articles/config.md` — CRITICAL note:**
 The config.md contains an "EraDev Role Mapping for Articles" table (lines 283-290). That table assigns check ownership per role. The vocabulary table above is consistent with that mapping. If any agent detects a contradiction between this skin's Role Focus Overrides (Section below) and that table, **the config.md table WINS** and the agent must escalate to META before proceeding.
@@ -140,8 +141,10 @@ Each role retains its Activation Operator (A_F, A_E, A_σ, A_Λ) and Jidoka self
   - Q1: "Have I run all 8 checks, not just cite_check?"
   - Q2: "For each claim tagged [FACT], did I confirm the citation resolves AND the cited source actually supports the claim?"
   - Q3: "For each claim tagged [DERIVATION], did I confirm the derivation chain is explicit AND complete (not a jump)?"
-  - Q4: "Are the numbers in the abstract, body, tables, and figures INTERNALLY CONSISTENT? (Check 7 + factual-consistency subcheck)"
+  - Q4: "Are the numbers in the abstract, body, tables, and figures INTERNALLY CONSISTENT? (Check 7 + C6a factual-consistency subcheck)"
   - Q5: "Are both RU and EN versions validated (not just one)?"
+  - Q6 (Skin-DEF-f): "For each `\tag{}` formula in the article, can I locate the derivation (in-article), the external citation pointer (cite `[N]` + page/section), the axiomatic label, or the conjecture marker? If none of the four, the formula fails C6b provenance."
+  - Q7 (Skin-DEF-e): "Computed `self_cite_rate`. Verdict from ladder: PASS (0-30%) / NOTES (30-50%) / NOTES ESCALATED (50-70%) / FAIL (≥70%). If ≥50%, did I record the load-bearing justification for each self-cite?"
 
 ### Coherencer (article focus)
 
@@ -171,8 +174,9 @@ This section maps directly to `domain.verify.method: cite_check` in `projects/od
 | **C2** | **Citation attribution** — claim X that cites `[Smith2020]` is actually supported by Smith2020 (not just mentioned by it) | Validator | **L2** (pre-submission: requires reading the cited paper) | Human + LLM assisted — best-effort |
 | **C3** | **DOI / arXiv ID syntactic validity** — each DOI matches the DOI regex; each arXiv ID matches the arXiv regex | Validator | **L1** | Pure regex check, automated |
 | **C4** | **Internal cross-references** — `§3.2`, `\ref{thm:main}`, `\ref{fig:curve}`, `\eqref{eq:main}` all resolve to real section/theorem/figure/equation inside the same `.tex` file | Validator | **L1** (LaTeX's own warnings cover this; Validator must READ the warnings) | Rendering/parser — automated |
-| **C5** | **Self-citation sanity** — if author cites own prior work, the citation is load-bearing (not padding); at least one sentence explains what the prior work contributes | Validator + Coherencer | **L2** | Human judgment + Coherencer review |
-| **C6** | **Factual consistency** — numbers reported in abstract match numbers in body; figures match tables; abstract N = body N = table N | Validator | **L2** | Cross-reference scan — requires reading all occurrences of each numeric claim |
+| **C5** | **Self-citation sanity** — if author cites own prior work, the citation is load-bearing (not padding); at least one sentence explains what the prior work contributes. **Quantitative ladder (Skin-DEF-e):** 0-30% PASS / 30-50% NOTES / 50-70% NOTES ESCALATED / ≥70% FAIL — see C5 L2 judgment block below | Validator + Coherencer | **L2** | Human judgment + Coherencer review + self_cite_rate threshold |
+| **C6a** | **Factual consistency** — numbers reported in abstract match numbers in body; figures match tables; abstract N = body N = table N | Validator | **L2** | Cross-reference scan — requires reading all occurrences of each numeric claim |
+| **C6b** | **Formula provenance (Skin-DEF-f)** — every `\tag{}` formula is Derived / Cited-with-pointer / Axiomatic / Conjectured with a visible marker. Asserted-without-derivation = FAIL. | Validator | **L2** | Per-formula provenance classification; `grep -B3 -A1 '\\tag{'` mechanical aid + manual bucketing |
 
 ### Relationship to the 8 verification checks in `odtoe-articles/config.md`
 
@@ -185,7 +189,8 @@ The 6 cite_checks are a SUBSET + EXTENSION of the config.md check list. The mapp
 | C3 (DOI/arXiv syntax) | Check 1 ("verify DOI resolves") | Syntactic subset — C3 is purely mechanical; live DOI resolution is manual |
 | C4 (internal cross-refs) | Check 7 ("Table/figure references must resolve correctly") | Unified — same requirement |
 | C5 (self-citation sanity) | Check 6 ("Self-plagiarism check") | Related — different angle |
-| C6 (factual consistency) | Check 7 ("No contradictions WITHIN the article") | Unified — skin formalizes the "N=120 vs N=118" sub-case |
+| C6a (factual consistency) | Check 7 ("No contradictions WITHIN the article") | Unified — skin formalizes the "N=120 vs N=118" sub-case |
+| C6b (formula provenance) | Check 4 ("No fitting — all parameters derived from theory") + Check 8 (Rybakov markers, when applicable) | Unified — C6b is the "asserted-without-derivation" half that Check 4 covers from the fitting angle; C6b catches the case where a formula is quoted verbatim from an external source without a visible pointer to the derivation |
 
 **NOT covered by the 6 cite_checks (but still REQUIRED by Validator per config.md role mapping):**
 - Check 2: Mathematical apparatus — full recomputation of every formula
@@ -201,27 +206,161 @@ These 6 checks are NOT cite_check in the narrow sense, but ARE required for the 
 
 ```
 [method name]: cite_check
-[command]: N/A for automated cite_check alone; full validation uses
-          `tectonic ODTOE_{topic}.tex && tectonic ODTOE_{topic}_EN.tex`
-          plus the 8-check protocol from projects/odtoe-articles/config.md lines 201-281
-[success criteria]: all 6 cite_check checks PASS (C1-C6 above) AND
-                    all 8 config.md checks PASS AND
-                    all 8 bilingual files present (BL-19) AND
-                    PDF compiles cleanly for both RU and EN versions
-[failure recovery]: specific per check —
-                    C1 fail → add missing bibliography entry OR add missing in-text cite
-                    C2 fail → re-read cited source; if it doesn't support the claim, remove the claim or find a real source
-                    C3 fail → correct the DOI/arXiv syntax
-                    C4 fail → fix the internal reference (or remove the dangling ref)
-                    C5 fail → either explain the self-citation's load-bearing role or remove it
-                    C6 fail → re-verify the authoritative value and align all occurrences
-[independence check]: Validator must INDEPENDENTLY recompute a sample of formulas
-                      (Check 2) rather than reading Builder's computations. This is
-                      the direct analog of code projects' "run tests, don't just read
-                      the code" principle. Phantom coherence detection (BL-5) applied
-                      to articles: if Builder and Validator agree on a formula's value
-                      but neither recomputed independently, flag PHANTOM.
+[command]: hybrid — L1 (C1/C3/C4) is grep/regex automatable, L2 (C2/C5/C6a/C6b) is
+          Validator judgment. Compile step:
+          `tectonic ODTOE_{topic}.tex && tectonic ODTOE_{topic}_EN.tex`.
+          Full protocol: reference implementation below + 8-check protocol
+          from `projects/odtoe-articles/config.md` lines 201-281.
+[success criteria]: all 6 cite_check checks PASS (C1/C2/C3/C4/C5/C6a+C6b above)
+                    AND all 8 config.md checks PASS AND all 8 bilingual files
+                    present (BL-19) AND PDF compiles cleanly for RU and EN
+                    versions. C5 verdict uses the quantitative ladder
+                    (Skin-DEF-e): PASS / PASS WITH NOTES / PASS WITH NOTES
+                    ESCALATED / FAIL.
+[failure recovery]: C1 → add missing biblio entry OR missing in-text cite;
+                    C2 → re-read source, remove claim or find supporting source;
+                    C3 → correct DOI/arXiv syntax;
+                    C4 → fix internal reference (or remove dangling ref);
+                    C5 → if >30% explain load-bearing role for each self-cite
+                         and consider balancing with external cites; if ≥70%
+                         restructure or attach Coherencer co-signed justification;
+                    C6a → re-verify authoritative value and align all occurrences;
+                    C6b → add in-article derivation, or add explicit pointer
+                          into the cited source (page/section), or label as
+                          postulate/axiom, or mark as conjecture/hypothesis.
+[independence check]: Validator INDEPENDENTLY recomputes a sample of formulas
+                      (Check 2) — the article analog of "run tests, don't just
+                      read the code." Phantom coherence detection (BL-5): if
+                      Builder and Validator agree but neither recomputed
+                      independently, flag PHANTOM. Sample size: see
+                      "Sample-size contract" subsection below.
 ```
+
+### cite_check reference implementation (C1/C3/C4 L1 automation, C2/C5/C6 L2 judgment)
+
+#### C1 (L1) — Bibliography completeness
+
+ODTOE idiom: `~[N]` in text, `\item[{[N]}]` in biblio (plain-`\item` fallback:
+`grep -c '^\\item' "$TEX"` = max([N]) in text). PASS = both diff files empty;
+any duplicate (DEF-1: `[17]`/`[27]`) = FAIL.
+
+```bash
+grep -oE '~\[[0-9]+(,\s*[0-9]+)*\]' "$TEX" | grep -oE '[0-9]+' | sort -u \
+  > /tmp/cites_in_text.txt
+grep -oE '\\item\[\{\[[0-9]+\]\}\]' "$TEX" | grep -oE '[0-9]+' | sort -u \
+  > /tmp/biblio_entries.txt
+comm -23 /tmp/biblio_entries.txt /tmp/cites_in_text.txt > /tmp/c1_orphans.txt
+comm -13 /tmp/biblio_entries.txt /tmp/cites_in_text.txt > /tmp/c1_dangling.txt
+wc -l /tmp/c1_orphans.txt /tmp/c1_dangling.txt
+grep -oE '\\item\[\{\[[0-9]+\]\}\]' "$TEX" | sort | uniq -cd  # dup check
+```
+
+#### C3 (L1) — DOI / arXiv ID syntactic validity
+
+```bash
+# C3 is SYNTACTIC only; live DOI HTTP resolution = BL-A4 PRE-FLIGHT.
+DOI_RX='10\.[0-9]{4,9}/[^[:space:]"}]+'
+ARXIV_RX='(arXiv:)?[0-9]{4}\.[0-9]{4,5}(v[0-9]+)?'
+grep -oE '(doi\.org/|DOI:?\s*)[^"[:space:]]+' "$TEX" \
+  | sed -E 's|.*doi\.org/||; s|^DOI:?\s*||' \
+  | grep -vE "$DOI_RX" > /tmp/c3_dois_invalid.txt
+grep -oE "arXiv:[^[:space:]]+" "$TEX" | sed 's|^arXiv:||' \
+  | grep -vE "$ARXIV_RX" > /tmp/c3_arxiv_invalid.txt
+wc -l /tmp/c3_dois_invalid.txt /tmp/c3_arxiv_invalid.txt   # both 0 = PASS
+```
+
+#### C4 (L1) — Internal cross-references
+
+```bash
+# PASS = count is 0. No-tectonic fallback: diff `\newlabel{...}` in `.aux`
+# against `\ref{...}`/`\eqref{...}`/`\cite{...}` in `.tex`.
+tectonic "$TEX" 2>&1 | tee /tmp/c4_build.log
+grep -cE 'undefined|multiply.defined|Citation .* undefined' /tmp/c4_build.log
+```
+
+#### C2, C5, C6 (L2, judgment protocol) + sample-size contract
+
+**C2 — Citation attribution.** Per citation `[N]`: (1) source lookup (if
+inaccessible → NOT-CHECKABLE, escalate to BL-A4); (2) quote the bearing
+sentence; (3) does the source support that SPECIFIC claim, not just the general
+topic? Over-generalization ("McCraty 2003 is about HRV" → "supports the 62/38
+= +30% HRV claim") is the canonical C2 failure (smoke-test DEF-3 / Example 1).
+Coverage: EVERY T3/T4 citation in the Analyst Source Register (`odtoe-articles/
+config.md` line 46); spot-check T1/T2 per sample-size contract below.
+
+**C5 — Self-citation sanity.** Article must contain a sentence stating what the
+cited prior work CONTRIBUTES; decorative (non-load-bearing) = FAIL.
+
+**C5 quantitative thresholds** (Skin-DEF-e fix, calibrated on 2 smoke tests).
+Compute `self_cite_rate = count(in-text ~[N] where author matches primary
+author) / count(total in-text ~[N])`. Verdict ladder:
+
+- **0–30% → PASS.** Normal for single-author academic articles in math physics.
+- **30–50% → PASS WITH NOTES.** Elevated. Flag for editorial review — for each
+  self-cite, ask: replaceable by a primary source or more recent external cite?
+- **50–70% → PASS WITH NOTES ESCALATED.** Substantial. Builder MUST justify:
+  "each self-cite contributes a load-bearing result that cannot be sourced
+  elsewhere." Validator records justification and flags for Coherencer at RT-2.
+- **≥70% → FAIL.** Echo chamber. Require restructure OR Validator justification
+  with Coherencer co-sign at RT-2.
+
+**Basis:** Calibrated on the ODTOE corpus (single-author self-cites load-bearing
+by construction) against peer-reviewed physics norm ~30%. Data points: first
+smoke test = 27.4% → PASS WITH NOTES; second smoke test = 55.6% → would land
+at PASS WITH NOTES ESCALATED under this ladder (see
+`reports/v9_phase2_1_s_second_smoke_test_2026-04-11.md` Section 3 C5 row).
+
+**C6a — Factual / numerical consistency.** Per numerical claim appearing in >1
+location (abstract / body / table / figure caption / conclusion): (1) extract
+every occurrence (`grep -nE '[0-9]+[.,][0-9]+' "$TEX"`); (2) cross-check for
+silent shifts (abstract "120" vs table "118", per Example 3 / DEF-4); (3) for
+formulas, recompute per sample-size contract. EXHAUSTIVE for cross-occurrence
+numbers; single-occurrence numbers → sample-size.
+
+**C6b — Formula provenance** (Skin-DEF-f fix). For every `\tag{}`-numbered
+formula, Validator verifies one of four visible provenance labels:
+
+1. **Derived** — in-article derivation chain with ≥1 intermediate step.
+2. **Cited** — external source with concrete pointer (cite `[N]` PLUS
+   section/page reference inside `[N]`, not just `[N]` alone).
+3. **Axiomatic / postulated** — explicit label ("Postulate P4", "Axiom 3",
+   or Rybakov `% [DERIVATION: axiom]` when Check 8 applies).
+4. **Conjectured / hypothesized** — explicit label ("Conjecture 1",
+   "Hypothesis H-2", or Rybakov `% [HYPOTHESIS: ...]` when Check 8 applies).
+
+**Failure mode:** "Load-bearing formula X asserted without derivation,
+citation, axiomatic label, or conjecture marker." Canonical case: second
+smoke test (`ODTOE_phi_fractality.tex` Section III.2 formula
+`S(ρ_d) ∝ φ^(-|d-d_0|)` attributed to `[3]` with no in-article derivation
+or page pointer — `reports/v9_phase2_1_s_second_smoke_test_2026-04-11.md`
+DEF-5). **L2 mechanical aid:** `grep -B3 -A1 '\\tag{' "$TEX"` extracts
+per-formula local context; Validator manually buckets each. L2 because
+grep alone cannot distinguish "derived with visible chain" from "asserted".
+
+**Temporal exception (inherits Skin-DEF-c):** For articles predating Check 8
+cutoff (2026-04-04), C6b still applies via in-text presentation — an article
+without `%` Rybakov markers can PASS C6b if provenance is visible in the
+compiled PDF prose (numbered Postulate block, Conjecture label, proof
+sketch paragraph). C6b demands visible provenance in whatever form the
+article uses; it does not retroactively require Rybakov markers.
+
+**Sample-size contract** — single source for C6 recomputation depth AND the
+`[independence check]` "sample of formulas" phrase:
+
+```
+total_formulas = count \tag{...} / \label{eq:...} blocks in the .tex file
+sample_size    = max( 3, ceil( sqrt(total_formulas) ) )    # 9→3, 22→5, 50→8, 100→10
+```
+
+Floor of 3 keeps tiny articles meaningful; √N = BL-17 Check-First pattern.
+**Selection is DETERMINISTIC, not random.** Mandatory inclusions: (1) one
+formula from the **abstract** if it cites any — catches abstract/body drift
+(Example 3 / DEF-4); (2) one from **main results** — catches load-bearing
+recomputation failure; (3) one from **appendix / late section** if present.
+Remaining slots (if `sample_size > 3`) fill unrepresented sections; if
+`sample_size ≤ 3`, the 3 mandatory inclusions ARE the sample. Precedent:
+`ODTOE_measuring_B_parameter.tex` ≈ 22 `\tag{}` → 5; Validator recomputed 6 →
+PASS → Skin-DEF-d now mechanical.
 
 ---
 
@@ -294,11 +433,34 @@ Run AFTER Builder completes section-by-section drafting and BEFORE Validator sta
 - [ ] **1. BL-19 8-FILE SET:** All 8 files exist (RU+EN × .tex/.pdf/.docx/.md)
 - [ ] **2. COMPILE:** Both `tectonic ODTOE_{topic}.tex` and `tectonic ODTOE_{topic}_EN.tex` exit 0
 - [ ] **3. NO WARNINGS:** No overfull/underfull hboxes in changed sections; no unresolved `\ref{}`/`\cite{}`/`\eqref{}`
-- [ ] **4. EVIDENCE MARKERS:** Every substantive claim annotated with `% [FACT]` / `% [DERIVATION]` / `% [HYPOTHESIS]` / `% [OPEN]`
+- [ ] **4. EVIDENCE MARKERS:** Every substantive claim annotated with `% [FACT]` / `% [DERIVATION]` / `% [HYPOTHESIS]` / `% [OPEN]` — **SEE TEMPORAL EXCEPTION BELOW** for articles authored before 2026-04-04
 - [ ] **5. CITE_CHECK C1-C6:** All 6 cite_check sub-checks PASS
 - [ ] **6. 8 CONFIG.MD CHECKS:** All 8 verification checks from `odtoe-articles/config.md` lines 201-281 PASS
 - [ ] **7. BILINGUAL PARITY:** RU and EN have same section count, same formula count, same citation count, same figure count
 - [ ] **8. GLOSSARY ALIGNMENT:** All 46 canonical ODTOE terms used with correct meaning
+
+#### Check 8 temporal exception (pre-2026-04-04 articles)
+
+Check 8 (Rybakov evidence markers) was added to `odtoe-articles/config.md` on
+**2026-04-04** (line 280). Articles authored before that date lack
+`% [FACT]` / `% [DERIVATION]` / `% [HYPOTHESIS]` / `% [OPEN]` markers — a
+temporal gap, NOT a content defect. Cutoff determination:
+
+```bash
+git log --diff-filter=A --format=%at -1 -- "$TEX"   # preferred: first-add commit
+stat -f %m "$TEX"  # macOS fallback  |  stat -c %Y "$TEX"  # GNU fallback
+# Compare vs TEMPORAL_CUTOFF = 2026-04-04 00:00 UTC.
+```
+
+**Validator verdict labels** (report MUST include authoring date):
+- **Case A** — 0 markers, authored ≥ cutoff → **FAIL** (content defect).
+- **Case B** — 0 markers, authored < cutoff → **LEGACY INFO** (NOT a Check 8
+  pass; scope declaration; once revised post-cutoff, inherits the rule).
+- **Partial markers, same split:** ≥ cutoff → **FAIL (partial)**; < cutoff →
+  **PARTIAL LEGACY**. List unmarked claims (defect / TODO respectively).
+- **Smoke-test precedent:** `ODTOE_measuring_B_parameter.tex` (mtime Mar 20,
+  2 weeks pre-cutoff) = Case B. See
+  `reports/v9_phase2_1_s_smoke_test_2026-04-11.md` Section 3 row "Check 8".
 
 ---
 
@@ -420,6 +582,43 @@ These 4 BL live in this skin file ONLY. They do NOT add to the main 30-BL budget
 
 **Total BL an article agent carries: 22 universal + 2 transferred code-adapter + 4 BL-A = 28 BL.**
 (The 2 N/A code-adapter BL are NOT loaded; article agents do not "know" about them.)
+
+### Project lessons.md integration (Skin-DEF-g fix)
+
+**Rule:** The skin inherits 22 universal BL from `BOOTSTRAP_LESSONS_universal.md`
+AND defers to `projects/{PROJECT}/lessons.md` for project-specific rules. On
+conflict, the project lessons.md **takes precedence for project-scoped
+concerns** — the skin encodes the article-domain invariant, the project
+lessons encode the project-specific enforcement patterns.
+
+**ODTOE project rules that post-date this skin spec** (not encoded in BL-A1..A4;
+must be read from `projects/odtoe-articles/lessons.md`):
+
+- **L-31** (TeX dashes): `---`/`--` forbidden in `.tex` source; use Unicode
+  `—`/`–`. Grep: `grep -Pn '--|---' *.tex` = 0 PASS.
+- **L-32** (biblio year format): Pankratov self-cites = "Препринт (2026)"; titles
+  copied verbatim from `.tex` `\Large\bfseries`, not invented.
+- **L-33** (required sections before ЛИТЕРАТУРА): БЛАГОДАРНОСТИ И ИНСТРУМЕНТЫ
+  + КОНФЛИКТ ИНТЕРЕСОВ + ФИНАНСИРОВАНИЕ must appear before the bibliography.
+  Note: lessons.md has a numbering collision (two L-33 entries — the second
+  covers READ/WRITE/VERIFY/SYNC canonical operations). Validator tolerates both.
+- **L-34** (RU+EN parity) + **L-35** (biblio in first-mention order, no
+  `ODTOE\_...` file-name refs in text).
+
+**Temporal exception clause** (inherits Skin-DEF-c pattern): rules introduced
+AFTER an article's file-system mtime (`git log --diff-filter=A --format=%at -1`
+preferred, `stat` fallback) are **LEGACY INFO, not FAIL**. Same Case A /
+Case B / Partial split as the Check 8 temporal exception subsection.
+Example: `ODTOE_phi_fractality.tex` (mtime Mar 19) predates L-31
+(dated 2026-04-05), so 16 EN `---` occurrences are Case B (LEGACY INFO).
+
+**Validator one-line routine:** Read `projects/{PROJECT}/lessons.md` → extract
+project-specific rule list → apply temporal exception per rule → supplement
+the 6 cite_check sub-checks + 8 config.md checks with project rules.
+Post-mtime violation = temporal N/A; pre-mtime violation = real defect.
+
+**Applies to:** Validator (RT-2 primary reader), Coherencer (cross-corpus
+propagation), Builder (pre-commit), Analyst (RT-1 Check-First preamble).
 
 ---
 
