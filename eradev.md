@@ -1,6 +1,6 @@
 # EraDev -- Universal Core
 
-> Version: 7.1 | Foundation: ODTOE + TPS
+> Version: 8 | Foundation: ODTOE + TPS
 > Project-specific rules live in `eradev/projects/{name}/`
 
 ---

@@ -99,4 +99,4 @@ The Loading Protocol maps directly to the Activation Operator (eradev.md Section
 
 ---
 
-*EraDev v7.1 | Agent Loading Protocol | EN-Analyst proposal, verified RT-5*
+*EraDev v8 | Agent Loading Protocol | EN-Analyst proposal, verified RT-5*

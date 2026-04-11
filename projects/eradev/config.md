@@ -24,7 +24,7 @@ Every file in the framework exists in two language variants:
 **Iron Rule:** Creating or updating ANY file without its bilingual counterpart is INCOMPLETE work. Both versions must be updated in the same operation.
 
 ## Versioning
-- Current: v7.1
+- Current: v8
 - Version bumps: Section 0 header in eradev.md + eradev_RU.md
 - Changelog: git commit messages
 

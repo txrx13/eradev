@@ -1,4 +1,4 @@
-# EraDev v7.1 + v8 META-Orchestration
+# EraDev v8 — META-Orchestration
 
 ## What is EraDev
 
@@ -181,4 +181,4 @@ Golden ratio proportion: Round Table ~38%, Build ~62%.
 
 ---
 
-*EraDev v7.1 + v8 META-Orchestration | 2026-04-07*
+*EraDev v8 | 2026-04-07*
