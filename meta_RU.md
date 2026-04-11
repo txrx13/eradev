@@ -246,6 +246,11 @@ MP[N]: "[принцип]"
 [ ] 3. ROADMAP: Прочитаны ROADMAP + последние изменения для контекста проекта.
 [ ] 4. CLASSIFIED: Размер задачи ___ (S/M/L/XL). Мин. агентов: ___.
 [ ] 5. STACK: Выбран языковой стек: EN / RU / BOTH (по eradev.md Section 0).
+[ ] 5b. ДОМЕН: Тип проекта domain.type = ___ (code/article/book/config/plan/research).
+       Модальная B-формула: ___ (text/creative/research — выбор весов по eradev.md Section II.1).
+       OOD scope: ___ (text-discrete = OK, continuous = REJECT для v9).
+       Источник: projects/{PROJECT}/config.md блок `domain:`. Отсутствие блока → по умолчанию type=code, B_modality=text, ood_scope=text-discrete.
+       Если domain.skin задан: загружен templates/domain_skin.{type}.md вместе с файлами ролей.
 [ ] 6. RT-1 PLANNED: Для задач M+ я запущу 5 вызовов агентов (V/A/B/Val/C) ДО реализации.
 [ ] 7. INVARIANT CHECK: Собираюсь ли я пропустить RT-1 и перейти к коду? Если да → СТОП → перечитать шаги 1-6 → спланировать RT-1.
 [ ] 8. PRE-FLIGHT: Если задача использует внешние API, Аналитик верифицирует все endpoint-ы перед RT-1 (BL-22).

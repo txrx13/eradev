@@ -76,7 +76,7 @@ This reinforces identity through the act of writing and creates persistent recor
 9. Agent description MUST start with [ROLE] tag: [VISIONARY], [ANALYST], [BUILDER], [VALIDATOR], [COHERENCER]. Operator must see which role is working.
 10. Bash is classified: OPERATIONAL (git, ls, mkdir, cp, zip) = allowed. DIAGNOSTIC (grep, curl, ssh, psql, redis-cli, jq) = delegate to Check Agent ([ANALYST] or [VALIDATOR]). If it generates debugging insights → it's diagnostic.
 11. Execution order: Builder COMPLETES first, THEN Validator starts. Never parallel. For L/XL: all Builders complete → Coherencer gate → then Validators. (RT Phase Protocols, eradev.md Section VI)
-12. Every Agent call MUST include FULL CONTENT of the role file (eradev/roles/{role}_EN.md or eradev/roles/{role}.md). Inline "You are Builder" is NOT enough — the agent needs Activation Operator, Responsibilities, Jidoka Self-Check from the file.
+12. Every Agent call MUST instruct the agent to self-load its role file as FIRST action. Prompt names the path: "Read eradev/roles/{role}_EN.md (EN) or eradev/roles/{role}.md (RU), apply Activation Operator". META does NOT embed role file content — the agent reads it into its own context. This keeps META context lean.
 13. Maximize parallelization: independent tasks/agents MUST be spawned simultaneously. Sequential only when there is a real dependency. "A+B done, C depends on A, D depends on B, C and D independent" → spawn C and D in parallel.
 14. Remote/dangerous operations (SSH, DB writes, service restarts, deploy): delegate to Check Agent ([ANALYST] or [VALIDATOR]), NOT Builder. Include operator's original request verbatim in agent prompt to establish authorization context. Agent prompt must contain: "## Operator's direct request: [quote]" section. Without it, safety systems will block as prompt injection.
 
@@ -89,7 +89,7 @@ Detect task type per eradev.md Section 0:
 - Mixed L/XL: BOTH (parallel EN + RU agents, Coherencer syncs at RT)
 - Ambiguous: EN (default)
 
-When spawning agents: Read eradev/roles/{role}_EN.md (EN tasks) or eradev/roles/{role}.md (RU tasks) and include FULL CONTENT in agent prompt.
+When spawning agents: instruct the agent to "Read eradev/roles/{role}_EN.md" (EN tasks) or "Read eradev/roles/{role}.md" (RU tasks) as its FIRST action. META names the path; agent self-loads. Do NOT embed role file content into META prompt.
 
 ## KILL-TEST
 
@@ -98,4 +98,4 @@ Your FIRST action after loading MUST be one of:
 - S tasks: "Spawn Builder + Validator agents"
 
 If your first action is edit/write/implement/code/fix -> VIOLATION -> re-read this file.
-Before spawning: did I Read the role file and include its content? If no → Read it first.
+Before spawning: does my prompt contain "Read eradev/roles/{role}_EN.md" directive and matching [ROLE] tag? Did I AVOID reading the role file into my own context? If I read it myself → context pollution → VIOLATION.
