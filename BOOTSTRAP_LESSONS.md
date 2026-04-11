@@ -188,9 +188,9 @@
 **Also covers diagnostic Bash:** grep, curl, ssh, psql, redis-cli, jq are diagnostic tools. When META needs to inspect code or query services: (1) formulate a specific question, (2) spawn Check Agent (any role) with that question, (3) receive structured yes/no answer. "I'll just grep quickly" → diagnostic drift → META becomes debugger. Hook enforces this at Layer 2.
 
 ### BL-28: Agent Prompt Must Include Explicit Context [UNIVERSAL]
-**Source:** Hansei — gravity session (April 2026), agents refused roleplay due to insufficient directive
-**Rule:** Every Agent tool call MUST include: (1) COMPLETE role file content (not excerpts — the full file from first line to Output Format section), (2) concrete task description, (3) explicit file paths to read, (4) expected output format, (5) project config. An agent spawned without this context will either refuse or hallucinate. Truncating the role file to save tokens is a violation — hook Check 6 detects missing Output Format section and blocks the call.
-**Why:** Agents spawned via the Agent tool are subprocesses with blank context — they do NOT inherit the parent session's EraDev knowledge, loaded files, or role assignments. Three of five RT-1 agents refused to work in the gravity session because the prompt said "act as Visionary" without providing the Visionary role file, task details, or output format.
+**Source:** Hansei — gravity session (April 2026), agents refused roleplay due to insufficient directive. v9 amendment: self-loading semantics per CLAUDE.md Invariant 12 + self-loading context architecture
+**Rule:** Every Agent tool call MUST (1) instruct the agent to self-load its role file via Read as its FIRST action, (2) name the role file path in the prompt (e.g., "Read roles/builder_EN.md, apply Activation Operator"), (3) NOT embed role file content into META's context, (4) provide concrete task description + explicit file paths to read + expected output format + project config. The agent is a subprocess with blank context — it self-loads the role file, META names the path. Truncating or embedding the role file in META's prompt is a v9 violation.
+**Why:** Self-loading keeps META context lean and prevents version drift across parallel agents — each agent Reads the current role file state, not a META-embedded snapshot that may be stale by the time a later agent spawns. v8 (pre-v9) used the "embed full file" pattern to guarantee context; v9 Invariant 12 replaces it with path-naming + agent-side self-load, which both saves tokens and ensures every agent sees the single source of truth on disk. The original failure mode (three of five RT-1 agents refused to work in the gravity session because the prompt said "act as Visionary" without a directive to read the role file) is still covered: the prompt must explicitly name the path and instruct the Read action as step 1.
 **Applies to:** META-Orchestrator (agent spawning), all roles (when delegating sub-tasks)
 
 ### BL-29: Verify Established Terminology Before Generating [UNIVERSAL]
@@ -198,6 +198,16 @@
 **Rule:** Before generating any artifact for an existing project, grep/read the project's existing outputs to identify established terminology, naming conventions, and notation patterns. Use them exactly. Do not invent new terms, transliterations, or abbreviations when the project already has established ones.
 **Why:** Three Builders working in parallel each chose different transliterations and notation styles, creating inconsistencies that required manual cleanup. The cost of reading existing conventions first is seconds; the cost of harmonizing divergent terminology after generation is hours. This generalizes beyond articles to code (variable naming, API conventions), docs (glossary terms), and configs (key naming patterns).
 **Applies to:** Builder (pre-generation check), Validator (terminology consistency audit), Coherencer (cross-Builder sync)
+
+**Phantom DECOHERENCE (v9 Wave 9 extension, symmetric to BL-5 phantom coherence):**
+When S_team is low but B_mean is high, the team may not be disagreeing on substance — they may be using different terminology for the same concept. This is the symmetric failure of phantom coherence. Coherencer MUST:
+
+1. Before declaring "team disagrees", run a glossary unification pass: extract key terms each role uses, check for synonyms, translate across terminology systems (code vs paper vs mathematical formalism).
+2. If synonym analysis reduces the disagreement surface by ≥40%, re-score S_team on the unified terminology. Report both original S_team and unified S_team in the Coherencer output.
+3. If disagreement persists after glossary unification, it's genuine divergence — escalate to Visionary for scope re-derivation.
+
+**Symptom of phantom decoherence:** S_team < 0.5 AND B_mean ≥ 0.7 AND pair-wise role outputs share entities but disagree on predicates.
+**Source:** v9 Wave 9 ODTOE mining — `reports/v9_odtoe_multiagent_mining_2026-04-11.md` REC-2, derived from `ODTOE_multiagent_coherence.md` §III.8.
 
 ### BL-30: Defense-In-Depth for Enforcement [UNIVERSAL]
 **Source:** v8 session — 3-layer identity enforcement design (CLAUDE.md + hook + memory persistence)

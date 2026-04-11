@@ -22,7 +22,7 @@ domain:
       value: strict
   ood_scope: text-discrete
   examples:
-    - "Check-First (8 items) -> draft RU .tex -> compile -> translate EN -> compile -> DOCX -> MD -> 7 checks -> commit all 8 files"
+    - "Check-First (8 items) -> draft RU .tex -> compile -> translate EN -> compile -> DOCX -> MD -> 8 checks -> commit all 8 files"
     - "add new formula -> recompute 50-digit -> trace dependents -> update conclusions -> re-run Check 2"
     - "cite new paper -> verify DOI -> tag [FACT: source] -> update bibliography both RU+EN"
   subdomains:
@@ -101,7 +101,7 @@ Builder MUST produce EN version in the SAME session as RU. Do NOT defer EN to "l
 7. Generate MD (both):
    python3 tex2md.py (or manual conversion with fix_md.py cleanup)
    Output: ODTOE_{topic}.md and ODTOE_{topic}_EN.md in the SAME directory
-8. Apply 7 Verification Checks (see below)
+8. Apply 8 Verification Checks (see below)
 9. Commit all 8 files together
 ```
 
@@ -198,7 +198,7 @@ NOTE: Preamble must have comment group headers (% Fonts, % Language, % Math pack
 10. Subsections: `\subsection*{I.1. Название}`
 11. Bibliography: `\begin{enumerate}\item...\end{enumerate}` with [N] references in text
 
-## Seven Verification Checks (MANDATORY — applied to EVERY article)
+## Eight Verification Checks (MANDATORY — applied to EVERY article)
 
 ### Check 1: Formula correctness, proof consistency, and bibliography verification
 - **Recompute** every formula independently from first principles — do NOT copy results from other articles

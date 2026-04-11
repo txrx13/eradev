@@ -1,0 +1,138 @@
+# Domain Skin: {DOMAIN_NAME}
+
+> Type: code | article | book | config | plan | research
+> Modality: text | creative | research
+> Applies to projects where `config.md` contains `domain.type: {DOMAIN_NAME}`
+
+---
+
+## Vocabulary Mapping
+
+This skin overrides the abstract role-file vocabulary for {DOMAIN_NAME} tasks. When an agent sees these generic terms, it reads them as the domain-specific meanings below.
+
+| Abstract term (role file) | {DOMAIN_NAME} meaning |
+|---|---|
+| artifact | {e.g., "source file" / "section" / "chapter"} |
+| verify | {e.g., "compile + test" / "citation check" / "readability pass"} |
+| produce | {e.g., "write code" / "draft prose" / "derive equation"} |
+| validate | {e.g., "run tests" / "fact-check" / "independent recomputation"} |
+| pipeline | {e.g., "edit->compile->test->deploy" / "outline->draft->review->publish"} |
+| deploy | {e.g., "git push to prod" / "submit to journal" / "publish manuscript"} |
+
+---
+
+## Role Focus Overrides
+
+Each role retains its Activation Operator and Jidoka protocol from `roles/{role}_EN.md`. This section adds DOMAIN-SPECIFIC focus.
+
+### Visionary
+- Strategic question: {what does "True North" mean in this domain?}
+- OOD detection: {which tasks in this domain are actually continuous/out-of-scope for v9?}
+- Domain anti-patterns: {3-5 failure modes specific to this domain}
+
+### Analyst
+- Plan decomposition unit: {what is one "step" — function, paragraph, citation, config key?}
+- Dependency graph: {what are the canonical edges — imports, refs, predecessors?}
+- Resource conflicts: {domain-specific resources — ports, formulas, page numbers, stylesheets}
+- File Ownership: {who owns which artifact when 2+ Builders run?}
+
+### Builder
+- Production protocol: {domain-specific write steps}
+- Activation gate: {pre-write check — e.g., Check-First, lint pre-flight, format reference read}
+- Output artifact: {extension + location convention}
+- Anti-patterns: {domain-specific Builder pitfalls}
+
+### Validator
+- Verification protocol: {exact steps, exact commands}
+- Success criteria: {what PASS looks like}
+- Failure handling: {what Validator does on FAIL — rollback, patch, escalate}
+- Independence rule: {e.g., "recompute formulas independently, don't trust prior results"}
+
+### Coherencer
+- Cross-artifact consistency: {what must match across files — glossary, formula IDs, version numbers}
+- Bilingual sync (BL-19): {how RU/EN sync applies in this domain}
+- Drift detection: {what signals phantom coherence specific to this domain}
+
+---
+
+## Verification Protocol ({DOMAIN_NAME}-specific)
+
+This maps directly to `config.md` `domain.verify.method`.
+
+```
+[method name]: {method from enum}
+[command]: {shell command or N/A}
+[success criteria]: {assertion in prose}
+[failure recovery]: {what to do if validation fails — re-run, fix, escalate}
+[independence check]: {what "independent verification" means here}
+```
+
+---
+
+## Checklists
+
+### Pre-Generation Checklist (Check-First, BL-17)
+- [ ] Item 1 — {domain-specific pre-check}
+- [ ] Item 2 — ...
+- [ ] Item N — ...
+
+### Post-Generation Checklist (Jidoka gate)
+- [ ] Item 1 — {domain-specific post-check}
+- [ ] Item 2 — ...
+- [ ] Item N — ...
+
+---
+
+## Examples (3 concrete tasks)
+
+### Example 1: {Short task title}
+- **Input**: {what the user asked}
+- **Domain classification**: type={X}, verify={Y}
+- **Pipeline**: step1 -> step2 -> step3 -> step4
+- **Expected artifact**: {file list + locations}
+- **Verification**: {exact command + PASS criteria}
+
+### Example 2: {Short task title}
+- ...
+
+### Example 3: {Short task title}
+- ...
+
+---
+
+## Domain-Specific Bootstrap Lessons
+
+If any BL entries are tagged `[CODE-ADAPTER]` in BOOTSTRAP_LESSONS.md, list the {DOMAIN_NAME}-specific equivalents here. These are the lessons a fresh agent should read BEFORE spawning an agent on a {DOMAIN_NAME} task.
+
+- DL-1: {domain lesson 1}
+- DL-2: {domain lesson 2}
+- ...
+
+---
+
+## Known Out-of-Scope (OOD)
+
+Tasks that look like {DOMAIN_NAME} but are actually continuous or out of v9 scope:
+- {pattern 1 — why it's OOD}
+- {pattern 2 — why it's OOD}
+
+Agents should escalate these to Visionary RT-0, not auto-proceed.
+
+---
+
+## B-weight Adjustment (if any)
+
+{If this domain requires non-default B-weights, list them here. Default: w_F=w_E=w_{1-σ}=w_Λ=0.25.}
+
+| Component | Weight | Rationale |
+|---|---|---|
+| F | 0.25 | ... |
+| E | 0.25 | ... |
+| (1-σ) | 0.25 | ... |
+| Λ | 0.25 | ... |
+
+---
+
+*Last updated: YYYY-MM-DD*
+*Upstream roles: roles/{role}_EN.md*
+*Upstream math: eradev.md Section II*

@@ -70,12 +70,12 @@
 
 29. **Multi-Builder consistency: grep числовые константы после объединения.** Gravity session: три Builder-а писали параллельно, Appendix C противоречил Section V (6π⁵ = 29.6 vs 1836.12). **Enforcement:** После concat частей → обязательный скрипт: (1) `grep -oP '\d+\.\d{3,}' combined.tex | sort | uniq -cd` — дубликаты разных значений? (2) `grep -c '\\section' combined.tex` = ожидаемое число секций? (3) `grep -oP '\\tag\{[^}]+\}' combined.tex | sort | uniq -cd` — дубликаты тегов? Результат проверки → артефакт `CONSISTENCY_CHECK.log`. Без лога — compile BLOCKED. **Корень:** P-5 hansei report, три Builder-а без cross-check.
 
-30. **7 checks — это GATE, а не postscript. 0/7 = статья не сдана.** Gravity session: все 8 файлов создано, но ни один check не завершён. Статья «существует» но не «прошла QA». **Enforcement:** В pipeline step 8 заменить «Apply 7 Verification Checks» на «**GATE:** 7 Verification Checks — BLOCKS step 9 (delivery)». Если session budget исчерпан до завершения checks → переименовать файл в `*_DRAFT.tex`, явно пометить в CLAUDE.md: «DRAFT — checks pending: [list]». Validator ОБЯЗАН предъявить артефакт проверки (лог, скрипт, таблицу), не словесное «проверил, всё ок». **Корень:** Incident #7 hansei report, AMP1/AMP6 violated.
+30. **Checks — это GATE, а не postscript. 0/N = статья не сдана.** Gravity session: все 8 файлов создано, но ни один check не завершён. Статья «существует» но не «прошла QA». **Enforcement:** В pipeline step 8 заменить «Apply N Verification Checks» на «**GATE:** N Verification Checks — BLOCKS step 9 (delivery)». Если session budget исчерпан до завершения checks → переименовать файл в `*_DRAFT.tex`, явно пометить в CLAUDE.md: «DRAFT — checks pending: [list]». Validator ОБЯЗАН предъявить артефакт проверки (лог, скрипт, таблицу), не словесное «проверил, всё ок». **Корень:** Incident #7 hansei report, AMP1/AMP6 violated. (Примечание v9: на момент инцидента checks было 7; сейчас 8 после добавления Check-8 evidence classification — см. config.md.)
 
 ## Mega-Patterns for Articles
 
-### AMP1: Seven checks are not optional
-Every article, every version (RU + EN). No exceptions. Check 3 (50-digit precision) catches the most errors. Check 7 (internal consistency) catches the most dangerous ones.
+### AMP1: Eight checks are not optional
+Every article, every version (RU + EN). No exceptions. Check 3 (50-digit precision) catches the most errors. Check 7 (internal consistency) catches the most dangerous ones. Check 8 (evidence classification) is the newest and prevents post-hoc fitting disguised as derivation.
 
 ### AMP2: Unicode first, LaTeX ligatures never
 The single rule that prevents 80% of compilation artifacts with PT Serif + XeLaTeX.
@@ -100,8 +100,8 @@ The reference format (ODTOE_article.tex) defines the gold standard. Key rules di
 - Bibliography format: ГОСТ for RU sources, standard for EN sources
 - NO \begin{english}...\end{english} wrappers on bibliography items — use inline
 
-### AMP6: Seven checks are GATE, not postscript (L-30)
-Every article MUST pass all 7 checks from config.md. Checks BLOCK delivery — they are step 8 in pipeline, step 9 (delivery) is unreachable without them. If session budget exhausted before checks complete → rename to `*_DRAFT.tex`. Gravity session: 0/7 checks completed, 4 known errors shipped. Validator must attach verification artifact (log, script output, table), not verbal "checked, all good." The most common failures:
+### AMP6: Eight checks are GATE, not postscript (L-30)
+Every article MUST pass all 8 checks from config.md. Checks BLOCK delivery — they are step 8 in pipeline, step 9 (delivery) is unreachable without them. If session budget exhausted before checks complete → rename to `*_DRAFT.tex`. Gravity session (historical): 0/7 checks completed (pre-Check-8 era), 4 known errors shipped. Validator must attach verification artifact (log, script output, table), not verbal "checked, all good." The most common failures:
 - Check 2 (recompute formulas): P_coll error (0.61 vs correct 0.657) propagated across multiple articles
 - Check 3 (50-digit precision): copy-paste errors in constants; gravity session claimed 50-digit but showed 10-15 (L-24)
 - Check 4 (no fitting): Φ_G correction factor was post-hoc fitted in gravity session — require DERIVATION.md (L-23)
