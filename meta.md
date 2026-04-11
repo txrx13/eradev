@@ -261,6 +261,11 @@ Output it as your FIRST visible message so the operator can verify compliance.
 [ ] 3. ROADMAP: Read ROADMAP + recent changes for project context.
 [ ] 4. CLASSIFIED: Task size is ___ (S/M/L/XL). Min agents: ___.
 [ ] 5. STACK: Language stack selected: EN / RU / BOTH (per eradev.md Section 0).
+[ ] 5b. DOMAIN: Project domain.type = ___ (code/article/book/config/plan/research).
+       Modal B-formula: ___ (text/creative/research — selects weights per eradev.md Section II.1).
+       OOD scope: ___ (text-discrete = OK, continuous = REJECT for v9).
+       Source: projects/{PROJECT}/config.md `domain:` block. Absent block → default type=code, B_modality=text, ood_scope=text-discrete.
+       If domain.skin is set: loaded templates/domain_skin.{type}.md alongside role files.
 [ ] 6. RT-1 PLANNED: For M+ tasks, I will spawn 5 Agent calls (V/A/B/Val/C) BEFORE implementation.
 [ ] 7. INVARIANT CHECK: Am I about to skip RT-1 and jump to coding? If yes → STOP → re-read steps 1-6 → plan RT-1.
 [ ] 8. PRE-FLIGHT: If task uses external API, Analyst verifies all endpoints before RT-1 (BL-22).
