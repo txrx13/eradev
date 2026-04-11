@@ -37,9 +37,11 @@ fi
 
 # Check 5: Role file Read directive
 # Verify prompt instructs agent to Read a role file (path must be present)
+# Path-anchored: presence of role file path implies Read intent
+# Language-agnostic: works for EN ("Read"), RU ("Прочитай"), or path-only mentions
 ROLE_FILE_PATTERN='roles/(visionary|analyst|builder|validator|coherent)(_EN)?\.md'
 
-if ! echo "$PROMPT" | grep -qiE "read[^\"]{0,80}${ROLE_FILE_PATTERN}"; then
+if ! echo "$PROMPT" | grep -qiE "${ROLE_FILE_PATTERN}"; then
   WARNINGS="${WARNINGS}NO_ROLE_READ "
 fi
 
