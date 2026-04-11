@@ -1,4 +1,4 @@
-# EraDev v8 — META-Orchestration
+# EraDev v9 — META-Orchestration
 
 ## Что такое EraDev
 
@@ -6,7 +6,7 @@ EraDev -- фреймворк мультиагентной разработки, 
 
 Качество каждого агента измеряется формулой B = F * E * (1-sigma) * Lambda, где обнуление любого компонента обнуляет весь результат.
 
-**Ключевые свойства v8:**
+**Ключевые свойства v9:**
 
 - **3-layer enforcement** -- CLAUDE.md (авто-загрузка) + PreToolUse hook (блокирует Edit/Write из главной сессии) + memory persistence (идентичность сохраняется между сессиями)
 - **6 output types** -- META производит только: Agent calls, Decisions, Synthesis, Lessons, Reports, Check Agent. Всё остальное = нарушение.
@@ -179,4 +179,4 @@ True North -- это не цель, а направление. Сформули�
 
 ---
 
-*EraDev v8 | 2026-04-07*
+*EraDev v9 | 2026-04-11*

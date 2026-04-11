@@ -62,17 +62,18 @@ If a task requires reading 20+ files, decompose it. Not because of token limits,
 
 ## META-Orchestrator Loading Path
 
-The META-Orchestrator (Level 9) has a DIFFERENT loading sequence from role agents:
+The META-Orchestrator (Level 9) has a DIFFERENT loading sequence from role agents. Canonical source: root `CLAUDE.md` section "Mandatory Loading Sequence" (v9 adds step 6 — domain skin conditional load):
 
 | Step | File | Purpose |
 |------|------|---------|
-| 1 | `eradev.md` | Core framework |
-| 2 | `meta.md` | **META operating protocol** (role agents skip this) |
-| 3 | `projects/{name}/config.md` | Project context |
-| 4 | `projects/{name}/lessons.md` | Project memory |
-| 5 | `BOOTSTRAP_LESSONS.md` | Cold-start Lambda |
+| 1 | `eradev.md` | Core framework (ODTOE + TPS + Round Table) |
+| 2 | `meta.md` | **META operating protocol** (Section 14 = 13-item Session Entry checklist including DOMAIN at item 5b) |
+| 3 | `BOOTSTRAP_LESSONS.md` | Cold-start Lambda (split in v9 into `BOOTSTRAP_LESSONS_universal.md` + `BOOTSTRAP_LESSONS_code_adapter.md`; aggregate file still loads) |
+| 4 | `projects/{PROJECT}/config.md` | Project context INCLUDING `domain:` block (v9). Absence of block = default `type=code`, `B_modality=text`, `ood_scope=text-discrete`. |
+| 5 | `projects/{PROJECT}/lessons.md` | Project memory |
+| 6 | `templates/domain_skin.{type}.md` | **Conditional** — loaded ONLY if `domain.skin` is set in the project config. v9 L2 domain overlay (vocabulary + focus). See `templates/domain_skin.md.template` for schema. |
 
-The META-Orchestrator then spawns role agents, each of which follows the standard 4-step sequence above.
+The META-Orchestrator then spawns role agents. Each role agent follows the standard 4-step sequence above (or 5-step if META passes `domain.skin` path per v9 Domain Awareness — the skin is a lightweight overlay, not a role-file replacement).
 
 ---
 
@@ -99,4 +100,4 @@ The Loading Protocol maps directly to the Activation Operator (eradev.md Section
 
 ---
 
-*EraDev v8 | Agent Loading Protocol | EN-Analyst proposal, verified RT-5*
+*EraDev v9 | Agent Loading Protocol | META 6-step path + role-agent 4-step path, aligned to root CLAUDE.md*

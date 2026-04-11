@@ -1,10 +1,10 @@
-# EraDev v8 — META-Orchestration
+# EraDev v9 — META-Orchestration
 
 ## What is EraDev
 
 EraDev is a multi-agent development framework based on ODTOE (Observer-Dependent Theory of Everything) and Toyota Production System principles. Five specialized roles (Visionary, Analyst, Builder, Validator, Coherencer) work through the Round Table protocol, ensuring collective coherence above the individual level.
 
-**v8 additions:**
+**v9 essentials:**
 
 - **3-layer enforcement:** CLAUDE.md (auto-bootstrap) + PreToolUse hook (blocks direct Edit/Write from META) + memory persistence (identity survives across sessions)
 - **6 output types:** Agent calls, Decisions, Synthesis, Lessons, Reports, Check Agent. Anything else = VIOLATION.
@@ -181,4 +181,4 @@ Golden ratio proportion: Round Table ~38%, Build ~62%.
 
 ---
 
-*EraDev v8 | 2026-04-07*
+*EraDev v9 | 2026-04-11*
