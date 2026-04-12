@@ -9,13 +9,13 @@
 #   bash scripts/build-skill.sh
 #
 # Exit codes:
-#   0  — bundle rebuilt, v9 header verified
-#   1  — v9 header assertion failed (bundle is stale or corrupt)
+#   0  — bundle rebuilt, v10 header verified
+#   1  — v10 header assertion failed (bundle is stale or corrupt)
 #
 # Guardrails:
 #   - set -euo pipefail (any error aborts the build)
 #   - excludes macOS .DS_Store and Python __pycache__/ junk
-#   - verifies the resulting zip contains "EraDev v9" in SKILL.md before exiting 0
+#   - verifies the resulting zip contains "EraDev v10" in SKILL.md before exiting 0
 
 set -euo pipefail
 
@@ -46,24 +46,24 @@ zip -r "$ZIP_PATH" eradev/ \
 echo "[build-skill] built $ZIP_PATH"
 ls -lh "$ZIP_PATH" | awk '{print "[build-skill] size: " $5}'
 
-# 5. Verify v9 header by peeking at SKILL.md inside the zip.
-#    The first 6 lines of SKILL.md must contain the literal "EraDev v9" string.
+# 5. Verify v10 header by peeking at SKILL.md inside the zip.
+#    The first 6 lines of SKILL.md must contain the literal "EraDev v10" string.
 HEADER="$(unzip -p "$ZIP_PATH" eradev/SKILL.md | head -6)"
-if printf '%s\n' "$HEADER" | grep -q 'EraDev v9'; then
-  echo "[build-skill] OK: SKILL.md contains 'EraDev v9'"
+if printf '%s\n' "$HEADER" | grep -q 'EraDev v10'; then
+  echo "[build-skill] OK: SKILL.md contains 'EraDev v10'"
 else
-  echo "[build-skill] ERROR: SKILL.md does NOT contain 'EraDev v9'" >&2
+  echo "[build-skill] ERROR: SKILL.md does NOT contain 'EraDev v10'" >&2
   echo "[build-skill] First 6 lines were:" >&2
   printf '%s\n' "$HEADER" >&2
   exit 1
 fi
 
-# Check role file vocabulary (v9: should NOT contain v8 code-biased tokens)
+# Check role file vocabulary (v10: should NOT contain v8 code-biased tokens)
 V8_TOKENS=$(unzip -p "$ZIP_PATH" "eradev/roles/builder_EN.md" 2>/dev/null | grep -ciE "tested code|package/module|variable/function" || true)
 if [ "$V8_TOKENS" -gt 0 ]; then
   echo "[build-skill] FAIL: role files contain v8 vocabulary ($V8_TOKENS matches)" >&2
   exit 1
 fi
-echo "[build-skill] OK: role file vocabulary is v9-clean"
+echo "[build-skill] OK: role file vocabulary is v10-clean"
 
 echo "[build-skill] done"

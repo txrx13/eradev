@@ -3,7 +3,7 @@
 ## True North
 EraDev is a self-improving multi-agent framework that applies its own principles to its own development. The framework evolves through the same Round Table, 5-role, and ODTOE coherence mechanisms it prescribes for other projects.
 
-## Domain Adapter (v9)
+## Domain Adapter (v10)
 
 ```yaml
 domain:
@@ -56,7 +56,7 @@ Every file in the framework exists in two language variants:
 **Iron Rule:** Creating or updating ANY file without its bilingual counterpart is INCOMPLETE work. Both versions must be updated in the same operation.
 
 ## Versioning
-- Current: v8
+- Current: v10
 - Version bumps: Section 0 header in eradev.md + eradev_RU.md
 - Changelog: git commit messages
 
