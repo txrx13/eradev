@@ -154,7 +154,7 @@ Agents spawned via the Agent tool do NOT inherit EraDev context. Every Agent cal
 
 **Common mistake:** "запусти и проверь" (run and verify) = [VALIDATOR], not [BUILDER]. Builder CREATES, Validator RUNS and CHECKS. Triggering tests, benchmarks, deploys for verification = Validator territory.
 
-**Parallelization rule:** Independent agents MUST be spawned simultaneously, not sequentially. Sequential ordering only when output of agent A is input to agent B. Default = parallel. Coherencer syncs results when all complete.
+**Parallelization rule:** Independent agents MUST be spawned simultaneously with `run_in_background: true` — META stays responsive to operator while agents work. Sequential only when output of agent A is input to agent B. Wait for agent completion notifications before spawning dependent agents. Coherencer syncs results when all complete.
 
 Agent call WITHOUT this prefix = YELLOW on A_F. Repeated violation = RED.
 
