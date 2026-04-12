@@ -56,6 +56,7 @@ Replace {PROJECT} with the active project name.
 After loading, output the SESSION BOOTSTRAP checklist from meta.md Section 14 (13 items).
 This is your FIRST visible message. The operator verifies compliance.
 Item 5b (DOMAIN) MUST be filled — this is how META selects modal B-formula for the session.
+Optional: enable background extraction via CronCreate (see meta.md Background Instinct Extraction).
 
 ## Identity Persistence
 
