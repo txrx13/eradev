@@ -214,3 +214,31 @@ Phase 2.1.S converged via a reproducible 7-step pipeline, now codified for futur
 7. **Cumulative Validator gate** — verify v1 and v2 fixes together, confirm no regressions, confirm clean convergence
 
 This pipeline is domain-invariant. It applies to article skins, code tooling validation, new role files, new hook logic — any abstraction where "spec compliance" and "executability" are distinct. Source: reports/v9_phase2_1_s_hansei_2026-04-11.md §2 step-by-step table.
+
+### Session 4: v9 Phase 2 Closure (April 2026)
+
+### L-33: 4-layer architecture is complete with concrete content at every layer [ACTIVE]
+<!-- valid_from: 2026-04-12 | ended: null | superseded_by: null | cross_project: true -->
+v9 shipped L0 IMMUTABLE (eradev.md I-III + III.Ω + II.1 + II.2), L1 UNIVERSAL (10 role files, vocabulary-clean), L2 DOMAIN SKINS (6 skins: code/article/book/plan/research/config), L3 PROJECT INSTANCE (4 project configs with domain blocks). Every layer has real, committed, pushed content — not spec-only. The architecture moved from "designed" (Phase 1) to "populated" (Phase 2.A) to "validated on real content" (Phase 2.1.S) in one extended session. Source: reports/v9_phase2_hansei_2026-04-12.md.
+
+### L-34: Reports are ephemeral context pipes, not permanent documentation [ACTIVE]
+<!-- valid_from: 2026-04-12 | ended: null | superseded_by: null | cross_project: true -->
+Phase 2 generated ~40 reports. Their primary value was WITHIN the Analyst→Builder→Validator pipeline, not after. RT-1 reports were consumed by the roadmap synthesis then never re-read. Builder self-reports were consumed by Validators then archived. Analyst spec reports were consumed by Builders then archived. Permanent value lives in eradev.md, BL files, skin files, lessons.md — not reports/. The highest-leverage action for reports was creating `reports/INDEX.md` (Phase 2.B) to make pipe outputs findable. Without an index, N reports = N×noise. Source: operator question "как ты их используешь" + Phase 2 Hansei §1.
+
+### L-35: Technical feasibility gates aspirational roadmap items [ACTIVE]
+<!-- valid_from: 2026-04-12 | ended: null | superseded_by: null | cross_project: true -->
+Roadmap Phase 2.C proposed "PostToolUse hook → background Haiku agent → instinct extraction." Phase 2.C Analyst discovered this is technically impossible in Claude Code: hooks run shell commands, not agent prompts. The realistic alternative (CronCreate periodic sweep) is less elegant but actually implementable. Lesson: Analyst pre-flight for infrastructure phases must include a feasibility check ("can Claude Code actually do this?"), not just a design check ("is this the right architecture?"). Phase 0.A added this for domain-level OOD; Phase 2.C proved it's also needed for tooling-level OOD. Source: reports/v9_phase2c_background_extraction_spec_2026-04-12.md.
+
+### L-36: Phantom coherence audit is the real release gate [ACTIVE]
+<!-- valid_from: 2026-04-12 | ended: null | superseded_by: null | cross_project: true -->
+The v9 reports-vs-reality audit surfaced 4 NEW phantom gaps that 11 prior Validator passes had missed: skill mirror role files still v7/v8 (10 files!), BL-28 contradicting Invariant 12, root LOADING_PROTOCOL.md still v8, skill bundle missing domain_skin templates. All 4 were "reported as done in Wave 5/Phase 1.E" but never verified against filesystem state across the FULL distribution surface. Lesson: after any multi-wave implementation, run a dedicated cross-reference audit ("does every claim in reports/ match a real artifact in the repo?"). RT consensus + phase Validators catch defects within their scope; the audit catches defects across scope boundaries. This is the BL-5 (phantom coherence) self-application to the audit process itself. Source: reports/v9_reports_vs_reality_audit_2026-04-11.md.
+
+### L-37: Execution discipline requires Check-First on your own spawns [ACTIVE]
+<!-- valid_from: 2026-04-12 | ended: null | superseded_by: null | cross_project: false -->
+META marked the config skin Analyst as "in_progress" in the todo list TWICE without actually spawning the agent. The todo said "running"; reality said "nothing happening." This is BL-16 (Lambda problem) applied to META's own execution loop — knowledge of what to do without the action to match. Fix: after every todo update marking a task "in_progress," immediately verify an Agent tool call exists in the same turn. If no tool call → the todo is a lie. Discovered when operator pointed out "этот процесс фейлится уже 2 раза." Source: Phase 2.A execution log.
+
+## Session 4 Mega-Patterns
+
+### EMP12: Phase 2 is infrastructure, not features [ACTIVE]
+<!-- valid_from: 2026-04-12 | ended: null | superseded_by: null | cross_project: true -->
+Phase 2 shipped 6 domain skins, a tiered memory system, temporal triples on all lessons, a reports index, a BL staging file, an extraction prompt template, and a /extract skill. None of these are "features" in the user-visible sense — nobody's workflow changes the day after Phase 2 commits. They are all substrate: the memory hierarchy feeds v10's Ω(H_hist), the extraction pipeline feeds BL_CANDIDATES.md, the domain skins feed future project bootstraps, the reports index feeds the audit process. Infrastructure value activates on the NEXT cycle, not the current one. Rule: when Phase 2 items don't show immediate impact, that's correct behavior — infrastructure is investment, not return. The return is measured in v10+, not v9.
