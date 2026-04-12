@@ -256,3 +256,17 @@ v9 roadmap D2 deferred the Apophatic role. v10 research found implementing it as
 ### EMP13: Activation is cheaper than construction [ACTIVE]
 <!-- valid_from: 2026-04-12 | ended: null | superseded_by: null | cross_project: true -->
 v10's 6 items took ~4 agent spawns (2 Builders + 2 Validators) and produced ~125+330 = 455 lines of framework changes. v9 Phase 2's equivalent infrastructure took ~28 agent spawns across 4 sub-phases and produced ~10,000+ lines. The ratio is ~6:1 in effort, ~22:1 in output — because activation is applying a formula that's already proven, while construction is designing the formula from first principles. Corollary: when a version feels "too small," check whether it's activating prior substrate. If yes, smallness is the signal of correct sequencing, not of insufficient ambition.
+
+### Session 6: v10 polish — docs, OQ debt, distribution surface (April 2026)
+
+### L-40: Version markers cascade downstream — fix root first [ACTIVE]
+<!-- valid_from: 2026-04-12 | ended: null | superseded_by: null | cross_project: true -->
+Docs audit found 11 stale files all saying "v8" — root cause was `eradev.md` line 3 still declaring "Version: 8" while containing v9+v10 content. Every downstream doc (README, AGENTS template, setup guides, skill READMEs) inherited the stale version because they referenced the root file. Fix root first, then sweep downstream. A phantom version marker is worse than no version marker — it actively misinforms operators about the framework's capabilities.
+
+### L-41: Distribution surface (skill bundle) lags framework by default [ACTIVE]
+<!-- valid_from: 2026-04-12 | ended: null | superseded_by: null | cross_project: true -->
+This session required 3 separate skill mirror syncs + 3 zip rebuilds to keep the distribution surface current with framework state. Each v9/v10 framework change that touched meta.md, eradev.md, CLAUDE.md templates, or role files created a stale zip that operators installing via skill path would receive. The build-skill.sh script (OQ-W5-4) now includes vocabulary assertions, but it only catches drift AFTER the fact. Structural fix: include `bash scripts/build-skill.sh && diff -qr <root> <mirror>` as a pre-commit gate, not a post-hoc check. Phase 2.C extraction pipeline can flag skill-mirror drift as a DRIFT candidate automatically.
+
+### EMP14: Documentation is a distribution surface, not an afterthought [ACTIVE]
+<!-- valid_from: 2026-04-12 | ended: null | superseded_by: null | cross_project: true -->
+v9 shipped 6 domain skins, 4-layer architecture, 14 tagged invariants, 6 output types, Omega formula, Apophatic Gate, L10 Cross-Domain Lambda — and none of this was visible in README.md, setup guides, or AGENTS.md.template until the docs audit forced a cleanup. The framework was v10 internally but v8 externally. Any new operator following the README or setup guide would have bootstrapped with stale instructions. Rule: every framework change that modifies a user-facing concept (version, loading sequence, architecture layers, invariant count, output types) MUST update the corresponding README/setup docs in the SAME commit. If it doesn't, the docs are phantom — they describe a framework that no longer exists.
