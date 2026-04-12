@@ -242,3 +242,17 @@ META marked the config skin Analyst as "in_progress" in the todo list TWICE with
 ### EMP12: Phase 2 is infrastructure, not features [ACTIVE]
 <!-- valid_from: 2026-04-12 | ended: null | superseded_by: null | cross_project: true -->
 Phase 2 shipped 6 domain skins, a tiered memory system, temporal triples on all lessons, a reports index, a BL staging file, an extraction prompt template, and a /extract skill. None of these are "features" in the user-visible sense — nobody's workflow changes the day after Phase 2 commits. They are all substrate: the memory hierarchy feeds v10's Ω(H_hist), the extraction pipeline feeds BL_CANDIDATES.md, the domain skins feed future project bootstraps, the reports index feeds the audit process. Infrastructure value activates on the NEXT cycle, not the current one. Rule: when Phase 2 items don't show immediate impact, that's correct behavior — infrastructure is investment, not return. The return is measured in v10+, not v9.
+
+### Session 5: v10 — substrate activation (April 2026)
+
+### L-38: v(N) builds substrate, v(N+1) activates it [ACTIVE]
+<!-- valid_from: 2026-04-12 | ended: null | superseded_by: null | cross_project: true -->
+v10 was deliberately small: 6 items, ~125 lines of framework changes, ~330 lines of new schema. Every v10 item was activating infrastructure that v9 Phase 2 had already built. Omega formula existed since Phase 0.A → v10 changed "placeholder" to "operational". BL_CANDIDATES.md existed since Phase 2.B → v10 added the compression protocol. Temporal triples existed since Phase 2.B → v10 added the decay formula. Declarative RT was discussed since roadmap → v10 created the schema (engine deferred to v11). This is the correct pattern: build in v(N), activate in v(N+1). Trying to build AND activate in the same version creates scope creep. Source: reports/v10_hansei_2026-04-12.md.
+
+### L-39: Apophatic as gate preserves topology better than Apophatic as role [ACTIVE]
+<!-- valid_from: 2026-04-12 | ended: null | superseded_by: null | cross_project: true -->
+v9 roadmap D2 deferred the Apophatic role. v10 research found implementing it as a 6th role would break the R/r = phi torus ratio (4/3 = 1.333, not phi). Implementing it as a Section IV Enforcement Gate preserves n=5 while adding the negation function (is this task decomposable? YES/NO/UNCERTAIN with Coherencer probe). Gate ≠ role: gates are enforcement checkpoints (like Kill-Switch, Phantom Coherence Check), roles are cognitive archetypes. The v9 5-role topology is stable because it maps to a mathematical structure; adding a role changes the math. Adding a gate changes the process, not the math. Source: reports/v10_theoretical_research_2026-04-12.md + reports/v10_prototypes_builder_2026-04-12.md.
+
+### EMP13: Activation is cheaper than construction [ACTIVE]
+<!-- valid_from: 2026-04-12 | ended: null | superseded_by: null | cross_project: true -->
+v10's 6 items took ~4 agent spawns (2 Builders + 2 Validators) and produced ~125+330 = 455 lines of framework changes. v9 Phase 2's equivalent infrastructure took ~28 agent spawns across 4 sub-phases and produced ~10,000+ lines. The ratio is ~6:1 in effort, ~22:1 in output — because activation is applying a formula that's already proven, while construction is designing the formula from first principles. Corollary: when a version feels "too small," check whether it's activating prior substrate. If yes, smallness is the signal of correct sequencing, not of insufficient ambition.
