@@ -58,4 +58,12 @@ else
   exit 1
 fi
 
+# Check role file vocabulary (v9: should NOT contain v8 code-biased tokens)
+V8_TOKENS=$(unzip -p "$ZIP_PATH" "eradev/roles/builder_EN.md" 2>/dev/null | grep -ciE "tested code|package/module|variable/function" || true)
+if [ "$V8_TOKENS" -gt 0 ]; then
+  echo "[build-skill] FAIL: role files contain v8 vocabulary ($V8_TOKENS matches)" >&2
+  exit 1
+fi
+echo "[build-skill] OK: role file vocabulary is v9-clean"
+
 echo "[build-skill] done"

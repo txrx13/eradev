@@ -9,6 +9,7 @@ EraDev -- фреймворк мультиагентной разработки, 
 **Ключевые свойства v9:**
 
 - **3-layer enforcement** -- CLAUDE.md (авто-загрузка) + PreToolUse hook (блокирует Edit/Write из главной сессии) + memory persistence (идентичность сохраняется между сессиями)
+- **4-layer architecture (v9)** -- L0 IMMUTABLE (ODTOE core) / L1 Universal roles / L2 Domain skins / L3 Project instances
 - **6 output types** -- META производит только: Agent calls, Decisions, Synthesis, Lessons, Reports, Check Agent. Всё остальное = нарушение.
 - **Report Funnel** -- Hansei, proposals и аналитические отчёты генерируются через reports/ артефакты по meta-reflection triggers.
 - **30 уроков холодного старта** (BL-1..BL-32, gaps at 23/27) -- накопленный опыт Lambda bootstrap.

@@ -7,6 +7,7 @@ EraDev is a multi-agent development framework based on ODTOE (Observer-Dependent
 **v9 essentials:**
 
 - **3-layer enforcement:** CLAUDE.md (auto-bootstrap) + PreToolUse hook (blocks direct Edit/Write from META) + memory persistence (identity survives across sessions)
+- **4-layer architecture (v9):** L0 IMMUTABLE (ODTOE core) / L1 Universal roles / L2 Domain skins / L3 Project instances
 - **6 output types:** Agent calls, Decisions, Synthesis, Lessons, Reports, Check Agent. Anything else = VIOLATION.
 - **Report Funnel:** Builder (full artifact) -> Validator (Structured Verdict, 7 lines) -> Coherencer (Cycle Brief, 10 lines) -> META. Each level compresses; META never reads raw output.
 

@@ -48,7 +48,8 @@ EraDev operates as a **bilingual system** based on A/B experiment findings:
 
 One agent = one stack. No mixing. BOTH mode = parallel agents, Coherencer syncs at RT.
 
-**Bilingual Sync Rule:** see BL-19 in BOOTSTRAP_LESSONS.md. All bilingual file pairs must be updated simultaneously.
+**Bilingual Sync Rule (BL-19):**
+When creating or updating ANY file that has a bilingual counterpart (RU/EN), ALWAYS update BOTH versions in the same operation. Never create or update one without the other. Files without their counterpart are INCOMPLETE. This applies to: role files, eradev.md/eradev_RU.md, meta.md/meta_RU.md, glossary, checklists, README, articles, and all project outputs.
 
 ### 0.1 4-layer bilingual architecture (v9 canonical table)
 
@@ -199,6 +200,48 @@ Projects without a `domain:` block default to `ood_scope: text-discrete` (backwa
 
 > See `CLAUDE.md` §Domain Awareness (`ood_scope` line) for the bootstrap-load copy of this rule and `projects/{name}/config.md` `domain.ood_scope` field for the per-project mechanical enforcement vehicle.
 
+### II.2.1 Structured-continuous (v10 prototype, narrow scope)
+
+Some artifacts straddle the discrete-continuous boundary. A **structured-continuous** artifact has:
+1. A discrete structural skeleton (countable sections, numbered constraints, measurable properties)
+2. Continuous content that fills the skeleton (prose, flow, rhythm, experiential texture)
+
+The skeleton is discrete and countable. The content within it is continuous and subjective. The key insight: v9's AND-gate (Criteria I + II) can be satisfied by the SKELETON alone, even when the content is continuous.
+
+**v10 admits structured-continuous artifacts IF AND ONLY IF:**
+- Criterion (I) is satisfied by the SKELETON (the structure is discrete and countable)
+- Criterion (II) is satisfied by STRUCTURAL properties (syllable count, meter, section count, constraint satisfaction) — NOT by subjective quality
+
+**Examples of structured-continuous (v10 IN-SCOPE):**
+- Sonnet (14 lines, iambic pentameter, ABAB CDCD EFEF GG — all structurally verifiable)
+- Haiku (5-7-5 syllable constraint — countable)
+- Technical screenwriting (scene numbering, page count, format spec — verifiable)
+- Structured meditation script with numbered phases and timed segments
+- Musical score with countable measures, key signatures, and tempo markings
+
+**NOT structured-continuous (still OUT-OF-SCOPE):**
+- Free-verse poetry (no structural constraint to verify)
+- Improvised music (no score to check against)
+- Stream-of-consciousness prose (no section boundaries)
+- Unguided meditation (no phases, no timing, no structure)
+- Abstract visual art (no countable properties)
+
+**verify.method for structured-continuous:** `structure_check` — verify the skeleton constraints are satisfied. Content quality within the skeleton is explicitly OUT of v10's verification scope. A sonnet that satisfies all structural constraints but is aesthetically mediocre passes `structure_check`. Aesthetic quality is a v11+ research direction (requires subjective-B extension).
+
+**B_modality for structured-continuous:** `creative` (same as books/articles). The creative weights (w_E=0.30, w_(1-sigma)=0.30, w_F=0.20, w_Lambda=0.20) are appropriate because alignment-to-structure and consistency-within-structure are the dominant failure modes.
+
+**Mechanical enforcement.** The `domain.ood_scope` enum gains a third value:
+
+```
+ood_scope: text-discrete          # v9 supported — proceed
+ood_scope: structured-continuous  # v10 prototype — proceed with structure_check verification
+ood_scope: continuous             # v9/v10 REJECT — escalate to Visionary for Kill-Switch Level 2
+```
+
+**Scope creep defense.** This subsection admits ONLY the narrow structured-continuous category. It does NOT weaken the AND-gate for fully continuous tasks. The AND-gate remains: both Criteria (I) and (II) must hold. For structured-continuous, both criteria are evaluated against the SKELETON, not the content. If a task has no skeleton (no countable structural constraints), it remains OUT-OF-SCOPE regardless of other properties. R5 (scope creep risk) is the primary risk acknowledged by v10 research — this narrow admission is the maximum v10 expansion.
+
+> See `templates/cross_harness_requirements.md` for the cross-harness requirements spec that documents what harnesses need to support structured-continuous verification.
+
 ---
 
 ## III. Collective Formulas
@@ -269,6 +312,8 @@ Even moderate agents together yield powerful results:
 - 5 agents, B=(0.9,0.8,0.7,0.8,0.75), k=1: P_coll = 0.9997
 
 This is the mathematical case for multi-agent over single-agent.
+
+**Note:** v9 uses the complement-product form `P_coll = 1 - Product(1 - Bi^k)` (probability of at least one success among n agents). The alternative mean-product form `(1/n^k)(Sum(Bi))^k` models average collective coherence. Both agree at k=1, uniform B (e.g., 0.657 at B=0.3, n=3) and diverge otherwise. The complement-product was chosen because "at least one agent succeeds" is the operationally relevant question for RT decisions.
 
 ### Stochastic Noise Suppression
 
@@ -664,6 +709,8 @@ When agent outputs become homogeneous, terminology impoverished, specificity dro
 | 3 | Cross-domain jump: "How would aviation / biology solve this?" | Deep template |
 | 4 | Paradox: "What if NOT solving is the solution?" | Deadlock |
 | 5 | Full frame break: "Forget everything. Start from blank." | Total deadlock |
+
+Level 2 also triggers on phantom decoherence (S_team < 0.5 AND B_mean >= 0.7) -- see Section III.1 diagnostic matrix and BL-29 extension.
 
 Trigger: if >40% of RT-2 phrases repeat RT-1 verbatim -- attractor detected.
 
