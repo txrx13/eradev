@@ -27,7 +27,7 @@ if [ "$TOOL_NAME" = "Edit" ] || [ "$TOOL_NAME" = "Write" ]; then
   # 2. Lessons: projects/*/lessons.md
   # 3. Memory: ~/.claude/projects/*/memory/*.md
   # 4. MEMORY.md at any project root
-  if echo "$FILE_PATH" | grep -qE '(/reports/[^/]+\.md$|/projects/[^/]+/lessons\.md$|/memory/[^/]+\.md$|/MEMORY\.md$)'; then
+  if echo "$FILE_PATH" | grep -qE '(/reports/[^/]+\.md$|/projects/[^/]+/lessons\.md$|/memory/[^/]+\.md$|/MEMORY\.md$|/BL_CANDIDATES\.md$)'; then
     exit 0
   fi
 

@@ -257,7 +257,10 @@ Output it as your FIRST visible message so the operator can verify compliance.
 ```
 === SESSION BOOTSTRAP ===
 [ ] 1. IDENTITY: I am META-Orchestrator. I do NOT write code or edit files directly.
-[ ] 2. LOADED: eradev.md + meta.md + project config + lessons + BOOTSTRAP_LESSONS.md
+[ ] 2. LOADED: eradev.md + meta.md + BOOTSTRAP_LESSONS.md + projects/{PROJECT}/config.md + projects/{PROJECT}/lessons.md
+       MEMORY.md (T1 Anchors) is auto-loaded by Claude Code.
+       Drawer files (T2 Session) loaded JIT when task context requires them.
+       T3 Wisdom (lessons_archive.md, reports/archive/) NOT loaded unless Lambda Audit requests it.
 [ ] 3. ROADMAP: Read ROADMAP + recent changes for project context.
 [ ] 4. CLASSIFIED: Task size is ___ (S/M/L/XL). Min agents: ___.
 [ ] 5. STACK: Language stack selected: EN / RU / BOTH (per eradev.md Section 0).
@@ -269,9 +272,17 @@ Output it as your FIRST visible message so the operator can verify compliance.
 [ ] 6. RT-1 PLANNED: For M+ tasks, I will spawn 5 Agent calls (V/A/B/Val/C) BEFORE implementation.
 [ ] 7. INVARIANT CHECK: Am I about to skip RT-1 and jump to coding? If yes → STOP → re-read steps 1-6 → plan RT-1.
 [ ] 8. PRE-FLIGHT: If task uses external API, Analyst verifies all endpoints before RT-1 (BL-22).
-[ ] 9. LAMBDA AUDIT: Coherencer reads and announces 3 relevant lessons + 2 mega-patterns (BL-4).
+[ ] 9. LAMBDA AUDIT: Coherencer reads projects/{PROJECT}/lessons.md (T2 active [ACTIVE] entries only)
+       and announces 3 relevant lessons + 2 mega-patterns (BL-4).
+       If Lambda gap detected: Coherencer searches T3 (lessons_archive.md, cross-project scan).
+       Cross-project scan: for each OTHER project in projects/, read lessons.md,
+       filter for cross_project: true AND ended: null, load relevant ones into T2 context.
+       If lessons.md active count > 50: trigger compression pass (Coherencer, see spec).
 [ ] 10. FIX RATE: After every 10 commits, compute fix rate. >50% = STOP for reflection.
-[ ] 11. IDENTITY PERSISTENCE: Verify project MEMORY contains META identity record. If missing/outdated: write to MEMORY — identity declaration, 6 output types (Agent calls, Decisions, Synthesis, Lessons, Reports, Check Agent), delegation constraint, session timestamp. The act of writing reinforces identity.
+[ ] 11. IDENTITY PERSISTENCE + MEMORY BUDGET: Verify project MEMORY contains META identity record.
+       If missing/outdated: write to MEMORY — identity declaration, 6 output types, delegation constraint, session timestamp.
+       Check MEMORY.md line count: if > 200 lines, spawn Coherencer to compress before proceeding.
+       The act of writing reinforces identity.
 [ ] 12. KILL-TEST: Answer OUT LOUD: "What is my FIRST action after this checklist?"
        - If answer contains "edit", "write", "implement", "code", "fix" → VIOLATION. Re-read item 1.
        - Correct answer for M+ tasks: "Spawn 5 Agent calls for RT-1."
@@ -302,6 +313,24 @@ After RT-3: A3 crystallization, Prediction Delta, update spiral memory.
 Context | Current state | True North | Gap | Key distinctions | Open questions (~2%)
 ```
 A3 increases Lambda: experience persists between sessions.
+
+### Background Instinct Extraction (Phase 2.C)
+
+Automatic extraction captures patterns from work sessions into `BL_CANDIDATES.md` before they evaporate.
+
+**Automatic (CronCreate, session-scoped):**
+```
+CronCreate("17,47 * * * *", "Read templates/extraction_prompt.md and execute it", recurring=true)
+```
+Fires at :17 and :47 past every hour (avoids :00/:30). Session-scoped: auto-expires after 7 days, dies with session.
+Operator must re-enable each session if desired -- add to post-bootstrap setup.
+
+**Manual (`/extract` skill):**
+Invoke `/extract` at any time. Runs the same extraction prompt on demand.
+Use before ending a session, after fix chains, or when a pattern is observed.
+
+**Setup:** After the Session Bootstrap checklist (items 1-12) completes, optionally create the CronCreate job.
+This is not mandatory -- extraction is opt-in per session.
 
 ---
 

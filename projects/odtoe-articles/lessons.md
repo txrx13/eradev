@@ -1,92 +1,160 @@
 # ODTOE Articles -- Project Lessons
 
+> Temporal metadata format: `<!-- valid_from: DATE | ended: DATE|null | superseded_by: null | cross_project: bool -->`
+> Lifecycle tags: [ACTIVE] | [SUPERSEDED] | [ARCHIVED]
+
 ## LaTeX Compilation Lessons
 
+### L-1: TeX ligatures with PT Serif [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false -->
 1. **TeX ligatures don't render with PT Serif in XeLaTeX.** `<<` `>>` `---` `--` show as literal characters or crosses. ALWAYS use Unicode: `«»` `—` `–`. This was the #1 recurring bug across all articles.
 
+### L-2: PT Serif Italic missing glyphs [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false -->
 2. **\d{h} (combining dot below, U+0323) not in PT Serif Italic.** Egyptological transliteration causes crosses in PDF. Use plain ASCII transliteration (ankh, heka) instead of `\={\i}n\d{h}`.
 
+### L-3: cmrsideswitch undefined workaround [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false -->
 3. **\cmrsideswitch undefined in longtable with polyglossia + fontspec.** polyglossia tries to invoke \cmrsideswitch when processing table rows with fontspec fonts. Fix: `\providecommand{\cmrsideswitch}{}` in preamble. Pre-apply to ALL articles.
 
+### L-4: longtable column spec restriction [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false -->
 4. **longtable >{\raggedright}p{...} causes compilation errors.** Use plain `p{...}` column specs only.
 
+### L-5: Overfull hbox warnings cosmetic [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false -->
 5. **Overfull \hbox warnings are cosmetic only.** Do not prevent compilation. Accept as-is unless extreme (>100pt).
 
 ## Translation Lessons (RU → EN)
 
+### L-6: EN version language settings [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false -->
 6. **EN version: swap language settings.** `\setmainlanguage{english}`, `\setotherlanguage{russian}`. Remove `\begin{english}...\end{english}` wrappers. Add `\begin{russian}...\end{russian}` around Russian-only text (abstract, keywords).
 
+### L-7: Decimal separator locale [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false -->
 7. **Decimal dots in EN, decimal commas in RU.** `0.5` not `0,5` in EN. `0{,}5` in RU LaTeX for proper spacing.
 
+### L-8: Bibliography translation rules [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false -->
 8. **Bibliography: translate Russian entries, keep English as-is.** Remove `\begin{english}` wrappers from EN bibliography.
 
 ## Markdown Conversion Lessons
 
+### L-9: pandoc vs custom converter [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false -->
 9. **pandoc default markdown produces :::center, {#id .class}, <div> tags.** Use custom Python converter (tex2md.py) instead. Output: clean GFM without HTML artifacts.
 
+### L-10: LaTeX braces leak into markdown [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false -->
 10. **Curly braces from LaTeX leak into markdown.** Multi-pass cleanup needed: `\textcolor{}{}`, `\fontsize{}{}`, `\hat{}`, `\text{}` outside math. The fix_md.py script handles this.
 
+### L-11: Bibliography numbered not bulleted [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false -->
 11. **Bibliography must be numbered (1. 2. 3.), not bulleted (- - -).** Convert `- ` to `N. ` in СПИСОК ЛИТЕРАТУРЫ / REFERENCES sections.
 
+### L-12: DOI clickable links [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false -->
 12. **DOI should be clickable links.** Format: `DOI: [10.xxxx/yyyy](https://doi.org/10.xxxx/yyyy)`.
 
+### L-13: md files must start with heading [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false -->
 13. **Every .md file must start with # heading.** Many converted files start with plain text title. Prepend `# ` to first line.
 
 ## Content Quality Lessons
 
+### L-14: P_coll recomputation requirement [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: true -->
 14. **P_coll at B=0.3, n=3, k=1 = 0.657, NOT 0.61.** This error was in eradev_old and propagated to articles. Always recompute, never copy from other documents.
 
+### L-15: 50-digit constants require independent verification [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: true -->
 15. **50-digit constants must be verified independently.** Do not trust copy-paste from previous articles. Recompute φ, π, (π−3)² each time.
 
+### L-16: No-fitting check is hardest [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false -->
 16. **"без подгонок" (no fitting) is the hardest check.** Every formula parameter needs a derivation chain. If a parameter appears without justification, the article fails Check 4.
 
 ## Process Lessons
 
+### L-17: Compile both RU and EN before done [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: true -->
 17. **Compile both RU and EN before declaring done.** Several times EN version was created but not compiled, leaving errors undiscovered.
 
+### L-18: DOCX generation after LaTeX fix [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false -->
 18. **Generate DOCX after fixing all LaTeX issues.** DOCX inherits LaTeX problems (broken \tag{}, \notag in align environments). Pre-process with sed before pandoc.
 
+### L-19: Missing character warnings in tectonic [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false -->
 19. **Check for Missing character warnings in tectonic output.** These indicate glyphs not in PT Serif. Every "Missing character" = a cross/box in the PDF.
 
+### L-20: Image management for multi-source articles [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false -->
 20. **Combining 4+ source documents into one article requires image management.** Copy PNG/JPG files to main directory before \includegraphics. Paths with Unicode characters (e.g., "ODTOE + Pi + Atom + Нейтрино/") cause issues.
 
 ## Gravity Session Lessons (2026-04-04, S_session ≈ 0.40)
 
+### L-21: ODTOE always in Latin script [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false -->
 21. **ODTOE пишется ЛАТИНИЦЕЙ даже в русском тексте — ВСЕГДА.** Кириллическая транслитерация «ОДТОЕ» — грубая ошибка терминологии. В корпусе 160+ статей используется ODTOE. Русская аббревиатура — НЗТВ (Наблюдатель-зависимая теория всего), НЕ «ОДТОЕ». **Enforcement:** Builder ОБЯЗАН выполнить `grep -rn "ОДТОЕ" *.tex` перед сдачей — 0 результатов = PASS. Любое ненулевое значение = RED, правка через `sed -i 's/ОДТОЕ/ODTOE/g'`. Также проверять: ОДТОЭ, Одтое, одтое. **Корень:** L-016 gravity session — 84 вхождения ошибки, Coherencer отсутствовал.
 
+### L-22: Programmatic formula verification [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: true -->
 22. **Формулы с π^n — ТОЛЬКО программная верификация, НИКОГДА в голове.** 6π⁵ ≈ 1836.12 (6 × 306.0197...), НЕ ≈ 29.6. Gravity session: Section V написал правильно, Appendix C — неправильно (третий Builder не сверялся с первым). **Enforcement:** Каждая числовая константа с π, φ, e — обязательный `python3 -c "import math; print(...)"` в теле Builder-агента. Результат вставляется как комментарий `% VERIFIED: 6*math.pi**5 = 1836.118...` рядом с формулой. Без комментария VERIFIED — Validator блокирует. **Корень:** Параллельные Builder-ы без cross-check (P-5 hansei report).
 
+### L-23: New formulas require DERIVATION.md [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: true -->
 23. **Новые формулы (не из корпуса) требуют DERIVATION.md ДО включения в статью.** Gravity session: формула G через Φ_G оказалась подогнанной — Builder подобрал параметр под экспериментальное значение, замаскировав это под «теоретический вывод». Прямое нарушение Check 4. **Enforcement:** Каждая НОВАЯ формула → отдельный файл `DERIVATION_{formula_name}.md` с полной цепочкой: аксиома ODTOE → промежуточные шаги → формула. Validator проверяет цепочку ПЕРЕД включением в .tex. Если параметр НЕ выводится из теории: (a) оставить символьную переменную, (b) пометить «Вывод — открытый вопрос (спиральная щель ~2%)», (c) показать prediction «из теории X должен быть Y» vs эксперимент Z. **Запрещено:** подгонка с маскировкой под вывод. **Корень:** P-4 hansei report, Check 4 violation.
 
+### L-24: Precision claims require computational appendix [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: true -->
 24. **50-digit precision: ПОКАЗЫВАТЬ, а не заявлять.** Gravity session: текст заявлял 50-значную точность (Check 3), но формулы содержали 10-15 значащих цифр. Check 3 не пройден. **Enforcement:** Если статья заявляет N-digit precision → обязателен Appendix «Computational Verification» с полными выкладками (mpmath output, Mathematica notebook, или Python-скрипт с результатами). Без Appendix — Check 3 = FAIL. Минимальный стандарт: все ключевые константы (φ, π, G, ℏ, c, m_p) приведены с ≥50 знаками в этом Appendix. **Корень:** P-6 implicit, hansei report §III Incident #6.
 
+### L-25: EN parity quantitative gate [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: true -->
 25. **EN parity КОЛИЧЕСТВЕННЫЙ gate: wc -l EN.tex / wc -l RU.tex ≥ 0.80.** Gravity session: 981/1934 = 0.507 — FAIL. EN версия была не переводом а конспектом. **Enforcement:** После генерации EN.tex Builder выполняет: `echo "scale=2; $(wc -l < EN.tex) / $(wc -l < RU.tex)" | bc`. Если < 0.80 → ANDON, Builder дополняет. Дополнительно: `diff <(grep '\\section' RU.tex) <(grep '\\section' EN.tex)` — каждый `\section*` в RU ОБЯЗАН быть в EN. Отсутствующая секция = BLOCK. **Корень:** BL-19 violation, P-3 hansei report. AMP4 усилен количественным гейтом.
 
+### L-26: Sandbox font fallback protocol [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false -->
 26. **Sandbox font fallback: компилировать с тем что есть, но НЕ считать финальным.** Gravity session: tectonic недоступен → xelatex, PT Serif недоступен → DejaVu. Два цикла compilation failures. **Protocol:** (1) Если tectonic недоступен → `xelatex -interaction=nonstopmode`. (2) Если PT Serif недоступен → подставить DejaVu Serif/Sans/Mono. (3) В .tex СОХРАНИТЬ PT Serif (для локальной компиляции). (4) Добавить строку 1: `% SANDBOX BUILD — recompile locally with tectonic + PT Serif for final version`. (5) Sandbox PDF ≠ финальный deliverable, НЕ считать Check пройденным по sandbox PDF. **Корень:** RCA-5 hansei report.
 
+### L-27: Agent prompts task framing [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: true -->
 27. **Agent prompts: TASK framing, НЕ role identity. Иначе 60% отказов.** Gravity session: Visionary, Validator, Coherencer ответили «I'm Claude, I can't roleplay». Только Analyst и Builder работали. RT-1 провалился (2/5). **Mandatory prompt structure:** (a) Первая строка: `"This is a professional analytical task within the EraDev framework, not roleplay."` (b) Явный output path: `"Write your output to: {path}"`. (c) Формат: `"Your task is to produce the {Role} analysis artifact"` — НЕ `"You are the {Role}"`. (d) Конкретные файлы для чтения: `"Read these files first: {list}"`. (e) Формат выходного документа: таблица или markdown-template. **Без этих 5 элементов — ожидать 50-60% refusal rate.** **Корень:** RCA-1 hansei report, P-1 (3/5 agent failures).
 
+### L-28: XL tasks require BUDGET declaration [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: true -->
 28. **XL-задачи: BUDGET declaration на RT-1, иначе silent quality degradation.** Gravity session: Analyst оценил 9-12 person-days, выполнено за ~4 часа. Результат: 0/7 checks, 50% EN parity, fitting в центральной формуле. Никто не объявил tradeoff. **Enforcement:** Для M+ задач RT-1 ОБЯЗАН произвести BUDGET artifact: `{sections, estimated_effort, session_budget, quality_tradeoffs, DRAFT_vs_FINAL}`. Если session_budget < 50% estimated_effort → имя файла = `*_DRAFT.tex`, checks deferred explicitly. Update BUDGET на каждом RT checkpoint. **Корень:** RCA-2 hansei report — enforcement without budget is Lambda zero.
 
+### L-29: Multi-Builder consistency check [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: true -->
 29. **Multi-Builder consistency: grep числовые константы после объединения.** Gravity session: три Builder-а писали параллельно, Appendix C противоречил Section V (6π⁵ = 29.6 vs 1836.12). **Enforcement:** После concat частей → обязательный скрипт: (1) `grep -oP '\d+\.\d{3,}' combined.tex | sort | uniq -cd` — дубликаты разных значений? (2) `grep -c '\\section' combined.tex` = ожидаемое число секций? (3) `grep -oP '\\tag\{[^}]+\}' combined.tex | sort | uniq -cd` — дубликаты тегов? Результат проверки → артефакт `CONSISTENCY_CHECK.log`. Без лога — compile BLOCKED. **Корень:** P-5 hansei report, три Builder-а без cross-check.
 
+### L-30: Checks are GATE not postscript [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: true -->
 30. **Checks — это GATE, а не postscript. 0/N = статья не сдана.** Gravity session: все 8 файлов создано, но ни один check не завершён. Статья «существует» но не «прошла QA». **Enforcement:** В pipeline step 8 заменить «Apply N Verification Checks» на «**GATE:** N Verification Checks — BLOCKS step 9 (delivery)». Если session budget исчерпан до завершения checks → переименовать файл в `*_DRAFT.tex`, явно пометить в CLAUDE.md: «DRAFT — checks pending: [list]». Validator ОБЯЗАН предъявить артефакт проверки (лог, скрипт, таблицу), не словесное «проверил, всё ок». **Корень:** Incident #7 hansei report, AMP1/AMP6 violated. (Примечание v9: на момент инцидента checks было 7; сейчас 8 после добавления Check-8 evidence classification — см. config.md.)
 
 ## Mega-Patterns for Articles
 
-### AMP1: Eight checks are not optional
+### AMP1: Eight checks are not optional [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false -->
 Every article, every version (RU + EN). No exceptions. Check 3 (50-digit precision) catches the most errors. Check 7 (internal consistency) catches the most dangerous ones. Check 8 (evidence classification) is the newest and prevents post-hoc fitting disguised as derivation.
 
-### AMP2: Unicode first, LaTeX ligatures never
+### AMP2: Unicode first, LaTeX ligatures never [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false -->
 The single rule that prevents 80% of compilation artifacts with PT Serif + XeLaTeX.
 
-### AMP3: Compile → Check warnings → Fix → Recompile
+### AMP3: Compile [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false --> → Check warnings → Fix → Recompile
 Never ship a PDF without reading tectonic's warning output. "Missing character" and "Undefined control sequence" are not cosmetic.
 
-### AMP4: Bilingual parity (quantitative gate — L-25)
+### AMP4: Bilingual parity (quantitative gate [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: true --> — L-25)
 Every change to RU version must be reflected in EN version. Every formula, every table, every section number must match between versions. **Gate:** `wc -l EN.tex / wc -l RU.tex ≥ 0.80`. Section headers must match exactly (`diff <(grep '\\section' RU.tex) <(grep '\\section' EN.tex)` = empty). Gravity session violation: 50.7% parity, 25 vs 49 pages.
 
-### AMP5: Match ODTOE_article.tex format EXACTLY
+### AMP5: Match ODTOE_article.tex format EXACTLY [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false -->
 The reference format (ODTOE_article.tex) defines the gold standard. Key rules discovered through format audit:
 - Preamble: comments between package groups (% Fonts, % Language, % Math, etc.)
 - Title: {\Large\bfseries TITLE}\\[0.3em] then {\large (EN translation)} then {\small\itshape subtitle}
@@ -100,7 +168,8 @@ The reference format (ODTOE_article.tex) defines the gold standard. Key rules di
 - Bibliography format: ГОСТ for RU sources, standard for EN sources
 - NO \begin{english}...\end{english} wrappers on bibliography items — use inline
 
-### AMP6: Eight checks are GATE, not postscript (L-30)
+### AMP6: Eight checks are GATE, not postscript (L-30) [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: true -->
 Every article MUST pass all 8 checks from config.md. Checks BLOCK delivery — they are step 8 in pipeline, step 9 (delivery) is unreachable without them. If session budget exhausted before checks complete → rename to `*_DRAFT.tex`. Gravity session (historical): 0/7 checks completed (pre-Check-8 era), 4 known errors shipped. Validator must attach verification artifact (log, script output, table), not verbal "checked, all good." The most common failures:
 - Check 2 (recompute formulas): P_coll error (0.61 vs correct 0.657) propagated across multiple articles
 - Check 3 (50-digit precision): copy-paste errors in constants; gravity session claimed 50-digit but showed 10-15 (L-24)
@@ -108,32 +177,54 @@ Every article MUST pass all 8 checks from config.md. Checks BLOCK delivery — t
 - Check 5 (AI markers): overly hedged language, repetitive "it is important to note" structures
 - Check 7 (internal consistency): glossary conflicts (two definitions of S_adjusted); 6π⁵ contradiction between sections (L-22)
 
-### AMP7: XL articles require XL process (L-28, L-29)
+### AMP7: XL articles require XL process (L-28, L-29) [ACTIVE]
+<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: true -->
 An XL task (29+ sections, new formulas, bilingual) without XL process produces XL errors. Gravity session: Analyst estimated 9-12 person-days, session compressed to ~4h, result S_session ≈ 0.40 (RED). Rules: (1) BUDGET declaration at RT-1 — if budget < 50% estimate, output = DRAFT. (2) Multi-Builder → mandatory CONSISTENCY_CHECK.log after concat. (3) New formulas → DERIVATION.md before inclusion. (4) If RT-1 agents fail (>2/5 refuse), META executes fallback checklist for missing roles manually before proceeding. Enforcement without budget is Lambda zero.
 
 ## Gravity v2 Session Lessons (2026-04-05)
 
+### L-31: TeX dash ligatures prohibited [ACTIVE]
+<!-- valid_from: 2026-04-05 | ended: null | superseded_by: null | cross_project: false -->
 31. **TeX dash ligatures `---` и `--` — ЗАПРЕЩЕНЫ в .tex файлах ODTOE.** XeLaTeX + PT Serif рендерит их неправильно. ВСЕГДА использовать Unicode: `—` (U+2014, em-dash) и `–` (U+2013, en-dash). **Включая библиографию:** `454—462` а не `454---462`. **Включая составные фамилии:** `Колмогорова—Арнольда—Мозера` а не `Колмогорова"---"Арнольда"---"Мозера`. Polyglossia-конструкция `"---"` тоже запрещена — использовать просто `—`. **Enforcement:** Builder ОБЯЗАН выполнить `grep -Pn '--|---' *.tex` перед сдачей — 0 результатов = PASS. При batch-замене `---`→`—` проверять что `"---"` (polyglossia) тоже обработан, иначе компиляция ломается (`Missing $ inserted`). **Корень:** gravity v2 session — 18 лигатур в библиографии + 2 polyglossia-конструкции, компиляция сломалась при частичной замене.
 
+### L-32: Bibliography from source files [ACTIVE]
+<!-- valid_from: 2026-04-05 | ended: null | superseded_by: null | cross_project: false -->
 32. **Библиография ODTOE-статей: названия ИЗ ФАЙЛОВ, год 2026, «Препринт».** Не выдумывать названия по памяти — открыть .tex файл, скопировать из `\Large\bfseries`. Год — 2026 (не 2024). Формат: `Панкратов, А.~С. {Точное название}. Препринт (2026).` **Enforcement:** Для каждого `\item Панкратов` в библиографии — проверить что название совпадает с `grep 'Large.bfseries' ODTOE_{topic}.tex`. **Корень:** gravity v2 — все 7 ODTOE-ссылок имели неверные названия и год 2024.
 
+### L-33: Three mandatory pre-bibliography sections [ACTIVE]
+<!-- valid_from: 2026-04-05 | ended: null | superseded_by: null | cross_project: false -->
 33. **Три обязательных раздела ПЕРЕД СПИСОК ЛИТЕРАТУРЫ.** Каждая статья ODTOE ОБЯЗАНА содержать три раздела непосредственно перед библиографией: (1) `\section*{БЛАГОДАРНОСТИ И ИНСТРУМЕНТЫ}` — благодарности соавторам, источникам данных, ПО и инструментам (включая ИИ-ассистентов); (2) `\section*{КОНФЛИКТ ИНТЕРЕСОВ}` — стандартная декларация; (3) `\section*{ФИНАНСИРОВАНИЕ}` — источники финансирования или заявление об отсутствии. Без этих трёх разделов статья НЕ считается завершённой. **Enforcement:** Validator ОБЯЗАН проверить `grep -c 'БЛАГОДАРНОСТИ\|КОНФЛИКТ ИНТЕРЕСОВ\|ФИНАНСИРОВАНИЕ' *.tex` — результат должен быть ≥ 3. **Корень:** protolanguage session — разделы отсутствовали в первой версии.
 
+### L-33b: ODTOE canonical operations terminology [ACTIVE]
+<!-- valid_from: 2026-04-05 | ended: null | superseded_by: null | cross_project: false -->
 33. **Четыре операции ODTOE: READ, WRITE, VERIFY, SYNC — каноническая терминология.** НЕ «слияние (F), интерпретация (I), селекция (S)». НЕ «fusion, interpretation, selection». Проверять `grep -n 'слияни\|интерпретаци\|селекци' *.tex` = 0 результатов (в контексте операций ODTOE). **Корень:** gravity v2 — заключение и раздел XXIII использовали неверные названия.
 
+### L-34: Proton vs Planck mass notation [ACTIVE]
+<!-- valid_from: 2026-04-05 | ended: null | superseded_by: null | cross_project: false -->
 34. **m_p ≠ m_Pl: протон ≠ Планк.** В LaTeX: `m_p` или `m_{\mathrm{p}}` = масса протона, `m_{\mathrm{Pl}}` = масса Планка. НИКОГДА не использовать `m_p` для массы Планка. **Enforcement:** Если формула содержит `m_p^2` в знаменателе рядом с G или ℏc — проверить: это протон или Планк? `m_p/m_e ≈ 1836` (протон), `m_Pl/m_e ≈ 2.389 × 10²²` (Планк). **Корень:** gravity v2 раздел XIII — весь раздел использовал m_p для массы Планка.
 
+### L-35: Bibliography order by first citation [ACTIVE]
+<!-- valid_from: 2026-04-05 | ended: null | superseded_by: null | cross_project: false -->
 35. **Библиография: порядок по первому упоминанию в тексте.** Список литературы ОБЯЗАН идти в порядке первого появления ссылки `~[N]` в тексте статьи. При добавлении новой ссылки — определить её позицию по месту первого `~[N]` в тексте. При перенумерации — обновить ВСЕ `~[N]` в тексте последовательно. **ЗАПРЕЩЕНО** ссылаться на работы через имена файлов (`ODTOE\_1836`, `ODTOE\_light\_teleportation`) — только через `~[N]`. **Enforcement:** `grep -Pn 'ODTOE\\_' *.tex` = 0 результатов. **Корень:** gravity v2 — 6 вхождений `ODTOE\_...` вместо `~[N]`, библиография не была упорядочена по первому цитированию.
 
-### AMP8: Corpus terminology is canonical — grep before generate
+### AMP8: Corpus terminology is canonical [ACTIVE]
+<!-- valid_from: 2026-04-05 | ended: null | superseded_by: null | cross_project: false --> — grep before generate
 When generating text for the ODTOE corpus, Builder MUST grep existing articles for key terms BEFORE writing. Established forms are used EXACTLY. Transliteration of international abbreviations (ODTOE→ОДТОЕ) is PROHIBITED. If a Russian abbreviation is needed, use the canonical form from glossary.md (ODTOE → НЗТВ). Gravity session: 84 occurrences of wrong transliteration, zero corpus checks performed.
 
-## Session — v9 Phase 2.1.S Smoke Test (April 2026)
+## Session -- v9 Phase 2.1.S Smoke Test (April 2026)
 
-36. **L-36 — The article skin is value-additive.** First smoke test on `ODTOE_measuring_B_parameter.tex` found 3 defects (DEF-1 duplicate biblio `[17]`/`[27]`, DEF-4 error propagation formula recomputation δB, DEF-6 BL-19 8-file-set misplacement) that a base Validator role without the article skin would miss. The skin's Example 3 (abstract/table numerical mismatch) was the didactic precedent that predicted the DEF-4 catch exactly. 4-layer architecture (L0 immutable / L1 universal / L2 skin / L3 instance) validated in practice, not just in theory. Source: `reports/v9_phase2_1_s_smoke_test_2026-04-11.md` (B=0.834 Validator PASS).
+### L-36: Article skin is value-additive [ACTIVE]
+<!-- valid_from: 2026-04-11 | ended: null | superseded_by: null | cross_project: true -->
+36. **L-36 -- The article skin is value-additive.** First smoke test on `ODTOE_measuring_B_parameter.tex` found 3 defects (DEF-1 duplicate biblio `[17]`/`[27]`, DEF-4 error propagation formula recomputation δB, DEF-6 BL-19 8-file-set misplacement) that a base Validator role without the article skin would miss. The skin's Example 3 (abstract/table numerical mismatch) was the didactic precedent that predicted the DEF-4 catch exactly. 4-layer architecture (L0 immutable / L1 universal / L2 skin / L3 instance) validated in practice, not just in theory. Source: `reports/v9_phase2_1_s_smoke_test_2026-04-11.md` (B=0.834 Validator PASS).
 
-37. **L-37 — The article skin is not overfit.** Second smoke test on `ODTOE_phi_fractality.tex` (a purely theoretical article, Mar 19 mtime) found 6 non-temporal defects + 4 temporal N/A, with a structurally DIFFERENT failure profile: orphan `[9]` instead of duplicate `[17]`/`[27]`, 0 numerical drift (C6 correctly returned PASS on theoretical content, not false positive), 55.6% self-cite rate (vs 27% in first test, revealing the C5 threshold gap that was subsequently closed in Phase 2.1.S v2). The skin's C1/C6 rules fired correctly on the new article without pattern-overfitting to the first. Source: `reports/v9_phase2_1_s_second_smoke_test_2026-04-11.md` (B=0.875 Validator PASS).
+### L-37: Article skin is not overfit [ACTIVE]
+<!-- valid_from: 2026-04-11 | ended: null | superseded_by: null | cross_project: true -->
+37. **L-37 -- The article skin is not overfit.** Second smoke test on `ODTOE_phi_fractality.tex` (a purely theoretical article, Mar 19 mtime) found 6 non-temporal defects + 4 temporal N/A, with a structurally DIFFERENT failure profile: orphan `[9]` instead of duplicate `[17]`/`[27]`, 0 numerical drift (C6 correctly returned PASS on theoretical content, not false positive), 55.6% self-cite rate (vs 27% in first test, revealing the C5 threshold gap that was subsequently closed in Phase 2.1.S v2). The skin's C1/C6 rules fired correctly on the new article without pattern-overfitting to the first. Source: `reports/v9_phase2_1_s_second_smoke_test_2026-04-11.md` (B=0.875 Validator PASS).
 
-38. **L-38 — BL-19 8-file set corpus-wide drift pattern.** Both smoke tests found the same defect class: `.md` version of the article missing from the mandated 8-file location (`/Users/antonpankratov/Downloads/odtoe/`). First test: 6/8 at root (both RU.md and EN.md missing). Second test: 7/8 at root (RU.md at root, EN.md misplaced). This is a corpus-wide pattern, not a single-article defect. Root cause: historical migration moved `.md` files to `для сайта/` and `backup/для сайта/` with mtimes 3 weeks after the canonical `.tex`/`.pdf`/`.docx` files. Recommend: file-system audit script (`find /Users/antonpankratov/Downloads/odtoe -maxdepth 1 -name 'ODTOE_*'` + 8-file-per-article invariant check) as mechanical enforcement gate.
+### L-38: BL-19 corpus-wide drift pattern [ACTIVE]
+<!-- valid_from: 2026-04-11 | ended: null | superseded_by: null | cross_project: false -->
+38. **L-38 -- BL-19 8-file set corpus-wide drift pattern.** Both smoke tests found the same defect class: `.md` version of the article missing from the mandated 8-file location (`/Users/antonpankratov/Downloads/odtoe/`). First test: 6/8 at root (both RU.md and EN.md missing). Second test: 7/8 at root (RU.md at root, EN.md misplaced). This is a corpus-wide pattern, not a single-article defect. Root cause: historical migration moved `.md` files to `для сайта/` and `backup/для сайта/` with mtimes 3 weeks after the canonical `.tex`/`.pdf`/`.docx` files. Recommend: file-system audit script (`find /Users/antonpankratov/Downloads/odtoe -maxdepth 1 -name 'ODTOE_*'` + 8-file-per-article invariant check) as mechanical enforcement gate.
 
-39. **L-39 — Pre-flight accuracy is not automatic.** The Phase 2.1.S pre-flight Analyst predicted: (1) EN-only duplicate biblio, (2) 34 `\tag{}` formulas, (3) ~40% self-cite rate. Reality: (1) duplicate in BOTH RU+EN, (2) 22 formulas, (3) 27% self-cite rate. None of these errors were load-bearing, but they demonstrate that Analyst pre-flight recon runs on SAMPLE/SCAN heuristics, not full-file inventory. Lesson: when a smoke test's target choice depends on pre-flight counts, add a "pre-flight accuracy tolerance" clause to the smoke test plan, OR have the smoke test Validator re-verify the pre-flight numbers as its first action. Source: `reports/v9_phase2_1_s_preflight_2026-04-11.md` compared with smoke test report findings.
+### L-39: Pre-flight accuracy is not automatic [ACTIVE]
+<!-- valid_from: 2026-04-11 | ended: null | superseded_by: null | cross_project: true -->
+39. **L-39 -- Pre-flight accuracy is not automatic.** The Phase 2.1.S pre-flight Analyst predicted: (1) EN-only duplicate biblio, (2) 34 `\tag{}` formulas, (3) ~40% self-cite rate. Reality: (1) duplicate in BOTH RU+EN, (2) 22 formulas, (3) 27% self-cite rate. None of these errors were load-bearing, but they demonstrate that Analyst pre-flight recon runs on SAMPLE/SCAN heuristics, not full-file inventory. Lesson: when a smoke test's target choice depends on pre-flight counts, add a "pre-flight accuracy tolerance" clause to the smoke test plan, OR have the smoke test Validator re-verify the pre-flight numbers as its first action. Source: `reports/v9_phase2_1_s_preflight_2026-04-11.md` compared with smoke test report findings.
