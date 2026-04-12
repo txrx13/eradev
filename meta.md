@@ -275,8 +275,25 @@ Output it as your FIRST visible message so the operator can verify compliance.
 [ ] 9. LAMBDA AUDIT: Coherencer reads projects/{PROJECT}/lessons.md (T2 active [ACTIVE] entries only)
        and announces 3 relevant lessons + 2 mega-patterns (BL-4).
        If Lambda gap detected: Coherencer searches T3 (lessons_archive.md, cross-project scan).
+       Freshness check (v10): for each [ACTIVE] non-EMP lesson in projects/{PROJECT}/lessons.md,
+       compute freshness = max(0, 1 - age_days / half_life).
+       half_life = 180 days (regular) or 360 days (cross_project: true). EMPs are immortal -- skip.
+       If any lesson has freshness < 0.3: flag for temporal decay review.
+       Review actions: REVALIDATE (reset valid_from) / SUPERSEDE (mark ended) / ARCHIVE (move to lessons_archive.md).
+       If flagged count <= 5: Coherencer reviews inline. If > 5: spawn dedicated decay review pass.
        Cross-project scan: for each OTHER project in projects/, read lessons.md,
        filter for cross_project: true AND ended: null, load relevant ones into T2 context.
+       Omega computation (v10): after cross-project scan, compute Omega(H_hist).
+       Apply 4-predicate relevance filter (eradev.md Section III.Omega) to task T.
+       Stale lessons (freshness < 0.3) are excluded from N_relevant before Omega computation.
+       Omega = min(1 + 0.15 * ln(1 + N_relevant), 2.500). Lambda_effective = Omega * Lambda.
+       Report: "Omega(H_hist) = X.XXX (N_relevant = N, alpha = 0.15)".
+       If Omega > 2.0: YELLOW -- memory dominance detected, consider fresh thinking.
+       If Omega = 1.000 (no relevant cross-project lessons): log, no alarm -- backward compat with v9.
+       BL compression check (v10): read BL_CANDIDATES.md header count.
+       If count >= 5: spawn Coherencer with BL compression protocol.
+       Coherencer classifies each candidate (PROMOTE/MERGE/DISCARD/DEFER), executes, logs to lessons.md.
+       BL-3 guard: if compression loops >= 3 iterations, STOP and escalate to META.
        If lessons.md active count > 50: trigger compression pass (Coherencer, see spec).
 [ ] 10. FIX RATE: After every 10 commits, compute fix rate. >50% = STOP for reflection.
 [ ] 11. IDENTITY PERSISTENCE + MEMORY BUDGET: Verify project MEMORY contains META identity record.

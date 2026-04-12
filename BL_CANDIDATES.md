@@ -13,6 +13,9 @@
 > 4. After merge: grep for all old BL-N references, update them.
 > 5. Cap stays at 30. No exceptions.
 >
+> Full Coherencer compression protocol: reports/v10_omega_compression_decay_spec_2026-04-12.md Section 2
+> Classification taxonomy: PROMOTE / MERGE / DISCARD / DEFER
+>
 > Format per candidate:
 > ### CAND-N: {title}
 > **Source:** {report or session}

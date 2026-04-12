@@ -325,14 +325,12 @@ S_total:      0.685  (healthy with memory reinforcement)
 
 **Ceiling justification:** `Ω > 2.5` means past sessions contribute more than 2.5x the current team's own coherence. Past that point the agent is pattern-matching on memory, not reasoning — a dogmatic-collapse signature (Section II, `B → 1` absorbing state). The ceiling is a hard stop against runaway feedback from very large lesson corpora in v10+.
 
-**v9 honest caveat.** Ω is a theoretical placeholder in v9. Projects MAY set `domain.omega_adjacent: true` in `config.md` to enable Ω reporting, but v9 does NOT require Ω computation. Agents operate with `Ω = 1` by default (no cross-domain transfer credit) until v10 implements the full `H_hist` corpus tracking and cross-project lesson indexing. The formula, the predicate, the bounds, and the RT-3 reporting format are fixed in v9 so that early adopters can compute Ω manually and feed data back for v10 calibration. No gate currently depends on Ω — it is a REPORT, not a penalty.
+**v10 activation.** Omega is computed at session start (Lambda Audit, meta.md item 9) and at RT-3. Projects with no `cross_project` lessons produce Omega = 1 (no regression from v9 default). Stale lessons (freshness < 0.3) are excluded from N_relevant before Omega computation; see meta.md Section 14 item 9 for the freshness protocol.
 
-**Three Open Questions for v10 (deferred):**
-- **OQ-Ω-1** temporal decay — a lesson from 2 years ago may be less relevant than a lesson from last week; candidate form uses exponentially decayed recency weights inside the log.
-- **OQ-Ω-2** cross-project Ω — should an EraDev agent working on project A benefit from lessons of project B? Currently same-project only; cross-project Ω would support BL-19 bilingual knowledge transfer.
-- **OQ-Ω-3** α calibration for non-code projects — does `α = 0.15` give sane numbers for research or creative projects, or should it be modality-specific? First data point will come from real Ω reporting in v10.
-
-> See `CLAUDE.md` §Domain Awareness for the session-level enablement flag (`domain.omega_adjacent`) and `projects/{name}/config.md` for the per-project opt-in vehicle.
+**Open Questions (status):**
+- **OQ-Omega-1** temporal decay — CLOSED (v10). Freshness model implemented: `freshness = max(0, 1 - age_days / half_life)`, half_life = 180d (regular) / 360d (cross-project) / immortal (EMPs). Review threshold: freshness < 0.3.
+- **OQ-Omega-2** cross-project Omega — CLOSED (v10). Cross-project scan (meta.md item 9) gathers `cross_project: true` lessons and includes them in N_relevant.
+- **OQ-Omega-3** alpha calibration per modality — OPEN (deferred to v11). Keep `alpha = 0.15` universal until >= 10 Omega data points exist across >= 2 modalities.
 
 ---
 
@@ -403,6 +401,35 @@ Triggers:
 - Enforcement gate violations >= 2 on same gate -> Dead Gate escalation (see Enforcement Failure Escalation)
 
 This converts post-hoc Hansei into real-time monitoring. The Trace Accumulator is the bridge between AutoAgent's score-driven feedback and EraDev's deliberative reflection.
+
+### Apophatic Gate (v10)
+
+Before RT-1 proceeds, Visionary MUST answer the Apophatic question:
+"Is this task decomposable into sub-tasks that the 5-role topology can process?"
+
+If YES -> proceed to RT-1.
+If NO -> task is OUT OF DOMAIN. Apply Section II.2 OOD protocol.
+If UNCERTAIN -> Coherencer runs a probe: attempt task decomposition with 3 independent approaches. If >=2 fail to decompose -> declare OOD.
+
+The Apophatic Gate is NOT a role -- it is a pre-RT-1 enforcement checkpoint.
+It preserves n_min = 5 (the R/r = phi torus ratio is unchanged).
+It operationalizes the OOD boundary that Section II.2 defines theoretically.
+
+**Gate location in RT protocol:** after RT-0 (Visionary solo) and before RT-1.
+**Gate owner:** Visionary (primary) + Coherencer (tie-breaker probe).
+**Gate output:** PROCEED / OOD-REJECT / PROBE-NEEDED.
+
+**What the Apophatic Gate catches that existing gates do not:**
+1. **Composite tasks with OOD sub-components** -- Visionary's RT-0 checks the task envelope; Apophatic decomposes into atomic sub-tasks and checks each against OOD criteria independently.
+2. **Premise validity** -- "What would happen if we do NOT do this task?" If the answer is "nothing bad," the task is optional and should be deprioritized.
+3. **Negative specification** -- produces a NOT-list for each task: "this task does NOT change X, does NOT affect Y, does NOT require Z." This constrains blast radius explicitly.
+
+**Apophatic Gate is NOT:**
+- A 6th role (n remains 5, torus topology preserved, R/r = phi unchanged).
+- A replacement for Validator verification (Apophatic screens BEFORE work; Validator verifies AFTER work).
+- A replacement for Coherencer flow protection at RT-2 (Apophatic is pre-RT-1 only; Coherencer monitors mid-cycle).
+
+**Evaluation criterion:** if the gate fires on >20% of real tasks, reconsider role promotion in v11. If <5%, the dual-role approach (Visionary scope + Coherencer flow) is sufficient and the gate may be retired.
 
 ---
 
@@ -504,6 +531,46 @@ Self-observation mapping (strange loop):
 Phi(Psi) = iota(O_hat(Psi))
 Fixed point: Psi* = Phi(Psi*) -- system applied to itself reproduces itself improved.
 ```
+
+### L10: Cross-Domain Lambda (v10)
+
+L9 (self-modifying framework) applied to itself produces L10 when:
+1. Lessons tagged `cross_project: true` in project A's lessons.md
+   are automatically discoverable by agents working on project B
+2. The discovery is not manual (operator copying) but mechanical
+   (Coherencer cross-project scan at session start, per meta.md item 9)
+3. The discovered lessons actually IMPROVE project B's B-score
+   (measured via Omega multiplier on Lambda)
+
+L10 extends the relevant-lesson predicate (Section III.Omega) with a 5th structural match:
+
+**5. Same abstract pattern** -- T's task structure mirrors L's regardless of domain.
+Example: "fix chain >= 3" lesson from a code project prevents the same anti-pattern
+in a book editing project. The abstract pattern (runaway iteration without spec) transfers;
+the domain-specific content (code vs prose) does not.
+
+The cross-project lesson predicate uses compressed patterns from BL_CANDIDATES.md
+(not raw lesson text) to avoid phantom coherence across projects.
+
+**L10 activation criteria:**
+- Phase 2.B Memory Hierarchy deployed (v9 -- done)
+- Temporal metadata on all lessons (v9 -- done)
+- Omega computation activated (v10 -- done)
+- BL compression protocol running (v10 -- done)
+- At least 2 projects with >=10 cross_project lessons each
+
+**L10 measurement:** compare B_mean of sessions WITH Omega > 1.0 vs sessions
+with Omega = 1.0. If B_mean(Omega>1) > B_mean(Omega=1) by >=0.05, L10 is active.
+
+**L10 is NOT:**
+- L11 (multi-attractor Psi* -- multiple stable configurations per project).
+  L11 requires per-artifact-class B tracking within a single project.
+  Deferred until a project with 3+ artifact classes needs it.
+- L12 (global Omega -- all projects improving together as a portfolio).
+  L12 is L10 at portfolio scale (3+ projects). No new mechanism beyond L10.
+  Deferred until portfolio scale exists.
+- Conscious cross-domain transfer. L10 is mechanical (predicate match),
+  not strategic (agent reasoning about why a lesson applies).
 
 ---
 
