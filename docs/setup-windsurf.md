@@ -1,4 +1,4 @@
-# EraDev Setup: Windsurf (Codeium)
+# EraDev Setup: Windsurf (Codeium) (v10)
 
 Windsurf reads `.windsurfrules` or `.windsurf/rules/*.md` and supports hooks via `.windsurf/hooks.json`.
 
@@ -35,7 +35,14 @@ Deploy EraDev ({PROJECT} = basename of current directory):
 
 2. AFTER [BUILDER] completes — spawn [VALIDATOR] agent: verify deploy artifacts (.windsurfrules and AGENTS.md exist with no literal {PROJECT}, hooks executable, .windsurf/hooks.json valid, git hooksPath configured). Report: PASS/BLOCK.
 
-3. AFTER [VALIDATOR] PASS — META loads framework: Read eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, projects/{PROJECT}/config.md, projects/{PROJECT}/lessons.md. Output SESSION BOOTSTRAP checklist. Save META identity to memory. Apply Language Stack routing from eradev.md Section 0 for all subsequent tasks.
+3. AFTER [VALIDATOR] PASS — META loads framework (6-step sequence):
+   1. Read eradev/eradev.md
+   2. Read eradev/meta.md
+   3. Read eradev/BOOTSTRAP_LESSONS.md
+   4. Read projects/{PROJECT}/config.md (detect domain.type from `domain:` block — default: code)
+   5. Read projects/{PROJECT}/lessons.md
+   6. IF domain.skin set in config: Read eradev/templates/domain_skin.{type}.md
+   Output SESSION BOOTSTRAP checklist (13 items, incl. 5b DOMAIN). Save META identity to memory. Apply Language Stack routing from eradev.md Section 0 for all subsequent tasks.
 
 Далее общаемся на русском.
 ```
@@ -73,7 +80,10 @@ Then paste:
 
 2. AFTER [BUILDER] completes — spawn [VALIDATOR] agent: verify deploy artifacts (.windsurfrules matches AGENTS.md, hooks executable, no literal {PROJECT}). Report: PASS/BLOCK.
 
-3. AFTER [VALIDATOR] PASS — META loads framework: Read eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, projects/{PROJECT}/config.md, projects/{PROJECT}/lessons.md. Output SESSION BOOTSTRAP checklist. Apply Language Stack routing from eradev.md Section 0 for all subsequent tasks.
+3. AFTER [VALIDATOR] PASS — META loads framework (6-step sequence):
+   1-5. Read eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, projects/{PROJECT}/config.md, projects/{PROJECT}/lessons.md
+   6. IF domain.skin set: Read eradev/templates/domain_skin.{type}.md
+   Output SESSION BOOTSTRAP checklist (13 items). Apply Language Stack routing.
 
 Далее продолжаем работу.
 ```

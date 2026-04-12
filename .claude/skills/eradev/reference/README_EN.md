@@ -1,14 +1,20 @@
-# EraDev v9 — META-Orchestration
+# EraDev v10 — META-Orchestration
 
 ## What is EraDev
 
 EraDev is a multi-agent development framework based on ODTOE (Observer-Dependent Theory of Everything) and Toyota Production System principles. Five specialized roles (Visionary, Analyst, Builder, Validator, Coherencer) work through the Round Table protocol, ensuring collective coherence above the individual level.
 
-**v9 essentials:**
+**v10 key properties:**
 
-- **3-layer enforcement:** CLAUDE.md (auto-bootstrap) + PreToolUse hook (blocks direct Edit/Write from META) + memory persistence (identity survives across sessions)
-- **4-layer architecture (v9):** L0 IMMUTABLE (ODTOE core) / L1 Universal roles / L2 Domain skins / L3 Project instances
+- **3-layer runtime enforcement:** CLAUDE.md (auto-bootstrap) + PreToolUse hook (blocks direct Edit/Write from META) + memory persistence (identity survives across sessions)
+- **4-layer file architecture (v9):** L0 IMMUTABLE (ODTOE core) / L1 Universal roles / L2 Domain skins / L3 Project instances
 - **6 output types:** Agent calls, Decisions, Synthesis, Lessons, Reports, Check Agent. Anything else = VIOLATION.
+- **14 invariants** tagged [UNIVERSAL] / [CODE-ADAPTER] for cross-domain adaptation.
+- **6-step loading sequence:** eradev.md, meta.md, BOOTSTRAP_LESSONS.md, config.md, lessons.md + conditional step 6 (domain skin).
+- **13-item session bootstrap** including 5b DOMAIN (modal B-formula selection).
+- **Domain skins (v9):** 6 domain types: code, article, book, config, plan, research.
+- **Self-loading agents (v9):** Invariant 12: agents self-load their role file.
+- **v10 features:** Omega(H_hist) computation, temporal decay, BL compression, Apophatic Gate, /extract skill.
 - **Report Funnel:** Builder (full artifact) -> Validator (Structured Verdict, 7 lines) -> Coherencer (Cycle Brief, 10 lines) -> META. Each level compresses; META never reads raw output.
 
 Each agent's quality is measured by `B = F * E * (1-sigma) * Lambda` -- zeroing any component zeroes the entire result.
@@ -32,10 +38,13 @@ You ALWAYS delegate ALL work via agent calls.
 
 6 OUTPUT TYPES: Agent calls | Decisions | Synthesis | Lessons | Reports | Check Agent
 
-LOAD: eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md,
-      eradev/projects/{PROJECT}/config.md, eradev/projects/{PROJECT}/lessons.md
+LOAD (6 steps):
+1. eradev/eradev.md  2. eradev/meta.md  3. eradev/BOOTSTRAP_LESSONS.md
+4. projects/{PROJECT}/config.md  5. projects/{PROJECT}/lessons.md
+6. IF domain.skin set: eradev/templates/domain_skin.{type}.md
 
-RULES: S-tasks = Builder+Validator. M+ = 5-role RT-1. Bash: operational direct, diagnostic delegate.
+RULES: S-tasks = Builder+Validator. M+ = 5-role RT-1. 14 invariants ([UNIVERSAL]/[CODE-ADAPTER]).
+       Bash: operational direct, diagnostic delegate. Session bootstrap: 13 items (incl. 5b DOMAIN).
 KILL-TEST: first action = agent call.
 
 Task: [task description]
@@ -90,7 +99,7 @@ eradev/
 
 ---
 
-## 3-Layer Enforcement
+## 3-Layer Runtime Enforcement
 
 | Layer | Mechanism | What it does |
 |-------|-----------|--------------|
@@ -98,7 +107,9 @@ eradev/
 | **PreToolUse hook** | `.claude/hooks/enforce-delegation.sh` | Blocks Edit/Write calls from main session (non-agent). Forces delegation. |
 | **Memory persistence** | MEMORY.md entries | META identity + LOAD sequence survive across sessions. Checked at each start. |
 
-Without all three layers, META drifts back to solo Builder behavior within 2-3 tasks (BL-16: knowledge without enforcement = Lambda zero).
+**4-layer file architecture (v9):** L0 IMMUTABLE (ODTOE core) / L1 Universal roles / L2 Domain skins / L3 Project instances -- a separate concept from runtime enforcement.
+
+Without all three runtime layers, META drifts back to solo Builder behavior within 2-3 tasks (BL-16: knowledge without enforcement = Lambda zero).
 
 ---
 
@@ -166,7 +177,7 @@ Golden ratio proportion: Round Table ~38%, Build ~62%.
 | `roles/coherent.md` | Coherencer: synchronization, L1/L2/L3, Kill-Switch |
 | `glossary.md` | Bilingual glossary (44 terms, canonical forms) |
 | `interfaces.md` | Role Interface Contracts (5 handoff schemas with YAML) |
-| `LOADING_PROTOCOL.md` | Agent loading sequence (4 steps, 400-line budget) |
+| `LOADING_PROTOCOL.md` | Agent loading sequence (META 6-step + role 4-step) |
 | `BOOTSTRAP_LESSONS.md` | 30 cold-start lessons (BL-1..BL-32) for Lambda bootstrap |
 | `reports/HANSEI_TEMPLATE.md` | Structured Hansei reflection template |
 
@@ -182,4 +193,4 @@ Golden ratio proportion: Round Table ~38%, Build ~62%.
 
 ---
 
-*EraDev v9 | 2026-04-11*
+*EraDev v10 | 2026-04-12*

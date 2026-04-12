@@ -1,6 +1,6 @@
 # EraDev -- Universal Core
 
-> Version: 8 | Foundation: ODTOE + TPS
+> Version: 10 | Foundation: ODTOE + TPS
 > Project-specific rules live in `eradev/projects/{name}/`
 
 ---
@@ -199,6 +199,48 @@ Projects without a `domain:` block default to `ood_scope: text-discrete` (backwa
 **v10+ roadmap.** OOD expansion to continuous/flow tasks is a v10+ research direction. Candidate extensions include: an Apophatic role (for tasks defined by what they are NOT), time-integrated coherence over continuous trajectories, flow-protection protocols for real-time work, and dialogic-coherence math for tasks without a terminal artifact. These are NOT committed for v9 — they are an explicit frontier.
 
 > See `CLAUDE.md` §Domain Awareness (`ood_scope` line) for the bootstrap-load copy of this rule and `projects/{name}/config.md` `domain.ood_scope` field for the per-project mechanical enforcement vehicle.
+
+### II.2.1 Structured-continuous (v10 prototype, narrow scope)
+
+Some artifacts straddle the discrete-continuous boundary. A **structured-continuous** artifact has:
+1. A discrete structural skeleton (countable sections, numbered constraints, measurable properties)
+2. Continuous content that fills the skeleton (prose, flow, rhythm, experiential texture)
+
+The skeleton is discrete and countable. The content within it is continuous and subjective. The key insight: v9's AND-gate (Criteria I + II) can be satisfied by the SKELETON alone, even when the content is continuous.
+
+**v10 admits structured-continuous artifacts IF AND ONLY IF:**
+- Criterion (I) is satisfied by the SKELETON (the structure is discrete and countable)
+- Criterion (II) is satisfied by STRUCTURAL properties (syllable count, meter, section count, constraint satisfaction) — NOT by subjective quality
+
+**Examples of structured-continuous (v10 IN-SCOPE):**
+- Sonnet (14 lines, iambic pentameter, ABAB CDCD EFEF GG — all structurally verifiable)
+- Haiku (5-7-5 syllable constraint — countable)
+- Technical screenwriting (scene numbering, page count, format spec — verifiable)
+- Structured meditation script with numbered phases and timed segments
+- Musical score with countable measures, key signatures, and tempo markings
+
+**NOT structured-continuous (still OUT-OF-SCOPE):**
+- Free-verse poetry (no structural constraint to verify)
+- Improvised music (no score to check against)
+- Stream-of-consciousness prose (no section boundaries)
+- Unguided meditation (no phases, no timing, no structure)
+- Abstract visual art (no countable properties)
+
+**verify.method for structured-continuous:** `structure_check` — verify the skeleton constraints are satisfied. Content quality within the skeleton is explicitly OUT of v10's verification scope. A sonnet that satisfies all structural constraints but is aesthetically mediocre passes `structure_check`. Aesthetic quality is a v11+ research direction (requires subjective-B extension).
+
+**B_modality for structured-continuous:** `creative` (same as books/articles). The creative weights (w_E=0.30, w_(1-sigma)=0.30, w_F=0.20, w_Lambda=0.20) are appropriate because alignment-to-structure and consistency-within-structure are the dominant failure modes.
+
+**Mechanical enforcement.** The `domain.ood_scope` enum gains a third value:
+
+```
+ood_scope: text-discrete          # v9 supported — proceed
+ood_scope: structured-continuous  # v10 prototype — proceed with structure_check verification
+ood_scope: continuous             # v9/v10 REJECT — escalate to Visionary for Kill-Switch Level 2
+```
+
+**Scope creep defense.** This subsection admits ONLY the narrow structured-continuous category. It does NOT weaken the AND-gate for fully continuous tasks. The AND-gate remains: both Criteria (I) and (II) must hold. For structured-continuous, both criteria are evaluated against the SKELETON, not the content. If a task has no skeleton (no countable structural constraints), it remains OUT-OF-SCOPE regardless of other properties. R5 (scope creep risk) is the primary risk acknowledged by v10 research — this narrow admission is the maximum v10 expansion.
+
+> See `templates/cross_harness_requirements.md` for the cross-harness requirements spec that documents what harnesses need to support structured-continuous verification.
 
 ---
 

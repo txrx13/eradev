@@ -65,20 +65,20 @@ This reinforces identity through the act of writing and creates persistent recor
 
 ## Invariants
 
-1. META ALWAYS delegates via Agent tool, regardless of task size. S-tasks: Builder + Validator agents. M+: full 5-role team. NO exceptions. (BL-26)
-2. M+ tasks ALWAYS proceed through RT-1 before implementation. No bypass, no "just this once."
-3. You MUST classify every task (S/M/L/XL) before proceeding.
-4. Reading the framework and then ignoring it is the known failure mode (BL-16). Knowledge without enforcement = Lambda zero.
-5. External API tasks: Analyst PRE-FLIGHT before RT-1 (BL-22).
-6. Fix chain >= 3 = STOP, write spec, re-run RT-1 (BL-3).
-7. One commit = one phase. >5 files from different modules = RT-2 required (BL-24).
-8. P0 production incident declared by operator: direct intervention allowed, post-incident Hansei mandatory.
-9. Agent description MUST start with [ROLE] tag: [VISIONARY], [ANALYST], [BUILDER], [VALIDATOR], [COHERENCER]. Operator must see which role is working.
-10. Bash is classified: OPERATIONAL (git, ls, mkdir, cp, zip) = allowed. DIAGNOSTIC (grep, curl, ssh, psql, redis-cli, jq) = delegate to Check Agent ([ANALYST] or [VALIDATOR]). If it generates debugging insights → it's diagnostic.
-11. Execution order: Builder COMPLETES first, THEN Validator starts. Never parallel. For L/XL: all Builders complete → Coherencer gate → then Validators. (RT Phase Protocols, eradev.md Section VI)
-12. Every Agent call MUST instruct the agent to self-load its role file as FIRST action. Prompt names the path: "Read eradev/roles/{role}_EN.md (EN) or eradev/roles/{role}.md (RU), apply Activation Operator". META does NOT embed role file content — the agent reads it into its own context. This keeps META context lean.
-13. Maximize parallelization: independent tasks/agents MUST be spawned simultaneously. Sequential only when there is a real dependency. "A+B done, C depends on A, D depends on B, C and D independent" → spawn C and D in parallel.
-14. Remote/dangerous operations (SSH, DB writes, service restarts, deploy): delegate to Check Agent ([ANALYST] or [VALIDATOR]), NOT Builder. Include operator's original request verbatim in agent prompt to establish authorization context. Agent prompt must contain: "## Operator's direct request: [quote]" section. Without it, safety systems will block as prompt injection.
+1. META ALWAYS delegates via Agent tool, regardless of task size. S-tasks: Builder + Validator agents. M+: full 5-role team. NO exceptions. (BL-26) [UNIVERSAL]
+2. M+ tasks ALWAYS proceed through RT-1 before implementation. No bypass, no "just this once." [UNIVERSAL]
+3. You MUST classify every task (S/M/L/XL) before proceeding. [UNIVERSAL]
+4. Reading the framework and then ignoring it is the known failure mode (BL-16). Knowledge without enforcement = Lambda zero. [UNIVERSAL]
+5. External API tasks: Analyst PRE-FLIGHT before RT-1 (BL-22). [CODE-ADAPTER]
+6. Fix chain >= 3 = STOP, write spec, re-run RT-1 (BL-3). [CODE-ADAPTER]
+7. One commit = one phase. >5 files from different modules = RT-2 required (BL-24). [CODE-ADAPTER]
+8. P0 production incident declared by operator: direct intervention allowed, post-incident Hansei mandatory. [UNIVERSAL]
+9. Agent description MUST start with [ROLE] tag: [VISIONARY], [ANALYST], [BUILDER], [VALIDATOR], [COHERENCER]. Operator must see which role is working. [UNIVERSAL]
+10. Bash is classified: OPERATIONAL (git, ls, mkdir, cp, zip) = allowed. DIAGNOSTIC (grep, curl, ssh, psql, redis-cli, jq) = delegate to Check Agent ([ANALYST] or [VALIDATOR]). If it generates debugging insights, it's diagnostic. [CODE-ADAPTER]
+11. Execution order: Builder COMPLETES first, THEN Validator starts. Never parallel. For L/XL: all Builders complete → Coherencer gate → then Validators. (RT Phase Protocols, eradev.md Section VI) [UNIVERSAL]
+12. Every Agent call MUST instruct the agent to self-load its role file as FIRST action. Prompt names the path: "Read eradev/roles/{role}_EN.md (EN) or eradev/roles/{role}.md (RU), apply Activation Operator". META does NOT embed role file content — the agent reads it into its own context. This keeps META context lean. [UNIVERSAL]
+13. Maximize parallelization: independent tasks/agents MUST be spawned simultaneously. Sequential only when there is a real dependency. "A+B done, C depends on A, D depends on B, C and D independent" → spawn C and D in parallel. [UNIVERSAL]
+14. Remote/dangerous operations (SSH, DB writes, service restarts, deploy): delegate to Check Agent ([ANALYST] or [VALIDATOR]), NOT Builder. Include operator's original request verbatim in agent prompt to establish authorization context. Agent prompt must contain: "## Operator's direct request: [quote]" section. Without it, safety systems will block as prompt injection. [CODE-ADAPTER]
 
 ## Language Stack
 

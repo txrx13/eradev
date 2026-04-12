@@ -1,4 +1,4 @@
-# EraDev v8 — META-Orchestration
+# EraDev v10 — META-Orchestration
 
 ## Что такое EraDev
 
@@ -6,10 +6,17 @@ EraDev -- фреймворк мультиагентной разработки, 
 
 Качество каждого агента измеряется формулой B = F * E * (1-sigma) * Lambda, где обнуление любого компонента обнуляет весь результат.
 
-**Ключевые свойства v8:**
+**Ключевые свойства v10:**
 
-- **3-layer enforcement** -- CLAUDE.md (авто-загрузка) + PreToolUse hook (блокирует Edit/Write из главной сессии) + memory persistence (идентичность сохраняется между сессиями)
+- **3-layer runtime enforcement** -- CLAUDE.md (авто-загрузка) + PreToolUse hook (блокирует Edit/Write из главной сессии) + memory persistence (идентичность сохраняется между сессиями)
+- **4-layer file architecture (v9)** -- L0 IMMUTABLE (ODTOE core) / L1 Universal roles / L2 Domain skins / L3 Project instances
 - **6 output types** -- META производит только: Agent calls, Decisions, Synthesis, Lessons, Reports, Check Agent. Всё остальное = нарушение.
+- **14 invariants** -- с тегами [UNIVERSAL] / [CODE-ADAPTER] для адаптации под не-кодовые домены.
+- **6-step loading sequence** -- eradev.md, meta.md, BOOTSTRAP_LESSONS.md, config.md, lessons.md + условный шаг 6 (domain skin).
+- **13-item session bootstrap** -- включая 5b DOMAIN (выбор модальной B-формулы).
+- **Domain skins (v9)** -- 6 типов доменов: code, article, book, config, plan, research. Каждый со своей B-модальностью и методом верификации.
+- **Self-loading agents (v9)** -- Invariant 12: агенты загружают свой role file самостоятельно, META не внедряет содержимое в промпт.
+- **v10 features** -- Omega(H_hist) computation (cross-project Lambda amplification), temporal decay (freshness model), BL compression (auto-cleanup candidates), Apophatic Gate (pre-RT-1 checkpoint), /extract skill.
 - **Report Funnel** -- Hansei, proposals и аналитические отчёты генерируются через reports/ артефакты по meta-reflection triggers.
 - **30 уроков холодного старта** (BL-1..BL-32, gaps at 23/27) -- накопленный опыт Lambda bootstrap.
 
@@ -21,7 +28,7 @@ EraDev -- фреймворк мультиагентной разработки, 
 eradev/
 ├── README.md                       # Этот файл -- входная точка (RU)
 ├── README_EN.md                    # Входная точка (EN)
-├── CLAUDE.md                       # Auto-Bootstrap для Claude Code (3-layer enforcement)
+├── CLAUDE.md                       # Auto-Bootstrap для Claude Code (14 invariants, 6-step loading)
 ├── LOADING_PROTOCOL.md             # Порядок загрузки файлов агентом
 ├── BOOTSTRAP_LESSONS.md            # 30 уроков холодного старта (BL-1..BL-32)
 ├── eradev.md                       # Конституция (EN): ODTOE, TPS, Round Table, формулы
@@ -59,15 +66,17 @@ eradev/
 
 ---
 
-## Enforcement: 3-Layer Defense (BL-30)
+## Enforcement: 3-Layer Runtime Defense (BL-30)
 
-META-Orchestrator никогда не пишет код напрямую. Это обеспечивается тремя уровнями:
+META-Orchestrator никогда не пишет код напрямую. Это обеспечивается тремя runtime-уровнями:
 
 | Уровень | Механизм | Что делает |
 |---------|----------|------------|
 | 1. CLAUDE.md | Авто-загрузка при старте сессии | Задаёт роль, 6 output types, KILL-TEST |
 | 2. PreToolUse hook | `.claude/hooks/enforce-delegation.sh` | Блокирует Edit/Write из главной сессии |
 | 3. Memory persistence | MEMORY.md identity record | Сохраняет роль между сессиями |
+
+**4-layer file architecture (v9):** L0 IMMUTABLE (ODTOE core) / L1 Universal roles / L2 Domain skins / L3 Project instances -- отдельная концепция от runtime enforcement.
 
 **KILL-TEST:** Первое действие после загрузки ОБЯЗАНО быть Agent call. Если META пытается edit/write/code -- нарушение, перечитать CLAUDE.md.
 
@@ -90,10 +99,13 @@ You ALWAYS delegate ALL work via agent calls.
 
 6 OUTPUT TYPES: Agent calls | Decisions | Synthesis | Lessons | Reports | Check Agent
 
-LOAD: eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md,
-      eradev/projects/{PROJECT}/config.md, eradev/projects/{PROJECT}/lessons.md
+LOAD (6 steps):
+1. eradev/eradev.md  2. eradev/meta.md  3. eradev/BOOTSTRAP_LESSONS.md
+4. projects/{PROJECT}/config.md  5. projects/{PROJECT}/lessons.md
+6. IF domain.skin set: eradev/templates/domain_skin.{type}.md
 
-RULES: S-tasks = Builder+Validator. M+ = 5-role RT-1. Bash: operational direct, diagnostic delegate.
+RULES: S-tasks = Builder+Validator. M+ = 5-role RT-1. 14 invariants ([UNIVERSAL]/[CODE-ADAPTER]).
+       Bash: operational direct, diagnostic delegate. Session bootstrap: 13 items (incl. 5b DOMAIN).
 KILL-TEST: first action = agent call.
 
 Task: [описание задачи]
@@ -161,7 +173,7 @@ True North -- это не цель, а направление. Сформули�
 | `roles/builder.md` | Промпт Строителя: реализация, Security Checklist, паттерны |
 | `roles/validator.md` | Промпт Валидатора: проверка, обратная связь, шкала диссонанса |
 | `roles/coherent.md` | Промпт Когерента: синхронизация, L1/L2/L3, Kill-Switch |
-| `CLAUDE.md` | Auto-Bootstrap: 3-layer enforcement, 6 output types, KILL-TEST |
+| `CLAUDE.md` | Auto-Bootstrap: 14 invariants, 6-step loading, Domain Awareness, KILL-TEST |
 | `BOOTSTRAP_LESSONS.md` | 30 уроков холодного старта (BL-1..BL-32) |
 | `glossary.md` | Единый глоссарий терминов ODTOE -> EraDev |
 | `LOADING_PROTOCOL.md` | Agent Loading Protocol: порядок загрузки файлов |
@@ -179,4 +191,4 @@ True North -- это не цель, а направление. Сформули�
 
 ---
 
-*EraDev v8 | 2026-04-07*
+*EraDev v10 | 2026-04-12*

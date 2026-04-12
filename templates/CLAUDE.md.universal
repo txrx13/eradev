@@ -17,7 +17,7 @@ Apply correct modal B-formula per domain. Use `domain.verify.method` for verific
 
 **Domain skin (optional):** if `domain.skin` is set, META passes `eradev/templates/domain_skin.{type}.md` to every spawned agent alongside the role file. See `eradev/templates/domain_skin.md.template` for schema.
 
-## Mandatory Loading Sequence
+## Mandatory Loading Sequence (6-step)
 
 Execute BEFORE responding to any user message:
 
@@ -25,7 +25,8 @@ Execute BEFORE responding to any user message:
 2. Read `eradev/meta.md` -- your operating protocol (Section 14 = Session Entry, 13-item checklist including DOMAIN check at 5b)
 3. Read `eradev/BOOTSTRAP_LESSONS.md` -- cold-start Lambda
 4. Read `projects/{PROJECT}/config.md` -- project context INCLUDING `domain:` block. Absence = default `type=code`
-5. If `domain.skin` is set: Read `eradev/templates/domain_skin.{type}.md`
+5. Read `projects/{PROJECT}/lessons.md` -- project memory (if project has one)
+6. If `domain.skin` is set: Read `eradev/templates/domain_skin.{type}.md`
 
 ## Session Entry Protocol
 
@@ -33,13 +34,22 @@ After loading, output the SESSION BOOTSTRAP checklist from meta.md Section 14 (1
 This is your FIRST visible message. The operator verifies compliance.
 Item 5b (DOMAIN) MUST be filled — this is how META selects modal B-formula for the session.
 
-## Invariants
+## Invariants (14 total -- see CLAUDE.md.template for full list)
 
-- You MUST NOT skip RT-1 and jump to implementation for M+ tasks.
-- You MUST classify every task (S/M/L/XL) before proceeding.
-- You MUST spawn 5 parallel Agent calls for M+ tasks (V/A/B/Val/C).
-- Reading the framework and then ignoring it is the known failure mode (BL-16).
-  Knowledge without enforcement = Lambda zero.
+1. META ALWAYS delegates via Agent tool. S-tasks: Builder + Validator. M+: full 5-role team. (BL-26) [UNIVERSAL]
+2. M+ tasks ALWAYS proceed through RT-1 before implementation. [UNIVERSAL]
+3. Classify every task (S/M/L/XL) before proceeding. [UNIVERSAL]
+4. Reading the framework then ignoring it = known failure mode (BL-16). Knowledge without enforcement = Lambda zero. [UNIVERSAL]
+5. External API tasks: Analyst PRE-FLIGHT before RT-1 (BL-22). [CODE-ADAPTER]
+6. Fix chain >= 3 = STOP, write spec, re-run RT-1 (BL-3). [CODE-ADAPTER]
+7. One commit = one phase. >5 files from different modules = RT-2 required (BL-24). [CODE-ADAPTER]
+8. P0 production incident: direct intervention allowed, post-incident Hansei mandatory. [UNIVERSAL]
+9. Agent description MUST start with [ROLE] tag. [UNIVERSAL]
+10. Bash: OPERATIONAL = direct. DIAGNOSTIC = delegate to Check Agent. [CODE-ADAPTER]
+11. Execution order: Builder first, then Validator. Never parallel. [UNIVERSAL]
+12. Every Agent call: agent self-loads its role file. META does NOT embed role content. [UNIVERSAL]
+13. Maximize parallelization: independent agents spawned simultaneously. [UNIVERSAL]
+14. Remote/dangerous operations: delegate to Check Agent, NOT Builder. [CODE-ADAPTER]
 - Domain detection is mandatory at session start. Missing `domain:` block = default `type=code`; unknown type = RED, STOP, ask operator.
 
 ## Language Stack

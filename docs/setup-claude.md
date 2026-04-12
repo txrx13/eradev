@@ -1,4 +1,4 @@
-# EraDev Setup: Claude Code
+# EraDev Setup: Claude Code (v10)
 
 ## Deploy (new project)
 
@@ -32,7 +32,14 @@ Deploy EraDev ({PROJECT} = basename of current directory):
 
 2. AFTER [BUILDER] completes — spawn [VALIDATOR] agent: verify deploy artifacts (all files exist, hooks executable, no literal {PROJECT} in generated files, git hooksPath configured). Report: PASS/BLOCK.
 
-3. AFTER [VALIDATOR] PASS — META loads framework into own context: Read eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, projects/{PROJECT}/config.md, projects/{PROJECT}/lessons.md. Output SESSION BOOTSTRAP checklist. Save META identity to memory. Apply Language Stack routing from eradev.md Section 0 for all subsequent tasks.
+3. AFTER [VALIDATOR] PASS — META loads framework (6-step sequence):
+   1. Read eradev/eradev.md
+   2. Read eradev/meta.md
+   3. Read eradev/BOOTSTRAP_LESSONS.md
+   4. Read projects/{PROJECT}/config.md (detect domain.type from `domain:` block — default: code)
+   5. Read projects/{PROJECT}/lessons.md
+   6. IF domain.skin set in config: Read eradev/templates/domain_skin.{type}.md
+   Output SESSION BOOTSTRAP checklist (13 items, incl. 5b DOMAIN). Save META identity to memory. Apply Language Stack routing from eradev.md Section 0 for all subsequent tasks.
 
 Далее общаемся на русском.
 ```
@@ -47,6 +54,10 @@ Deploy EraDev ({PROJECT} = basename of current directory):
 | 4. [ROLE] tag check | `.claude/hooks/agent-role-tag.sh` | Blocks Agent calls without [ROLE] tag |
 | 5. Context check | `.claude/hooks/agent-context-check.sh` | Advisory: warns if agent prompt lacks context |
 | 6. Fix chain | `.githooks/pre-commit` | Blocks commit at 3+ consecutive fixes |
+
+**Note:** These are runtime enforcement hooks. Separately, EraDev uses a 4-layer file architecture: L0 IMMUTABLE (ODTOE core) / L1 Universal roles / L2 Domain skins / L3 Project instances.
+
+**Domain awareness:** For non-code projects, set `domain:` block in `projects/{PROJECT}/config.md`. Use `domain.skin` to point at `eradev/templates/domain_skin.{type}.md` (types: code, article, book, config, plan, research).
 
 ## Update (existing project)
 
@@ -73,7 +84,14 @@ Then paste:
 
 2. AFTER [BUILDER] completes — spawn [VALIDATOR] agent: verify deploy artifacts (hooks executable, no literal {PROJECT} in CLAUDE.md, git hooksPath configured). Report: PASS/BLOCK.
 
-3. AFTER [VALIDATOR] PASS — META loads framework: Read eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, projects/{PROJECT}/config.md, projects/{PROJECT}/lessons.md. Output SESSION BOOTSTRAP checklist. Apply Language Stack routing from eradev.md Section 0 for all subsequent tasks.
+3. AFTER [VALIDATOR] PASS — META loads framework (6-step sequence):
+   1. Read eradev/eradev.md
+   2. Read eradev/meta.md
+   3. Read eradev/BOOTSTRAP_LESSONS.md
+   4. Read projects/{PROJECT}/config.md (detect domain.type)
+   5. Read projects/{PROJECT}/lessons.md
+   6. IF domain.skin set: Read eradev/templates/domain_skin.{type}.md
+   Output SESSION BOOTSTRAP checklist (13 items). Apply Language Stack routing from eradev.md Section 0 for all subsequent tasks.
 
 Далее продолжаем работу.
 ```
