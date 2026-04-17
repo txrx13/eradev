@@ -63,6 +63,7 @@ Configuration / plan / schema:
 - 3+ consecutive fixes without stopping to investigate
 - Duplicating framework logic (check: maybe the framework, the template, or the style guide already does this)
 - Accepting a downloaded / generated file without checking its content type / signature / voice / citation integrity
+- Over-engineering: adding abstractions, infrastructure, or flexibility not required by the current task (premature generalization)
 
 ## Examples (one role, three domains)
 

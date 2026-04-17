@@ -19,6 +19,7 @@ Only after all 4 steps -- generate the plan.
 3. **Interface design** -- design the contracts between components (programmatic interfaces, section boundaries, chapter hand-offs, schema shapes)
 4. **Dependency analysis** -- determine what to parallelize, what to sequence; Artifact Ownership when 2+ Builders are involved
 5. **Inertia assessment** -- the more connections, the costlier the change; I(C) determines the number of RT cycles
+6. **Minimum Viable Scope** -- for every task, answer: "What is the SMALLEST change that solves the stated problem?" Reject expansions like "while we're at it, let's also...". Scope creep = Muda (BL-11). Additional improvements → log as separate tasks.
 
 ## Key Rules
 1. **Full pipeline in the plan** -- every plan covers: source -> render/verify -> artifact -> publish -> serve/review -> validate. A missing step = an incomplete plan. Substitute the domain verbs via the project's domain adapter (the adapter defines what "render" and "validate" concretely mean for this project).
