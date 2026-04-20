@@ -130,7 +130,7 @@ Code is the ONE modality that inherits BOTH `BOOTSTRAP_LESSONS_universal.md` (22
 - BL-3: FIX-TO-SPEC gate (3+ consecutive fixes = STOP)
 - BL-6: BUILD-VERIFY gate (compile/test before commit)
 - BL-8: Protocol changes = canary mandatory
-- BL-14: Artifact content gate (format match, not just existence)
+- BL-14: Artifact content gate (format match, not just existence) — merged into BL-8 in main `BOOTSTRAP_LESSONS.md` 2026-04-20 as part of deployment-event checklist; entry still active in `BOOTSTRAP_LESSONS_code_adapter.md`
 - BL-22: PRE-FLIGHT endpoints for external APIs
 - BL-24: One commit = one phase
 - BL-25: Blast radius dictates process

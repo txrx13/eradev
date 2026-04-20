@@ -75,7 +75,7 @@ External-dependency tasks (APIs, SSH, third-party services) need stricter gates 
 
 ### EMP6: Enforcement without mechanism is Lambda zero, recursively [ACTIVE]
 <!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: true -->
-60-65% of cycle-7 proposals already existed as rules in BL-1 through BL-21. The system knew what not to do; it did it anyway. Seven out of nine incidents had root causes that existing rules already addressed. Adding more rules without adding enforcement mechanisms (checklist items, automated gates, agent prompts) will produce the same result. This is the Lambda problem (BL-16) applied to the system itself: the framework reads its own rules and ignores them. The highest-leverage action is not "add BL-22 through BL-26" but "add enforcement gates for BL-3, BL-6, BL-13 that already exist."
+60-65% of cycle-7 proposals already existed as rules in BL-1 through BL-21 (cycle-7 era numbering; post-2026-04-20 main BOOTSTRAP_LESSONS.md: BL-14 merged into BL-8, BL-21 merged into BL-17, BL-20 retired to meta.md §13 MM3). The system knew what not to do; it did it anyway. Seven out of nine incidents had root causes that existing rules already addressed. Adding more rules without adding enforcement mechanisms (checklist items, automated gates, agent prompts) will produce the same result. This is the Lambda problem (BL-16) applied to the system itself: the framework reads its own rules and ignores them. The highest-leverage action is not "add BL-22 through BL-26" but "add enforcement gates for BL-3, BL-6, BL-13 that already exist."
 
 ### EMP7: Optimization Without Orientation Is Hill-Climbing Into Fog [ACTIVE]
 <!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: true -->

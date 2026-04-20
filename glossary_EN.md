@@ -55,6 +55,11 @@ Each term has exactly ONE canonical form. All other variants are deprecated alia
 | 42 | Interface Contract | API contract |
 | 43 | Lambda Bootstrap | experience bootstrap |
 | 44 | Language Policy | dual-language policy |
+| 45 | Cross-phase coupling risk | composition hazard (project-local), coupling hazard |
+| 46 | Effectively-zero signal | systemd-active-not-functioning, liveness-not-functionality |
+| 47 | Enforcement-tier ladder | tier-ladder, T1-T4 hierarchy |
+| 48 | Rework-framing regex | architectural-rework-detector |
+| 49 | Signal-to-content anti-pattern | measurement-not-payload, sentinel-as-content |
 
 ---
 
@@ -106,6 +111,11 @@ Each term has exactly ONE canonical form. All other variants are deprecated alia
 | 42 | **Language Policy** | Dual-language architecture: EN for execution (core prompts, agent communication), RU for theoretical depth (formulas, conceptual leaps). Project configs follow team language | See eradev.md Section 0 | See eradev.md Section 0 | All roles |
 | 43 | **Kill-Switch** | Managed dissonance protocol triggered when agent outputs become homogeneous. 5 escalation levels from angle-shift to full frame break | Trigger: >40% of RT-2 phrases repeat RT-1 verbatim | 5 escalation levels | Coherencer |
 | 44 | **Absorbing States** | Boundary conditions where the living system dies. B->0 (nihilistic collapse) or B->1 (dogmatic collapse). Living condition: 0 < B < 1 | Jidoka check: 0 < Bi < 1 for all agents at all times | 0 < Bi < 1 for all agents at all times | All roles (Jidoka check) |
+| 45 | **Cross-phase coupling risk** | Pairwise or N-ary interaction hazard between >=2 refactors shipping in the same release window. In PLUGY Hansei 2026-04-20 enumerated as H1-H6. See BL-34. Also called "composition hazard" in project-local vocabulary. | Enumerated as hazard grid before RT-1 concludes when release ships >=2 independent refactors | Grid size: N*(N-1)/2 pairs + (N-choose-3) 3-way checks | Visionary (grid author), Coherencer (RT-1 gate) |
+| 46 | **Effectively-zero signal** | Process/service reporting `active` (liveness tier) while producing zero events in its observation window (functionality tier). systemd-active != functioning. See BL-47 and meta.md §11. | Liveness-vs-functionality split: tier separation in observability | Detector: events_in_window == 0 while status == active | Validator, Coherencer (observability) |
+| 47 | **Enforcement-tier ladder** | 4-level hierarchy per BL-33 and meta.md §13: T1 type/schema/compile-time (structural impossibility) > T2 automated hook/CI/lint > T3 checklist in agent prompt > T4 docs-only. Every new BL must declare Tier. T4-only rules are Lambda-zero for recurring classes. | Preference order when authoring a new BL: pick the highest feasible tier | Tiers: T1 > T2 > T3 > T4 (preference order) | META (authoring), Coherencer, Validator, Builder |
+| 48 | **Rework-framing regex** | Pattern matching operator messages declaring "architecture is wrong" / "full rework" / "from scratch" / "менять архитектуру" / "полностью менять" / "completely change" / "архитектурная проблема". Triggers BL-35 audit if operator message matches during active refactor window. | Automated trigger for BL-35 rework-discipline audit | Tier: T2 (operator-message regex detector — see .claude/hooks/rework-framing-detector.sh) | META (trigger detection), Coherencer (Hansei) |
+| 49 | **Signal-to-content anti-pattern** | A downstream consumer receives a sentinel/empty payload as if it were valid content (e.g. blanked text from a low-confidence classifier). BL-50 mandates type-level impossibility (newtype DeliverableText). Also called "measurement-not-payload" in BL-35 framing. | Type-level gate in newtype constructor rejects empty input | Tier: T1 (newtype with private constructor rejecting empty input) | Builder, Validator (type-level gate) |
 
 ---
 
@@ -159,5 +169,5 @@ Viability condition: 0 < Bi < 1 for all agents at all times.
 
 ---
 
-*EraDev Glossary v4.0 | 2026-04-02 | EN single source of truth*
-*Total terms: 44 | Language: EN | Canonical forms: enforced*
+*EraDev Glossary v4.1 | 2026-04-21 | EN single source of truth + PLUGY glossary drift unification*
+*Total terms: 49 | Language: EN | Canonical forms: enforced*

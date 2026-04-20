@@ -421,8 +421,8 @@ The plan skin inherits all 22 universal BL unchanged from `BOOTSTRAP_LESSONS_uni
 | BL-17 | Pre-Generate Verification = Prevention | **Critical for plans** — Check-First pipeline for plans = "read the objective + read prior plans + read project glossary BEFORE drafting phases" |
 | BL-18 | Scope Reclassification at 2× Estimate | **Critical for plans** — if a plan's phase runs 2x its estimated duration, reclassify the plan (maybe S→L, maybe the whole objective needs re-scoping) |
 | BL-19 | Bilingual Files Simultaneous | Applies (limited) — if the project has RU and EN stakeholders, the plan must exist in both languages; otherwise EN-only is fine. Plans are NOT as bilingual-heavy as articles, but BL-19 still applies when both language communities need the plan |
-| BL-20 | Adversarially Test Bootstrap | Applies unchanged — test the plan skin file itself against a trial plan (e.g., "plan for Q2 docs refresh") before deployment |
-| BL-21 | Format Specifications Are Inputs | **Critical for plans** — the live reference plan artifact format must be read BEFORE drafting a new plan; do not invent a new plan format per project |
+| BL-20 | Adversarially Test Bootstrap | RETIRED in main `BOOTSTRAP_LESSONS.md` 2026-04-20 (moved to `meta.md` §13 MM3); still listed in `BOOTSTRAP_LESSONS_universal.md` for backward compat. Applies unchanged — test the plan skin file itself against a trial plan (e.g., "plan for Q2 docs refresh") before deployment |
+| BL-21 | Format Specifications Are Inputs | MERGED into BL-17 in main `BOOTSTRAP_LESSONS.md` 2026-04-20; still listed in `BOOTSTRAP_LESSONS_universal.md` for backward compat. **Critical for plans** — the live reference plan artifact format must be read BEFORE drafting a new plan; do not invent a new plan format per project |
 | BL-26 | META Always Delegates | Applies unchanged — META never drafts plan prose directly |
 | BL-28 | Agent Prompt Must Include Explicit Context | Applies unchanged — plan-task agent prompts must name the skin file path AND role file path |
 | BL-29 | Verify Established Terminology Before Generating | **Critical for plans** — plans MUST use the project's established phase / gate / role terminology; drift (sprint vs iteration in Example 3) is the canonical Coherencer σ failure |
@@ -438,12 +438,12 @@ The plan skin inherits all 22 universal BL unchanged from `BOOTSTRAP_LESSONS_uni
 | **BL-3** | FIX-TO-SPEC gate (3+ consecutive fixes) | **Applies unchanged** | Plan equivalent: "3+ consecutive revisions of the same phase = STOP, re-scope the objective." No new BL-P needed; BL-3 transfers cleanly. |
 | **BL-6** | BUILD-VERIFY gate (compile/test before commit) | **Plan equivalent: BL-P2** | Before committing a plan revision, Builder must render the Markdown AND run DR1/DR2/DR3/DR5 (mechanical dry_run checks) AND BL-29 glossary scan. See BL-P2 below. |
 | **BL-8** | Feature Flag Toggle = Deployment Event | **N/A for plans** | Plans do not have feature flags. Phases can be "conditional on prior phase success" (e.g., roadmap v9 Phase 2 is conditional on Phase 1) but this is a pass-criterion gate, not a flag toggle. |
-| **BL-14** | Artifact Content Gate / Rollback Plan | **Plan equivalent: BL-P3** | Before declaring a plan ACTIVE (especially one that supersedes a prior plan), author must document the supersession / archive / rollback procedure. See BL-P3 below. |
+| **BL-14** | Artifact Content Gate / Rollback Plan | **Plan equivalent: BL-P3** | MERGED into BL-8 in main `BOOTSTRAP_LESSONS.md` 2026-04-20; still active in `BOOTSTRAP_LESSONS_code_adapter.md`. Before declaring a plan ACTIVE (especially one that supersedes a prior plan), author must document the supersession / archive / rollback procedure. See BL-P3 below. |
 | **BL-22** | PRE-FLIGHT Gate for External APIs | **Plan equivalent: BL-P4** | Before RT-1 begins on any plan, Analyst MUST verify every external dependency (upstream team, external vendor, tool availability, budget approval) is actually secured. Unverified externals = Builder BLOCK at RT-1. See BL-P4 below. |
 | **BL-24** | One Commit = One Phase | **Applies unchanged** | Plan equivalent: "one commit = one plan revision scoped to one objective." No new BL-P needed; BL-24 transfers cleanly. |
 | **BL-25** | Blast Radius Dictates Process / Error Path Coverage | **LIFTED INTO DR4** | Plans do not have "happy/error/timeout/restart/partial" runtime paths in the code sense. HOWEVER, the DR4 contingency check encodes the BL-25 insight: every phase should have a failure-path contingency. BL-25 is therefore LIFTED INTO DR4, not maintained as a separate BL-P entry. |
 
-**Summary:** 2 code-adapter BL apply unchanged (BL-3, BL-24); 4 have plan equivalents (BL-2→P1, BL-6→P2, BL-14→P3, BL-22→P4); 1 is N/A (BL-8); 1 is lifted into DR4 (BL-25).
+**Summary:** 2 code-adapter BL apply unchanged (BL-3, BL-24); 4 have plan equivalents (BL-2→P1, BL-6→P2, BL-14→P3 [BL-14 merged into BL-8 in main BOOTSTRAP_LESSONS.md 2026-04-20; BL-P3 retains code_adapter provenance], BL-22→P4); 1 is N/A (BL-8); 1 is lifted into DR4 (BL-25).
 
 ### Plan-specific BL (BL-P namespace — separate budget)
 
@@ -462,7 +462,7 @@ These 4 BL live in the plan skin file ONLY. They do NOT add to the main 30-BL bu
 - **Applies to:** Builder, Validator, META.
 
 **BL-P3: Supersession Before Activation (plan adaptation of BL-14)**
-- **Source:** Adapted from BL-14 for the plan domain.
+- **Source:** Adapted from BL-14 for the plan domain. (Note: BL-14 merged into BL-8 in main `BOOTSTRAP_LESSONS.md` 2026-04-20 as part of deployment-event checklist; BL-P3 retains code_adapter provenance since `BOOTSTRAP_LESSONS_code_adapter.md` still defines BL-14.)
 - **Rule:** Before a new plan is declared ACTIVE, author must check whether a prior plan exists for the same or adjacent objective. If yes: (a) document the supersession in the new plan's header ("supersedes plan vX dated YYYY-MM-DD"), (b) archive the prior plan with a "superseded by vX on YYYY-MM-DD" marker at the top (do NOT delete), (c) document what carries over from the prior plan's lessons / completed phases / OOD decisions. If no rollback / supersession is documented, the new plan is NOT permitted to activate.
 - **Why:** Post-activation pressure (execution team needs clarity, stakeholders want commitment) is when cognitive load peaks. A pre-written supersession plan executes mechanically when needed. Without supersession markers, plan archaeology becomes impossible — next quarter's author has no way to know which plan was active when. This is the plan-domain analog of "if you cannot describe how to undo a deploy, you don't have permission to deploy."
 - **Applies to:** Visionary (approve supersession), Builder (write it), Coherencer (gate at RT-2 — block activation if missing).
@@ -477,7 +477,7 @@ These 4 BL live in the plan skin file ONLY. They do NOT add to the main 30-BL bu
 
 - Universal BL inherited: **22** (unchanged)
 - Code-adapter BL that apply unchanged: **2** (BL-3, BL-24)
-- Code-adapter BL with plan equivalents: **4** (BL-2, BL-6, BL-14, BL-22 → BL-P1..P4)
+- Code-adapter BL with plan equivalents: **4** (BL-2, BL-6, BL-14 [merged→BL-8 in main BL, 2026-04-20], BL-22 → BL-P1..P4)
 - Code-adapter BL lifted into DR check: **1** (BL-25 → DR4 contingency)
 - Code-adapter BL that are N/A for plans: **1** (BL-8)
 - Plan-specific BL (BL-P namespace, separate budget): **4** (BL-P1..P4)

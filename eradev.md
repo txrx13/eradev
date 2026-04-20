@@ -513,6 +513,24 @@ All 5 agents answer from their role (5-10 sentences each):
 
 Coordinator synthesizes into Unified Plan.
 
+### RT-1 Composition Hazards Gate (v10 extension, BL-34)
+
+(Glossary canonical term: **"cross-phase coupling risk"** — see glossary.md #47. "Composition hazard" is the project-local alias; both refer to the same entity.)
+
+When the task plan lists >=2 independent refactors in one release window, Visionary MUST
+author a composition-hazards grid BEFORE Coherencer synthesizes Unified Plan. Grid format:
+
+| Pair/Triple | Impact | Precondition | Mitigation | Sequencing constraint |
+|-------------|--------|--------------|------------|-----------------------|
+| R_i x R_j   | HIGH/MED/LOW + what breaks | state/config/data needed | specific action | R_i before R_j? parallel ok after X? |
+
+Minimum pairs: N*(N-1)/2. For N >= 3: add all 3-way combinations.
+Output: `reports/composition-hazards-<date>.md` (template: `templates/composition_hazards.template.md`).
+Coherencer REJECTS RT-1 synthesis without it.
+
+PLUGY Hansei 2026-04-20 documented 6 pairwise hazards (H1-H6) for 10 proposed refactors that
+would have collapsed into 3 production incidents if shipped as a parallel menu.
+
 ### RT-2: MIDPOINT (course correction)
 After first build phase. Same 5 roles check:
 "Are we still on track? Anything diverged?"
@@ -677,6 +695,21 @@ When 2+ Builders work in parallel, Analyst MUST assign files:
   3. Builder: "What OBSTACLES? What is technically hard?"
   4. Validator: "How to VERIFY the step worked?"
   5. Coherencer: "What ALREADY happened? Which lessons apply?"
+
+### Liveness Prerequisite (v10, BL-47 promoted)
+
+For any project where operations involve live traffic, queues, async deliveries, or orchestration between ≥2 services: liveness infrastructure is a PREREQUISITE for any architectural pivot, not a trailing phase. Required tiers BEFORE any refactor proceeds to production:
+
+(a) **External liveness probe** — host B probes host A every ≤60s, independent of A's own self-report
+(b) **Host resource exporter** — CPU / memory / disk / load scraped centrally with alert thresholds
+(c) **Service-specific fault counter** — auth failures, vendor errors, log-volume anomaly, zero-event silence
+(d) **Silent-protector detector** — every protector-target pair has explicit event-rate floor AND anomaly rule (`systemd active + zero events = effectively-zero`, per meta.md §11)
+
+Rule: `systemd active (running)` is a LIVENESS signal, NOT a FUNCTIONALITY signal. A service with protective purpose + zero events in its observation window = effectively zero, regardless of `systemctl is-active` reporting `active`. The pivot that replaces a protected service MUST re-audit downstream protection layers (BL-48 pattern).
+
+Enforcement: Validator RT-1 artifact — `reports/liveness-readiness-<date>.md` per affected host, listing (probe target → probe source → event-rate floor → alert threshold). Missing artifact blocks Builder spawn on any orchestration-impacting refactor.
+
+PLUGY 2026-04-19 precedent: sipguard systemd active, protection-effective `zero` for ~36h because the target log path didn't exist → 11h runaway CPU state undetected until operator call.
 
 ---
 

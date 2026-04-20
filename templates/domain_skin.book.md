@@ -439,8 +439,8 @@ The book skin inherits all 22 universal BL from `BOOTSTRAP_LESSONS_universal.md`
 | BL-17 | Pre-Generate Verification = Prevention | **Critical for books** — the Pre-Generation Checklist above is the book-specific implementation of BL-17 ("read the outline + glossary + style guide BEFORE drafting a chapter") |
 | BL-18 | Scope Reclassification at 2× Estimate | Applies unchanged — a 10-chapter book that grows to 20 chapters must be reclassified from L to XL and trigger a new RT-0 on scope |
 | BL-19 | Bilingual Files Simultaneous | **CONDITIONAL for books** — applies ONLY if `config.md` declares `domain.bilingual: true`. Mono-lingual books skip this. The skin documents the conditional nature and does NOT impose an unconditional paired-file rule like the article skin does |
-| BL-20 | Adversarially Test Bootstrap | Applies unchanged — the book skin file itself should be tested against a trial book project before wide deployment |
-| BL-21 | Format Specifications Are Inputs | **Critical for books** — read the style guide + 1-2 reference books in the genre BEFORE drafting Ch.1. Books have stronger format-drift risk than articles because the format is typically defined by genre convention, not an explicit template |
+| BL-20 | Adversarially Test Bootstrap | RETIRED in main `BOOTSTRAP_LESSONS.md` 2026-04-20 (moved to `meta.md` §13 MM3); still listed in `BOOTSTRAP_LESSONS_universal.md` for backward compat. Applies unchanged — the book skin file itself should be tested against a trial book project before wide deployment |
+| BL-21 | Format Specifications Are Inputs | MERGED into BL-17 in main `BOOTSTRAP_LESSONS.md` 2026-04-20; still listed in `BOOTSTRAP_LESSONS_universal.md` for backward compat. **Critical for books** — read the style guide + 1-2 reference books in the genre BEFORE drafting Ch.1. Books have stronger format-drift risk than articles because the format is typically defined by genre convention, not an explicit template |
 | BL-26 | META Always Delegates | Applies unchanged — META never drafts book prose directly |
 | BL-28 | Agent Prompt Must Include Explicit Context | Applies unchanged — book-task agent prompts must name the skin file path AND role file path; additionally, prompts must name the outline path and glossary path because those are the Analyst deliverables the Builder reads |
 | BL-29 | Verify Established Terminology Before Generating | **Critical for books** — the Builder MUST re-read the glossary at the start of each chapter-drafting session. This is the dominant book Builder failure mode — glossary drift within a single long Builder session. See Example 1 |
@@ -456,12 +456,12 @@ The book skin inherits all 22 universal BL from `BOOTSTRAP_LESSONS_universal.md`
 | **BL-3** | Fix Chain > 3 = Structural Problem | **Applies unchanged** | Book equivalent: "3+ consecutive revisions of the same chapter = STOP, re-spec the chapter via Analyst." Transfers cleanly; no new BL-B needed. |
 | **BL-6** | Verify Before Act — Artifact Validity Gate | **Book equivalent: BL-B2** | Before committing a chapter, Builder must run R1 (Flesch) + length-budget check + glossary pre-read. See BL-B2. |
 | **BL-8** | Feature Flag Toggle = Deployment Event | **N/A for books** | Books have no feature flags. "Feature toggle" analog = adding or removing a chapter, which is an outline change and already covered by BL-11 scope creep. |
-| **BL-14** | Rollback Plan Before Deploy | **Book equivalent: BL-B3** | Before submitting the manuscript to a publisher OR uploading to a self-publish platform, Builder must document the erratum/retraction plan. See BL-B3. |
+| **BL-14** | Rollback Plan Before Deploy | **Book equivalent: BL-B3** | MERGED into BL-8 in main `BOOTSTRAP_LESSONS.md` 2026-04-20; still active in `BOOTSTRAP_LESSONS_code_adapter.md`. Before submitting the manuscript to a publisher OR uploading to a self-publish platform, Builder must document the erratum/retraction plan. See BL-B3. |
 | **BL-22** | PRE-FLIGHT Gate for External APIs | **Book equivalent: BL-B4 (CONDITIONAL)** | Applies if the book has a bibliography. Before RT-1 begins, Analyst must verify that every bibliographic reference exists and at least one key fact from each reference is confirmed. Books without bibliographies skip this. See BL-B4. |
 | **BL-24** | Single-Responsibility Commits | **Applies unchanged, with book re-scoping** | Book equivalent: "one commit = one chapter's revision pass" (NOT "one commit = one phase" — the phase unit for a book is a chapter). Transfers cleanly with the re-scoping. No new BL-B needed. |
 | **BL-25** | Error Path Coverage Matrix | **N/A for books** | Books do not have "happy path / error path / timeout path" runtime paths. The closest analog is "what if a reader doesn't follow Ch.5" — but that's handled by R4 (outline fidelity) + R6 (target reader coverage), not a 5-path matrix. |
 
-Summary: **2 code-adapter BL apply unchanged** (BL-3, BL-24 with book re-scoping); **4 have book equivalents** (BL-2→B1, BL-6→B2, BL-14→B3, BL-22→B4 conditional); **2 are N/A** (BL-8, BL-25).
+Summary: **2 code-adapter BL apply unchanged** (BL-3, BL-24 with book re-scoping); **4 have book equivalents** (BL-2→B1, BL-6→B2, BL-14→B3 [BL-14 merged into BL-8 in main BOOTSTRAP_LESSONS.md 2026-04-20; BL-B3 retains code_adapter provenance], BL-22→B4 conditional); **2 are N/A** (BL-8, BL-25).
 
 ### Book-specific BL (BL-B namespace — separate budget)
 
@@ -480,7 +480,7 @@ These 4 BL live in this skin file ONLY. They do NOT add to the main 30-BL budget
 - **Applies to:** Builder (mandatory pre-commit self-check), Validator (cross-check at RT-per-cluster), META (enforce gate).
 
 **BL-B3: Errata/Retraction Plan Before Release (book adaptation of BL-14)**
-- **Source:** Adapted from BL-14 for the book domain.
+- **Source:** Adapted from BL-14 for the book domain. (Note: BL-14 merged into BL-8 in main `BOOTSTRAP_LESSONS.md` 2026-04-20 as part of deployment-event checklist; BL-B3 retains code_adapter provenance since `BOOTSTRAP_LESSONS_code_adapter.md` still defines BL-14.)
 - **Rule:** Before a book is submitted to a publisher / uploaded to a self-publish platform / released as an ARC, Builder MUST document the errata plan: who to contact (publisher, self-publish platform support, beta readers), what an errata notice would say, what the update procedure looks like (new edition, errata sheet, silent digital update, paper insert). If the book cannot accept post-release corrections, that is itself a structural risk that must be logged.
 - **Why:** Books, unlike articles, are typically released into a distribution chain where corrections are hard (printed copies in warehouses, digital copies on reader devices, reviewer copies at publications). A pre-written errata plan executes mechanically under pressure when an error is found post-release. Books have multi-year shelf lives; the errata plan is a living document.
 - **Applies to:** Visionary (approve the errata plan), Builder (write it), Coherencer (store in MEMORY for multi-book series continuity).
@@ -495,7 +495,7 @@ These 4 BL live in this skin file ONLY. They do NOT add to the main 30-BL budget
 
 - Universal BL inherited: **22** (unchanged; BL-19 is *conditional* per-project — applies iff `domain.bilingual: true`)
 - Code-adapter BL that apply unchanged: **2** (BL-3, BL-24 with book re-scoping)
-- Code-adapter BL with book equivalents: **4** (BL-2→B1, BL-6→B2, BL-14→B3, BL-22→B4 conditional)
+- Code-adapter BL with book equivalents: **4** (BL-2→B1, BL-6→B2, BL-14 [merged→BL-8 in main BL, 2026-04-20]→B3, BL-22→B4 conditional)
 - Code-adapter BL that are N/A for books: **2** (BL-8, BL-25)
 - Book-specific BL (BL-B namespace, separate budget): **4** (BL-B1..B4)
 

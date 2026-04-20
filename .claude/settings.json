@@ -11,6 +11,19 @@
         ]
       },
       {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/bl-tier-check.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/rt1-composition-gate.sh"
+          }
+        ]
+      },
+      {
         "matcher": "Agent",
         "hooks": [
           {
@@ -20,6 +33,16 @@
           {
             "type": "command",
             "command": ".claude/hooks/agent-context-check.sh"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/rework-framing-detector.sh"
           }
         ]
       }

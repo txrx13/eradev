@@ -65,8 +65,8 @@ Every file in the framework exists in two language variants:
 1. **Self-application:** EraDev applies its own processes to itself. Framework changes go through RT-1/RT-2/RT-3 with 5 roles.
 2. **No duplication:** Content lives in ONE canonical location. Other files reference it, not copy it. (DRY)
 3. **Bilingual sync:** Every change to EN file = same change to RU counterpart in the same commit. (BL-19)
-4. **Check-First for articles:** Read reference format BEFORE generation. 7 checks BEFORE writing .tex. (BL-17, BL-21)
-5. **Bootstrap tested:** Any change to CLAUDE.md templates or README bootstrap prompts must be adversarially tested before deployment. (BL-20)
+4. **Check-First for articles:** Read reference format BEFORE generation. 7 checks BEFORE writing .tex. (BL-17; BL-21 merged into BL-17, 2026-04-20)
+5. **Bootstrap tested:** Any change to CLAUDE.md templates or README bootstrap prompts must be adversarially tested before deployment. (meta.md §13 MM3; BL-20 retired 2026-04-20, content moved to meta.md)
 6. **Scope reclassification:** If work exceeds 2x initial estimate, formally reclassify task size. (BL-18)
 7. **Core isolation:** Core framework files (outside projects/) MUST NOT reference specific external projects by name. Use `{name}` as placeholder. External project data lives ONLY in `projects/{name}/`.
 

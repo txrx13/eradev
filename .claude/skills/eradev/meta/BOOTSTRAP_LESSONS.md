@@ -63,11 +63,12 @@
 
 ---
 
-### BL-8: Feature Flag Toggle = Deployment Event [CODE-ADAPTER]
-**Source:** RT analysis (Pre-Deploy checklist)
-**Rule:** Toggling a feature flag is a deployment event. It requires the same Pre-Deploy checklist as a code deploy: rollback plan, health check, monitoring window.
-**Why:** A feature flag flip changes production behavior identically to a code deploy -- users see different code paths. Treating it as "just a config change" bypasses the safety net that catches regressions. Every behavioral change in production, regardless of mechanism, is a deployment.
-**Applies to:** Builder, Validator, Analyst
+### BL-8: Deployment Events Require Pre-Deploy Checklist (including Rollback Plan) [CODE-ADAPTER]
+**Source:** RT analysis (Pre-Deploy checklist) + META Hansei 2026-04-20 (merged BL-14 rollback-plan here).
+**Tier:** T3 (checklist in Validator + Builder prompts)
+**Rule:** Toggling a feature flag, flipping a config, deploying code, and any other behavior-changing production event are all DEPLOYMENT EVENTS. Each requires the full Pre-Deploy checklist BEFORE execution: (a) written rollback plan ("how to undo this in one command"), (b) canary window with monitoring, (c) health check post-deploy, (d) 30-minute observation window. If rollback cannot be described in advance, authorization to deploy is withheld.
+**Why:** A feature-flag flip changes production behavior identically to a code deploy. Treating it as "just config" bypasses the safety net. Under incident pressure, decision quality drops — pre-written rollback is executed mechanically when needed. Writing the rollback plan beforehand also forces verification that rollback is actually possible.
+**Applies to:** Builder, Validator, Analyst.
 
 ---
 
@@ -111,14 +112,6 @@
 
 ---
 
-### BL-14: Rollback Plan Before Deploy, Not After [CODE-ADAPTER]
-**Source:** RT analysis (Pre-Deploy checklist)
-**Rule:** Document the rollback procedure BEFORE executing any deployment. If you cannot describe how to undo a change, you do not have permission to make it.
-**Why:** Under incident pressure, cognitive load peaks and decision quality drops. A pre-written rollback plan is executed mechanically when needed, bypassing the degraded decision-making of a stressed team. Writing it beforehand also forces you to verify that rollback is actually possible.
-**Applies to:** Builder, Analyst, Validator
-
----
-
 ### BL-15: The 2% Spiral Gap Is a Feature [UNIVERSAL]
 **Source:** Framework invariant (Spiral Gap, Section IX)
 **Rule:** Accept that each cycle leaves approximately 2% unresolved. Record these open questions in the A3 template. Do not force closure on genuinely open problems.
@@ -131,11 +124,12 @@
 **Why:** Claude's default attractor is "helpful solo assistant." Without an explicit identity override ("You are META-Orchestrator, you NEVER write code"), the framework becomes informational context rather than binding protocol. Knowledge without enforcement = Lambda zero (BL-4 recursive application).
 **Applies to:** META-Orchestrator (session bootstrap), all roles (awareness of the failure mode)
 
-### BL-17: Pre-Generate Verification Is Prevention; Post-Generation Checking Is Rework [UNIVERSAL]
-**Source:** META Hansei — ODTOE articles session (April 2026)
-**Rule:** Before generating any artifact (article, code, config), verify format, formulas, sources, and consistency FIRST. Read the reference format, check critical domain-specific values, validate bibliography — BEFORE writing. Post-generation checking catches errors but costs 2-3x more effort to fix than preventing them.
-**Why:** The research article was generated with wrong format (missing comment groups, \hrule between sections, wrong keywords format), requiring complete rewrite. If the reference template had been read BEFORE generation, all format issues would have been prevented.
-**Applies to:** Builder (Check-First pipeline), Validator (pre-generation review), META (enforce Check-First)
+### BL-17: Pre-Generate Verification — check format, spec, sources FIRST [UNIVERSAL]
+**Source:** META Hansei ODTOE articles session + META Hansei 2026-04-20 framework-improvements (merged BL-21 format-spec-as-input here).
+**Tier:** T3 (checklist in Builder + Analyst prompts)
+**Rule:** Before generating any artifact (article, code, config, deliverable, report), verify format, formulas, sources, and consistency FIRST. Read the reference template, check critical domain-specific values, validate bibliography, verify format specification — BEFORE writing. Format specs are INPUTS, not afterthoughts. Load the reference format as Step 0 of any generation task. Post-generation checking catches errors but costs 2-3× more effort to fix than preventing them; format drift specifically costs 10× more after completion than pre-load.
+**Why:** The ODTOE research article was generated with wrong format (missing comment groups, \hrule between sections, wrong keywords format), requiring complete rewrite. If the reference template had been read BEFORE generation, all issues would have been prevented. Generalizes: any generated artifact with a known reference format must load that format before generation.
+**Applies to:** Builder (Check-First pipeline), Analyst (include format spec in decomposition), Validator (pre-generation review), META (enforce Check-First).
 
 ### BL-18: Session Scope Must Be Formally Reclassified at 2x Initial Estimate [UNIVERSAL]
 **Source:** META Hansei — session grew from M to XL without reclassification
@@ -148,18 +142,6 @@
 **Rule:** When creating or updating a file that has a bilingual counterpart (RU/EN), ALWAYS update BOTH versions in the same operation. Never create an EN file without its RU pair (or vice versa). Never update one without the other.
 **Why:** Creating pairs sequentially guarantees immediate desynchronization. The sync audit found eradev_RU.md missing 4 entire sections that existed in eradev.md. Every bilingual pair created without simultaneous sync is technical debt that compounds.
 **Applies to:** ALL roles, META-Orchestrator (enforce bilingual sync rule)
-
-### BL-20: Adversarially Test Bootstrap Prompts Before Deployment [UNIVERSAL]
-**Source:** META Hansei — deployment session used untested bootstrap
-**Rule:** Before deploying a new bootstrap prompt (CLAUDE.md, README bootstrap, or any session-start instruction), run an adversarial test: give the bootstrap to an agent with a concrete task and verify it follows the protocol. Do NOT trust that "it looks right" — test it.
-**Why:** The original 3-line bootstrap "looked reasonable" but produced 95% solo Builder behavior. Only the deployment session analysis (real-world failure) revealed the problem. Testing would have caught it before deployment.
-**Applies to:** META-Orchestrator, Validator (bootstrap testing)
-
-### BL-21: Format Specifications Are Inputs, Not Afterthoughts [UNIVERSAL]
-**Source:** META Hansei — article format was checked AFTER generation, not BEFORE
-**Rule:** When creating any formatted artifact (LaTeX article, markdown for website, config file), the format specification (reference file, template, style guide) must be loaded and verified BEFORE generation begins. It is Step 0, not Step N.
-**Why:** Format drift is invisible during generation but expensive to fix after. Reading the reference format first takes 30 seconds; reformatting a completed article takes 30 minutes.
-**Applies to:** Builder (format-first), Analyst (include format spec in decomposition)
 
 ### BL-22: PRE-FLIGHT Gate for External APIs [CODE-ADAPTER]
 **Source:** Cycle-7 analysis — F=0 in 3/9 incidents (16/42 fixes traced to unverified endpoints)
@@ -192,6 +174,8 @@
 **Rule:** Every Agent tool call MUST (1) instruct the agent to self-load its role file via Read as its FIRST action, (2) name the role file path in the prompt (e.g., "Read roles/builder_EN.md, apply Activation Operator"), (3) NOT embed role file content into META's context, (4) provide concrete task description + explicit file paths to read + expected output format + project config. The agent is a subprocess with blank context — it self-loads the role file, META names the path. Truncating or embedding the role file in META's prompt is a v9 violation.
 **Why:** Self-loading keeps META context lean and prevents version drift across parallel agents — each agent Reads the current role file state, not a META-embedded snapshot that may be stale by the time a later agent spawns. v8 (pre-v9) used the "embed full file" pattern to guarantee context; v9 Invariant 12 replaces it with path-naming + agent-side self-load, which both saves tokens and ensures every agent sees the single source of truth on disk. The original failure mode (three of five RT-1 agents refused to work in the gravity session because the prompt said "act as Visionary" without a directive to read the role file) is still covered: the prompt must explicitly name the path and instruct the Read action as step 1.
 **Applies to:** META-Orchestrator (agent spawning), all roles (when delegating sub-tasks)
+
+**v10 extension (architectural rework framing):** When operator framing matches BL-35 trigger regex during an active refactor window, the spawned [VALIDATOR] prompt MUST include a section `## Operator rework framing: <verbatim quote>` reproducing the operator's literal words. Without this section, Validator may mis-scope the risk matrix to a generic review instead of a BL-49 rework-discipline audit. META-Orchestrator enforces at Agent spawn; operator rework framings are load-bearing context, not stylistic noise. See Invariant 16 and meta.md §14 item 7b.
 
 ### BL-29: Verify Established Terminology Before Generating [UNIVERSAL]
 **Source:** Hansei — gravity session (April 2026), terminology drift across parallel Builder outputs
@@ -226,3 +210,24 @@ When S_team is low but B_mean is high, the team may not be disagreeing on substa
 **Rule:** After merging BL entries (e.g., BL-13+BL-23 → BL-13), immediately grep the entire repo for all old BL-N references. Replace orphan references with the merged BL-N ID. Commit reference cleanup in the same commit as the merge.
 **Why:** BL numbers are referenced across 20+ files (CLAUDE.md, SKILL.md, eradev.md, role files, reports). Merging without grepping creates Lambda gaps: agents encounter "BL-27" but find no definition. The cost of grepping is seconds; the cost of stale refs is agent confusion (A_F collapse).
 **Applies to:** META-Orchestrator (merge execution), Coherencer (verify completeness), Validator (post-merge audit)
+
+### BL-33: Enforcement-Tier Ladder — type > hook > checklist > docs [UNIVERSAL]
+**Source:** PLUGY Session 5 EMP6 (type-level > policy-level > review-tier > operator-vigilance); META Hansei 2026-04-20 framework-improvements synthesis.
+**Tier:** T2 (pre-commit hook on BOOTSTRAP_LESSONS.md — see .claude/hooks/bl-tier-check.sh)
+**Rule:** Every new BL or invariant MUST declare its enforcement tier on a `Tier:` line. Preference order when authoring a rule: **T1 type-level / schema / compile-time** (bug unconstructible) > **T2 automated check** (pre-commit hook / CI lint / pre-merge gate) > **T3 checklist** in agent prompt (awareness, review-time catch) > **T4 .md description only** (documentation, operator vigilance). A rule that lives only at T4 is effectively Lambda=0 for any recurring bug class (BL-16 recursive). Bugs that recur 2+ times under a T3/T4 rule are flagged for tier-upgrade review; the upgrade path template is "can this be a type? if no, can it be a hook? if no, can it be a checklist?"
+**Why:** PLUGY 19-bug burst (2026-04-18..04-20): 6/6 bug classes had project-local rules in form 1 (docs) — ZERO had form 3 (hook/CI). All 6 rules were Lambda-zero per BL-16. BL-50 (DeliverableText newtype) proved that tier-1 (compile-time) enforcement makes a whole class of bugs unconstructible — which is categorically stronger than any policy or review.
+**Applies to:** META (authoring rules), Coherencer (crystallizing lessons), Validator (reviewing BL proposals), Builder (picking enforcement mechanism).
+
+### BL-34: Composition Hazards Gate for ≥2 parallel refactors [UNIVERSAL]
+**Source:** PLUGY Hansei 2026-04-20 §6 (hazards H1-H6 enumerated before any Builder spawn prevented big-bang failure); generalizes Invariant 7 (commit-size >5 files = RT-2) from commit-level to ROADMAP-pivot-level.
+**Tier:** T2 (pre-commit hook — see .claude/hooks/rt1-composition-gate.sh)
+**Rule:** Before spawning any Builder work on a plan touching 2+ independent refactors in the same release window, Visionary MUST author a composition-hazards grid (glossary canonical term: **"cross-phase coupling risk"** — see glossary.md #47; "composition hazard" is the project-local alias). Minimum pairs: N·(N-1)/2. For N ≥ 3: add all 3-way combinations. Each grid entry has: impact, precondition, mitigation, sequencing constraint. Missing grid on ≥2-refactor plan = RED on A_F for Visionary; Coherencer REJECTS RT-1 synthesis. Output artifact: `reports/composition-hazards-<date>.md` using `templates/composition_hazards.template.md`. Hazards form hard edges in the sequencing DAG — parallel ship is forbidden until a pairwise mitigation is declared.
+**Why:** PLUGY proposed 10 refactors (R1-R10) across 4 months; hazards H1-H6 (R4 double-rewrite, R2+R5 silent-protector recurrence, R1+R7 PII exposure, R6+R7 FZ-152 exposure, R3+R4 guard-on-guard cascade, R2+R6 classifier duplication) would have produced 3 production incidents if shipped in parallel without enumeration.
+**Applies to:** Visionary (grid author), Coherencer (RT-1 synthesis gate), META (enforce before Builder spawn), Validator (verify grid completeness at G2 gate).
+
+### BL-35: Rework-discipline audit on "architectural rework" framing [UNIVERSAL]
+**Source:** PLUGY BL-49 Session 5 promoted UNIVERSAL — operator said "полностью менять архитектуру" mid-flight during active Phase Q pivots; literal reading = big-bang = H1/H2/H5 fire simultaneously.
+**Tier:** T2 (operator-message regex detector — see .claude/hooks/rework-framing-detector.sh)
+**Rule:** When operator declares "the architecture is wrong" / "full rework" / "from scratch" / "менять архитектуру" / "полностью менять" / "completely change" DURING active pivots, META MUST NOT interpret as "reset everything." Mandatory sequence: (1) spawn Validator FIRST with risk-matrix task; (2) re-validate project NO-GO list against operator's literal request; (3) enumerate composition hazards per BL-34; (4) propose INTERLOCKED SEQUENCE (one pivot at a time with parity windows, kill-switches, shadow-mode) — never a parallel menu; (5) produce `reports/hansei-architectural-rework-<date>.md` using `templates/interlocked_sequence.template.md`; (6) operator sign-off on decision matrix (OD-1..OD-N) BEFORE any Builder spawns. Operator frustration during active pivot = class-shift DETECTOR at ROADMAP level, NOT a permission to parallelize. The Hansei itself breaks any implicit BL-3 chain.
+**Why:** Under outage stress, operator psychology favors "reset everything" framing. Without the audit, META reads it literally as "ship all refactors in parallel" — the most dangerous composition possible. PLUGY 2026-04-20 Hansei proved the audit reshaped 10 proposed refactors into a 4-month interlocked sequence with ≥3× BD ROI vs the parallel alternative.
+**Applies to:** META (trigger detection + Validator spawn ordering), Validator (risk-matrix authorship), Coherencer (Hansei synthesis + interlock verification).

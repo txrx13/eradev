@@ -520,8 +520,8 @@ The article skin inherits all 22 universal BL from `BOOTSTRAP_LESSONS_universal.
 | BL-17 | Pre-Generate Verification = Prevention | **Critical for articles** — Check-First pipeline in `odtoe-articles/config.md` is the article-specific implementation of BL-17 |
 | BL-18 | Scope Reclassification at 2× Estimate | Applies unchanged — a 1-section article that grows to 6 sections must be reclassified S→L |
 | BL-19 | Bilingual Files Simultaneous | **Critical for articles** — the 8-file rule is BL-19 applied: RU .tex + EN .tex + RU .pdf + EN .pdf + RU .docx + EN .docx + RU .md + EN .md |
-| BL-20 | Adversarially Test Bootstrap | Applies unchanged — test the article skin file itself against a trial article before deployment |
-| BL-21 | Format Specifications Are Inputs | **Critical for articles** — preamble in `odtoe-articles/config.md` lines 116-164 is the mandatory format spec read BEFORE any draft |
+| BL-20 | Adversarially Test Bootstrap | RETIRED in main `BOOTSTRAP_LESSONS.md` 2026-04-20 (moved to `meta.md` §13 MM3); still listed in `BOOTSTRAP_LESSONS_universal.md` for backward compat. Applies unchanged — test the article skin file itself against a trial article before deployment |
+| BL-21 | Format Specifications Are Inputs | MERGED into BL-17 in main `BOOTSTRAP_LESSONS.md` 2026-04-20; still listed in `BOOTSTRAP_LESSONS_universal.md` for backward compat. **Critical for articles** — preamble in `odtoe-articles/config.md` lines 116-164 is the mandatory format spec read BEFORE any draft |
 | BL-26 | META Always Delegates | Applies unchanged — META never drafts article prose directly |
 | BL-28 | Agent Prompt Must Include Explicit Context | Applies unchanged — article-task agent prompts must name the skin file path AND role file path |
 | BL-29 | Verify Established Terminology Before Generating | **Critical for articles** — article Builder must scan corpus for terminology before drafting (the 46-term ODTOE glossary) |
@@ -537,12 +537,12 @@ The article skin inherits all 22 universal BL from `BOOTSTRAP_LESSONS_universal.
 | **BL-3** | Fix Chain > 3 = Structural Problem | **Applies unchanged** | Article equivalent is "3+ consecutive revisions of the same section = STOP, re-spec the claim." Transfers cleanly; no new BL-A needed. |
 | **BL-6** | Verify Before Act — Artifact Validity Gate | **Article equivalent: BL-A2** | Before committing a `.tex` change, Builder must run `tectonic` compile AND `cite_check` AND BL-19 8-file check. See BL-A2. |
 | **BL-8** | Feature Flag Toggle = Deployment Event | **N/A for articles** | Articles have no feature flags. Publication state (draft/preprint/submitted/accepted/published) is a gradient but has no toggle mechanism. |
-| **BL-14** | Rollback Plan Before Deploy | **Article equivalent: BL-A3** | Before submitting to a journal, Builder must document the retraction plan. See BL-A3. |
+| **BL-14** | Rollback Plan Before Deploy | **Article equivalent: BL-A3** | MERGED into BL-8 in main `BOOTSTRAP_LESSONS.md` 2026-04-20; still active in `BOOTSTRAP_LESSONS_code_adapter.md`. Before submitting to a journal, Builder must document the retraction plan. See BL-A3. |
 | **BL-22** | PRE-FLIGHT Gate for External APIs | **Article equivalent: BL-A4** | Before Analyst RT-1, every DOI/arXiv reference must be verified syntactically (C3) and, for novel references, the cited source must be accessible. See BL-A4. |
 | **BL-24** | Single-Responsibility Commits | **Applies unchanged** | Article equivalent is "one commit = one section's bilingual 8-file update." Transfers cleanly; no new BL-A needed. |
 | **BL-25** | Error Path Coverage Matrix | **N/A for articles** | Articles do not have "happy/error/timeout/restart/partial" runtime paths. The analog would be "what if the paper is rejected" but that's BL-A3 (retraction plan), not a 5-path matrix. |
 
-Summary: 2 code-adapter BL apply unchanged (BL-3, BL-24); 4 have article equivalents (BL-2→A1, BL-6→A2, BL-14→A3, BL-22→A4); 2 are N/A (BL-8, BL-25).
+Summary: 2 code-adapter BL apply unchanged (BL-3, BL-24); 4 have article equivalents (BL-2→A1, BL-6→A2, BL-14→A3 [BL-14 merged into BL-8 in main BOOTSTRAP_LESSONS.md 2026-04-20; BL-A3 retains code_adapter provenance], BL-22→A4); 2 are N/A (BL-8, BL-25).
 
 ### Article-specific BL (BL-A namespace — separate budget)
 
@@ -561,7 +561,7 @@ These 4 BL live in this skin file ONLY. They do NOT add to the main 30-BL budget
 - **Applies to:** Builder, Validator, META.
 
 **BL-A3: Retraction Plan Before Submission (article adaptation of BL-14)**
-- **Source:** Adapted from BL-14 for the article domain.
+- **Source:** Adapted from BL-14 for the article domain. (Note: BL-14 merged into BL-8 in main `BOOTSTRAP_LESSONS.md` 2026-04-20 as part of deployment-event checklist; BL-A3 retains code_adapter provenance since `BOOTSTRAP_LESSONS_code_adapter.md` still defines BL-14.)
 - **Rule:** Before an article is submitted to a journal or uploaded as a preprint, Builder MUST document the retraction procedure: who to contact, what the retraction notice would say, and what the corpus-level rollback looks like (e.g., "remove from corpus, mark as retracted in index, note in changelog"). If you cannot describe how to undo a submission, you do not have permission to submit.
 - **Why:** Post-submission pressure (editor deadlines, reviewer hostility, public visibility) is when cognitive load peaks. A pre-written retraction plan executes mechanically when needed.
 - **Applies to:** Visionary (approve retraction plan), Builder (write it), Coherencer (store in MEMORY).
@@ -576,7 +576,7 @@ These 4 BL live in this skin file ONLY. They do NOT add to the main 30-BL budget
 
 - Universal BL inherited: **22** (unchanged)
 - Code-adapter BL that apply unchanged: **2** (BL-3, BL-24)
-- Code-adapter BL with article equivalents: **4** (BL-2, BL-6, BL-14, BL-22 → BL-A1..A4)
+- Code-adapter BL with article equivalents: **4** (BL-2, BL-6, BL-14 [merged→BL-8 in main BL, 2026-04-20], BL-22 → BL-A1..A4)
 - Code-adapter BL that are N/A for articles: **2** (BL-8, BL-25)
 - Article-specific BL (BL-A namespace, separate budget): **4** (BL-A1..A4)
 

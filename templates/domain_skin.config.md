@@ -53,7 +53,7 @@ Every row below is GROUNDED: the "Where used (evidence)" column cites the role f
 | 18 | **feature / feature flag** | a config-level toggle — a boolean or enum key that gates behavior (`enabled: true`, `mode: strict`, `feature_flags.new_ui: on`). **BL-8 applies DIRECTLY**: config flags ARE the deployment mechanism — every behavioral change in production is a release event regardless of whether the tool has a "feature flag" concept | `builder_EN.md` Key Rules 6 ("feature flags / staged rollouts = release event"); code-adapter BL-8 lifted here |
 | 19 | **smoke test** | 2-minute header pass — run the parser, read the first 10 lines, confirm (a) correct format identifier, (b) required top-level keys, (c) schema version declaration. A coarse completeness check before the full parse sweep. | Analogous to `validator_EN.md` Key Rules 5 ("stale output detection") |
 | 20 | **glossary / canonical terms** | the tool's key naming conventions — the canonical vocabulary the tool expects (`host` not `hostname`, `port` not `port_number`, `timeout` not `timeout_ms`). BL-29 applied to configs | `BOOTSTRAP_LESSONS_universal.md` BL-29 ("verify established terminology before generating") |
-| 21 | **rollback / revert** | restore the prior config — via VCS (git revert), via a versioned config store (Consul KV, etcd, AWS Parameter Store versioning), or via a saved backup. If the tool was reloaded with the bad config, rollback also requires a second reload | Analogous to code-adapter BL-14; config-specific adaptation at BL-C3 below |
+| 21 | **rollback / revert** | restore the prior config — via VCS (git revert), via a versioned config store (Consul KV, etcd, AWS Parameter Store versioning), or via a saved backup. If the tool was reloaded with the bad config, rollback also requires a second reload | Analogous to code-adapter BL-14 (MERGED into BL-8 in main `BOOTSTRAP_LESSONS.md` 2026-04-20; still active in `BOOTSTRAP_LESSONS_code_adapter.md`); config-specific adaptation at BL-C3 below |
 | 22 | **canary / staged rollout** | partial rollout — apply the new config to ONE instance / ONE service / ONE environment first, monitor for failure, then roll to the remaining fleet. For multi-tenant configs: one tenant first. For multi-region: one region first | Analogous to code-adapter BL-2; config-specific adaptation at BL-C1 below |
 
 **Unified with the live reference configs — CRITICAL for Builder/Validator:**
@@ -83,7 +83,7 @@ Each role retains its Activation Operator (A_F, A_E, A_σ, A_Λ) and Jidoka self
 
 - **FIRST focus anchor (A_F override):** Read the TOOL SCHEMA (documented or machine-readable — JSON Schema, OpenAPI, protobuf, CRD, `.proto`, man-page). Read EXISTING configs in the project that target the same tool (BL-29 — re-use established key names and stanza shapes). Read the precedence chain for this config class (defaults → system → environment → project → user). THEN enumerate required vs optional keys. Primary artifact is the KEY ENUMERATION TABLE + the PRECEDENCE MAP + the cross-config dependency list.
 - **What the role considers "the artifact":** A structured plan with the 9 required parts in the Deliverable Template below. Anything short of these 9 parts is incomplete for config work.
-- **Primary failure mode:** Building a "correct looking" config without reading the schema — keys are plausible but not valid for the target version (e.g., `memory: 512M` when the schema requires `memory: "512Mi"`, or `maxAge: 3600` when the schema requires `maxAgeSeconds: 3600`). This is BL-21 (format-first) + BL-29 (terminology) + BL-17 (pre-generate verification) all at once. Mitigation: Jidoka Q1 scores A_F = 0.0 (Andon) if the schema was not read before drafting the key enumeration.
+- **Primary failure mode:** Building a "correct looking" config without reading the schema — keys are plausible but not valid for the target version (e.g., `memory: 512M` when the schema requires `memory: "512Mi"`, or `maxAge: 3600` when the schema requires `maxAgeSeconds: 3600`). This is BL-21 (format-first; MERGED into BL-17 in main `BOOTSTRAP_LESSONS.md` 2026-04-20) + BL-29 (terminology) + BL-17 (pre-generate verification) all at once. Mitigation: Jidoka Q1 scores A_F = 0.0 (Andon) if the schema was not read before drafting the key enumeration.
 - **Secondary failure mode:** Hallucinating a schema — "I assume this tool has a `retries` key" — without verifying.
 - **Jidoka self-check (config specialization):**
   - Q1: Have I READ the schema for the target tool + version? If no → A_F = 0.0 → Andon. Cite the schema file or URL.
@@ -342,7 +342,7 @@ Activation announcement             -> note in deploy log or team channel (BL-C1
 
 ## Checklists
 
-### Pre-Generation Checklist (Check-First, BL-17 + BL-21 + BL-C4)
+### Pre-Generation Checklist (Check-First, BL-17 + BL-21 [merged into BL-17 in main BL, 2026-04-20] + BL-C4)
 - [ ] Read the tool's SCHEMA (JSON Schema, OpenAPI, protobuf, CRD, man-page, documented keys) for the TARGET version
 - [ ] Read EXISTING sibling configs in the project (BL-29 — same key naming conventions, stanza shapes, indent style)
 - [ ] Read the precedence chain for this config class (defaults → system → env → project → user)
@@ -431,8 +431,8 @@ The config skin inherits all 22 universal BL unchanged from `BOOTSTRAP_LESSONS_u
 | BL-17 | Pre-Generate Verification = Prevention | **Critical for configs** — read SCHEMA + existing project configs + precedence rules BEFORE drafting keys |
 | BL-18 | Scope Reclassification at 2× Estimate | Unchanged — if a "quick config tweak" spawns 50+ parse-fix commits, reclassify the task |
 | BL-19 | Bilingual Files Simultaneous | Limited — most configs are English-only (tool schemas are in English). If the project has RU+EN docs ABOUT the config, both must update together; the config file itself is typically one language |
-| BL-20 | Adversarially Test Bootstrap | Unchanged — test the config skin against a trial config before deploying the skin |
-| BL-21 | Format Specifications Are Inputs | **Most critical for configs** — the tool's schema IS the format specification; reading it BEFORE generation is non-negotiable |
+| BL-20 | Adversarially Test Bootstrap | RETIRED in main `BOOTSTRAP_LESSONS.md` 2026-04-20 (moved to `meta.md` §13 MM3); still listed in `BOOTSTRAP_LESSONS_universal.md` for backward compat. Unchanged — test the config skin against a trial config before deploying the skin |
+| BL-21 | Format Specifications Are Inputs | MERGED into BL-17 in main `BOOTSTRAP_LESSONS.md` 2026-04-20; still listed in `BOOTSTRAP_LESSONS_universal.md` for backward compat. **Most critical for configs** — the tool's schema IS the format specification; reading it BEFORE generation is non-negotiable |
 | BL-26 | META Always Delegates | Unchanged — META never edits configs directly |
 | BL-28 | Agent Prompt Must Include Explicit Context | Unchanged — config-task agent prompts must name the skin file path AND role file path AND schema file path |
 | BL-29 | Verify Established Terminology Before Generating | **Critical for configs** — configs MUST use the tool's canonical key names (`host` not `hostname`); drift here breaks tooling invisibly |
@@ -448,12 +448,12 @@ The config skin inherits all 22 universal BL unchanged from `BOOTSTRAP_LESSONS_u
 | **BL-3** | Fix Chain > 3 = Structural Problem | **Transfers unchanged** | "3+ consecutive parse/schema fix attempts on the same file = STOP, re-read the schema, re-run RT-1." No new BL-C needed. Symptom: thrashing on indentation or schema errors usually means the wrong schema version is being targeted. |
 | **BL-6** | Verify Before Act — Artifact Validity Gate | Config equivalent: **BL-C2** | Before committing any config, Builder MUST run the parser + schema validator + secrets scan. Commit REJECTED otherwise. See BL-C2 below. |
 | **BL-8** | Feature Flag Toggle = Deployment Event | **LIFTED INTO VOCABULARY ROW 18** (not a separate BL-C) | Config flags ARE the deployment mechanism — BL-8 applies DIRECTLY to configs with no adaptation. A config toggle is a deploy event regardless of whether the tool has a "feature flag" concept. |
-| **BL-14** | Rollback Plan Before Deploy | Config equivalent: **BL-C3** | Before activating a production config, Builder MUST document the rollback procedure. See BL-C3 below. |
+| **BL-14** | Rollback Plan Before Deploy | Config equivalent: **BL-C3** | MERGED into BL-8 in main `BOOTSTRAP_LESSONS.md` 2026-04-20; still active in `BOOTSTRAP_LESSONS_code_adapter.md`. Before activating a production config, Builder MUST document the rollback procedure. See BL-C3 below. |
 | **BL-22** | PRE-FLIGHT Gate for External APIs | Config equivalent: **BL-C4** | Before RT-1 on any config, Analyst MUST verify the target schema is CURRENT (tool version matches) and every env var / vault path exists in the target environment. See BL-C4 below. |
 | **BL-24** | Single-Responsibility Commits | **Transfers unchanged** | "One commit = one config scope" — do not change the port AND the timeout AND the log level in one commit. No new BL-C needed. |
 | **BL-25** | Error Path Coverage Matrix | **LIFTED INTO P5 + P6** (not a separate BL-C) | Configs do not have runtime error paths in the code sense, but the precedence sanity check (P5) + cross-config consistency check (P6) together encode the "what happens if the config is partially-applied or conflicts" concern that BL-25 encodes for code. |
 
-**Summary:** 2 code-adapter BL transfer unchanged (BL-3, BL-24); 4 have config equivalents (BL-2→C1, BL-6→C2, BL-14→C3, BL-22→C4); 1 lifted into vocabulary row 18 (BL-8); 1 lifted into P5+P6 (BL-25). **Zero are pure N/A** — every code-adapter BL finds a home in the config domain.
+**Summary:** 2 code-adapter BL transfer unchanged (BL-3, BL-24); 4 have config equivalents (BL-2→C1, BL-6→C2, BL-14→C3 [BL-14 merged into BL-8 in main BOOTSTRAP_LESSONS.md 2026-04-20; BL-C3 retains code_adapter provenance], BL-22→C4); 1 lifted into vocabulary row 18 (BL-8); 1 lifted into P5+P6 (BL-25). **Zero are pure N/A** — every code-adapter BL finds a home in the config domain.
 
 ### Config-specific BL (BL-C namespace — separate budget, 4 entries)
 
@@ -472,7 +472,7 @@ These 4 BL live in the config skin ONLY. They do NOT add to the main 30-BL budge
 - **Applies to:** Builder (write hook, run checks), Validator (require proof of hook running), META (enforce gate), Coherencer (verify hook exists in new projects).
 
 **BL-C3: Rollback-Ready Before Activation (adaptation of BL-14)**
-- **Source:** Adapted from BL-14 for the config domain.
+- **Source:** Adapted from BL-14 for the config domain. (Note: BL-14 merged into BL-8 in main `BOOTSTRAP_LESSONS.md` 2026-04-20 as part of deployment-event checklist; BL-C3 retains code_adapter provenance since `BOOTSTRAP_LESSONS_code_adapter.md` still defines BL-14.)
 - **Rule:** Before a new config is declared ACTIVE in production or infrastructure, the author must document the rollback procedure: (a) which prior commit or config-store version is the restore target; (b) exact commands to restore (git revert + tool reload / config-store restore / IaC apply of prior version); (c) exact verification steps to confirm the restore worked (smoke test, health check, parse check of the restored file); (d) estimated time to complete the rollback (under 5 minutes for service configs, under 30 minutes for IaC). If the rollback procedure cannot be documented in 5 bullets, the activation is NOT permitted — the ambiguity of rollback is itself a defect.
 - **Why:** Under incident pressure (production is down, stakeholders are paging), cognitive load peaks and decision quality drops. A pre-written rollback plan executes mechanically when needed. Writing it beforehand also forces Builder to verify that rollback is actually possible — sometimes it surfaces that the prior config was NEVER saved anywhere (no git commit, no config store version, no backup) and the config is forward-only without Builder realizing.
 - **Applies to:** Visionary (approve plan), Builder (write it), Coherencer (store in project MEMORY.md), Validator (block activation if missing).
@@ -487,7 +487,7 @@ These 4 BL live in the config skin ONLY. They do NOT add to the main 30-BL budge
 
 - Universal BL inherited: **22** (unchanged)
 - Code-adapter BL that transfer unchanged: **2** (BL-3, BL-24)
-- Code-adapter BL with config equivalents: **4** (BL-2→C1, BL-6→C2, BL-14→C3, BL-22→C4)
+- Code-adapter BL with config equivalents: **4** (BL-2→C1, BL-6→C2, BL-14 [merged→BL-8 in main BL, 2026-04-20]→C3, BL-22→C4)
 - Code-adapter BL lifted into vocabulary row 18: **1** (BL-8)
 - Code-adapter BL lifted into P-check: **1** (BL-25 → P5 + P6)
 - Config-specific BL (BL-C namespace, separate budget): **4** (BL-C1..C4)

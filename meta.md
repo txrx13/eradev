@@ -185,6 +185,21 @@ Conflict at L2: priority by blast radius; equal = merge sequentially.
 
 `I(C) = files * coupling * legacy_factor`, `v = alpha/(I(C)+eps)`, `N_teams = ceil(N_modules/3)`.
 
+### Velocity two-column (v10, BL-51)
+
+Multi-agent work compresses wall-clock time but each agent still incurs token-cost and RT synchronization overhead. Estimating purely in wall-clock days under-accounts agent effort; estimating purely in agent-hours over-accounts parallelizable paths. v10 uses **two-column BD** for any L/XL task with shadow-mode windows, parity-CI, or cross-phase interlocks:
+
+| Column | Unit | What it measures |
+|--------|------|------------------|
+| **Agent-BD** | agent-effort | Sum of billable agent hours across parallel spawns; does NOT subtract parallelism |
+| **Wall-clock-BD** | calendar-effort | Longest critical-path chain through the interlock sequence; includes shadow-mode windows, parity windows, operator sign-off delays |
+
+Example (from PLUGY Hansei 2026-04-20): `Agent-BD: 23 | Wall-clock-BD: 88 (4 months)` — parallel refactors fit in 3-4 weeks of agent work but calendar deploy takes 4 months because of 7-day shadow-mode windows per phase.
+
+ROADMAP entries for L/XL tasks MUST cite both columns. Single-column BD estimates on L/XL = YELLOW on A_E (alignment gap: what does the operator see vs what the team delivers).
+
+Rule triggers at task size ≥ L; S/M tasks continue to use single-column inertia I(C).
+
 ### Cross-Builder Consistency Check (XL tasks)
 
 When 2+ Builders work in parallel on the same task:
@@ -221,6 +236,7 @@ Fixed point: Psi* = Phi(Psi*).
 | Prompt > 150 lines | Overload | Compress, generalize, dedup |
 | Same fix repeats | Rule not working | Reformulate or escalate |
 | Revert/rollback | Critical failure | Security Checklist entry |
+| Service active + zero events in window | Effectively-zero (EMP5) | Add event-rate floor; see eradev.md §XI Liveness Prerequisite |
 
 Trend: linear growth = facts. Deceleration = generalization. Shrinkage = high abstraction.
 
@@ -239,13 +255,17 @@ At RT-2, Coherent asks each agent SEPARATELY: "In one sentence: what are we doin
 
 **Knowledge without enforcement = knowledge without effect.**
 
-Every rule must exist in 3 forms:
-1. .md description (documentation)
-2. Checklist in agent prompt (awareness)
-3. Automated check: hook / CI / lint (enforcement)
+Every rule should live at the HIGHEST enforcement tier feasible (BL-33 ladder):
+T1. **Type-level / schema / compile-time** — bug becomes unconstructible (e.g. newtype with private constructor rejecting empty input; sum-type with no `EmptyContent` variant)
+T2. **Automated check** — hook / CI / lint / pre-commit / pre-merge gate (bug rejected at machine boundary)
+T3. **Checklist in agent prompt** — awareness, review-time catch
+T4. **.md description only** — documentation, operator vigilance
 
-Rule only in docs = Lambda zero. Checklists fire before:
-feature flag toggle, protocol-level change, git push.
+Rule at T4 only = Lambda zero for recurring classes (BL-16 recursive). Upgrade path:
+"Can this be a type? If no → can it be a hook? If no → can it be a checklist?"
+Every new BL MUST declare its `Tier:` line. Bugs that recur 2+ times under a T3/T4 rule are flagged for tier-upgrade review. T2 checklists fire on: feature flag toggle, protocol-level change, git push, new `BL-N` heading in BOOTSTRAP_LESSONS.md, operator message matching BL-35 rework-framing regex.
+
+Adversarial bootstrap testing (previously BL-20): bootstrap prompts are META-design artifacts, not operating rules. Apply MM3 (Adversarial self-review) to every bootstrap edit — before deploying, give the bootstrap to an agent with a concrete task and verify it follows the protocol.
 
 ---
 
@@ -270,7 +290,17 @@ Output it as your FIRST visible message so the operator can verify compliance.
        Source: projects/{PROJECT}/config.md `domain:` block. Absent block → default type=code, B_modality=text, ood_scope=text-discrete.
        If domain.skin is set: loaded templates/domain_skin.{type}.md alongside role files.
 [ ] 6. RT-1 PLANNED: For M+ tasks, I will spawn 5 Agent calls (V/A/B/Val/C) BEFORE implementation.
+[ ] 6b. COMPOSITION HAZARDS: If this task ships >=2 independent refactors in one release window,
+       Visionary MUST produce `reports/composition-hazards-<date>.md` before RT-1 concludes.
+       Pair grid: N*(N-1)/2 pairs + (N-choose-3) 3-way checks. Each entry: impact / precondition / mitigation / sequencing.
+       Missing grid on >=2-refactor plan = RED on A_F for Visionary. (BL-34)
 [ ] 7. INVARIANT CHECK: Am I about to skip RT-1 and jump to coding? If yes → STOP → re-read steps 1-6 → plan RT-1.
+[ ] 7b. REWORK-FRAMING DETECTOR: Scan operator messages in this session for rework-framing regex
+       ("менять архитектуру" | "полностью менять" | "full rework" | "from scratch" |
+        "architecture is wrong" | "completely change" | "архитектурная проблема").
+       If match found AND an active refactor exists: spawn Validator FIRST for risk matrix,
+       produce `reports/hansei-architectural-rework-<date>.md` with interlocked sequence +
+       operator decision matrix (OD-1..OD-N), block Builder spawn until operator sign-off. (BL-35)
 [ ] 8. PRE-FLIGHT: If task uses external API, Analyst verifies all endpoints before RT-1 (BL-22).
 [ ] 9. LAMBDA AUDIT: Coherencer reads projects/{PROJECT}/lessons.md (T2 active [ACTIVE] entries only)
        and announces 3 relevant lessons + 2 mega-patterns (BL-4).

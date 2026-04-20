@@ -120,7 +120,7 @@ Each role retains its Activation Operator (A_F, A_E, A_σ, A_Λ) and Jidoka self
 
 ### Builder (research focus)
 
-- **FIRST attention anchor (A_F override):** Read the axiom_set + Analyst proof outline + notation table + any adjacent lemmas to be cited. Do NOT start writing proof steps until all four are loaded. Research-specific enforcement of BL-17 + BL-21.
+- **FIRST attention anchor (A_F override):** Read the axiom_set + Analyst proof outline + notation table + any adjacent lemmas to be cited. Do NOT start writing proof steps until all four are loaded. Research-specific enforcement of BL-17 + BL-21 (BL-21 merged into BL-17 in main `BOOTSTRAP_LESSONS.md` 2026-04-20; still active in `BOOTSTRAP_LESSONS_universal.md`).
 - **Artifact definition:** The full derivation_chain from axiom_set to theorem claim, **with every step carrying a provenance_tag**. A proof without provenance tags is INCOMPLETE, not WIP.
 - **Primary failure mode:** Hand-waving justifications ("as is well known," "by standard argument," "trivially"). Research skin's equivalent of an unsupported claim — RC1 violations. Mitigation: every step must cite an axiom, lemma, previous step, or be labelled as a reduction Validator must verify.
 - **Second failure mode:** Copying a formula from an external source without a visible provenance_tag — quoting `[3]` without a page/section pointer is exactly article skin's DEF-5. Mitigation: every externally-attributed formula must include a concrete pointer (`[3] Theorem 2.4` or `[3] §5, eq. (12)`).
@@ -259,7 +259,7 @@ Preprint / journal submission / corpus insertion → outside EraDev scope
 
 ## Checklists
 
-### Pre-Generation Checklist (Check-First, BL-17, BL-21 — research specialization)
+### Pre-Generation Checklist (Check-First, BL-17, BL-21 [merged into BL-17 in main BL, 2026-04-20] — research specialization)
 
 Run BEFORE any proof-step drafting begins.
 
@@ -335,10 +335,10 @@ The full 22-row table is identical in structure to `templates/domain_skin.articl
 | BL-5 | Phantom Coherence Detection | Research manifestation: "Builder and Validator agree on a proof step but neither walked it independently" |
 | BL-17 | Pre-Generate Verification = Prevention | **Critical** — Check-First (Section "Pre-Generation Checklist") is research's BL-17 |
 | BL-19 | Bilingual Files Simultaneous | **OPTIONAL** — if project declares `bilingual: required`, the 8-file rule applies; otherwise monolingual artifacts are complete. DIFFERENT from article skin. |
-| BL-21 | Format Specifications Are Inputs | **Critical** — LaTeX preamble / notebook environment spec read before drafting |
+| BL-21 | Format Specifications Are Inputs | MERGED into BL-17 in main `BOOTSTRAP_LESSONS.md` 2026-04-20; still listed in `BOOTSTRAP_LESSONS_universal.md` for backward compat. **Critical** — LaTeX preamble / notebook environment spec read before drafting |
 | BL-29 | Verify Established Terminology Before Generating | **Critical** — notation table read before drafting to avoid RC6 collisions |
 
-**Full 22-BL list inherited by reference from article skin:** BL-1, BL-4, BL-5, BL-7, BL-9, BL-10, BL-11, BL-12, BL-13, BL-15, BL-16, BL-17, BL-18, BL-19, BL-20, BL-21, BL-26, BL-28, BL-29, BL-30, BL-31, BL-32. Agents MUST NOT omit any.
+**Full 22-BL list inherited by reference from article skin:** BL-1, BL-4, BL-5, BL-7, BL-9, BL-10, BL-11, BL-12, BL-13, BL-15, BL-16, BL-17, BL-18, BL-19, BL-20 [RETIRED in main BL 2026-04-20, moved to meta.md §13 MM3; still in universal], BL-21 [MERGED into BL-17 in main BL 2026-04-20; still in universal], BL-26, BL-28, BL-29, BL-30, BL-31, BL-32. Agents MUST NOT omit any.
 
 ### Code-adapter BL handled individually (8 entries)
 
@@ -348,12 +348,12 @@ The full 22-row table is identical in structure to `templates/domain_skin.articl
 | **BL-3** | Fix Chain > 3 = Structural Problem | **Applies unchanged** | Research equivalent: 3+ consecutive revisions of the same proof step = STOP, re-think proof strategy (often means the strategy is wrong, not the step). Transfers cleanly; no new BL-R. |
 | **BL-6** | Verify Before Act — Artifact Validity Gate | **Research equivalent: BL-R2** | Before committing any proof edit, Builder must run LaTeX compile AND RC1..RC5 self-audit AND (if applicable) notebook execution. See BL-R2. |
 | **BL-8** | Feature Flag Toggle = Deployment Event | **N/A for research** | Research has no feature flags. A proof either holds or does not hold — no toggle mechanism. |
-| **BL-14** | Rollback Plan Before Deploy | **Research equivalent: BL-R3** | Before submitting a research result for peer review, Builder must document the retraction / withdrawal plan. See BL-R3. |
+| **BL-14** | Rollback Plan Before Deploy | **Research equivalent: BL-R3** | MERGED into BL-8 in main `BOOTSTRAP_LESSONS.md` 2026-04-20; still active in `BOOTSTRAP_LESSONS_code_adapter.md`. Before submitting a research result for peer review, Builder must document the retraction / withdrawal plan. See BL-R3. |
 | **BL-22** | PRE-FLIGHT Gate for External APIs | **Research equivalent: BL-R4** | Before RT-1, every cited axiom / external lemma must be verified: axiom stated correctly, external lemma from a trusted source, proof does not silently rely on an un-stated assumption. See BL-R4. |
 | **BL-24** | Single-Responsibility Commits | **Applies unchanged** | Research equivalent: one commit = one proof OR one proof section. Transfers cleanly; no new BL-R. |
 | **BL-25** | Error Path Coverage Matrix | **N/A for research** | Research does not have runtime error paths. The analog would be "what if the proof is wrong" but that is BL-R3 (retraction plan). |
 
-Summary: 2 apply unchanged (BL-3, BL-24); 4 have research equivalents (BL-2→R1, BL-6→R2, BL-14→R3, BL-22→R4); 2 are N/A (BL-8, BL-25).
+Summary: 2 apply unchanged (BL-3, BL-24); 4 have research equivalents (BL-2→R1, BL-6→R2, BL-14→R3 [BL-14 merged into BL-8 in main BOOTSTRAP_LESSONS.md 2026-04-20; BL-R3 retains code_adapter provenance], BL-22→R4); 2 are N/A (BL-8, BL-25).
 
 ### Research-specific BL (BL-R namespace — separate budget)
 
@@ -372,7 +372,7 @@ These 4 BL live in this skin file ONLY. They do NOT add to the main 30-BL budget
 - **Applies to:** Builder, Validator, META.
 
 **BL-R3: Retraction Plan Before Submission (research adaptation of BL-14)**
-- **Source:** Adapted from BL-14 for research.
+- **Source:** Adapted from BL-14 for research. (Note: BL-14 merged into BL-8 in main `BOOTSTRAP_LESSONS.md` 2026-04-20 as part of deployment-event checklist; BL-R3 retains code_adapter provenance since `BOOTSTRAP_LESSONS_code_adapter.md` still defines BL-14.)
 - **Rule:** Before a research result is submitted to any external audience (preprint, reviewer, journal), Builder MUST document the retraction procedure: who to contact, what the retraction notice would say, what the corpus-level rollback looks like (e.g., "remove from corpus, mark as withdrawn, note in changelog, inform dependent proofs"). If Builder cannot describe how to undo a submission, Builder does not have permission to submit.
 - **Why:** Post-submission pressure is when cognitive load peaks. A pre-written retraction plan executes mechanically.
 - **Applies to:** Visionary (approve retraction plan), Builder (write it), Coherencer (store in MEMORY).
@@ -387,7 +387,7 @@ These 4 BL live in this skin file ONLY. They do NOT add to the main 30-BL budget
 
 - Universal BL inherited: **22** (unchanged)
 - Code-adapter BL applied unchanged: **2** (BL-3, BL-24)
-- Code-adapter BL with research equivalents: **4** (BL-2, BL-6, BL-14, BL-22 → BL-R1..R4)
+- Code-adapter BL with research equivalents: **4** (BL-2, BL-6, BL-14 [merged→BL-8 in main BL, 2026-04-20], BL-22 → BL-R1..R4)
 - Code-adapter BL N/A for research: **2** (BL-8, BL-25)
 - Research-specific BL (BL-R namespace, separate budget): **4** (BL-R1..R4)
 

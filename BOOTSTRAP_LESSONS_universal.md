@@ -6,18 +6,23 @@
 > These lessons act as Lambda=0.5 bootstrap: not zero (blind), not high (overfit).
 > Source: framework invariants, A/B experiments, RT post-mortems.
 >
-> **Scope:** These 22 lessons apply to any text-discrete artifact task. Principles are
+> **Scope:** These 23 lessons apply to any text-discrete artifact task. Principles are
 > framework-invariant (ODTOE math, TPS, delegation, identity, classification, output types).
 > They reference universal mechanics — not code-native tools — even when their origin
 > stories include code examples.
 >
 > **BL numbering preserved from combined BOOTSTRAP_LESSONS.md.** Gaps in this file
-> (BL-2, BL-3, BL-6, BL-8, BL-14, BL-22, BL-23, BL-24, BL-25, BL-27) are either
+> (BL-2, BL-3, BL-6, BL-8, BL-14, BL-20, BL-21, BL-22, BL-23, BL-24, BL-25, BL-27) are either
 > code-adapter lessons (loaded separately by code projects) or retired/merged entries.
 > See "BL Gap Map" section at the bottom of this file.
 >
 > Budget cap: maximum 30 BL across both files. Adding BL-N requires merging or retiring
 > existing entries first.
+>
+> **2026-04-20 Phase 1 update:** BL-14 MERGED INTO BL-8 (rollback-plan consolidated into
+> deployment-event checklist); BL-20 RETIRED (content lifted to meta.md §13 MM3); BL-21
+> MERGED INTO BL-17 (format-spec-as-input consolidated into pre-generate verification).
+> BL-33, BL-34, BL-35 added as new universal entries.
 
 ---
 
@@ -110,11 +115,12 @@
 
 ---
 
-### BL-17: Pre-Generate Verification Is Prevention; Post-Generation Checking Is Rework [UNIVERSAL]
-**Source:** META Hansei — ODTOE articles session (April 2026)
-**Rule:** Before generating any artifact (article, code, config), verify format, formulas, sources, and consistency FIRST. Read the reference format, check critical domain-specific values, validate bibliography — BEFORE writing. Post-generation checking catches errors but costs 2-3x more effort to fix than preventing them.
-**Why:** The research article was generated with wrong format (missing comment groups, \hrule between sections, wrong keywords format), requiring complete rewrite. If the reference template had been read BEFORE generation, all format issues would have been prevented.
-**Applies to:** Builder (Check-First pipeline), Validator (pre-generation review), META (enforce Check-First)
+### BL-17: Pre-Generate Verification — check format, spec, sources FIRST [UNIVERSAL]
+**Source:** META Hansei ODTOE articles session + META Hansei 2026-04-20 framework-improvements (merged BL-21 format-spec-as-input here).
+**Tier:** T3 (checklist in Builder + Analyst prompts)
+**Rule:** Before generating any artifact (article, code, config, deliverable, report), verify format, formulas, sources, and consistency FIRST. Read the reference template, check critical domain-specific values, validate bibliography, verify format specification — BEFORE writing. Format specs are INPUTS, not afterthoughts. Load the reference format as Step 0 of any generation task. Post-generation checking catches errors but costs 2-3× more effort to fix than preventing them; format drift specifically costs 10× more after completion than pre-load.
+**Why:** The ODTOE research article was generated with wrong format (missing comment groups, \hrule between sections, wrong keywords format), requiring complete rewrite. If the reference template had been read BEFORE generation, all issues would have been prevented. Generalizes: any generated artifact with a known reference format must load that format before generation.
+**Applies to:** Builder (Check-First pipeline), Analyst (include format spec in decomposition), Validator (pre-generation review), META (enforce Check-First).
 
 ---
 
@@ -134,19 +140,11 @@
 
 ---
 
-### BL-20: Adversarially Test Bootstrap Prompts Before Deployment [UNIVERSAL]
-**Source:** META Hansei — deployment session used untested bootstrap
-**Rule:** Before deploying a new bootstrap prompt (CLAUDE.md, README bootstrap, or any session-start instruction), run an adversarial test: give the bootstrap to an agent with a concrete task and verify it follows the protocol. Do NOT trust that "it looks right" — test it.
-**Why:** The original 3-line bootstrap "looked reasonable" but produced 95% solo Builder behavior. Only the deployment session analysis (real-world failure) revealed the problem. Testing would have caught it before deployment.
-**Applies to:** META-Orchestrator, Validator (bootstrap testing)
+> BL-20 RETIRED 2026-04-20: content lifted to meta.md §13 MM3 (Adversarial bootstrap testing).
 
 ---
 
-### BL-21: Format Specifications Are Inputs, Not Afterthoughts [UNIVERSAL]
-**Source:** META Hansei — article format was checked AFTER generation, not BEFORE
-**Rule:** When creating any formatted artifact (LaTeX article, markdown for website, config file), the format specification (reference file, template, style guide) must be loaded and verified BEFORE generation begins. It is Step 0, not Step N.
-**Why:** Format drift is invisible during generation but expensive to fix after. Reading the reference format first takes 30 seconds; reformatting a completed article takes 30 minutes.
-**Applies to:** Builder (format-first), Analyst (include format spec in decomposition)
+> BL-21 MERGED INTO BL-17 (2026-04-20): format-spec-as-input consolidated into pre-generate verification.
 
 ---
 
@@ -210,6 +208,33 @@ When S_team is low but B_mean is high, the team may not be disagreeing on substa
 
 ---
 
+### BL-33: Enforcement-Tier Ladder — type > hook > checklist > docs [UNIVERSAL]
+**Source:** PLUGY Session 5 EMP6 (type-level > policy-level > review-tier > operator-vigilance); META Hansei 2026-04-20 framework-improvements synthesis.
+**Tier:** T2 (pre-commit hook on BOOTSTRAP_LESSONS.md — see .claude/hooks/bl-tier-check.sh)
+**Rule:** Every new BL or invariant MUST declare its enforcement tier on a `Tier:` line. Preference order when authoring a rule: **T1 type-level / schema / compile-time** (bug unconstructible) > **T2 automated check** (pre-commit hook / CI lint / pre-merge gate) > **T3 checklist** in agent prompt (awareness, review-time catch) > **T4 .md description only** (documentation, operator vigilance). A rule that lives only at T4 is effectively Lambda=0 for any recurring bug class (BL-16 recursive). Bugs that recur 2+ times under a T3/T4 rule are flagged for tier-upgrade review; the upgrade path template is "can this be a type? if no, can it be a hook? if no, can it be a checklist?"
+**Why:** PLUGY 19-bug burst (2026-04-18..04-20): 6/6 bug classes had project-local rules in form 1 (docs) — ZERO had form 3 (hook/CI). All 6 rules were Lambda-zero per BL-16. BL-50 (DeliverableText newtype) proved that tier-1 (compile-time) enforcement makes a whole class of bugs unconstructible — which is categorically stronger than any policy or review.
+**Applies to:** META (authoring rules), Coherencer (crystallizing lessons), Validator (reviewing BL proposals), Builder (picking enforcement mechanism).
+
+---
+
+### BL-34: Composition Hazards Gate for ≥2 parallel refactors [UNIVERSAL]
+**Source:** PLUGY Hansei 2026-04-20 §6 (hazards H1-H6 enumerated before any Builder spawn prevented big-bang failure); generalizes Invariant 7 (commit-size >5 files = RT-2) from commit-level to ROADMAP-pivot-level.
+**Tier:** T2 (pre-commit hook — see .claude/hooks/rt1-composition-gate.sh)
+**Rule:** Before spawning any Builder work on a plan touching 2+ independent refactors in the same release window, Visionary MUST author a composition-hazards grid (glossary canonical term: **"cross-phase coupling risk"** — see glossary.md #47; "composition hazard" is the project-local alias). Minimum pairs: N·(N-1)/2. For N ≥ 3: add all 3-way combinations. Each grid entry has: impact, precondition, mitigation, sequencing constraint. Missing grid on ≥2-refactor plan = RED on A_F for Visionary; Coherencer REJECTS RT-1 synthesis. Output artifact: `reports/composition-hazards-<date>.md` using `templates/composition_hazards.template.md`. Hazards form hard edges in the sequencing DAG — parallel ship is forbidden until a pairwise mitigation is declared.
+**Why:** PLUGY proposed 10 refactors (R1-R10) across 4 months; hazards H1-H6 (R4 double-rewrite, R2+R5 silent-protector recurrence, R1+R7 PII exposure, R6+R7 FZ-152 exposure, R3+R4 guard-on-guard cascade, R2+R6 classifier duplication) would have produced 3 production incidents if shipped in parallel without enumeration.
+**Applies to:** Visionary (grid author), Coherencer (RT-1 synthesis gate), META (enforce before Builder spawn), Validator (verify grid completeness at G2 gate).
+
+---
+
+### BL-35: Rework-discipline audit on "architectural rework" framing [UNIVERSAL]
+**Source:** PLUGY BL-49 Session 5 promoted UNIVERSAL — operator said "полностью менять архитектуру" mid-flight during active Phase Q pivots; literal reading = big-bang = H1/H2/H5 fire simultaneously.
+**Tier:** T2 (operator-message regex detector — see .claude/hooks/rework-framing-detector.sh)
+**Rule:** When operator declares "the architecture is wrong" / "full rework" / "from scratch" / "менять архитектуру" / "полностью менять" / "completely change" DURING active pivots, META MUST NOT interpret as "reset everything." Mandatory sequence: (1) spawn Validator FIRST with risk-matrix task; (2) re-validate project NO-GO list against operator's literal request; (3) enumerate composition hazards per BL-34; (4) propose INTERLOCKED SEQUENCE (one pivot at a time with parity windows, kill-switches, shadow-mode) — never a parallel menu; (5) produce `reports/hansei-architectural-rework-<date>.md` using `templates/interlocked_sequence.template.md`; (6) operator sign-off on decision matrix (OD-1..OD-N) BEFORE any Builder spawns. Operator frustration during active pivot = class-shift DETECTOR at ROADMAP level, NOT a permission to parallelize. The Hansei itself breaks any implicit BL-3 chain.
+**Why:** Under outage stress, operator psychology favors "reset everything" framing. Without the audit, META reads it literally as "ship all refactors in parallel" — the most dangerous composition possible. PLUGY 2026-04-20 Hansei proved the audit reshaped 10 proposed refactors into a 4-month interlocked sequence with ≥3× BD ROI vs the parallel alternative.
+**Applies to:** META (trigger detection + Validator spawn ordering), Validator (risk-matrix authorship), Coherencer (Hansei synthesis + interlock verification).
+
+---
+
 ## BL Gap Map (this file only)
 
 Gaps in this universal file, with the location of the missing BL:
@@ -219,16 +244,18 @@ Gaps in this universal file, with the location of the missing BL:
 | BL-2 | Code-adapter | `BOOTSTRAP_LESSONS_code_adapter.md` |
 | BL-3 | Code-adapter | `BOOTSTRAP_LESSONS_code_adapter.md` |
 | BL-6 | Code-adapter | `BOOTSTRAP_LESSONS_code_adapter.md` |
-| BL-8 | Code-adapter | `BOOTSTRAP_LESSONS_code_adapter.md` |
-| BL-14 | Code-adapter | `BOOTSTRAP_LESSONS_code_adapter.md` |
+| BL-8 | Code-adapter | `BOOTSTRAP_LESSONS_code_adapter.md` (absorbed BL-14 rollback-plan on 2026-04-20) |
+| BL-14 | Merged | MERGED INTO BL-8 (2026-04-20): rollback-plan consolidated into deployment-event checklist |
+| BL-20 | Retired | RETIRED 2026-04-20: content lifted to meta.md §13 MM3 (Adversarial bootstrap testing) |
+| BL-21 | Merged | MERGED INTO BL-17 (2026-04-20): format-spec-as-input consolidated into pre-generate verification |
 | BL-22 | Code-adapter | `BOOTSTRAP_LESSONS_code_adapter.md` |
 | BL-23 | Retired | Merged/retired (see BOOTSTRAP_LESSONS.md budget header) |
 | BL-24 | Code-adapter | `BOOTSTRAP_LESSONS_code_adapter.md` |
 | BL-25 | Code-adapter | `BOOTSTRAP_LESSONS_code_adapter.md` |
 | BL-27 | Retired | Merged into BL-6 (per BL-32 reference cleanup lesson) |
 
-**Totals in this file:** 22 Universal BL entries.
-**Across both split files:** 22 universal + 8 code-adapter = 30 active BL (BL-23, BL-27 retired).
+**Totals in this file:** 23 Universal BL entries (20 pre-Phase-1 - 2 retired/merged + 3 new BL-33/34/35 + BL-17 absorbed BL-21).
+**Active count:** 23 universal + 7 code-adapter = 30 active BL (BL-14, BL-20, BL-21, BL-23, BL-27 retired/merged; BL-33, BL-34, BL-35 added).
 
 ---
 

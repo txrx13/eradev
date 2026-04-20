@@ -4,7 +4,7 @@
 > Non-code projects (articles, books, configs, plans) do NOT load this file.
 > Split from BOOTSTRAP_LESSONS.md in EraDev v9 Phase 1.D (2026-04-11).
 >
-> **Scope:** These 8 lessons are specific to software engineering artifacts. They reference
+> **Scope:** These 7 lessons are specific to software engineering artifacts. They reference
 > code-native mechanics — compile, build, commit, deploy, module, endpoint, API, feature
 > flag, rollback, git, server-side features, error paths — and a project working on a
 > non-code domain (article, book, config, plan) does not need them. For such projects,
@@ -16,6 +16,10 @@
 > **BL numbering preserved from combined BOOTSTRAP_LESSONS.md.** Gaps in this file (all BLs
 > not listed here) are either universal lessons (loaded separately by all projects) or
 > retired/merged entries. See "BL Gap Map" section at the bottom of this file.
+>
+> **2026-04-20 Phase 1 update:** BL-14 MERGED INTO BL-8 (rollback-plan consolidated into
+> deployment-event checklist — BL-8 body enriched with the rollback-plan content). Count
+> drops from 8 to 7 code-adapter entries.
 
 ---
 
@@ -43,19 +47,16 @@
 
 ---
 
-### BL-8: Feature Flag Toggle = Deployment Event [CODE-ADAPTER]
-**Source:** RT analysis (Pre-Deploy checklist)
-**Rule:** Toggling a feature flag is a deployment event. It requires the same Pre-Deploy checklist as a code deploy: rollback plan, health check, monitoring window.
-**Why:** A feature flag flip changes production behavior identically to a code deploy -- users see different code paths. Treating it as "just a config change" bypasses the safety net that catches regressions. Every behavioral change in production, regardless of mechanism, is a deployment.
-**Applies to:** Builder, Validator, Analyst
+### BL-8: Deployment Events Require Pre-Deploy Checklist (including Rollback Plan) [CODE-ADAPTER]
+**Source:** RT analysis (Pre-Deploy checklist) + META Hansei 2026-04-20 (merged BL-14 rollback-plan here).
+**Tier:** T3 (checklist in Validator + Builder prompts)
+**Rule:** Toggling a feature flag, flipping a config, deploying code, and any other behavior-changing production event are all DEPLOYMENT EVENTS. Each requires the full Pre-Deploy checklist BEFORE execution: (a) written rollback plan ("how to undo this in one command"), (b) canary window with monitoring, (c) health check post-deploy, (d) 30-minute observation window. If rollback cannot be described in advance, authorization to deploy is withheld.
+**Why:** A feature-flag flip changes production behavior identically to a code deploy. Treating it as "just config" bypasses the safety net. Under incident pressure, decision quality drops — pre-written rollback is executed mechanically when needed. Writing the rollback plan beforehand also forces verification that rollback is actually possible.
+**Applies to:** Builder, Validator, Analyst.
 
 ---
 
-### BL-14: Rollback Plan Before Deploy, Not After [CODE-ADAPTER]
-**Source:** RT analysis (Pre-Deploy checklist)
-**Rule:** Document the rollback procedure BEFORE executing any deployment. If you cannot describe how to undo a change, you do not have permission to make it.
-**Why:** Under incident pressure, cognitive load peaks and decision quality drops. A pre-written rollback plan is executed mechanically when needed, bypassing the degraded decision-making of a stressed team. Writing it beforehand also forces you to verify that rollback is actually possible.
-**Applies to:** Builder, Analyst, Validator
+> BL-14 MERGED INTO BL-8 (2026-04-20): rollback-plan consolidated into deployment-event checklist. See root `BOOTSTRAP_LESSONS.md` BL-8 (or BL-8 above in this file — the merged body lives in the code-adapter BL-8 entry).
 
 ---
 
@@ -98,13 +99,14 @@ Gaps in this code-adapter file, with the location of the missing BL:
 | BL-11 | Universal | `BOOTSTRAP_LESSONS_universal.md` |
 | BL-12 | Universal | `BOOTSTRAP_LESSONS_universal.md` |
 | BL-13 | Universal | `BOOTSTRAP_LESSONS_universal.md` |
+| BL-14 | Merged | MERGED INTO BL-8 (2026-04-20): rollback-plan consolidated into deployment-event checklist. See BL-8 body above. |
 | BL-15 | Universal | `BOOTSTRAP_LESSONS_universal.md` |
 | BL-16 | Universal | `BOOTSTRAP_LESSONS_universal.md` |
-| BL-17 | Universal | `BOOTSTRAP_LESSONS_universal.md` |
+| BL-17 | Universal | `BOOTSTRAP_LESSONS_universal.md` (absorbed BL-21 format-spec-as-input on 2026-04-20) |
 | BL-18 | Universal | `BOOTSTRAP_LESSONS_universal.md` |
 | BL-19 | Universal | `BOOTSTRAP_LESSONS_universal.md` |
-| BL-20 | Universal | `BOOTSTRAP_LESSONS_universal.md` |
-| BL-21 | Universal | `BOOTSTRAP_LESSONS_universal.md` |
+| BL-20 | Retired | RETIRED 2026-04-20: content lifted to meta.md §13 MM3 (Adversarial bootstrap testing). Was universal. |
+| BL-21 | Merged | MERGED INTO BL-17 (2026-04-20): format-spec-as-input consolidated into pre-generate verification. Was universal. |
 | BL-23 | Retired | Merged/retired (see BOOTSTRAP_LESSONS.md budget header) |
 | BL-26 | Universal | `BOOTSTRAP_LESSONS_universal.md` |
 | BL-27 | Retired | Merged into BL-6 (per BL-32 reference cleanup lesson) |
@@ -113,9 +115,12 @@ Gaps in this code-adapter file, with the location of the missing BL:
 | BL-30 | Universal | `BOOTSTRAP_LESSONS_universal.md` |
 | BL-31 | Universal | `BOOTSTRAP_LESSONS_universal.md` |
 | BL-32 | Universal | `BOOTSTRAP_LESSONS_universal.md` |
+| BL-33 | Universal | `BOOTSTRAP_LESSONS_universal.md` (new 2026-04-20 — Enforcement-Tier Ladder) |
+| BL-34 | Universal | `BOOTSTRAP_LESSONS_universal.md` (new 2026-04-20 — Composition Hazards Gate) |
+| BL-35 | Universal | `BOOTSTRAP_LESSONS_universal.md` (new 2026-04-20 — Rework-discipline audit) |
 
-**Totals in this file:** 8 Code-Adapter BL entries.
-**Across both split files:** 22 universal + 8 code-adapter = 30 active BL (BL-23, BL-27 retired).
+**Totals in this file:** 7 Code-Adapter BL entries (was 8, BL-14 merged into BL-8 on 2026-04-20).
+**Across both split files:** 23 universal + 7 code-adapter = 30 active BL (BL-14, BL-20, BL-21, BL-23, BL-27 retired/merged; BL-33, BL-34, BL-35 added).
 
 ---
 
