@@ -50,7 +50,7 @@ This skin overrides the abstract role-file vocabulary for article tasks. When an
 | 20 | **smoke test** | abstract read + TOC scan + render of first PDF page (sanity check before full render) | Analogous to `validator_EN.md` Key Rules 5 ("Stale output detection") |
 | 21 | **glossary / canonical terms** | the 46-term ODTOE glossary — canonical terminology set that every article must align with | `odtoe-articles/config.md` line 48, line 265 |
 | 22 | **symbol collision** | two corpus artifacts using the same LaTeX symbol (e.g., `\Lambda`) with different meanings | `analyst_EN.md` Example 2 |
-| 23 | **numerical consistency / factual check** | C6 factual consistency across the article — every numerical claim (N, δB/B, Profile values, constants to 50 digits) must agree across abstract, body, tables, figure captions, and conclusion; Validator recomputes independently and cross-references all occurrences | body Section "Verification Protocol (cite_check expanded)" — C6 row in Section "The six cite_check checks"; didactic case = Example 3 ("Numerical inconsistency abstract vs table"); config.md Check 2 (full recomputation) and Check 7 (no internal contradictions) |
+| 23 | **numerical consistency / factual check** | C6a factual consistency across the article — every numerical claim (N, δB/B, Profile values, constants to 50 digits) must agree across abstract, body, tables, figure captions, and conclusion; Validator recomputes independently and cross-references all occurrences | body Section "Verification Protocol (cite_check expanded)" — C6a row in Section "The six cite_check checks"; didactic case = Example 3 ("Numerical inconsistency abstract vs table"); config.md Check 2 (full recomputation) and Check 7 (no internal contradictions) |
 
 **Unified with `odtoe-articles/config.md` — CRITICAL note:**
 The config.md contains an "EraDev Role Mapping for Articles" table (lines 283-290). That table assigns check ownership per role. The vocabulary table above is consistent with that mapping. If any agent detects a contradiction between this skin's Role Focus Overrides (Section below) and that table, **the config.md table WINS** and the agent must escalate to META before proceeding.
@@ -236,7 +236,7 @@ These 6 checks are NOT cite_check in the narrow sense, but ARE required for the 
                       "Sample-size contract" subsection below.
 ```
 
-### cite_check reference implementation (C1/C3/C4 L1 automation, C2/C5/C6 L2 judgment)
+### cite_check reference implementation (C1/C3/C4 L1 automation, C2/C5/C6a/C6b L2 judgment)
 
 #### C1 (L1) — Bibliography completeness
 
@@ -278,7 +278,7 @@ tectonic "$TEX" 2>&1 | tee /tmp/c4_build.log
 grep -cE 'undefined|multiply.defined|Citation .* undefined' /tmp/c4_build.log
 ```
 
-#### C2, C5, C6 (L2, judgment protocol) + sample-size contract
+#### C2, C5, C6a/C6b (L2, judgment protocol) + sample-size contract
 
 **C2 — Citation attribution.** Per citation `[N]`: (1) source lookup (if
 inaccessible → NOT-CHECKABLE, escalate to BL-A4); (2) quote the bearing
@@ -486,15 +486,15 @@ stat -f %m "$TEX"  # macOS fallback  |  stat -c %Y "$TEX"  # GNU fallback
 - **Fix:** Coherencer invokes Phantom Coherence Check (`coherent_EN.md` Key Rules 2) and asks each role individually: "Is the metric observer-dependent or objective?" The divergence forces a RT-1.5 where Visionary clarifies which definition is the article's load-bearing one, and the outline is rewritten so that either (a) Section V redefines "bulk metric" as an information-theoretic construct compatible with Section III, or (b) Section V is removed entirely.
 - **How the skin's vocabulary maps this:** "observer-dependent metric" vs "observer-independent metric" = a **symbol collision** (vocabulary row 22, `\Lambda`-style pattern from `analyst_EN.md` Ex.2). Vocabulary row 2 (function → claim) and row 3 (module → section) apply. Coherencer's drift detection (Q1-Q2 in Coherencer focus section above) catches this by running the "does the new article use every technical term exactly as the glossary defines it?" query.
 
-### Example 3: Numerical inconsistency abstract vs table (C6 failure, cite_check blind spot)
+### Example 3: Numerical inconsistency abstract vs table (C6a failure, cite_check blind spot)
 
 - **Input:** "Add an empirical section reporting results from a simulation of 120 ODTOE observers."
 - **Scenario:** Builder drafts section IV. The abstract says "We ran 120 simulations." The section IV body says "We ran N=120 trials." Figure 4's caption says "N=120 observers." Table 2's header row says "Results over 118 observers." Builder compiles, the PDF looks clean, submits to Validator.
-- **What Validator finds:** When running C6 (factual consistency), Validator notes the discrepancy — abstract/body/figure all say 120, Table 2 says 118. One of them is wrong. Reading the raw simulation output: actually 120 simulations were RUN, but 2 were excluded for data quality reasons, so the TABLE represents 118. Neither the abstract nor the body nor the figure caption mentions the exclusion.
-- **Catching role:** **Validator** (C6 is L2; requires cross-reference scan of every numerical claim across the article).
+- **What Validator finds:** When running C6a (factual consistency), Validator notes the discrepancy — abstract/body/figure all say 120, Table 2 says 118. One of them is wrong. Reading the raw simulation output: actually 120 simulations were RUN, but 2 were excluded for data quality reasons, so the TABLE represents 118. Neither the abstract nor the body nor the figure caption mentions the exclusion.
+- **Catching role:** **Validator** (C6a is L2; requires cross-reference scan of every numerical claim across the article).
 - **Phase:** **RT-2** (pre-submission).
 - **Fix:** Either (a) update abstract/body/figure to explain the exclusion — "120 simulations run; 118 analyzed after QC filtering"; or (b) re-run the simulations so N=120 is consistent; or (c) re-examine the exclusion criterion.
-- **Why cite_check alone (C1-C5) is insufficient:** None of C1-C5 touch numerical facts inside the article. C1 is about bibliography entries. C2 is about attribution. C3 is about DOI syntax. C4 is about internal reference resolution (which might be OK — figure 4 and table 2 both resolve). C5 is about self-citation. C6 is the ONLY cite_check variant that catches this. C6 is placed in the skin's verification protocol precisely to make visible that "cite_check" in the article domain is a FAMILY of checks, not just "do citations resolve." This example is the didactic case for WHY the skin expands cite_check into 6 sub-checks and does NOT treat it as monolithic.
+- **Why cite_check alone (C1-C5) is insufficient:** None of C1-C5 touch numerical facts inside the article. C1 is about bibliography entries. C2 is about attribution. C3 is about DOI syntax. C4 is about internal reference resolution (which might be OK — figure 4 and table 2 both resolve). C5 is about self-citation. C6a is the ONLY cite_check variant that catches this. C6a is placed in the skin's verification protocol precisely to make visible that "cite_check" in the article domain is a FAMILY of checks, not just "do citations resolve." This example is the didactic case for WHY the skin expands cite_check into 6 sub-checks and does NOT treat it as monolithic.
 
 ---
 

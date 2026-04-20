@@ -60,6 +60,8 @@ Each term has exactly ONE canonical form. All other variants are deprecated alia
 | 47 | Enforcement-tier ladder | tier-ladder, T1-T4 hierarchy |
 | 48 | Rework-framing regex | architectural-rework-detector |
 | 49 | Signal-to-content anti-pattern | measurement-not-payload, sentinel-as-content |
+| 50 | Check-First | read-before-write |
+| 51 | Lambda Problem | knowledge-without-enforcement |
 
 ---
 
@@ -116,6 +118,8 @@ Each term has exactly ONE canonical form. All other variants are deprecated alia
 | 47 | **Enforcement-tier ladder** | 4-level hierarchy per BL-33 and meta.md §13: T1 type/schema/compile-time (structural impossibility) > T2 automated hook/CI/lint > T3 checklist in agent prompt > T4 docs-only. Every new BL must declare Tier. T4-only rules are Lambda-zero for recurring classes. | Preference order when authoring a new BL: pick the highest feasible tier | Tiers: T1 > T2 > T3 > T4 (preference order) | META (authoring), Coherencer, Validator, Builder |
 | 48 | **Rework-framing regex** | Pattern matching operator messages declaring "architecture is wrong" / "full rework" / "from scratch" / "менять архитектуру" / "полностью менять" / "completely change" / "архитектурная проблема". Triggers BL-35 audit if operator message matches during active refactor window. | Automated trigger for BL-35 rework-discipline audit | Tier: T2 (operator-message regex detector — see .claude/hooks/rework-framing-detector.sh) | META (trigger detection), Coherencer (Hansei) |
 | 49 | **Signal-to-content anti-pattern** | A downstream consumer receives a sentinel/empty payload as if it were valid content (e.g. blanked text from a low-confidence classifier). BL-50 mandates type-level impossibility (newtype DeliverableText). Also called "measurement-not-payload" in BL-35 framing. | Type-level gate in newtype constructor rejects empty input | Tier: T1 (newtype with private constructor rejecting empty input) | Builder, Validator (type-level gate) |
+| 50 | **Check-First** | Protocol: read the reference format BEFORE generating output. Prevents 100% of format rework by ensuring the agent knows the target structure before writing. (BL-17; BL-21 merged into BL-17, 2026-04-20) | Reference-format read precedes any write; 7 pre-write checks | Read reference -> 7 checks -> Write | Builder, Validator |
+| 51 | **Lambda Problem** | Knowledge exists in the system (Lambda > 0) but is not enforced at execution time, so effectively Lambda = 0 for behavior. Root cause: enforcement mechanism lives where agents do not look. Fix: place enforcement where it auto-fires (CLAUDE.md, meta.md). (BL-16) | Enforcement mis-placement makes accumulated experience Lambda-zero at runtime | Lambda_effective = 0 when enforcement misplaced | All roles (Activation Operator Step 4) |
 
 ---
 
@@ -169,5 +173,5 @@ Viability condition: 0 < Bi < 1 for all agents at all times.
 
 ---
 
-*EraDev Glossary v4.1 | 2026-04-21 | EN single source of truth + PLUGY glossary drift unification*
-*Total terms: 49 | Language: EN | Canonical forms: enforced*
+*EraDev Glossary v4.2 | 2026-04-21 | EN single source of truth + Phase 4-D Check-First + Lambda Problem backfill (F10 sweep)*
+*Total terms: 51 | Language: EN | Canonical forms: enforced*

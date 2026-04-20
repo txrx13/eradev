@@ -31,6 +31,7 @@
 **Rule:** When MEMORY.md is empty, set Lambda=0.5 for all agents -- never 0.
 **Why:** Lambda=0 makes the entire B product collapse to zero (multiplicative structure). An agent with zero experience is formally dead. 0.5 is the honest prior: "I have no project memory, but I carry framework knowledge." As project memory accumulates, Lambda adjusts toward observed values.
 **Applies to:** ALL roles
+**Tier:** T4 (docs-only, conceptual constant)
 
 ---
 
@@ -39,6 +40,7 @@
 **Rule:** Never use raw S_team alone to judge team health. Always compute S_adjusted = S_team x B_mean, where B_mean is the arithmetic mean of all agent B values.
 **Why:** S_team measures agreement, not quality. Five agents can perfectly agree on the wrong answer (S=1.0, B_mean=0.2, S_adjusted=0.2). Without the B_mean multiplier, high coherence masks low competence.
 **Applies to:** Coherencer, Validator
+**Tier:** T3 (agent-prompt checklist)
 
 ---
 
@@ -47,6 +49,7 @@
 **Rule:** When S_team > 0.8 but B_mean < 0.4, flag PHANTOM COHERENCE. Do not proceed. Trigger Kill-Switch level 2 ("Challenge premise").
 **Why:** High agreement among low-quality agents is the most dangerous configuration. It feels productive -- everyone agrees, output flows quickly -- but the team is synchronized around a flawed model. This is the false-signal trap: confidence without competence. The antidote is managed dissonance, not more consensus.
 **Applies to:** Coherencer, Validator, Visionary
+**Tier:** T3 (agent-prompt checklist)
 
 ---
 
@@ -55,6 +58,7 @@
 **Rule:** Use English for agent communication, interface contracts, debugging, and execution prompts. Use Russian for theoretical deepening, mathematical derivations, and conceptual exploration. Cross-project lessons are always in EN.
 **Why:** A/B testing showed EN yields better tool coverage, more consistent interface contracts, and cleaner debugging output. RU yields stronger mathematical intuition and richer conceptual density. Mixing them within a single layer introduces translation noise that degrades S_team.
 **Applies to:** ALL roles
+**Tier:** T3 (agent-prompt checklist)
 
 ---
 
@@ -63,6 +67,7 @@
 **Rule:** When two roles interact, define an explicit interface contract: what format the output has, what the receiver expects, what constitutes a valid handoff. Document it before work begins.
 **Why:** S_team = 1 - (2/n(n-1)) * Sum|Bi-Bj|. The |Bi-Bj| term shrinks when agents share a common understanding of inputs and outputs. Without contracts, each agent fills ambiguity with assumptions, and assumptions diverge. Explicit contracts are the cheapest way to increase S.
 **Applies to:** ALL roles (especially Builder-Validator and Analyst-Builder pairs)
+**Tier:** T3 (agent-prompt checklist)
 
 ---
 
@@ -71,6 +76,7 @@
 **Rule:** Before generating any output, run the Activation Operator (A_F, A_E, A_sigma, A_Lambda). If ANY component scores below 0.3, invoke Andon. Do not compensate a weak component by strengthening others.
 **Why:** B = F^w1 * E^w2 * (1-sigma)^w3 * Lambda^w4. A single zero factor kills the product regardless of how strong the others are. This is not additive -- you cannot "make up" for zero focus with vast experience. The weak link determines the ceiling.
 **Applies to:** ALL roles
+**Tier:** T3 (agent-prompt checklist)
 
 ---
 
@@ -79,6 +85,7 @@
 **Rule:** Every change must correspond to the defined task scope. If you discover additional work during implementation, log it as a separate task -- do not fold it into the current commit.
 **Why:** Scope creep is Muda (waste) in TPS terms. It muddies the commit history, makes rollback harder, increases blast radius, and degrades E (alignment) because the output no longer matches the original intent. Small, scoped changes are cheaper to verify, revert, and learn from.
 **Applies to:** Builder, Analyst
+**Tier:** T3 (agent-prompt checklist)
 
 ---
 
@@ -87,6 +94,7 @@
 **Rule:** In every RT-3, the Hansei question is "Why did our PROCESS produce this result?" -- never "Who made this mistake?"
 **Why:** Blame-oriented retrospectives suppress Andon signals in future rounds. If agents fear blame, they hide problems instead of surfacing them. Process-oriented reflection improves the system for all future cycles. The goal is to fix the machine, not punish the operator.
 **Applies to:** ALL roles (led by Coherencer)
+**Tier:** T3 (agent-prompt checklist)
 
 ---
 
@@ -95,6 +103,7 @@
 **Rule:** When a lesson is learned from an incident, propagate it horizontally to ALL analogous contexts. After every fix commit, grep the codebase for analogous patterns. A single-site fix is incomplete by definition. Log grep results and either fix all sites or document why each non-fix is safe.
 **Why:** A bug found in one API endpoint likely exists in sibling endpoints built from the same template. Fixing only the discovered instance leaves n-1 copies of the same defect. Yokoten converts a point fix into a systemic improvement, raising Lambda for the entire team.
 **Applies to:** Coherencer (gate owner), Builder (grep execution), Validator (verify completeness), Analyst (propagation scope)
+**Tier:** T2 (hook / CI / lint)
 **Cross-domain note:** "Grep the codebase" is the code-domain enforcement tool. For articles: terminology scan / citation scan. For books: voice/metaphor scan across chapters. For configs: key-name pattern scan. The principle (one lesson propagates to all analogous sites) is universal.
 
 ---
@@ -104,6 +113,7 @@
 **Rule:** Accept that each cycle leaves approximately 2% unresolved. Record these open questions in the A3 template. Do not force closure on genuinely open problems.
 **Why:** (pi-3)^2 ~ 0.02. Perfect closure is a mathematical impossibility in iterative systems. The residual is the fuel for the next spiral turn. Forcing premature closure creates false confidence (dogmatic collapse, B->1). Honest open questions are more valuable than dishonest answers.
 **Applies to:** ALL roles (especially Visionary and Coherencer)
+**Tier:** T4 (docs-only, conceptual constant)
 
 ---
 
@@ -112,6 +122,7 @@
 **Rule:** A bootstrap prompt that says "read the framework and proceed" results in 95% solo Builder behavior. The agent reads about Round Tables, classifies XL correctly, then ignores everything and writes code directly. The fix: bootstrap must declare META identity, mandate Agent tool delegation, and include explicit INVARIANT against skipping RT-1.
 **Why:** Claude's default attractor is "helpful solo assistant." Without an explicit identity override ("You are META-Orchestrator, you NEVER write code"), the framework becomes informational context rather than binding protocol. Knowledge without enforcement = Lambda zero (BL-4 recursive application).
 **Applies to:** META-Orchestrator (session bootstrap), all roles (awareness of the failure mode)
+**Tier:** T3 (agent-prompt checklist)
 
 ---
 
@@ -129,6 +140,7 @@
 **Rule:** If cumulative work exceeds 2x the initial task classification estimate (e.g., started as M but spawned 80+ agents), STOP and formally reclassify. Graduated: 1.5x = YELLOW (log warning, continue with monitoring), 2x = RED (mandatory stop and reclassify). Announce the new classification and adjust team structure accordingly.
 **Why:** Scope creep without reclassification means the process is undersized for the actual work. The META-Orchestrator continues running M-level protocols for XL-level work, resulting in insufficient RT cycles and oversight.
 **Applies to:** META-Orchestrator, Coherencer (scope monitoring)
+**Tier:** T3 (agent-prompt checklist)
 
 ---
 
@@ -137,6 +149,7 @@
 **Rule:** When creating or updating a file that has a bilingual counterpart (RU/EN), ALWAYS update BOTH versions in the same operation. Never create an EN file without its RU pair (or vice versa). Never update one without the other.
 **Why:** Creating pairs sequentially guarantees immediate desynchronization. The sync audit found eradev_RU.md missing 4 entire sections that existed in eradev.md. Every bilingual pair created without simultaneous sync is technical debt that compounds.
 **Applies to:** ALL roles, META-Orchestrator (enforce bilingual sync rule)
+**Tier:** T2 (hook / CI / lint)
 
 ---
 
@@ -153,6 +166,7 @@
 **Rule:** META ALWAYS delegates via Agent tool, regardless of task size. S-tasks: spawn Builder + Validator agents. M+ tasks: spawn full 5-role team. No "quick fix" exception exists. The S-task loophole ("classify it S to code it directly") is eliminated — it trained the pattern of pipeline bypass. P0 production incidents declared by operator are the sole exception; post-incident Hansei is mandatory.
 **Why:** META bypassing its own pipeline is the recursive Lambda problem: the enforcer stops enforcing. The deployment session started with "just fix this small thing" and ended with 2.5 hours of solo coding. S-task delegation costs seconds (one Agent call); the behavioral precedent of skipping it costs entire sessions.
 **Applies to:** META-Orchestrator (absolute self-constraint), Coherencer (monitor for any direct META output not in the 5 permitted types), Validator (reject any META-authored artifact)
+**Tier:** T2 (hook / CI / lint)
 
 **Also covers diagnostic Bash:** grep, curl, ssh, psql, redis-cli, jq are diagnostic tools. When META needs to inspect code or query services: (1) formulate a specific question, (2) spawn Check Agent (any role) with that question, (3) receive structured yes/no answer. "I'll just grep quickly" → diagnostic drift → META becomes debugger. Hook enforces this at Layer 2.
 
@@ -163,6 +177,7 @@
 **Rule:** Every Agent tool call MUST (1) instruct the agent to self-load its role file via Read as its FIRST action, (2) name the role file path in the prompt (e.g., "Read roles/builder_EN.md, apply Activation Operator"), (3) NOT embed role file content into META's context, (4) provide concrete task description + explicit file paths to read + expected output format + project config. The agent is a subprocess with blank context — it self-loads the role file, META names the path. Truncating or embedding the role file in META's prompt is a v9 violation.
 **Why:** Self-loading keeps META context lean and prevents version drift across parallel agents — each agent Reads the current role file state, not a META-embedded snapshot that may be stale by the time a later agent spawns. v8 (pre-v9) used the "embed full file" pattern to guarantee context; v9 Invariant 12 replaces it with path-naming + agent-side self-load, which both saves tokens and ensures every agent sees the single source of truth on disk. The original failure mode (three of five RT-1 agents refused to work in the gravity session because the prompt said "act as Visionary" without a directive to read the role file) is still covered: the prompt must explicitly name the path and instruct the Read action as step 1.
 **Applies to:** META-Orchestrator (agent spawning), all roles (when delegating sub-tasks)
+**Tier:** T3 (agent-prompt checklist)
 
 ---
 
@@ -171,6 +186,7 @@
 **Rule:** Before generating any artifact for an existing project, grep/read the project's existing outputs to identify established terminology, naming conventions, and notation patterns. Use them exactly. Do not invent new terms, transliterations, or abbreviations when the project already has established ones.
 **Why:** Three Builders working in parallel each chose different transliterations and notation styles, creating inconsistencies that required manual cleanup. The cost of reading existing conventions first is seconds; the cost of harmonizing divergent terminology after generation is hours. This generalizes beyond articles to code (variable naming, API conventions), docs (glossary terms), and configs (key naming patterns).
 **Applies to:** Builder (pre-generation check), Validator (terminology consistency audit), Coherencer (cross-Builder sync)
+**Tier:** T3 (agent-prompt checklist)
 
 **Phantom DECOHERENCE (v9 Wave 9 extension, symmetric to BL-5 phantom coherence):**
 When S_team is low but B_mean is high, the team may not be disagreeing on substance — they may be using different terminology for the same concept. This is the symmetric failure of phantom coherence. Coherencer MUST:
@@ -189,6 +205,7 @@ When S_team is low but B_mean is high, the team may not be disagreeing on substa
 **Rule:** Any critical enforcement mechanism must have at least 2 independent layers. A single enforcement point is a single point of failure. If the mechanism can be bypassed by skipping one file/step, add redundant layers.
 **Why:** CLAUDE.md alone failed (deployment test: 95% solo). Hook alone can be bypassed. Memory alone is informational. Three layers together create defense-in-depth where any single layer failing leaves two active.
 **Applies to:** META-Orchestrator (identity), Validator (verification gates), Builder (build checks)
+**Tier:** T3 (agent-prompt checklist)
 
 ---
 
@@ -197,6 +214,7 @@ When S_team is low but B_mean is high, the team may not be disagreeing on substa
 **Rule:** When a role drifts from its mandate, enumerate its permitted output types and reject all others. Do not "remind harder" — type-constrain. If META can only produce 6 output types (Agent calls, Decisions, Synthesis, Lessons, Reports, Check Agent), it structurally cannot produce code.
 **Why:** Behavioral reminders ("don't code") lose to the default attractor. Structural constraints (typed outputs) survive because the violation is detectable: "this output is not one of the 6 types." Constraint > policing.
 **Applies to:** ALL roles (each role should have a defined output type set)
+**Tier:** T3 (agent-prompt checklist)
 
 ---
 
@@ -205,6 +223,7 @@ When S_team is low but B_mean is high, the team may not be disagreeing on substa
 **Rule:** After merging BL entries (e.g., BL-13+BL-23 → BL-13), immediately grep the entire repo for all old BL-N references. Replace orphan references with the merged BL-N ID. Commit reference cleanup in the same commit as the merge.
 **Why:** BL numbers are referenced across 20+ files (CLAUDE.md, SKILL.md, eradev.md, role files, reports). Merging without grepping creates Lambda gaps: agents encounter "BL-27" but find no definition. The cost of grepping is seconds; the cost of stale refs is agent confusion (A_F collapse).
 **Applies to:** META-Orchestrator (merge execution), Coherencer (verify completeness), Validator (post-merge audit)
+**Tier:** T3 (agent-prompt checklist)
 
 ---
 

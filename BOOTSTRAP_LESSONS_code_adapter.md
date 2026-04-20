@@ -28,6 +28,7 @@
 **Rule:** Any change to protocol, infrastructure, or communication layer MUST go through canary deployment with a 30-minute monitoring window before full rollout.
 **Why:** Protocol changes have unbounded blast radius. A broken protocol silently corrupts all downstream agents and outputs. Canary constrains the damage surface and gives time for D(eta) to manifest visibly.
 **Applies to:** Builder, Validator, Analyst
+**Tier:** T3 (agent-prompt checklist)
 
 ---
 
@@ -36,6 +37,7 @@
 **Rule:** If 3 or more consecutive fixes occur in sequence, STOP. Do not attempt fix number 4. Return to the specification and re-run RT-1.
 **Why:** Three consecutive fixes signal a structural defect, not an execution error. Each fix patches a symptom; the root cause lives upstream. Continuing the fix chain compounds technical debt exponentially. The correct action is Andon: stop the line, find the real constraint (TOC Phase 1).
 **Applies to:** Builder, Validator
+**Tier:** T2 (hook / CI / lint)
 
 ---
 
@@ -44,6 +46,7 @@
 **Rule:** Before modifying or committing any artifact, verify its current state. Read the file, check the endpoint, confirm the configuration. Before any artifact (code, document, config) can be committed, Builder MUST run the relevant validity check (compile, lint, parse, render) and attach output as proof. An artifact that "looks correct" but was never validated is treated as unverified — commit REJECTED, counted as fix in fix_rate.
 **Why:** Stale mental models are the top source of (1-sigma) collapse. "It compiles in my head" is the #1 source of unverified artifacts. Verification costs seconds; a wrong assumption or uncompiled artifact costs a full fix chain (5-10 commits).
 **Applies to:** Builder (run validity check + verify state), Validator (require proof artifact), Analyst (verify endpoints pre-RT-1), META (enforce gate)
+**Tier:** T2 (hook / CI / lint)
 
 ---
 
@@ -65,6 +68,7 @@
 **Rule:** Before RT-1 begins on any task involving external APIs, Analyst MUST curl-verify every endpoint the task depends on. Before DEPLOY, Validator MUST re-verify all endpoints against the production environment. Produce a VERIFIED ENDPOINTS artifact listing each URL, HTTP status, and response shape. Unverified endpoint = Builder BLOCK (RED on A_F) at RT-1, Validator BLOCK (RED on A_sigma) at deploy.
 **Why:** Hallucinating that an endpoint exists, returns a certain schema, or behaves a certain way is the top source of F=0 collapse in boundary tasks. Verification costs seconds; a fix chain on a nonexistent endpoint costs 10+ commits.
 **Applies to:** Analyst (RT-1 execution), Validator (deploy re-verification), Builder (must refuse to start without artifact), META (enforce gate)
+**Tier:** T3 (agent-prompt checklist)
 
 ---
 
@@ -73,6 +77,7 @@
 **Rule:** One commit = one phase. A commit that touches >5 files from different modules requires RT-2 review before merge. If a single task produces changes across many modules, split into sequential commits by phase (e.g., schema first, then logic, then tests).
 **Why:** Large cross-module commits have unbounded blast radius. When they break, you cannot revert one module without reverting all. Small, single-responsibility commits are cheap to revert, easy to bisect, and self-documenting.
 **Applies to:** Builder (commit discipline), Validator (commit review gate), META (enforce at RT-2)
+**Tier:** T2 (hook / CI / lint)
 
 ---
 
@@ -81,6 +86,7 @@
 **Rule:** For every server-side or boundary feature, Builder MUST cover 5 paths before marking complete: (1) happy path, (2) error/exception path, (3) timeout path, (4) restart/recovery path, (5) partial failure path. Validator checks coverage at RT-3.
 **Why:** Happy-path-only code is demo code, not production code. Timeout and restart paths are where real systems fail. Covering all 5 paths at build time costs 20% more effort; discovering missing paths in production costs 10x.
 **Applies to:** Builder (implementation), Validator (coverage check), Analyst (include paths in decomposition)
+**Tier:** T3 (agent-prompt checklist)
 
 ---
 
