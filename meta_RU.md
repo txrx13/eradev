@@ -189,7 +189,7 @@ Multi-agent работа сжимает wall-clock время, но каждый
 | **Agent-BD** | agent-effort | Сумма billable agent-hours через parallel spawns; НЕ вычитает parallelism |
 | **Wall-clock-BD** | calendar-effort | Longest critical-path chain через interlock sequence; включает shadow-mode windows, parity windows, operator sign-off delays |
 
-Пример (из PLUGY Hansei 2026-04-20): `Agent-BD: 23 | Wall-clock-BD: 88 (4 месяца)` — параллельные рефакторы помещаются в 3-4 недели agent-work, но calendar deploy занимает 4 месяца из-за 7-дневных shadow-mode windows на каждой фазе.
+Пример (из multi-refactor Hansei от 2026-04-20, см. `reports/`): `Agent-BD: 23 | Wall-clock-BD: 88 (4 месяца)` — параллельные рефакторы помещаются в 3-4 недели agent-work, но calendar deploy занимает 4 месяца из-за 7-дневных shadow-mode windows на каждой фазе.
 
 ROADMAP entries для L/XL задач ОБЯЗАНЫ cite обе колонки. Single-column BD оценка на L/XL = YELLOW на A_E (alignment gap: что видит оператор vs что доставляет команда).
 

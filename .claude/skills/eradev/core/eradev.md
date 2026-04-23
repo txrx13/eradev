@@ -140,7 +140,7 @@ IF project_config.domain.B_modality == any other value              → YELLOW, 
 
 META reads `domain.B_modality` from `projects/{name}/config.md` during session bootstrap (see `meta.md` Section 14 item 5b) and stores the modality choice in session state. Each agent's Jidoka Self-Check then uses the correct weight tuple from the table above.
 
-**Backward compatibility (FM-4 defense):** Any v8 code project with no `domain:` block defaults to `type=code` → `B_modality=text` → uniform weights (0.25 each) → identical B to v8. Existing projects require no migration and see zero regression. Migration is opt-in: `odtoe-articles` naturally adopts `B_research` on first RT-1 after v9 adoption; `iznachalye` naturally adopts `B_creative`; code projects keep defaulting to `B_text`.
+**Backward compatibility (FM-4 defense):** Any v8 code project with no `domain:` block defaults to `type=code` → `B_modality=text` → uniform weights (0.25 each) → identical B to v8. Existing projects require no migration and see zero regression. Migration is opt-in: an article-project naturally adopts `B_research` on first RT-1 after v9 adoption; a book-project naturally adopts `B_creative`; code projects keep defaulting to `B_text`.
 
 **v10 extension hook.** The modality registry is OPEN. Future modalities (e.g., `B_plan` with Λ-dominant weights for roadmaps; `B_config` with σ-dominant weights for infrastructure-as-code) can be added without touching v9 core. v9 ships exactly three modalities plus the v8-compatible default.
 
@@ -569,7 +569,7 @@ Minimum pairs: N*(N-1)/2. For N >= 3: add all 3-way combinations.
 Output: `reports/composition-hazards-<date>.md` (template: `templates/composition_hazards.template.md`).
 Coherencer REJECTS RT-1 synthesis without it.
 
-PLUGY Hansei 2026-04-20 documented 6 pairwise hazards (H1-H6) for 10 proposed refactors that
+A 2026-04-20 multi-refactor Hansei (see `reports/` for provenance) documented 6 pairwise hazards (H1-H6) for 10 proposed refactors that
 would have collapsed into 3 production incidents if shipped as a parallel menu.
 
 ### RT-2: MIDPOINT (course correction)
@@ -750,7 +750,7 @@ Rule: `systemd active (running)` is a LIVENESS signal, NOT a FUNCTIONALITY signa
 
 Enforcement: Validator RT-1 artifact — `reports/liveness-readiness-<date>.md` per affected host, listing (probe target → probe source → event-rate floor → alert threshold). Missing artifact blocks Builder spawn on any orchestration-impacting refactor.
 
-PLUGY 2026-04-19 precedent: sipguard systemd active, protection-effective `zero` for ~36h because the target log path didn't exist → 11h runaway CPU state undetected until operator call.
+Silent-protector precedent (2026-04-19, protector service behind systemd): protector active, protection-effective `zero` for ~36h because the target log path didn't exist → 11h runaway CPU state undetected until operator call.
 
 ---
 

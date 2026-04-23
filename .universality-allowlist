@@ -13,3 +13,5 @@
 # --- Active entries ---
 
 .githooks/pre-commit  # enforcement machinery: the hook itself must contain banned tokens to detect them (self-reference)
+BOOTSTRAP_LESSONS.md  # BL provenance (Source/Why fields) audit-critical per BL-32: each lesson cites the specific session/report it was derived from; generic rewrites would destroy traceability. Quarterly Validator review ensures only provenance fields (not new narrative) retain project names.
+BOOTSTRAP_LESSONS_universal.md  # mirror of BL split scope — same BL-32 provenance audit-criticality rationale as BOOTSTRAP_LESSONS.md

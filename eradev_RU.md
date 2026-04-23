@@ -139,7 +139,7 @@ B(agent) = F^w1 * E^w2 * (1-sigma)^w3 * Lambda^w4
 
 META читает `domain.B_modality` из `projects/{name}/config.md` во время bootstrap сессии (см. `meta_RU.md` Section 14 item 5b) и сохраняет выбор модальности в состоянии сессии. Jidoka Self-Check каждого агента затем использует правильный тьюпл весов из таблицы выше.
 
-**Обратная совместимость (защита FM-4):** Любой v8-проект кода без блока `domain:` откатывается на `type=code` → `B_modality=text` → равномерные веса (0.25 каждый) → идентичное B к v8. Существующие проекты не требуют миграции и не видят регрессии. Миграция opt-in: `odtoe-articles` естественно примет `B_research` при первом RT-1 после принятия v9; `iznachalye` естественно примет `B_creative`; проекты кода продолжат откатываться на `B_text`.
+**Обратная совместимость (защита FM-4):** Любой v8-проект кода без блока `domain:` откатывается на `type=code` → `B_modality=text` → равномерные веса (0.25 каждый) → идентичное B к v8. Существующие проекты не требуют миграции и не видят регрессии. Миграция opt-in: article-проект естественно примет `B_research` при первом RT-1 после принятия v9; book-проект естественно примет `B_creative`; проекты кода продолжат откатываться на `B_text`.
 
 **Хук расширения для v10.** Реестр модальностей ОТКРЫТ. Будущие модальности (напр., `B_plan` с Λ-доминированием для roadmap; `B_config` с σ-доминированием для infrastructure-as-code) могут быть добавлены без трогания ядра v9. v9 поставляет ровно три модальности плюс v8-совместимое значение по умолчанию.
 
@@ -570,7 +570,7 @@ n_min = ceil(pi) + 1 = 5. Три образуют каркас цикла (O, Ps
 Output: `reports/composition-hazards-<date>.md` (шаблон: `templates/composition_hazards.template.md`).
 Когерент REJECTS RT-1 synthesis без этого артефакта.
 
-PLUGY Hansei 2026-04-20 документировал 6 парных hazards (H1-H6) для 10 предложенных рефакторов, которые collapsed в 3 production incidents, если бы отгружались parallel menu.
+Hansei по multi-refactor от 2026-04-20 (provenance см. в `reports/`) документировал 6 парных hazards (H1-H6) для 10 предложенных рефакторов, которые collapsed в 3 production incidents, если бы отгружались parallel menu.
 
 ### RT-2: СЕРЕДИНА (коррекция курса)
 После первой фазы сборки. Те же 5 ролей проверяют:
@@ -750,7 +750,7 @@ L10 расширяет предикат релевантности уроков 
 
 Enforcement: Валидатор RT-1 artifact — `reports/liveness-readiness-<date>.md` per affected host, перечисляющий (probe target → probe source → event-rate floor → alert threshold). Missing artifact блокирует Builder spawn на любом orchestration-impacting рефактор.
 
-PLUGY 2026-04-19 precedent: sipguard systemd active, protection-effective `zero` ~36h, т.к. target log path не существовал → 11h runaway CPU state undetected until operator call.
+Silent-protector precedent (2026-04-19, protector-сервис за systemd): protector active, protection-effective `zero` ~36h, т.к. target log path не существовал → 11h runaway CPU state undetected until operator call.
 
 ---
 

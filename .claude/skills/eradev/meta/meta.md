@@ -194,7 +194,7 @@ Multi-agent work compresses wall-clock time but each agent still incurs token-co
 | **Agent-BD** | agent-effort | Sum of billable agent hours across parallel spawns; does NOT subtract parallelism |
 | **Wall-clock-BD** | calendar-effort | Longest critical-path chain through the interlock sequence; includes shadow-mode windows, parity windows, operator sign-off delays |
 
-Example (from PLUGY Hansei 2026-04-20): `Agent-BD: 23 | Wall-clock-BD: 88 (4 months)` — parallel refactors fit in 3-4 weeks of agent work but calendar deploy takes 4 months because of 7-day shadow-mode windows per phase.
+Example (from a 2026-04-20 multi-refactor Hansei, see `reports/`): `Agent-BD: 23 | Wall-clock-BD: 88 (4 months)` — parallel refactors fit in 3-4 weeks of agent work but calendar deploy takes 4 months because of 7-day shadow-mode windows per phase.
 
 ROADMAP entries for L/XL tasks MUST cite both columns. Single-column BD estimates on L/XL = YELLOW on A_E (alignment gap: what does the operator see vs what the team delivers).
 
