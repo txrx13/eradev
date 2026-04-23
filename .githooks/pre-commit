@@ -24,4 +24,51 @@ elif [ $FIX_COUNT -eq 2 ]; then
   echo "WARNING: Fix chain = 2. Next fix triggers BL-3 Andon." >&2
 fi
 
+# ============================================================
+# Universality Gate (eradev.md Section IV, Universality Gate)
+# Block commits that leak project-specific references into framework scope
+# ============================================================
+
+FRAMEWORK_FILES=$(git diff --cached --name-only | grep -E '^(eradev\.md|eradev_RU\.md|meta\.md|meta_RU\.md|CLAUDE\.md|BOOTSTRAP_LESSONS.*\.md|LOADING_PROTOCOL\.md|roles/.*\.md|templates/.*\.md|\.claude/hooks/.*\.sh|\.githooks/.*)$' || true)
+
+if [ -n "$FRAMEWORK_FILES" ]; then
+    # Banned tokens: project names, operator paths, author-specific specialization
+    BANNED_PATTERN='ODTOE_[A-Za-z_]+\.|odtoe-articles|iznachalye|plugy|academic-lab|pankratov|rybakov|/Users/antonpankratov/Downloads/'
+
+    # Check allowlist
+    ALLOWLIST_FILE="$(git rev-parse --show-toplevel)/.universality-allowlist"
+    ALLOWED_FILES=""
+    if [ -f "$ALLOWLIST_FILE" ]; then
+        ALLOWED_FILES=$(grep -v '^#' "$ALLOWLIST_FILE" | awk '{print $1}' | grep -v '^$' | tr '\n' '|' | sed 's/|$//')
+    fi
+
+    VIOLATIONS=""
+    for FILE in $FRAMEWORK_FILES; do
+        # Skip if in allowlist
+        if [ -n "$ALLOWED_FILES" ] && echo "$FILE" | grep -qE "^($ALLOWED_FILES)$"; then
+            continue
+        fi
+
+        # Check for banned tokens in staged content (added lines only)
+        MATCHES=$(git diff --cached "$FILE" | grep -E "^\+" | grep -v '^+++' | grep -iE "$BANNED_PATTERN" || true)
+        if [ -n "$MATCHES" ]; then
+            VIOLATIONS="${VIOLATIONS}\n${FILE}:\n${MATCHES}"
+        fi
+    done
+
+    if [ -n "$VIOLATIONS" ]; then
+        echo "" >&2
+        echo "BLOCKED: Universality Gate violation (eradev.md Section IV)" >&2
+        echo "Framework-scope files contain project-specific references:" >&2
+        printf '%b\n' "$VIOLATIONS" >&2
+        echo "" >&2
+        echo "Fix: move specifics to projects/{PROJECT}/, or add file to .universality-allowlist with justification." >&2
+        echo "To bypass (emergency only): git commit --no-verify" >&2
+        echo "" >&2
+        exit 1
+    fi
+
+    echo "[universality-gate] OK: framework scope is universality-clean"
+fi
+
 exit 0

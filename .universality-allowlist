@@ -1,0 +1,15 @@
+# Universality Gate Allowlist
+#
+# Format: <file-path>  # <justification>
+#
+# Files listed here are exempted from the Universality Gate check
+# in .githooks/pre-commit. Justification required for every entry.
+# Validator reviews quarterly.
+#
+# Examples (commented out, add real entries below):
+# docs/setup-claude.md  # historical: references Claude Code by design
+# reports/v10_*.md  # historical reports may reference projects as evidence
+
+# --- Active entries ---
+
+.githooks/pre-commit  # enforcement machinery: the hook itself must contain banned tokens to detect them (self-reference)

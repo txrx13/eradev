@@ -21,6 +21,7 @@ domain:
     - name: strictness
       value: strict
   ood_scope: text-discrete
+  languages: [en, ru]        # bilingual EN+RU sync — 8-file artifact set requires both
   examples:
     - "Check-First (8 items) -> draft RU .tex -> compile -> translate EN -> compile -> DOCX -> MD -> 8 checks -> commit all 8 files"
     - "add new formula -> recompute 50-digit -> trace dependents -> update conclusions -> re-run Check 2"
@@ -31,6 +32,7 @@ domain:
     - "bibliography"
     - "50-digit-precision"
   skin: "templates/domain_skin.article.md"
+  overlay: "overlay/domain_skin.article.overlay.md"  # ODTOE-specific: 8-file RU+EN mandate, tectonic/pandoc stack, preamble, 8 checks, Rybakov markers, Pankratov self-cite, ODTOE glossary
 ```
 
 **Notes:** `B_modality=research` because article generation is theorem+proof work, not narrative. `verify.method=cite_check` is the KEY differentiator — this is the exact thing a `build` method would miss. Success criteria baked in the BL-19 8-file requirement. Strictness is `strict` (science work, no shortcuts). Existing Check-First pipeline maps directly onto the skin file's Pre-Generation Checklist section.

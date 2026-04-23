@@ -18,6 +18,7 @@ domain:
     - name: strictness
       value: strict
   ood_scope: text-discrete
+  languages: [en]            # single-language; no bilingual sync gate fires
   examples:
     - "edit eradns -> local build -> git push -> autodeploy picks up -> rolling deploy across nodes"
     - "add new node -> copy deploy key -> clone repo -> crontab autodeploy -> autodeploy installs stack"

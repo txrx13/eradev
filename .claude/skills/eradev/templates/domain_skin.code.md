@@ -162,7 +162,7 @@ Code modality uses the default uniform weights. This is the v8-compatible defaul
 | (1-σ) | 0.25 | No conflicts with existing code, architecture, types, tests |
 | Λ | 0.25 | MEMORY.md consulted, past patterns applied, BL-1..BL-32 considered |
 
-Projects MAY override these weights in their own `config.md` `## B-weight Override` section (see `projects/plugy/config.md` for a live example — strict gRPC contract work boosts (1-σ)). The skin does not override; projects override individually.
+Projects MAY override these weights in their own `config.md` `## B-weight Override` section (e.g., strict cross-language contract work boosts (1-σ)). The skin does not override; projects override individually.
 
 ---
 

@@ -168,6 +168,8 @@ A task producing a definite artifact with NO objective verification (e.g., "is t
 
 **v9 IN-SCOPE domains (text-discrete artifacts):** code, configs, structured data, articles, books, research papers, theorems and proofs, plans and roadmaps, reference lists, reports, schemas. Each has a corresponding `domain.type` enum value and a corresponding `verify.method`.
 
+**`verify.method` is an EXTENSIBLE REGISTRY.** The framework ships 6 canonical methods: `build` (code), `cite_check` (article), `readability` (book), `parse` (config), `dry_run` (plan), `recompute` (research). These cover the default v9/v10 domains. Projects with specialized verification needs MAY extend the registry by declaring a custom method — examples (not shipped): `statute_check` (legal drafts validated against a jurisdiction's current statute set), `contraindication_scan` (medical protocols scanned against a drug-interaction database), `ingredient_check` (culinary recipes validated against allergen lists), `accessibility_audit` (UI configs validated against WCAG/ARIA rules). Mechanism: set `verify.method: <custom_name>` in the project's `domain:` block AND add a `verify.custom_methods.<custom_name>:` sub-block with `command`, `success_criteria`, `failure_modes`, and `independence_check`. Core framework is agnostic to the method name — Validator, Builder, and Coherencer read `verify.method` from config and act on the declared method regardless of whether it is canonical or custom. See `templates/domain_skin.md.template` for the schema.
+
 **v9 OUT-OF-SCOPE domains (continuous / flow / subjective):** the following are explicitly excluded from v9's coherence math. They are valid domains; they just do not fit v9's calibration.
 
 | Domain | Why OUT | Future target | IN-scope alternative |
@@ -475,6 +477,45 @@ It operationalizes the OOD boundary that Section II.2 defines theoretically.
 - A replacement for Coherencer flow protection at RT-2 (Apophatic is pre-RT-1 only; Coherencer monitors mid-cycle).
 
 **Evaluation criterion:** if the gate fires on >20% of real tasks, reconsider role promotion in v11. If <5%, the dual-role approach (Visionary scope + Coherencer flow) is sufficient and the gate may be retired.
+
+### Universality Gate (v10)
+
+Before ANY commit to framework core files, META+Validator MUST verify no project-specific references leaked:
+
+**Framework core scope** (universality-protected):
+- `eradev.md`, `eradev_RU.md`
+- `meta.md`, `meta_RU.md`
+- `CLAUDE.md`
+- `BOOTSTRAP_LESSONS.md`, `BOOTSTRAP_LESSONS_universal.md`, `BOOTSTRAP_LESSONS_code_adapter.md`
+- `roles/*.md`
+- `templates/*.md` (all templates, including domain skins)
+- `LOADING_PROTOCOL.md`
+- `.claude/hooks/*.sh`, `.githooks/*`
+
+**Specifics-OK scope** (project-local, exempt from this gate):
+- `projects/{PROJECT}/**` -- all project content
+- `reports/**` -- historical artifacts (may reference projects as evidence)
+- `.claude/skills/eradev/**` -- mirror of framework core (inherits universality)
+- `MEMORY.md` -- cross-session memory (may reference projects as context)
+
+**Universality violations (framework scope)**:
+- Literal project names in generic text
+- Literal artifact names in examples (operator-specific file names)
+- Absolute paths to operator-specific locations
+- Author-specific specialization baked into generic rules
+- Format-specific hardcoding where extensibility is expected
+
+**Gate protocol**:
+1. Pre-commit hook (`.githooks/pre-commit`) runs grep against banned token list
+2. Any match in framework scope -> commit BLOCKED with clear message
+3. Developer either (a) moves specific to `projects/{PROJECT}/` or (b) generifies the reference
+4. Hook exits 0 only when framework scope is universality-clean
+
+**Rationale**: L0/L1/L2/L3 architecture (Section 0.1) works only if L0/L1 stay universal. Specifics leak from L3 projects up to L1 templates naturally over time; without a mechanical check, EraDev devolves into "a framework for THIS operator's projects" (phantom universality). The gate catches drift before it lands.
+
+**Override**: If a specific reference is semantically necessary (historical attribution, genuine architectural example), developer adds the file to `.universality-allowlist` at repo root with one-line justification. Validator reviews allowlist entries quarterly.
+
+**See also**: `projects/{name}/config.md` Iron Rule #7 (original operator-stated rule), BL_CANDIDATES.md (entry for BL promotion to universal law).
 
 ---
 

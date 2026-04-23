@@ -206,7 +206,7 @@ This section maps directly to `domain.verify.method: readability (primary) + str
 
 **R1-R4 are the core 4** — every book project runs these. **R5 is CONDITIONAL** on the presence of a bibliography (declared in `config.md` via `domain.has_bibliography: true|false` or equivalent). **R6 is judgment** and requires the target-reader profile to have been declared in the outline (Analyst sub-section 3.2 Deliverable).
 
-Unlike the article skin's 6 cite_checks, the book R-checks are NOT a subset of an existing 8-check list. The book skin defines R1-R6 from scratch, because books do not have the structured 7+1 check list that ODTOE articles have. A future book project MAY declare its own extended check list in its `config.md`; if so, the skin's R1-R6 are the DEFAULT and the project-specific list is a SUPERSET. Per the Vocabulary section's unification rule, the project `config.md` wins when in conflict with the skin.
+Unlike the article skin's 6 cite_checks, the book R-checks are NOT a subset of an existing 8-check list. The book skin defines R1-R6 from scratch, because books do not have the same structured 7+1 check list that theorem/proof article projects typically carry. A book project MAY declare its own extended check list in its `config.md`; if so, the skin's R1-R6 are the DEFAULT and the project-specific list is a SUPERSET. Per the Vocabulary section's unification rule, the project `config.md` wins when in conflict with the skin.
 
 ### Verification block
 

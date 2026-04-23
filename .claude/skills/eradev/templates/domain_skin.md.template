@@ -6,6 +6,63 @@
 
 ---
 
+## Project Config Schema (relevant fields)
+
+The domain skin is activated per-project by the following `domain:` block in `projects/{PROJECT}/config.md`:
+
+```yaml
+domain:
+  type: code | article | book | config | plan | research | <custom>
+  skin: templates/domain_skin.{type}.md   # or a project-specific path
+  artifact:
+    primary: <artifact noun>
+    secondary: [<artifact noun>, ...]
+  verify:
+    method: build | cite_check | readability | parse | dry_run | recompute | <custom_method_name>
+    command: "<shell command or N/A>"
+    success_criteria: "<prose assertion>"
+    # Optional: define a custom verify.method not in the canonical 6
+    custom_methods:
+      <custom_method_name>:
+        command: "<shell or tool invocation>"
+        success_criteria: "<what PASS looks like>"
+        failure_modes: ["<mode 1>", "<mode 2>"]
+        independence_check: "<what 'independent verification' means>"
+  metrics:
+    - name: B_modality
+      value: text | creative | research
+    - name: strictness
+      value: strict | relaxed
+  ood_scope: text-discrete | structured-continuous | continuous
+  languages: [en] | [en, ru] | [en, fr, de] | ...    # default [en] if omitted
+  examples: [...]
+  subdomains: [...]
+```
+
+### `domain.languages` field (v10+)
+
+- **Purpose:** declare the human-language set the project's bilingual / multilingual sync rule applies to. Replaces hardcoded RU+EN assumption from the legacy bilingual invariant (BL-19 pre-v10).
+- **Default:** `[en]` — single-language, English only. Projects without this field are treated as English-only.
+- **Common values:** `[en]`, `[en, ru]`, `[en, fr]`, `[en, zh]`, etc.
+- **Interpretation:** files ending in `_<lang>.md` (or equivalent convention declared per-project) are considered translations of each other. Any edit to one MUST be mirrored to the others in the same commit — but ONLY when `languages.length > 1`.
+- **Single-language projects** (`languages: [en]` or field omitted): bilingual-sync gates do NOT fire. The project has no mirror to maintain.
+- **Multi-language projects** (`languages.length > 1`): bilingual/multilingual sync rule is active. Coherencer enforces it at RT-2.
+
+### `verify.method` is extensible (v10+)
+
+- **Canonical methods (ship with framework):** `build`, `cite_check`, `readability`, `parse`, `dry_run`, `recompute` — these 6 cover the default set of v10 domains (code, article, book, config, plan, research).
+- **Custom methods (per-project):** projects with specialized verification needs MAY define their own method by:
+  1. Setting `verify.method: <custom_method_name>` in the project's `domain:` block.
+  2. Adding a `verify.custom_methods.<custom_method_name>:` sub-block with `command`, `success_criteria`, `failure_modes`, and `independence_check`.
+- **Examples of custom methods** (not shipped, projects can define):
+  - `statute_check` — legal drafts validated against a jurisdiction's current statute set.
+  - `contraindication_scan` — medical protocol drafts scanned against a drug-interaction / allergen database.
+  - `ingredient_check` — culinary recipes validated against allergen / substitution lists.
+  - `accessibility_audit` — UI configs validated against a11y rules (WCAG, ARIA).
+- **Registry semantics:** `verify.method` is a REGISTRY. The 6 canonical methods are the framework's default set; projects extend with custom methods as their domain demands. The skin vocabulary map (`test / tests pass`, `validate`, `verify`) is bound to whichever method the project declares — canonical or custom. Coherencer, Validator, and Builder agents read `verify.method` from the project config and act accordingly; they do NOT hard-code the 6 canonical methods.
+
+---
+
 ## Vocabulary Mapping
 
 This skin overrides the abstract role-file vocabulary for {DOMAIN_NAME} tasks. When an agent sees these generic terms, it reads them as the domain-specific meanings below.
@@ -50,17 +107,17 @@ Each role retains its Activation Operator and Jidoka protocol from `roles/{role}
 
 ### Coherencer
 - Cross-artifact consistency: {what must match across files — glossary, formula IDs, version numbers}
-- Bilingual sync (BL-19): {how RU/EN sync applies in this domain}
+- Language sync (BL-19 v10+): applies ONLY when `domain.languages.length > 1`. For single-language projects (`languages: [en]` or field omitted) bilingual sync is a NO-OP. For multi-language projects, every edit to one language's file must be mirrored to the others in the same commit. {project-specific file-naming convention for language mirrors, e.g., `_EN.md` / `_RU.md`}
 - Drift detection: {what signals phantom coherence specific to this domain}
 
 ---
 
 ## Verification Protocol ({DOMAIN_NAME}-specific)
 
-This maps directly to `config.md` `domain.verify.method`.
+This maps directly to `config.md` `domain.verify.method`. Method MAY be one of the 6 canonical (`build`, `cite_check`, `readability`, `parse`, `dry_run`, `recompute`) OR a project-defined custom method declared in `verify.custom_methods`.
 
 ```
-[method name]: {method from enum}
+[method name]: {canonical method name OR custom_method_name}
 [command]: {shell command or N/A}
 [success criteria]: {assertion in prose}
 [failure recovery]: {what to do if validation fails — re-run, fix, escalate}

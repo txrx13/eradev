@@ -23,4 +23,10 @@
 > **Overlap check:** Does BL-{N} already cover this? Y/N
 > **Date:** {ISO date}
 
-(no candidates yet)
+### CAND-1: Framework Universality (promotion to universal BL)
+- **Type:** NOVEL
+- **Evidence:** Universality audit 2026-04-23 found >=11 framework files with project-specific references (project names, author names, operator paths). Iron Rule #7 exists in `projects/{name}/config.md` but wasn't enforced; classic BL-16 Lambda problem (knowledge without enforcement). Session 7 installed Universality Gate in eradev.md Section IV + pre-commit hook.
+- **Proposed rule:** Specifics always go to `projects/{PROJECT}/`. Framework core (`eradev.md`, `meta.md`, `CLAUDE.md`, `roles/`, `templates/`) MUST NOT contain project-specific references. Pre-commit hook enforces. Override via `.universality-allowlist` with justification.
+- **Overlap check:** No existing BL covers universality at framework-core scope. BL-19 (bilingual sync) and BL-16 (enforcement over knowledge) are related but orthogonal.
+- **Extraction timestamp:** 2026-04-23
+- **Session project:** eradev

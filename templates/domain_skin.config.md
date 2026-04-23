@@ -9,7 +9,7 @@
 > Last updated: 2026-04-11
 > Upstream roles: roles/{role}_EN.md
 > Upstream math: eradev.md Section II.1 (B_text weights) + Section II.2 (v9 OOD scope)
-> Live reference configs: projects/eradev/config.md, projects/plugy/config.md, projects/academic-lab/config.md, projects/odtoe-articles/config.md
+> Live reference configs: any `projects/{PROJECT}/config.md` file in the project tree (see project-specific examples declared per-project).
 
 ---
 
@@ -33,9 +33,9 @@ Every row below is GROUNDED: the "Where used (evidence)" column cites the role f
 
 | # | Abstract term (role file / BL) | Config meaning | Where used (evidence) |
 |---|---|---|---|
-| 1 | **artifact** | a single config file (`.yaml`, `.toml`, `.json`, `.ini`, `.env`, `.conf`), OR a stanza/block inside one, OR a key-value pair with its precedence context, OR a YAML-fenced code block inside a Markdown file | `analyst_EN.md` line 7 ("An 'artifact' is any discrete element..."); `projects/eradev/config.md` line 8 (yaml fence inside .md); `projects/plugy/config.md` line 17 (yaml fence inside .md) |
-| 2 | **function** | a key-value pair — the smallest addressable unit of a config (`port: 3000`, `debug: true`, `DATABASE_URL=postgres://...`) | Analogous to `builder_EN.md` "smallest addressable unit"; `projects/plugy/config.md` line 19 shows `type: code` as the canonical key-value shape |
-| 3 | **module / file** | a config section or stanza — a named block of related keys (`domain:` in `projects/*/config.md`, `[server]` stanza in TOML, top-level object in JSON) | `projects/odtoe-articles/config.md` lines 9-34 (`domain:` stanza); `projects/eradev/config.md` lines 9-34 (`domain:` stanza) |
+| 1 | **artifact** | a single config file (`.yaml`, `.toml`, `.json`, `.ini`, `.env`, `.conf`), OR a stanza/block inside one, OR a key-value pair with its precedence context, OR a YAML-fenced code block inside a Markdown file | `analyst_EN.md` line 7 ("An 'artifact' is any discrete element..."); `projects/{PROJECT}/config.md` often uses a yaml fence inside `.md` |
+| 2 | **function** | a key-value pair — the smallest addressable unit of a config (`port: 3000`, `debug: true`, `DATABASE_URL=postgres://...`) | Analogous to `builder_EN.md` "smallest addressable unit"; canonical key-value shape like `type: code` inside `domain:` |
+| 3 | **module / file** | a config section or stanza — a named block of related keys (`domain:` in `projects/{PROJECT}/config.md`, `[server]` stanza in TOML, top-level object in JSON) | `projects/{PROJECT}/config.md` `domain:` stanza |
 | 4 | **API / API endpoint** | schema definition / interface contract — the declared shape a config must match (JSON Schema, OpenAPI spec, protobuf, the tool's documented keys, or an implicit contract the tool expects) | `analyst_EN.md` Responsibilities 3 ("Interface design"); code-adapter BL-22 PRE-FLIGHT — the config analog is "verify schema BEFORE writing" |
 | 5 | **test / tests pass** | parse + schema validate + secrets scan + dangling-ref scan — all mechanical checks return 0 | `validator_EN.md` Key Rules; Section 4 of this skin |
 | 6 | **verify** | run P1 + P2 + P3 + P4 — the 4 mechanical sub-checks from Section 4 | `analyst_EN.md` line 24 (verify = domain-substituted check) |
@@ -48,7 +48,7 @@ Every row below is GROUNDED: the "Where used (evidence)" column cites the role f
 | 13 | **code review** | schema audit + secrets scan — a reviewer confirms keys match the schema, no inline credentials are present, no dangling references remain | Analogous to `visionary_EN.md` Example 2 (peer review); BL-30 defense-in-depth |
 | 14 | **PR / pull request** | a proposed config revision submitted for RT review — a delta on a prior config, or a fresh config for a new tool/service | `builder_EN.md` Decision-Point Checklist |
 | 15 | **commit** | a signed-off config revision that has passed parse + schema + secrets scan and is ready to be loaded by the tool | All 4 live project configs are committed Markdown with YAML fences |
-| 16 | **deploy / push to prod** | hot-reload OR service restart OR re-parse-on-next-read — for IaC: `terraform apply` / `kubectl apply`; for service configs: SIGHUP / restart; for env files: next process spawn | Analogous to code skin "deploy"; `projects/plugy/config.md` lines 34-36 (autodeploy picks up config changes) |
+| 16 | **deploy / push to prod** | hot-reload OR service restart OR re-parse-on-next-read — for IaC: `terraform apply` / `kubectl apply`; for service configs: SIGHUP / restart; for env files: next process spawn | Analogous to code skin "deploy"; projects with autodeploy pipelines pick up config changes automatically on next pull |
 | 17 | **production** | the currently-loaded config the running tool is using — may DIFFER from the file on disk if the tool has not been reloaded since the last edit | `validator_EN.md` Key Rules 4 (revert = postmortem); the "loaded state" vs "file state" distinction is config-specific and matters for verification |
 | 18 | **feature / feature flag** | a config-level toggle — a boolean or enum key that gates behavior (`enabled: true`, `mode: strict`, `feature_flags.new_ui: on`). **BL-8 applies DIRECTLY**: config flags ARE the deployment mechanism — every behavioral change in production is a release event regardless of whether the tool has a "feature flag" concept | `builder_EN.md` Key Rules 6 ("feature flags / staged rollouts = release event"); code-adapter BL-8 lifted here |
 | 19 | **smoke test** | 2-minute header pass — run the parser, read the first 10 lines, confirm (a) correct format identifier, (b) required top-level keys, (c) schema version declaration. A coarse completeness check before the full parse sweep. | Analogous to `validator_EN.md` Key Rules 5 ("stale output detection") |
@@ -57,7 +57,7 @@ Every row below is GROUNDED: the "Where used (evidence)" column cites the role f
 | 22 | **canary / staged rollout** | partial rollout — apply the new config to ONE instance / ONE service / ONE environment first, monitor for failure, then roll to the remaining fleet. For multi-tenant configs: one tenant first. For multi-region: one region first | Analogous to code-adapter BL-2; config-specific adaptation at BL-C1 below |
 
 **Unified with the live reference configs — CRITICAL for Builder/Validator:**
-The 4 live reference configs (`projects/eradev/config.md`, `projects/plugy/config.md`, `projects/academic-lab/config.md`, `projects/odtoe-articles/config.md`) all use the YAML-fenced-in-Markdown pattern. This is the canonical shape for EraDev project configs. The skin is GENERAL for configs — standalone YAML/TOML/JSON files are equally in scope — but the nested format is the empirical reference. Every live config also carries a `## Notes` section explaining the rationale for field choices — this is a structural pattern the skin recommends for non-trivial configs.
+EraDev project configs (`projects/{PROJECT}/config.md`) conventionally use the YAML-fenced-in-Markdown pattern. This is the canonical shape for EraDev project configs. The skin is GENERAL for configs — standalone YAML/TOML/JSON files are equally in scope — but the nested format is the empirical reference. Each project config also carries a `## Notes` section explaining the rationale for field choices — this is a structural pattern the skin recommends for non-trivial configs.
 
 If an agent detects a contradiction between this skin's Role Focus Overrides and the vocabulary table above, **the vocabulary table WINS** and the agent must escalate to META before proceeding. If an agent detects a contradiction between this skin and a live reference config, the agent flags it as an Open Question in the output, not silently resolves it.
 
@@ -462,7 +462,7 @@ These 4 BL live in the config skin ONLY. They do NOT add to the main 30-BL budge
 **BL-C1: Config Activation is a Release Event (adaptation of BL-2)**
 - **Source:** Adapted from BL-2 for the config domain.
 - **Rule:** Activating a production / staging / infrastructure config (deploying to the tool, triggering a reload, rolling a new IaC apply, flipping a feature flag in production) is a release event. It requires: a canary phase (apply to ONE instance / one region / one tenant first), a 15-minute monitoring window before full rollout, and a pre-written rollback plan (BL-C3). Major activations MUST be announced in writing to all stakeholders whose systems depend on the configured tool.
-- **Why:** Configs have unbounded blast radius — a broken production config can take down every downstream user of the service in the same instant the tool reloads. Canary + monitoring + rollback plan constrain the damage surface and give time for failure signals to manifest. `projects/plugy/config.md` autodeploy precedent applies: production configs deploy automatically, and automation without canary = immediate blast.
+- **Why:** Configs have unbounded blast radius — a broken production config can take down every downstream user of the service in the same instant the tool reloads. Canary + monitoring + rollback plan constrain the damage surface and give time for failure signals to manifest. Projects with autodeploy pipelines are a live precedent: production configs deploy automatically, and automation without canary = immediate blast.
 - **Applies to:** Visionary (approve activation), Builder (prepare canary), Validator (pre-activation gate at RT-2), META (enforce gate for production-tier configs).
 
 **BL-C2: Parse + Secrets Scan Before Commit (adaptation of BL-6)**
@@ -480,7 +480,7 @@ These 4 BL live in the config skin ONLY. They do NOT add to the main 30-BL budge
 **BL-C4: Schema + Environment PRE-FLIGHT (adaptation of BL-22)**
 - **Source:** Adapted from BL-22 for the config domain.
 - **Rule:** Before RT-1 begins on any config task, Analyst MUST verify: (a) the tool's current schema (not a stale copy from a prior version) is readable and parse-able — if machine-readable (JSON Schema, OpenAPI, protobuf), actually open it; if documentation, read the relevant section; (b) the schema version declared in the target config matches the tool's current expected schema version; (c) every env var / vault path / runtime injector referenced by the config actually exists in the target environment (not "we will set it up later"); (d) every cross-config sibling (files that share resources with this config) is enumerated upfront. Produce a VERIFIED CONTEXT artifact (a table: schema | version | url/path | confirmed; env var | target env | confirmed; sibling config | shared resource | confirmed). Unverified context = Builder BLOCK (RED on A_F) at RT-1, Validator BLOCK at RT-2.
-- **Why:** Hallucinating that a schema "probably has a `retries` key" is the top F=0 failure in config work — analogous to hallucinating an API endpoint in code work. Verifying the schema costs minutes; discovering a non-existent key mid-draft costs a full fix-chain. The 4 live reference configs (eradev, plugy, academic-lab, odtoe-articles) all declare their schema in the Notes section — empirical evidence of the BL-C4 discipline.
+- **Why:** Hallucinating that a schema "probably has a `retries` key" is the top F=0 failure in config work — analogous to hallucinating an API endpoint in code work. Verifying the schema costs minutes; discovering a non-existent key mid-draft costs a full fix-chain. Live project configs declare their schema in the Notes section — empirical evidence of the BL-C4 discipline.
 - **Applies to:** Analyst (RT-1 execution), Validator (RT-2 re-verification), Builder (refuse to start without artifact), META (enforce gate).
 
 ### BL budget summary
@@ -524,9 +524,9 @@ The config skin uses the default **uniform** weights (`B_text`). This is the v8-
 | (1-σ) | 0.25 | No two keys conflict; cross-config references agree; key naming consistent with project glossary. |
 | Λ | 0.25 | BL-29 established naming conventions; MEMORY.md of past configs informs key choices. |
 
-**Why `text`, not `research` or `creative`:** No single component dominates config-authoring. Configs are not theorem/proof work (no formal proof chain, so (1-σ)=0.35 research-dominance is unwarranted). Configs are not narrative prose (no voice, no reader arc, so E+σ creative-dominance is misaligned). The uniform profile is empirically the profile the 4 live project configs already compute under — no migration needed.
+**Why `text`, not `research` or `creative`:** No single component dominates config-authoring. Configs are not theorem/proof work (no formal proof chain, so (1-σ)=0.35 research-dominance is unwarranted). Configs are not narrative prose (no voice, no reader arc, so E+σ creative-dominance is misaligned). The uniform profile is empirically the profile typical project configs already compute under — no migration needed.
 
-**v10 future hook (DEFERRED):** `eradev.md` line 144 names `B_config` as a candidate modality with σ-dominant weights, hypothesizing that infrastructure-as-code especially benefits from high (1-σ) because cross-config consistency dominates. **This is a v10+ research direction. v9 does NOT ship `B_config`** — configs use `B_text`. If a project explicitly wants σ-weighted configs (production IaC with strict schema contracts, gRPC multi-language protobuf manifests), they can override per-project via `config.md` `## B-weight Override` section (precedent: `projects/plugy/config.md`). The skin does not override; projects override individually.
+**v10 future hook (DEFERRED):** `eradev.md` line 144 names `B_config` as a candidate modality with σ-dominant weights, hypothesizing that infrastructure-as-code especially benefits from high (1-σ) because cross-config consistency dominates. **This is a v10+ research direction. v9 does NOT ship `B_config`** — configs use `B_text`. If a project explicitly wants σ-weighted configs (production IaC with strict schema contracts, cross-language protobuf manifests), they can override per-project via `config.md` `## B-weight Override` section. The skin does not override; projects override individually.
 
 ---
 
@@ -534,5 +534,5 @@ The config skin uses the default **uniform** weights (`B_text`). This is the v8-
 *Upstream roles: `roles/{role}_EN.md`*
 *Upstream math: `eradev.md` Section II.1 line 117 (B_text weights) + Section II.2 line 152 (v9 OOD scope) + Section II.1 line 144 (`B_config` v10 hook DEFERRED)*
 *Upstream BL: `BOOTSTRAP_LESSONS_universal.md` (22 inherited) + 2 transferred code-adapter + 4 BL-C = 28 total*
-*Live reference configs: `projects/eradev/config.md`, `projects/plugy/config.md`, `projects/academic-lab/config.md`, `projects/odtoe-articles/config.md`*
+*Live reference configs: any `projects/{PROJECT}/config.md` in the project tree*
 *Siblings: `templates/domain_skin.code.md` (text modality, identity skin), `templates/domain_skin.article.md` (research modality, full override), `templates/domain_skin.plan.md` (text modality, parallel sibling), `templates/domain_skin.book.md` (creative modality), `templates/domain_skin.research.md` (research modality)*

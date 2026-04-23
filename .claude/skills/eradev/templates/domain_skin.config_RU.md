@@ -9,7 +9,7 @@
 > Последнее обновление: 2026-04-11
 > Вышестоящие роли: roles/{role}_EN.md
 > Вышестоящая математика: eradev.md Section II.1 (веса B_text) + Section II.2 (v9 OOD-область)
-> Живые эталонные конфиги: projects/eradev/config.md, projects/plugy/config.md, projects/academic-lab/config.md, projects/odtoe-articles/config.md
+> Живые эталонные конфиги: любой `projects/{PROJECT}/config.md` в дереве проектов (проекты предоставляют собственные примеры).
 
 ---
 
@@ -31,9 +31,9 @@ Config-скин выполняет **ЛЁГКУЮ перезапись с ТЯЖ
 
 | # | Абстрактный термин | Значение в config | Где используется (обоснование) |
 |---|---|---|---|
-| 1 | **artifact** | конфиг-файл (`.yaml`, `.toml`, `.json`, `.ini`, `.env`, `.conf`) ИЛИ блок/стanza внутри, ИЛИ пара ключ-значение с контекстом приоритетности, ИЛИ YAML-fenced блок в Markdown | `analyst_EN.md` строка 7; `projects/eradev/config.md` строка 8; `projects/plugy/config.md` строка 17 |
-| 2 | **function** | пара ключ-значение — наименьшая адресуемая единица конфига (`port: 3000`, `debug: true`) | Аналог `builder_EN.md`; `projects/plugy/config.md` строка 19 |
-| 3 | **module / file** | секция или стanza конфига — именованный блок связанных ключей (`domain:` в `projects/*/config.md`, `[server]` в TOML) | `projects/odtoe-articles/config.md` строки 9-34; `projects/eradev/config.md` строки 9-34 |
+| 1 | **artifact** | конфиг-файл (`.yaml`, `.toml`, `.json`, `.ini`, `.env`, `.conf`) ИЛИ блок/стanza внутри, ИЛИ пара ключ-значение с контекстом приоритетности, ИЛИ YAML-fenced блок в Markdown | `analyst_EN.md` строка 7; `projects/{PROJECT}/config.md` часто использует yaml-fence внутри `.md` |
+| 2 | **function** | пара ключ-значение — наименьшая адресуемая единица конфига (`port: 3000`, `debug: true`) | Аналог `builder_EN.md`; канонический вид пары ключ-значение вроде `type: code` внутри `domain:` |
+| 3 | **module / file** | секция или стanza конфига — именованный блок связанных ключей (`domain:` в `projects/{PROJECT}/config.md`, `[server]` в TOML) | `projects/{PROJECT}/config.md` `domain:` стanza |
 | 4 | **API / API endpoint** | определение схемы / интерфейсный контракт — объявленная форма, которой конфиг должен соответствовать (JSON Schema, OpenAPI, protobuf, CRD) | `analyst_EN.md` Обязанности 3; code-adapter BL-22 |
 | 5 | **test / tests pass** | parse + валидация схемы + скан секретов + скан висячих ссылок — все механические проверки возвращают 0 | `validator_EN.md` Key Rules; Секция 4 этого скина |
 | 6 | **verify** | запуск P1 + P2 + P3 + P4 — 4 механические суб-проверки | `analyst_EN.md` строка 24 |
@@ -279,5 +279,5 @@ BL-8 и BL-25 активны через поднятие в словарь/P-п�
 *Вышестоящие роли: `roles/{role}_EN.md`*
 *Вышестоящая математика: `eradev.md` Section II.1 строка 117 (веса B_text) + Section II.2 строка 152 (v9 OOD-область)*
 *Вышестоящие BL: `BOOTSTRAP_LESSONS_universal.md` (22 наследуется) + 2 переданных code-adapter + 4 BL-C = 28 итого*
-*Живые эталоны: `projects/eradev/config.md`, `projects/plugy/config.md`, `projects/academic-lab/config.md`, `projects/odtoe-articles/config.md`*
+*Живые эталоны: любой `projects/{PROJECT}/config.md` в дереве проектов*
 *Родственные скины: `templates/domain_skin.code.md`, `templates/domain_skin.article.md`, `templates/domain_skin.plan.md`, `templates/domain_skin.book.md`, `templates/domain_skin.research.md`*

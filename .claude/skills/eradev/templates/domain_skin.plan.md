@@ -523,7 +523,7 @@ Plan modality uses the default uniform weights. This is the v8-compatible defaul
 
 **v10 future hook (DEFERRED — do NOT implement in v9):** `eradev.md` Section II.1 names `B_plan` as a candidate modality with Λ-dominant weights. The hypothesis is that roadmaps especially benefit from high Λ (prior roadmaps teach the current one more than the other components). After 3+ months of actual plan-domain projects running on v9 with `B_text`, a Hansei can revisit: "were plans weak-link-capped on Λ?" If yes, promote `B_plan` to a registered modality for v10. v9 ships with `B_text` only.
 
-Projects MAY override these weights in their own `config.md` `## B-weight Override` section (see `projects/plugy/config.md` for precedent). The skin does not override; projects override individually if needed.
+Projects MAY override these weights in their own `config.md` `## B-weight Override` section. The skin does not override; projects override individually if needed.
 
 ---
 

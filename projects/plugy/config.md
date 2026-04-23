@@ -30,6 +30,7 @@ domain:
     - name: strictness
       value: strict
   ood_scope: text-discrete
+  languages: [en]            # single-language; no bilingual sync gate fires
   examples:
     - "edit gateway -> local go build -> git push -> VPS autodeploy picks up in <1 min -> monitor"
     - "add Python dep -> update requirements.txt -> git push -> autodeploy installs in venv -> verify"

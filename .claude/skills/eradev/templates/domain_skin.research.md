@@ -291,7 +291,7 @@ Run AFTER Builder completes the derivation_chain and BEFORE Validator starts RT-
 
 ### Example 1: Missing proof step (RC1 / RC2 failure)
 
-- **Input:** "Prove Lemma 4.1: for any ODTOE observer x, if F(x) > 0.7 and E(x) > 0.7, then B(x) > 0.4."
+- **Input:** "Prove Lemma 4.1: for any observer x in the theory under study, if F(x) > 0.7 and E(x) > 0.7, then B(x) > 0.4."
 - **Scenario:** Builder writes Step 1 (F, E assumed), Step 2 (σ=0.3, Λ=0.6 given), Step 4 (B = 0.7·0.7·0.7·0.6 > 0.4). NO Step 3 — Builder jumped from assumption to evaluation without writing the B-formula substitution.
 - **What Validator finds:** During RC1 + RC2, Validator reads the chain and sees Step 4 is NOT attributable to Step 2 alone. The step that formally applies B = F·E·(1-σ)·Λ with the assumed values is missing.
 - **Catching role:** **Validator** (RC1 + RC2 are L2, interpretive).
@@ -311,7 +311,7 @@ Run AFTER Builder completes the derivation_chain and BEFORE Validator starts RT-
 
 ### Example 3: Notation collision (RC6 / Coherencer failure)
 
-- **Input:** "Draft a research notebook with 6 proofs of ODTOE-related lemmas."
+- **Input:** "Draft a research notebook with 6 proofs of lemmas in the target theory."
 - **Scenario:** In §3 (Lemma 3.1, phase dynamics), Builder introduces `α` as "the scaling coefficient for time evolution, α ∈ (0, 1)." In §5 (Lemma 5.1, observer geometry), `α` becomes "the phase angle of the observer's quaternion, α ∈ [0, 2π)." §3 and §5 were drafted in different sessions; the notation table was not updated.
 - **What Coherencer finds:** RC6 grep (`grep -n '\\alpha'`) returns ~40 occurrences; inspection shows two incompatible meanings; the notation table defines only §3's meaning; §5 uses `α` without declaration.
 - **Catching role:** **Coherencer** (RC6 is Coherencer-primary, Validator-secondary) — the canonical Coherencer failure.
@@ -425,7 +425,7 @@ domain:
 
 META loads the article skin for primary files and the research skin for files matching `notebooks/*.tex`. Both are active in the session; agents load the appropriate skin per-file.
 
-A project MAY use ONLY the research skin (`domain.type: research`) if its output is exclusively standalone derivations, OR ONLY the article skin (the ODTOE case) if research-heavy content is packaged as full papers.
+A project MAY use ONLY the research skin (`domain.type: research`) if its output is exclusively standalone derivations, OR ONLY the article skin if research-heavy content is packaged as full papers.
 
 **The two skins do NOT mutually exclude.** Neither replaces the other. Per-task classification is the binding contract between project config and META routing.
 

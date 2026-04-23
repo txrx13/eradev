@@ -21,6 +21,7 @@ domain:
     - name: strictness
       value: strict
   ood_scope: text-discrete
+  languages: [en, ru]        # bilingual EN+RU sync active (BL-19) — mirror pairs enforced
   examples:
     - "edit role file -> update RU mirror -> verify bilingual sync -> git commit"
     - "add BL entry -> update BOOTSTRAP_LESSONS -> tag [UNIVERSAL|CODE-ADAPTER] -> commit"
