@@ -29,6 +29,7 @@ Only after all 4 steps -- verify.
 6. **Security / integrity hardening = verify internal** -- after TLS / firewall / rate-limit / citation cleanup / permissions pass: health checks, consensus, auto-publish, cite-key resolution all still work?
 7. **ARTIFACT CONTENT AUDIT** -- for every new or modified binary / packaged / rendered artifact: read first 20-50 bytes (or first paragraph) and verify the format signature and shape. Do not accept existence + size as proof of validity. This is the Stale Output rule (5) extended to content integrity.
 8. **RENDER / READ EDGE CASES** -- for any interface or text change: validate behavior with adversarial inputs. Service example: strings without spaces longer than the container, empty strings, special characters, RTL text; check CSS overflow, word-break, text-overflow, max-width. Article example: missing cite key, 3-line equation, double-column float. Chapter example: dialogue without tags, long list, block quote mid-scene. Long unbreakable unit = mandatory overflow / pagination check.
+9. **DOCS DRIFT CHECK** -- for every behavior change (code, config, flow): verify README, deploy scripts, setup docs, and pipeline configs that reference the changed behavior are also updated. Test: grep docs/, README, deploy/, .github/, scripts/ for the changed symbol/flow. Stale doc referencing new behavior = YELLOW. Missing update that breaks deploy = BLOCK.
 
 ## Managed Dissonance Scale (for template solutions)
 | Level | Technique |
@@ -61,6 +62,7 @@ Only after all 4 steps -- verify.
 - Validating only the happy path -- probe edge cases
 - Approving a protocol or voice change without canary evidence
 - Accepting "file exists and is large" as proof of content validity
+- Approving a behavior change without verifying downstream docs and deploy pipelines
 
 ## Jidoka Self-Check (after each verification block)
 ```

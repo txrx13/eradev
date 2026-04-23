@@ -180,6 +180,21 @@ MP[N]: "[принцип]"
 
 `I(C) = файлы * связность * фактор_наследия`, `v = alpha/(I(C)+eps)`, `N_teams = ceil(N_modules/3)`.
 
+### Двухколоночная velocity (v10, BL-51)
+
+Multi-agent работа сжимает wall-clock время, но каждый агент всё равно incurs token-cost и RT synchronization overhead. Оценка только в wall-clock days under-accounts agent-усилия; оценка только в agent-hours over-accounts параллелизуемые пути. v10 использует **двухколоночную BD** для любой L/XL задачи с shadow-mode windows, parity-CI или cross-phase interlocks:
+
+| Колонка | Единица | Что измеряет |
+|---------|---------|--------------|
+| **Agent-BD** | agent-effort | Сумма billable agent-hours через parallel spawns; НЕ вычитает parallelism |
+| **Wall-clock-BD** | calendar-effort | Longest critical-path chain через interlock sequence; включает shadow-mode windows, parity windows, operator sign-off delays |
+
+Пример (из PLUGY Hansei 2026-04-20): `Agent-BD: 23 | Wall-clock-BD: 88 (4 месяца)` — параллельные рефакторы помещаются в 3-4 недели agent-work, но calendar deploy занимает 4 месяца из-за 7-дневных shadow-mode windows на каждой фазе.
+
+ROADMAP entries для L/XL задач ОБЯЗАНЫ cite обе колонки. Single-column BD оценка на L/XL = YELLOW на A_E (alignment gap: что видит оператор vs что доставляет команда).
+
+Правило триггерит на task size ≥ L; S/M tasks продолжают использовать single-column inertia I(C).
+
 ---
 
 ## 10. Топология и уровни
@@ -207,6 +222,7 @@ MP[N]: "[принцип]"
 | Промпт > 150 строк | Перегрузка | Сжать, обобщить, дедуплицировать |
 | Одно и то же исправление повторяется | Правило не работает | Переформулировать или эскалировать |
 | Revert/rollback | Критический сбой | Запись в чек-лист безопасности |
+| Service active + 0 events в window | Эффективно-ноль (EMP5) | Добавить event-rate floor; см. eradev.md §XI Liveness Prerequisite |
 
 Тренд: линейный рост = факты. Замедление = обобщение. Сжатие = высокая абстракция.
 
@@ -221,17 +237,23 @@ MP[N]: "[принцип]"
 
 ---
 
-## 13. Обеспечение Lambda
+## 13. Усиление соблюдения (Lambda Enforcement)
 
 **Знание без обеспечения = знание без эффекта.**
 
-Каждое правило должно существовать в 3 формах:
-1. Описание в .md (документация)
-2. Чек-лист в промпте агента (осведомлённость)
-3. Автоматическая проверка: хук / CI / линтер (обеспечение)
+Каждое правило должно существовать на максимально возможном уровне enforcement (BL-33):
+- **T1.** Type-level / schema-level / compile-time — баг становится непостроимым (напр., newtype с приватным конструктором, отклоняющим пустой вход; sum-type без варианта `EmptyContent`).
+- **T2.** Автоматическая проверка: hook / CI / lint / pre-commit / pre-merge gate — баг отклоняется на machine boundary.
+- **T3.** Чек-лист в agent prompt — awareness, review-level отлов.
+- **T4.** Только .md документация — operator vigilance.
 
-Правило только в документации = Lambda ноль. Чек-листы срабатывают перед:
-переключением feature flag, изменением на уровне протокола, git push.
+Правило только T4 = Lambda zero для повторяющихся классов (BL-16 рекурсивный). Путь upgrade:
+«Можно ли сделать type? Если нет → можно ли hook? Если нет → можно ли checklist?»
+Каждый новый BL обязан декларировать свою строку `Tier:`. Баги, повторяющиеся 2+ раз под правилом T3/T4, флагируются для tier-upgrade review.
+
+T2 checklist triggers: feature flag toggle, protocol-level change, git push, новый `BL-N` heading в BOOTSTRAP_LESSONS.md, operator message, матчащий rework-framing regex (BL-35).
+
+**Adversarial bootstrap testing (ранее BL-20):** bootstrap-промпты — это META-design артефакты, не operating rules. Применяй MM3 (состязательный самообзор) к каждой правке bootstrap — до деплоя дай bootstrap агенту с конкретной задачей и проверь, что он следует протоколу.
 
 ---
 
@@ -253,7 +275,18 @@ MP[N]: "[принцип]"
        Источник: projects/{PROJECT}/config.md блок `domain:`. Отсутствие блока → по умолчанию type=code, B_modality=text, ood_scope=text-discrete.
        Если domain.skin задан: загружен templates/domain_skin.{type}.md вместе с файлами ролей.
 [ ] 6. RT-1 PLANNED: Для задач M+ я запущу 5 вызовов агентов (V/A/B/Val/C) ДО реализации.
+[ ] 6b. COMPOSITION HAZARDS: Если задача шипит ≥2 независимых рефакторов в одном релиз-окне,
+       Visionary ОБЯЗАН создать reports/composition-hazards-<date>.md ДО завершения RT-1.
+       Pair grid: N·(N-1)/2 пар + 3-way combinations. Каждая запись: impact / precondition /
+       mitigation / sequencing. Missing grid на плане ≥2 рефакторов = RED на A_F для Visionary. (BL-34)
 [ ] 7. INVARIANT CHECK: Собираюсь ли я пропустить RT-1 и перейти к коду? Если да → СТОП → перечитать шаги 1-6 → спланировать RT-1.
+[ ] 7b. REWORK-FRAMING: Сканировать сообщения оператора в этой сессии на regex rework-framing
+       («менять архитектуру» | «полностью менять» | «full rework» | «from scratch» |
+        «architecture is wrong» | «completely change» | «архитектурная проблема»).
+       Если совпадение найдено И существует активный рефакторинг:
+       spawn Validator FIRST для risk matrix, produce reports/hansei-architectural-rework-<date>.md
+       с interlocked sequence + operator decision matrix (OD-1..OD-N),
+       block Builder spawn до operator sign-off. (BL-35)
 [ ] 8. PRE-FLIGHT: Если задача использует внешние API, Аналитик верифицирует все endpoint-ы перед RT-1 (BL-22).
 [ ] 9. LAMBDA AUDIT: Когерент читает и озвучивает 3 релевантных урока + 2 мега-паттерна (BL-4).
 [ ] 10. FIX RATE: После каждых 10 коммитов подсчитать fix rate. >50% = СТОП для рефлексии.

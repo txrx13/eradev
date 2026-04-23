@@ -515,6 +515,22 @@ n_min = ceil(pi) + 1 = 5. Три образуют каркас цикла (O, Ps
 
 Координатор синтезирует в Единый План.
 
+### RT-1 Composition Hazards Gate (v10 расширение, BL-34)
+
+(Канонический термин глоссария: **«cross-phase coupling risk»** — см. glossary.md #47. «Composition hazard» — проектно-локальный alias; оба относятся к одной сущности.)
+
+Когда план задачи перечисляет ≥2 независимых рефакторов в одном релиз-окне, Визионер ОБЯЗАН создать composition-hazards grid ДО того как Когерент синтезирует Unified Plan. Формат grid:
+
+| Пара/Тройка | Impact | Предусловие | Mitigation | Sequencing constraint |
+|-------------|--------|-------------|------------|-----------------------|
+| R_i × R_j   | HIGH/MED/LOW + что ломается | нужное состояние/конфиг/данные | конкретное действие | R_i перед R_j? parallel ok после X? |
+
+Минимум пар: N·(N-1)/2. Для N ≥ 3: добавить все 3-way combinations.
+Output: `reports/composition-hazards-<date>.md` (шаблон: `templates/composition_hazards.template.md`).
+Когерент REJECTS RT-1 synthesis без этого артефакта.
+
+PLUGY Hansei 2026-04-20 документировал 6 парных hazards (H1-H6) для 10 предложенных рефакторов, которые collapsed в 3 production incidents, если бы отгружались parallel menu.
+
 ### RT-2: СЕРЕДИНА (коррекция курса)
 После первой фазы сборки. Те же 5 ролей проверяют:
 "Мы все ещё на курсе? Что-то отклонилось?"
@@ -679,6 +695,21 @@ L10 расширяет предикат релевантности уроков 
   3. Строитель: "Какие ПРЕПЯТСТВИЯ? Что технически сложно?"
   4. Валидатор: "Как ПРОВЕРИТЬ, что шаг сработал?"
   5. Когерент: "Что УЖЕ было? Какие уроки применимы?"
+
+### Liveness Prerequisite (v10, BL-47 promoted)
+
+Для любого проекта, где operations вовлекает live traffic, очереди, async deliveries или orchestration между ≥2 services: liveness infrastructure — ПРЕДУСЛОВИЕ для любого architectural pivot, НЕ trailing phase. Required tiers ДО того как рефактор proceeds в production:
+
+(a) **External liveness probe** — host B проверяет host A каждые ≤60s, независимо от A's self-report.
+(b) **Host resource exporter** — CPU / memory / disk / load scrape централизованно с alert thresholds.
+(c) **Service-specific fault counter** — auth failures, vendor errors, log-volume anomaly, zero-event silence.
+(d) **Silent-protector detector** — каждая пара protector-target имеет explicit event-rate floor И anomaly rule (`systemd active + zero events = effectively-zero`, см. meta.md §11).
+
+Правило: `systemd active (running)` — это LIVENESS signal, НЕ FUNCTIONALITY signal. Service с protective purpose + zero events в observation window = effectively zero, независимо от `systemctl is-active` reporting `active`. Pivot, который replaces protected service, ОБЯЗАН re-audit downstream protection layers (BL-48 pattern).
+
+Enforcement: Валидатор RT-1 artifact — `reports/liveness-readiness-<date>.md` per affected host, перечисляющий (probe target → probe source → event-rate floor → alert threshold). Missing artifact блокирует Builder spawn на любом orchestration-impacting рефактор.
+
+PLUGY 2026-04-19 precedent: sipguard systemd active, protection-effective `zero` ~36h, т.к. target log path не существовал → 11h runaway CPU state undetected until operator call.
 
 ---
 
