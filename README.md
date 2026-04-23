@@ -2,16 +2,24 @@
 
 ## Что такое EraDev
 
-EraDev -- фреймворк мультиагентной разработки, основанный на теории ODTOE (Observer-Dependent Theory of Everything) и принципах Toyota Production System. META-Orchestrator (Level 9) координирует пять специализированных ролей (Визионер, Аналитик, Строитель, Валидатор, Когерент) через протокол Round Table, обеспечивая коллективную когерентность выше индивидуальной.
+EraDev -- фреймворк мультиагентной разработки текстово-дискретных артефактов (код, научные статьи, книги, планы, исследования, конфигурации), синтезирующий **12 теоретических оснований**:
 
-Качество каждого агента измеряется формулой B = F * E * (1-sigma) * Lambda, где обнуление любого компонента обнуляет весь результат.
+- **Ядро**: ODTOE (Observer-Dependent Theory of Everything, автор -- A. Pankratov) даёт математику когерентности (B, S_team, P_coll, Ω); Toyota Production System -- операционную дисциплину (Jidoka, Andon, Hansei, Yokoten, A3, Kaizen, Coaching Kata); Theory of Constraints (Goldratt) -- протоколы поиска узкого места; TRIZ + IFR (Altshuller) -- формулировку задач через разрешение противоречий.
+- **Математический субстрат**: теорема KAM (Kolmogorov-Arnold-Moser) обосновывает `R/r = φ` как самую стабильную тороидальную орбиту; теорема Hurwitz -- инвариант `n_min = ⌈π⌉+1 = 5`; strange loop (Hofstadter) -- самомодификацию на L9 через `Ψ* = Φ(Ψ*)`.
+- **Мультиагентные источники**: MetaGPT и Google PaperOrchestra (5-ролевое разложение -- независимо сошлись на том же аттракторе); AutoAgent (EMP7 "оптимизация без ориентации = восхождение в тумане"); MemPalace (иерархия памяти Wings/Rooms/Closets/Drawers -> T1/T2/T3); ECC (фоновое извлечение инстинктов через CronCreate); LangGraph (декларативная схема RT, в v10 только схема, движок отложен на v11).
+
+META-Orchestrator (Level 9) координирует пять специализированных ролей (Визионер, Аналитик, Строитель, Валидатор, Когерент) через протокол Round Table. Universality Gate (v10) механически обеспечивает разделение: фреймворк остаётся универсальным, проектные специфики живут в `projects/{PROJECT}/`.
+
+Качество каждого агента измеряется формулой `B = F · E · (1-σ) · Λ` -- зануление любого компонента зануляет результат (мультипликативный Weak Link Principle).
+
+Полная генеалогия источников, именных вкладов и методологических заимствований -- в [FOUNDATIONS.md](./FOUNDATIONS.md).
 
 **Ключевые свойства v10:**
 
 - **3-layer runtime enforcement** -- CLAUDE.md (авто-загрузка) + PreToolUse hook (блокирует Edit/Write из главной сессии) + memory persistence (идентичность сохраняется между сессиями)
 - **4-layer file architecture (v9)** -- L0 IMMUTABLE (ODTOE core) / L1 Universal roles / L2 Domain skins / L3 Project instances
 - **6 output types** -- META производит только: Agent calls, Decisions, Synthesis, Lessons, Reports, Check Agent. Всё остальное = нарушение.
-- **14 invariants** -- с тегами [UNIVERSAL] / [CODE-ADAPTER] для адаптации под не-кодовые домены.
+- **16 invariants** -- с тегами [UNIVERSAL] / [CODE-ADAPTER] для адаптации под не-кодовые домены.
 - **6-step loading sequence** -- eradev.md, meta.md, BOOTSTRAP_LESSONS.md, config.md, lessons.md + условный шаг 6 (domain skin).
 - **13-item session bootstrap** -- включая 5b DOMAIN (выбор модальной B-формулы).
 - **Domain skins (v9)** -- 6 типов доменов: code, article, book, config, plan, research. Каждый со своей B-модальностью и методом верификации.
@@ -28,7 +36,7 @@ EraDev -- фреймворк мультиагентной разработки, 
 eradev/
 ├── README.md                       # Этот файл -- входная точка (RU)
 ├── README_EN.md                    # Входная точка (EN)
-├── CLAUDE.md                       # Auto-Bootstrap для Claude Code (14 invariants, 6-step loading)
+├── CLAUDE.md                       # Auto-Bootstrap для Claude Code (16 invariants, 6-step loading)
 ├── LOADING_PROTOCOL.md             # Порядок загрузки файлов агентом
 ├── BOOTSTRAP_LESSONS.md            # 30 уроков холодного старта (BL-1..BL-32)
 ├── eradev.md                       # Конституция (EN): ODTOE, TPS, Round Table, формулы
@@ -104,7 +112,7 @@ LOAD (6 steps):
 4. projects/{PROJECT}/config.md  5. projects/{PROJECT}/lessons.md
 6. IF domain.skin set: eradev/templates/domain_skin.{type}.md
 
-RULES: S-tasks = Builder+Validator. M+ = 5-role RT-1. 14 invariants ([UNIVERSAL]/[CODE-ADAPTER]).
+RULES: S-tasks = Builder+Validator. M+ = 5-role RT-1. 16 invariants ([UNIVERSAL]/[CODE-ADAPTER]).
        Bash: operational direct, diagnostic delegate. Session bootstrap: 13 items (incl. 5b DOMAIN).
 KILL-TEST: first action = agent call.
 
@@ -173,7 +181,7 @@ True North -- это не цель, а направление. Сформули�
 | `roles/builder.md` | Промпт Строителя: реализация, Security Checklist, паттерны |
 | `roles/validator.md` | Промпт Валидатора: проверка, обратная связь, шкала диссонанса |
 | `roles/coherent.md` | Промпт Когерента: синхронизация, L1/L2/L3, Kill-Switch |
-| `CLAUDE.md` | Auto-Bootstrap: 14 invariants, 6-step loading, Domain Awareness, KILL-TEST |
+| `CLAUDE.md` | Auto-Bootstrap: 16 invariants, 6-step loading, Domain Awareness, KILL-TEST |
 | `BOOTSTRAP_LESSONS.md` | 30 уроков холодного старта (BL-1..BL-32) |
 | `glossary.md` | Единый глоссарий терминов ODTOE -> EraDev |
 | `LOADING_PROTOCOL.md` | Agent Loading Protocol: порядок загрузки файлов |

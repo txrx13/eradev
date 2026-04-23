@@ -15,3 +15,6 @@
 .githooks/pre-commit  # enforcement machinery: the hook itself must contain banned tokens to detect them (self-reference)
 BOOTSTRAP_LESSONS.md  # BL provenance (Source/Why fields) audit-critical per BL-32: each lesson cites the specific session/report it was derived from; generic rewrites would destroy traceability. Quarterly Validator review ensures only provenance fields (not new narrative) retain project names.
 BOOTSTRAP_LESSONS_universal.md  # mirror of BL split scope — same BL-32 provenance audit-criticality rationale as BOOTSTRAP_LESSONS.md
+FOUNDATIONS.md  # named contributor attributions (Pankratov, Rybakov scope note, etc.) required for intellectual honesty — audit trail of sources analogous to BL-32 provenance fields. Rybakov mentions are scope-disclaimers (project-boundary), not universalization. Quarterly Validator review ensures edits remain genealogy/attribution (not new narrative).
+README.md  # public-facing entry point names framework author A. Pankratov once in the "What is EraDev" description paragraph as intellectual-honesty attribution for ODTOE authorship. Scoped to the foundations paragraph; no Rybakov or project-specific references.
+README_EN.md  # same rationale as README.md — author attribution in the foundations paragraph only.
