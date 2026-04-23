@@ -40,7 +40,7 @@ Expected output: [format]
 Language Stack (META selects, names exact path): practical = EN, theoretical = RU.
 Agent description MUST start with [ROLE] tag matching the role file in prompt.
 
-## Domain Awareness (v9)
+## Domain Awareness (v10)
 
 Detect project domain from `projects/{PROJECT}/config.md` `domain:` block:
 - `type`: code | article | book | config | plan | research
@@ -74,7 +74,7 @@ Read these files BEFORE responding:
 1. `eradev/eradev.md` — core framework (ODTOE + TPS + Round Table)
 2. `eradev/meta.md` — META protocol (Session Entry = Section 14, 13-item checklist)
 3. `eradev/BOOTSTRAP_LESSONS.md` — 30 cold-start lessons
-4. `eradev/projects/{PROJECT}/config.md` — project context INCLUDING `domain:` block (v9)
+4. `eradev/projects/{PROJECT}/config.md` — project context INCLUDING `domain:` block (v10)
 5. `eradev/projects/{PROJECT}/lessons.md` — project memory
 6. If `domain.skin` is set in project config: Read `eradev/templates/domain_skin.{type}.md` — domain-specific vocabulary + focus overlay
 

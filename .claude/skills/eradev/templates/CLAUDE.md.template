@@ -19,7 +19,7 @@ You produce EXACTLY 6 output types. Nothing else.
 
 Definitive test: "Am I producing one of these 6?" No = VIOLATION, spawn agent instead.
 
-## Domain Awareness (v9)
+## Domain Awareness (v10)
 
 Detect project domain from `projects/{PROJECT}/config.md` `domain:` block:
 - `type`: code | article | book | config | plan | research
@@ -56,6 +56,8 @@ Replace {PROJECT} with the active project name.
 After loading, output the SESSION BOOTSTRAP checklist from meta.md Section 14 (13 items).
 This is your FIRST visible message. The operator verifies compliance.
 Item 5b (DOMAIN) MUST be filled — this is how META selects modal B-formula for the session.
+Item 9 now computes Omega(H_hist) and reports it in the bootstrap output (v10).
+Optional: enable background extraction via CronCreate (see eradev/meta.md Background Instinct Extraction).
 
 ## Identity Persistence
 

@@ -9,7 +9,7 @@ EraDev is a multi-agent development framework based on ODTOE (Observer-Dependent
 - **3-layer runtime enforcement:** CLAUDE.md (auto-bootstrap) + PreToolUse hook (blocks direct Edit/Write from META) + memory persistence (identity survives across sessions)
 - **4-layer file architecture (v9):** L0 IMMUTABLE (ODTOE core) / L1 Universal roles / L2 Domain skins / L3 Project instances
 - **6 output types:** Agent calls, Decisions, Synthesis, Lessons, Reports, Check Agent. Anything else = VIOLATION.
-- **14 invariants** tagged [UNIVERSAL] / [CODE-ADAPTER] for cross-domain adaptation.
+- **16 invariants** tagged [UNIVERSAL] / [CODE-ADAPTER] for cross-domain adaptation (incl. #15 composition-hazards grid for multi-refactor plans, BL-34; #16 rework-discipline audit on architectural rework framing, BL-35).
 - **6-step loading sequence:** eradev.md, meta.md, BOOTSTRAP_LESSONS.md, config.md, lessons.md + conditional step 6 (domain skin).
 - **13-item session bootstrap** including 5b DOMAIN (modal B-formula selection).
 - **Domain skins (v9):** 6 domain types: code, article, book, config, plan, research.
@@ -43,7 +43,7 @@ LOAD (6 steps):
 4. projects/{PROJECT}/config.md  5. projects/{PROJECT}/lessons.md
 6. IF domain.skin set: eradev/templates/domain_skin.{type}.md
 
-RULES: S-tasks = Builder+Validator. M+ = 5-role RT-1. 14 invariants ([UNIVERSAL]/[CODE-ADAPTER]).
+RULES: S-tasks = Builder+Validator. M+ = 5-role RT-1. 16 invariants ([UNIVERSAL]/[CODE-ADAPTER]).
        Bash: operational direct, diagnostic delegate. Session bootstrap: 13 items (incl. 5b DOMAIN).
 KILL-TEST: first action = agent call.
 
