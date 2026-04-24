@@ -344,7 +344,7 @@ Between RT-1 close and Builder spawn, Coherencer runs μ-check (mu-check) as a p
 - All sections in `reports/unified-plan-{TASK_ID}-{DATE}.md` populated (template at `templates/unified_plan.md.template`)?
 - Cross-Layer Contracts table present for multi-layer tasks (or N/A with justification)?
 - User Flow section present for UI / consumer-facing tasks (or N/A with justification)?
-- Every role's output reaches `B_received ≥ B_min` — sufficiency threshold, not equality (per paper §II.7 F7)?
+- Every role's output reaches `B_received ≥ B_min` — sufficiency threshold, not equality (per paper §II.7 F7)? For strict / structured RIGOR_LEVEL, validate sufficiency via the **blind continuation test** (see `eradev.md` §III.2.5): receiver attempts ONE concrete next step without re-asking — advances coherently = PASS; must re-ask / reformulate = FAIL.
 - Every AC maps to ≥1 artifact in Agent Assignments? Every FM has a mitigation in the plan?
 - No dangling references between plan sections (every mentioned artifact / BL / lesson resolves)?
 

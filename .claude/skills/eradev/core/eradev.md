@@ -102,6 +102,8 @@ Weights: w1 + w2 + w3 + w4 = 1, all w_i in (0,1).
 
 **THE WEAK LINK PRINCIPLE**: Structure is multiplicative -- if ANY component = 0, ALL coherence = 0. You cannot compensate zero focus with vast experience.
 
+**σ-operator formalization (paper v2 §IV.5).** Paper v2 §IV.5 formalizes **six cognitive distortions as σ-operators** acting on `frame_H`: `σ_anchor` (anchoring), `σ_conf` (confirmation bias), `σ_ext` (external-attribution bias), plus three additional operators (groupthink, halo, survivorship). These are structural, not defects — they appear automatically at `B > 0` and are to be coordinated, not eliminated. Each σ-operator acts on the σ component of B; zeroing any σ collapses coherence per WLP (multiplicative structure). See paper §IV.5 for the full operator list and per-distortion case mapping.
+
 **Two absorbing states** (agent death):
 - B -> 0: nihilistic collapse (loss of meaning, burnout).
 - B -> 1: dogmatic collapse (frozen beliefs, inability to learn).
@@ -450,7 +452,9 @@ B_received ≥ B_min                                                (F7)
 
 replaces the classical equality requirement `B_received = B_intended`. `B_min` is the **sufficiency threshold** — the minimum `B_received` such that the receiver can continue the task without additional clarification from the sender. F7 reinstates "accept ΔÔ ≠ 0" as a working strategy for chronically-irreducible observer asymmetry.
 
-**Paper's empirical calibration.** Pankratov 2026 §VIII.6 cites `B_min / B_intended ≈ 0.70–0.85` from the author's 36-case corpus (paper reference [21], trust level T4 pending preprint publication per RV-04). No per-modality breakdown given. The paper's operational definition: `B_min` is the minimum B_received such that the receiver can execute a **blind continuation** of the task — advance one concrete next step without re-asking the sender.
+**Paper's empirical calibration.** Pankratov 2026 §VIII.6 cites `B_min / B_intended ≈ 0.70–0.85` from the author's **20 case vignettes (paper v2 Appendix C** — 14 distortion-agreement cases + 6 counter-argument cases; paper reference [21], trust level T4 pending preprint publication per RV-04). No per-modality breakdown given. The paper's operational definition: `B_min` is the minimum B_received such that the receiver can execute a **blind continuation** of the task — advance one concrete next step without re-asking the sender.
+
+**Operational B_min test (blind continuation test, paper v2 §VIII.6).** Concretely testable rule for sufficiency: the receiver attempts ONE concrete next step on the task WITHOUT re-asking the sender. If the step advances coherently → `B_received ≥ B_min` (PASS, accept the handoff). If the receiver must re-ask / reformulate / stall → `B_received < B_min` (FAIL, below threshold). This converts F7 from "pick a number 0.70–0.85" into a pass/fail act: the TEST is the execution. Validator uses this as the μ-check F7 scoring rule under strict / structured RIGOR_LEVEL (see `meta.md` §μ-check).
 
 **Per-modality B_min calibration — DEFERRED to v11 (OQ-PT-3).** Intuitively, code (B_text) tolerates lower B_min than research (B_research) because code has objective verification (compile/test) catching residual ΔÔ, while research lacks such fast ground truth. Tentative starting values, NOT yet calibrated: B_min(B_text) ≈ 0.70, B_min(B_creative) ≈ 0.75, B_min(B_research) ≈ 0.85. v10 ships the formula and reporting convention; numeric calibration waits on v11 cross-project RT-3 data.
 
@@ -482,7 +486,7 @@ Let `N_carriers(t) ∈ ℕ` denote the count of agents for whom `B_persist(C, t)
 
 Interpretation: system growth proceeds NOT toward minimizing distortion (`σ → 0`), but toward (a) increasing the count of coherent carriers AND (b) coordinating their distortions so `B_persist · N_carriers` keeps rising. Distortion coordination ≠ distortion elimination. The Weak Link Principle (Section II) still applies: `0 < B < 1` is the living condition for EACH agent; F11 adds the collective-dynamics statement that the configuration as a whole grows by expanding into new carriers, not by purifying existing ones.
 
-**Notation note (from paper §X.4).** The symbol `∇` in F11 is a **directional label** for the growth-direction vector in the parameter space `(N_carriers, Λ_role)` — NOT a formal gradient operator of a scalar potential. The scalar potential `S_direction` is not defined as a standalone function; F11 specifies a tangent-vector constraint on the derivative of the product `B_persist · N_carriers`. Full formalization as a gradient of a true scalar potential is an open question in the source paper.
+**Notation note (from paper §X.4, clarified in v2).** The symbol `∇` in F11 is a **directional marker** (a directional label indicating WHICH axis grows next in the parameter space `(N_carriers, Λ_role)`) — NOT a scalar-potential gradient (не scalar-potential gradient). No standalone scalar function `S_direction` is defined; F11 is a tangent-vector constraint on the derivative of the product `B_persist · N_carriers`. Full formalization as a gradient of a true scalar potential remains an open question (paper v2 §X.4, RV-04).
 
 **Connection to Weak Link Principle.** Section II states two absorbing states (`B → 0` nihilistic, `B → 1` dogmatic) and the living condition `0 < B < 1`. F11 reinforces this from the COLLECTIVE side: pushing Λ_role → 0 (all agents identical) kills parallel trajectories (F1 OR-aggregation collapses); pushing σ → 0 across the whole configuration makes distortions uniform and destroys the cross-checking that F4's frame-projector depends on. Healthy growth = more carriers + coordinated (not eliminated) distortion gradient.
 
@@ -502,6 +506,8 @@ Conditional Rigor / Bundle D (RIGOR_LEVEL axis + FLUX protocol):
 - **OQ-CR-5:** Bundle D creativity-protection A/B test vs strict BIM — run same book-chapter / article-introduction work twice (once under FLUX, once under Bundle B unchanged); compare B_received, τ_cycle, operator-rated voice quality. DEFERRED v11.
 
 > Bundled source reference: Pankratov 2026 §§II.0, IV.2, IV.3, V.2, VI.1, VI.2, VI.3, VI.5, VI.6, VII.4, VIII.5, VIII.6, IX.7, X.4, X.5. Provenance + 13-citation attribution: `FOUNDATIONS.md` Part I (foundation #13 NFL) + Part II bibliography additions + Part V FLUX protocol attribution (Bundle D).
+>
+> **Derivation-status scorecard (paper v2 Appendix A).** Paper v2 **Appendix A** provides a per-formula derivation-status scorecard tagging each F1–F11 with one of {Derived / Definition / Extension / Operational form / Heuristic / Hypothesis / Threshold / Composition} plus calibration-parameter source. F3 / F4 / F6 / F7 / F10 / F11 statuses are documented there (paper v2, Apr 24 rev, 32 pages). When EraDev cites a formula, the paper's Appendix A tag sets the appropriate epistemic weight — e.g., F5 is tagged Heuristic pending P1, F11 carries a directional-marker caveat (not Derived-as-gradient).
 
 ---
 

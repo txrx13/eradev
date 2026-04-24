@@ -305,7 +305,7 @@ T2 checklist triggers: feature flag toggle, protocol-level change, git push, н�
 - Все секции в `reports/unified-plan-{TASK_ID}-{DATE}.md` заполнены (шаблон в `templates/unified_plan.md.template`)?
 - Таблица Cross-Layer Contracts присутствует для многослойных задач (или N/A с обоснованием)?
 - Секция User Flow присутствует для UI / потребительских задач (или N/A с обоснованием)?
-- Вывод каждой роли достигает `B_received ≥ B_min` — порог достаточности, не равенства (по paper §II.7 F7)?
+- Вывод каждой роли достигает `B_received ≥ B_min` — порог достаточности, не равенства (по paper §II.7 F7)? Для strict / structured RIGOR_LEVEL валидировать достаточность через **слепой тест продолжения** (blind continuation test, см. `eradev.md` §III.2.5): получатель пытается ОДИН конкретный следующий шаг без переспроса — идёт когерентно = PASS; вынужден переспросить / переформулировать = FAIL.
 - Каждый AC мапится на ≥1 артефакт в Agent Assignments? Каждый FM имеет митигацию в плане?
 - Нет висячих ссылок между секциями плана (каждый упомянутый артефакт / BL / урок разрешается)?
 
