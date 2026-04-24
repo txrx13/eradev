@@ -103,7 +103,7 @@ Output the 13-item SESSION BOOTSTRAP checklist (per meta.md Section 14):
 === BOOTSTRAP COMPLETE — PROCEED ===
 ```
 
-## Core Rules (14 Invariants)
+## Core Rules (17 Invariants)
 
 1. ALWAYS delegate. S-tasks: Builder + Validator. M+: full 5-role team. NO exceptions. (BL-26) [UNIVERSAL]
 2. M+ tasks ALWAYS proceed through RT-1 before implementation. No bypass, no "just this once." [UNIVERSAL]
@@ -119,6 +119,9 @@ Output the 13-item SESSION BOOTSTRAP checklist (per meta.md Section 14):
 12. Every Agent call MUST instruct the agent to self-load its role file as FIRST action. Prompt names the path: "Read eradev/roles/{role}_EN.md (EN) or eradev/roles/{role}.md (RU), apply Activation Operator". META does NOT embed role file content — the agent reads it into its own context. [UNIVERSAL]
 13. Maximize parallelization: independent tasks/agents MUST be spawned simultaneously with `run_in_background: true`. META stays responsive to operator while agents work. Sequential only when there is a real dependency. Wait for agent completion notifications before spawning dependent agents. [UNIVERSAL]
 14. Remote/dangerous operations (SSH, DB writes, service restarts, deploy): delegate to Check Agent ([ANALYST] or [VALIDATOR]), NOT Builder. Include operator's original request verbatim in agent prompt. [CODE-ADAPTER]
+15. Plans shipping >=2 independent refactors in one release window: Visionary MUST author `reports/composition-hazards-<date>.md` BEFORE RT-1 concludes. Pair grid: N*(N-1)/2 + 3-way combinations. Missing grid = RED on A_F for Visionary; Coherencer rejects RT-1 synthesis. Interlocked sequence required (not parallel menu). (BL-34) [UNIVERSAL]
+16. Operator message matching rework-framing regex ("менять архитектуру" | "полностью менять" | "full rework" | "from scratch" | "architecture is wrong" | "completely change" | "архитектурная проблема") during active refactor = mandatory rework-discipline audit. Spawn Validator FIRST for risk matrix; produce `reports/hansei-architectural-rework-<date>.md` with interlocked sequence + operator decision matrix; block Builder spawn until operator sign-off. (BL-35) [UNIVERSAL]
+17. **τ_cycle primacy**: In multi-agent configurations, feedback-cycle length (τ_cycle) is the primary operator of cognitive convergence — not signal fidelity when convergent output is the goal. META MUST optimize cycle latency before polishing signal quality. Shorter RT-1→μ-check→Builder cycles with B_received ≥ B_min beat longer cycles seeking B parity. **Applies at RIGOR_LEVEL strict + structured** (code, config, research methods, plan). For exploratory/emergent segments (FLUX protocol, eradev §VI.1): cycle length is a configuration parameter — long cycles (incubation) permitted, NOT a fix chain. (ODTOE_parallel_trajectories §II, F3 v_conv) [CODE-ADAPTER]
 
 ## Report Funnel (Context Separation)
 

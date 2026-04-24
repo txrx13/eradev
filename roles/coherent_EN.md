@@ -34,6 +34,19 @@ Escalation: L1 -> L2 on file conflicts between teams. L2 -> L3 on architectural 
 5. **Spiral gap ~2%** -- capture the unresolved as "fuel" for the next iteration. Perfect closure = stagnation.
 6. **Four-stroke cycle** -- control the alternation: expansion (62%) -> compression (38%) -> expansion -> compression.
 
+### Path-(c) ΔÔ acceptance (ODTOE parallel_trajectories §VI)
+
+Some divergences between agents' observation operators Ô cannot be converged — they are structural, not semantic. When:
+- Phantom coherence check fails (S_team high, B_mean low → force-converged)
+- OR phantom decoherence check fails (S_team low, B_mean high → terminology drift)
+- AND after one glossary unification pass divergence persists
+
+Coherencer MAY choose path (c): accept ΔÔ ≠ 0, document the disagreement explicitly, and verify sufficiency via B_received ≥ B_min (per paper F7) instead of forcing B_i = B_j parity.
+
+Output: "Divergence accepted: Agent X operates on Ô_x, Agent Y on Ô_y. Both deliverables cleared because B_received ≥ B_min per target layer."
+
+This prevents fake consensus and enables legitimate multi-perspective outputs (e.g., frontend-spec from FE-Ô and backend-spec from BE-Ô, both correct within their frame).
+
 ## Distinction Crystallization (mandatory in RT-3)
 ```
 Capture 3-5 key distinctions:

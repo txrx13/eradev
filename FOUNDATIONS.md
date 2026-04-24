@@ -11,19 +11,20 @@
 
 ## Overview
 
-EraDev synthesizes **12 theoretical foundations**, **10+ multi-agent framework
-inspirations**, **9 named contributors**, **6 mathematical constants**, **15 core
-formulas (including 3 modal B-variants and the Ω multiplier)**, **51 glossary terms**,
-**30 Bootstrap Lessons**, **16 META invariants**, **6 output types**, **15 empirical
-mega-patterns**, **45 project lessons**, and **3 levels of recursive self-application
-(L3/L6/L9 + emerging L10/L11/L12)** into a coherent multi-agent orchestration system.
+EraDev synthesizes **13 theoretical foundations**, **10+ multi-agent framework
+inspirations**, **9 named contributors**, **6 mathematical constants**, **21 core
+formulas (including 3 modal B-variants, the Ω multiplier, and the 6 v10 Parallel-Trajectories
+formulas F3/F4/F6/F7/F10/F11)**, **51 glossary terms**, **30 Bootstrap Lessons**, **16 META
+invariants**, **6 output types**, **15 empirical mega-patterns**, **45 project lessons**,
+and **3 levels of recursive self-application (L3/L6/L9 + emerging L10/L11/L12)** into a
+coherent multi-agent orchestration system.
 
-The public one-liner "ODTOE + TPS" captures only 2 of these 12 foundations. This
+The public one-liner "ODTOE + TPS" captures only 2 of these 13 foundations. This
 document enumerates all of them with file citations.
 
 ---
 
-## Part I — Theoretical Foundations (12)
+## Part I — Theoretical Foundations (13)
 
 ### 1. ODTOE (Observer-Dependent Theory of Everything)
 **Source:** Pankratov theoretical corpus (160+ articles, separate research program).
@@ -85,6 +86,11 @@ document enumerates all of them with file citations.
 **Where:** `templates/rt_graph.schema.md` (v10 prototype); `reports/multi_agent_frameworks_comparison_2026-04-11.md`.
 **Provides:** Declarative `StateGraph` schema for RT; observability; replay. **Schema only in v10**; engine deferred to v11.
 
+### 13. No Free Lunch theorems (Wolpert & Macready 1997)
+**Source:** Wolpert, D.H., Macready, W.G. "No Free Lunch Theorems for Optimization" // *IEEE Transactions on Evolutionary Computation*, 1997, Vol. 1, No. 1, pp. 67-82. DOI: 10.1109/4235.585893.
+**Where:** `eradev.md` §III.2 (Parallel Trajectories subsection) as theoretical anchor for the method-vs-configuration distinction; `FOUNDATIONS.md` Part II reference list (entry 33 below); cross-reference from `templates/domain_skin.md.template` extensibility rationale.
+**Provides:** Theoretical anchor for EraDev's domain-skin architecture and its method-vs-configuration distinction (Pankratov 2026 §VII). NFL states that no optimizer dominates all problem classes; by analogy, no `(method, configuration)` pair dominates all task classes. This grounds EraDev's choice to ship 6 canonical `verify.method` values plus an extensible registry (`statute_check`, `contraindication_scan`, `ingredient_check`, `accessibility_audit`, …) rather than a single universal verification protocol, and supports the 6-domain skin system (`code`, `article`, `book`, `config`, `plan`, `research`) — each a different configuration projection of the same 5-role topology, each justified by domain-specific `(method, configuration)` pairing. Imported into EraDev v10 via Bundle A integration of Pankratov 2026 "Parallel Trajectories".
+
 ---
 
 ## Part II — Mathematical Constants & Formulas
@@ -126,8 +132,14 @@ document enumerates all of them with file citations.
 | 13 | `I(C) = files × coupling × legacy_factor` | Configuration inertia |
 | 14 | `v = α / (I(C) + ε)` | Velocity under inertia |
 | 15 | `freshness = max(0, 1 − age_days / half_life)` | Temporal decay (v10) |
+| 16 | `v_conv = α / (τ_cycle · (I(C) + ε))` — F3 | v10 Parallel Trajectories: convergence rate as function of cycle length (Pankratov 2026 §VI.2) |
+| 17 | `dim(C_H) ≤ dim(C) − dim(ker(Π_H))` — F4 | v10 Parallel Trajectories: frame-as-projector, rank-nullity bound on admissible solution subspace (§IV.2-3) |
+| 18 | `Π_meta = S_adjusted / τ_cycle` — F6 | v10 Parallel Trajectories: meta-epistemological productivity (§IX.7) |
+| 19 | `B_received ≥ B_min` — F7 | v10 Parallel Trajectories: sufficiency threshold replacing equality target (§VIII.5-6); per-modality B_min calibration deferred to v11 (OQ-PT-3) |
+| 20 | `V_practical(τ_precision) = B · (τ_precision/τ*) / (1 + (τ_precision/τ*)²)` — F10 | v10 Parallel Trajectories: inverted-U practical-value curve; `V_practical^max = B/2` at `τ_precision = τ*` (§VI.6) |
+| 21 | `∇S_direction = (dN_carriers/dt, dΛ_role/dt)` with `d(B_persist · N_carriers)/dt > 0` — F11 | v10 Parallel Trajectories: growth-direction heuristic (more carriers + coordinated distortions, not distortion-minimization) (§X.4) |
 
-Source: `eradev.md` §I-III + `meta.md` §1a.
+Source: `eradev.md` §I-III + §III.2 + `meta.md` §1a.
 
 ---
 
@@ -167,6 +179,17 @@ From `reports/multi_agent_frameworks_comparison_2026-04-11.md` (10-framework sur
 - **Douglas Hofstadter** — *Gödel, Escher, Bach* (1979); strange-loop concept.
 - **Kurt Gödel** — incompleteness / self-reference (implicit via Hofstadter lineage).
 
+### RIGOR_LEVEL axis + FLUX protocol attribution (v10 Bundle D)
+
+The RIGOR_LEVEL axis and FLUX protocol (see Part V above) are EraDev's own synthesis of prior art rather than a single-source import. The synthesis draws on:
+- **Agile spike/story distinction** (various agile literature) — timeboxed exploration (spike) vs. deliverable (story) maps to exploratory/emergent vs. structured/strict RIGOR_LEVELs.
+- **Design Thinking diverge/converge phases** (Stanford d.school and predecessors) — the diverge/converge rhythm informs the emergent → exploratory → structured → strict gradient.
+- **Negative capability** (John Keats, 1817 letter; pedagogical descendants) — "sitting with uncertainty without reaching for resolution" grounds the emergent-level exemption from threshold gating (F7 becomes post-hoc, not mid-work).
+- **ODTOE_parallel_trajectories §VII.4 configuration ensemble** (Pankratov 2026) — "в практике малых групп рабочей единицей часто оказывается не одна конфигурация C, а ансамбль {C_1, C_2, ..., C_M}, где разные конфигурации решают разные фазы задачи." Direct theoretical anchor for per-segment rigor declaration: strict segments run C_strict, exploratory run C_FLUX.
+- **Wallas four-stage creativity model** (G. Wallas, *The Art of Thought*, 1926) — preparation / incubation / illumination / verification. Grounds FLUX Long-cycle (L) component: incubation is NOT idle time, it is active cognitive work invisible to latency metrics; τ_cycle primacy (Invariant #17) must not penalize incubation.
+
+No single external attribution captures the RIGOR_LEVEL + FLUX synthesis. The framework's contribution is (a) formalizing the 4-level axis as orthogonal to `domain.type`, (b) connecting rigor declaration to the μ-check modality branch (BLOCKING ↔ ADVISORY), (c) pairing BIM (strict/structured gates) with FLUX (exploratory/emergent advisory) in one coherent protocol family.
+
 ### Project-scoped contributor
 - **Rybakov Approach** — 7-stage RU methodology for AI-generated scientific deliverables (biological metaphor DNA → RNA → Splicing → Protein → Conscience → Metric). Source: external `.docx` provided by operator 2026-04-04; RT-1 analysis at `reports/RT1_rybakov_approach_analysis_2026-04-04.md`. Project-scoped to `projects/odtoe-articles/`.
   - **Adopted (unanimous RT-1 verdict, S_coherence = 0.88):** epistemic markers `[FACT]` / `[DERIVATION]` / `[HYPOTHESIS]` / `[OPEN]` as **Check 8** (see `projects/odtoe-articles/config.md`); **Failure Modes (3-7)** at RT-1 (added to `roles/visionary_EN.md`); **Source Register + Trust Index T1-T4** (Check-First item 4b); **Verification Register (capped at 10)** in Coherencer (`roles/coherent_EN.md`).
@@ -184,6 +207,8 @@ Core patterns shipped in the framework (not exhaustive; full list in the sources
 
 - **A3 methodology** (Toyota 6-field: Context / Current State / True North / Gap / Distinctions / Open Questions)
 - **Round Table RT-0 / RT-1 / RT-2 / RT-3** — `eradev.md` §VI (RT-0 added v10, pre-Apophatic Gate)
+- **FLUX RT Protocol (v10 Bundle D)** — `eradev.md` §VI.1. Free-flowing, Long-cycle, Unit-of-voice, eXploratory. Replaces BIM (Bundles A+B+C full application) for RIGOR_LEVEL ∈ {exploratory, emergent} segments: μ-check is ADVISORY (not blocking), Voice Guide substitutes Unified Plan, Validator emits findings but does not gate, Coherencer allows legitimate divergence, long cycles (including 24-48h incubation gaps) are permitted and NOT a fix chain. Exit criterion is "good-enough-to-iterate," not contracts-complete. Applies at exploratory/emergent RIGOR_LEVEL per `templates/domain_skin.md.template` rigor_map schema. Verify method: `flux_check` (advisory — 7 checks, none blocking). See `meta.md` §μ-check modality branch.
+- **RIGOR_LEVEL axis (v10 Bundle D)** — `eradev.md` §III.3. Four-level gradient (strict / structured / exploratory / emergent) describing spec-to-output clarity. Orthogonal to `domain.type`. Strict/structured → BIM gates apply (μ-check BLOCKING, Unified Plan mandatory); exploratory/emergent → FLUX protocol (μ-check ADVISORY, Voice Guide). Declared via `rigor_default` + `rigor_map` in project config (see `templates/domain_skin.md.template` schema). Four-layer declaration cascade: domain default → task override → segment override → agent warning.
 - **Self-application fixed point** `Ψ* = Φ(Ψ*)` — Level 6 and Level 9 self-modification
 - **4-layer file architecture** L0 immutable / L1 universal / L2 domain skins / L3 project instances
 - **4-layer bilingual architecture** (`eradev.md` §0.1) — L0 math canonical, L1 TPS canonical, L2 templates, L3 project
@@ -242,6 +267,8 @@ Core patterns shipped in the framework (not exhaustive; full list in the sources
 | `parse` | config | P1-P7 |
 | `dry_run` | plan | DR1-DR6 |
 | `recompute` | research | RC1-RC8 |
+| `doc_alignment` | plan-class (strict/structured RIGOR_LEVEL) | 7 checks at μ-check; BLOCKING gate (Bundle B) |
+| `flux_check` | exploratory/emergent RIGOR_LEVEL | 7 advisory checks at μ-check; NON-BLOCKING (Bundle D) |
 | `structure_check` | structured-continuous (sonnet / haiku / screenplay) | skeleton verification only — v10 prototype |
 | `custom_methods` | any | per-project declared (v10 extensible registry) |
 
@@ -285,7 +312,7 @@ Six canonical skins in `templates/`:
 | v7.1 | Constitution structure stabilized; RU primary |
 | v8 | Self-loading context architecture (Invariant 12); 3-layer runtime enforcement |
 | v9 | Universalization: 4-layer architecture, domain skins, bilingual L0/L1/L2/L3, memory hierarchy (Phase 2.B) |
-| v10 | Ω multiplier (cross-domain Lambda), BL compression, Apophatic Gate, Universality Gate (Session 7), L10 activation, 4-tier enforcement ladder (BL-33), composition hazards (BL-34), rework-discipline audit (BL-35), Liveness Prerequisite |
+| v10 | Ω multiplier (cross-domain Lambda), BL compression, Apophatic Gate, Universality Gate (Session 7), L10 activation, 4-tier enforcement ladder (BL-33), composition hazards (BL-34), rework-discipline audit (BL-35), Liveness Prerequisite, Parallel-Trajectories integration (Bundle A: F3/F4/F6/F7/F10/F11 + NFL foundation #13 + 13-citation bibliography import from Pankratov 2026) |
 
 ---
 
@@ -295,6 +322,38 @@ EraDev applies its own 5-role Round Table protocol to its own development. This 
 the self-application principle — Level 9 self-modification, `Ψ* = Φ(Ψ*)`. Each
 version is documented via Hansei reports in `reports/` (40+ reports as audit trail),
 with the framework improving itself by following its own process.
+
+---
+
+## Part XIII — Extended Bibliography (v10 Parallel-Trajectories imports)
+
+The following 13 citations were imported into EraDev's reference corpus as part of v10 Bundle A integration of Pankratov 2026 "Meta-epistemology of Small Groups: Feedback Cycle as the Primary Operator of Knowledge Production in Multi-agent Configurations" (preprint; paper reference [2]–[6] are the author's ODTOE corpus already internalized by EraDev; the 13 below are external-literature attributions newly incorporated). Each is load-bearing for a specific EraDev concept and had either no prior attribution or only implicit lineage before this import.
+
+| # | Citation | Supports EraDev concept | First place of use |
+|---|---|---|---|
+| 1 | **Gärdenfors, P.** *Conceptual Spaces: The Geometry of Thought.* MIT Press, 2000. DOI: 10.7551/mitpress/2076.001.0001. | Geometric intuition for the `Ψ`-field of states and `C ⊂ Ψ` configuration subspace (F4 frame-projector); Sperber-Wilson communication-vs-cognition pair | `eradev.md` §III.2.2 (F4 subsection); glossary term `Ψ-field of states` |
+| 2 | **Hackman, J.R.** *Leading Teams: Setting the Stage for Great Performances.* Harvard Business School Press, 2002. ISBN 978-1-57851-333-8. | Empirical grounding for 5-role team topology (paper [3]); team-size effects behind n_min=5 | `eradev.md` §V "Five Roles"; `FOUNDATIONS.md` Part III multi-agent frameworks |
+| 3 | **Tuckman, B.W.** "Developmental Sequence in Small Groups" // *Psychological Bulletin*, 1965, Vol. 63, pp. 384-399. DOI: 10.1037/h0022100. | Forming/storming/norming/performing sequence — grounds why RT-1 is independent parallel and RT-2 is hybrid (team stages matter for protocol design) | `eradev.md` §VI "RT Phase Protocols" |
+| 4 | **Flood, R.L., Jackson, M.C.** *Creative Problem Solving: Total Systems Intervention.* Wiley, 1991. ISBN 978-0-471-93052-5. | Ensemble-of-configurations intuition for phase-driven method selection (Pankratov 2026 §VII.4, deferred to v11 per OQ-PT) | `eradev.md` §III.2.8 OQ-PT; future v11 roadmap for phase-driven Coherencer Hierarchy |
+| 5 | **Schön, D.A.** *The Reflective Practitioner: How Professionals Think in Action.* Basic Books, 1983. ISBN 978-0-465-06874-6. | Reflection-in-action concept underpinning the μ-check ("how did you hear?") operation at RT-2 (Bundle B) and post-hoc Hansei discipline | `roles/validator_EN.md` μ-check (Bundle B); `eradev.md` §VI RT-2 protocol |
+| 6 | **Kuhn, T.S.** *The Structure of Scientific Revolutions.* 4th ed. University of Chicago Press, 2012. ISBN 978-0-226-45812-0. | Paradigm-shift lineage for `Ô_t0 → Ô_t1` shift operator — knowledge is `(Ψ, Ô_t)` pair, not `Ψ` alone; grounds `ood_scope` enforcement (some questions are structurally outside the current paradigm) | `eradev.md` §II.2 OOD scope rationale; glossary |
+| 7 | **Latour, B.** *Science in Action: How to Follow Scientists and Engineers Through Society.* Harvard University Press, 1987. ISBN 978-0-674-79291-3. | Knowledge-as-network-of-actants — grounds EraDev's multi-agent epistemology: B is not a property of one agent but of the `(O, C)` pair | `eradev.md` §II Formula B framing; glossary `Cognitive coherence B` |
+| 8 | **Polanyi, M.** *Personal Knowledge: Towards a Post-Critical Philosophy.* University of Chicago Press, 1958. ISBN 978-0-226-67288-5. | Tacit knowledge — directly grounds "transmit the method, not the text" habit (Bundle C Four Habits); BL-19 bilingual sync discipline | `roles/*.md` role-file transmission vs. prompt text; `CLAUDE.md` Four Habits block (Bundle C) |
+| 9 | **Hutchins, E.** *Cognition in the Wild.* MIT Press, 1995. ISBN 978-0-262-08231-2. | Distributed cognition — empirical grounding for why coherence is collective (`P_coll`) not individual; humans + artifacts as cognition substrate | `eradev.md` §III `P_coll` formula; `FOUNDATIONS.md` Part III framework comparison |
+| 10 | **Nonaka, I., Takeuchi, H.** *The Knowledge-Creating Company.* Oxford University Press, 1995. ISBN 978-0-19-509269-1. | SECI model (Socialization/Externalization/Combination/Internalization) — implicit lineage for RT-1→Build→RT-2→Build→RT-3 knowledge-creation cycle | `eradev.md` §VI Round Table protocols |
+| 11 | **Sperber, D., Wilson, D.** *Relevance: Communication and Cognition.* 2nd ed. Blackwell, 1995. ISBN 978-0-631-19878-9. | Cognitive-effect-vs-effort trade-off grounds F7 sufficiency threshold (B_received ≥ B_min) — relevance theory's sufficiency criterion formalized in ODTOE multiplicative B-formula | `eradev.md` §III.2.5 F7 (Bundle A) |
+| 12 | **Dunbar, R.I.M.** "Neocortex size as a constraint on group size in primates" // *Journal of Human Evolution*, 1992, Vol. 22, No. 6, pp. 469-493. DOI: 10.1016/0047-2484(92)90081-J. | Dunbar number (~150) as third nested cognitive scale above n_min=5 (atomic role dispersion) and Miller 7±2 (working memory) — deferred framing for v11 multi-team scaling | `eradev.md` §X Task Classification future work; `FOUNDATIONS.md` Part I future v11 |
+| 13 | **Miller, G.A.** "The Magical Number Seven, Plus or Minus Two" // *Psychological Review*, 1956, Vol. 63, No. 2, pp. 81-97. DOI: 10.1037/h0043158. | Working-memory limit — second nested cognitive scale between atomic n_min=5 and social Dunbar 150; informs why RT outputs cap at 500 words | `eradev.md` §XV "Standard Agent Output Format" (500-word cap); future v11 three-scale documentation |
+
+**Additional anchor citation — entry 33 from paper [33]:**
+- **Wolpert, D.H., Macready, W.G.** "No Free Lunch Theorems for Optimization" // *IEEE Transactions on Evolutionary Computation*, 1997, Vol. 1, No. 1, pp. 67-82. DOI: 10.1109/4235.585893. — Full attribution in Part I foundation #13; cited here for bibliographic completeness.
+
+**Adjacent attributions already present in EraDev (no re-citation needed, referenced by the paper but prior to this import):**
+- Boyd / OODA → already in `FOUNDATIONS.md` Part III (AutoAgent orientation).
+- Deming / PDCA → already in `FOUNDATIONS.md` Part I (TPS foundation #2).
+- Kahneman, Janis (groupthink), Surowiecki (wisdom of crowds), Altshuller (TRIZ), Checkland (Soft Systems), Heath-Heath (stickiness), Gladwell (tipping point), Vygotsky, Bakhtin — all present in comparison table `reports/multi_agent_frameworks_comparison_2026-04-11.md` as reference-only or indirectly cited via other foundations.
+
+> Provenance audit: all 13 citations were imported in v10 Bundle A commit (Parallel-Trajectories integration). Source paper for each attribution: Pankratov 2026 §§III.3, IV.5, V, VII, VIII, X.4 — see `reports/v10_parallel_trajectories_analysis_2026-04-24.md` for concept-to-citation mapping (item C26).
 
 ---
 

@@ -22,6 +22,14 @@ domain:
       value: strict
   ood_scope: text-discrete
   languages: [en, ru]        # bilingual EN+RU sync active (BL-19) — mirror pairs enforced
+  rigor_default: structured   # v10 Bundle D — framework infrastructure (code + planning), mostly-specified; ideation/new-feature segments may override to exploratory
+  rigor_map:
+    - segment: "ideation/**"
+      level: emergent
+      rationale: "framework-evolution brainstorming needs no-spec exploration"
+    - segment: "reports/**"
+      level: structured
+      rationale: "research reports have known shape; content emerges"
   examples:
     - "edit role file -> update RU mirror -> verify bilingual sync -> git commit"
     - "add BL entry -> update BOOTSTRAP_LESSONS -> tag [UNIVERSAL|CODE-ADAPTER] -> commit"

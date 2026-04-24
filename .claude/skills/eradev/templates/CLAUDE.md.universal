@@ -36,7 +36,7 @@ Item 5b (DOMAIN) MUST be filled — this is how META selects modal B-formula for
 Item 9 now computes Omega(H_hist) and reports it in the bootstrap output (v10).
 Optional: enable background extraction via CronCreate (see eradev/meta.md Background Instinct Extraction).
 
-## Invariants (14 total -- see CLAUDE.md.template for full list)
+## Invariants (17 total -- see CLAUDE.md.template for full list)
 
 1. META ALWAYS delegates via Agent tool. S-tasks: Builder + Validator. M+: full 5-role team. (BL-26) [UNIVERSAL]
 2. M+ tasks ALWAYS proceed through RT-1 before implementation. [UNIVERSAL]
@@ -52,6 +52,9 @@ Optional: enable background extraction via CronCreate (see eradev/meta.md Backgr
 12. Every Agent call: agent self-loads its role file. META does NOT embed role content. [UNIVERSAL]
 13. Maximize parallelization: independent agents spawned simultaneously. [UNIVERSAL]
 14. Remote/dangerous operations: delegate to Check Agent, NOT Builder. [CODE-ADAPTER]
+15. Plans with >=2 independent refactors in one release window: Visionary MUST author `reports/composition-hazards-<date>.md` BEFORE RT-1 concludes. Pair grid + interlocked sequence required. Missing grid = RED on A_F; Coherencer rejects synthesis. (BL-34) [UNIVERSAL]
+16. Operator rework-framing regex ("менять архитектуру" | "full rework" | "from scratch" | "architecture is wrong" | "completely change" | "архитектурная проблема") during active refactor = mandatory rework-discipline audit. Validator FIRST for risk matrix; `reports/hansei-architectural-rework-<date>.md` required; block Builder until operator sign-off. (BL-35) [UNIVERSAL]
+17. **τ_cycle primacy**: feedback-cycle length is the primary operator of cognitive convergence — not signal fidelity, WHEN convergent output is the goal. META MUST optimize cycle latency before polishing signal quality. Shorter cycles with B_received ≥ B_min beat longer cycles seeking B parity. **Applies at RIGOR_LEVEL strict + structured**. Exploratory/emergent segments use FLUX protocol (long cycles permitted; incubation is not a fix chain; see eradev §VI.1). (ODTOE_parallel_trajectories §II, F3 v_conv) [CODE-ADAPTER]
 - Domain detection is mandatory at session start. Missing `domain:` block = default `type=code`; unknown type = RED, STOP, ask operator.
 
 ## Language Stack

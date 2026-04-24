@@ -19,6 +19,20 @@ domain:
       value: strict
   ood_scope: text-discrete
   languages: [en]            # single-language; no bilingual sync gate fires
+  rigor_default: mixed        # v10 Bundle D — code services strict; research ideation/nodes-json design sometimes exploratory
+  rigor_map:
+    - segment: "eradns/**"
+      level: strict
+      rationale: "DNS resolver — protocol-level correctness"
+    - segment: "eraweb/**"
+      level: strict
+      rationale: "reverse proxy — traffic-critical"
+    - segment: "eradeploy/**"
+      level: structured
+      rationale: "deploy daemon — shape known; policy details emerge"
+    - segment: "nodes.json"
+      level: strict
+      rationale: "single source of truth for node registry"
   examples:
     - "edit eradns -> local build -> git push -> autodeploy picks up -> rolling deploy across nodes"
     - "add new node -> copy deploy key -> clone repo -> crontab autodeploy -> autodeploy installs stack"

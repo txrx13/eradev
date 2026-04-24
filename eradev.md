@@ -381,6 +381,176 @@ S_total:      0.685  (healthy with memory reinforcement)
 
 ---
 
+### III.2 Parallel Trajectories: Feedback-Cycle Primacy (v10)
+
+This subsection extends the collective layer (S_team, S_adjusted, P_coll, Ω) with the **feedback-cycle axis** on top of the static coherence metrics above. Source: Pankratov 2026 §VI (primacy thesis) + §V + §VIII + §IX — integrated additively; no redefinitions of existing terms.
+
+**Positioning.** Sections II and III.1 score WHAT a configuration looks like at a single moment. III.2 scores HOW FAST that configuration can revise itself. The two layers compose: a team with high S_adjusted but long τ_cycle is coherent-but-slow; a team with short τ_cycle but low S_adjusted is fast-but-incoherent; only the pair of (high S_adjusted, short τ_cycle) yields sustained knowledge production.
+
+#### III.2.1 τ_cycle as primary configurational operator
+
+Define `τ_cycle` = elapsed time from issuance of the first artifact variant to receipt of a meaningful reframing (not a confirmation — a reframing: `Δframe_H ≠ 0` or `ΔR ≠ 0`) from the configuration. In a multi-agent configuration `C = (H, {A_i})` with given `Λ_role` and `N_conf`, τ_cycle is the **primary operator** of cognitive convergence. Concretely: halving τ_cycle yields multiplicative gain across all N_conf trajectories (via F3 below), while improving any single channel's signal fidelity yields only linear gain in one trajectory.
+
+This is a shift of **optimization priority**, not a negation of signal quality. Signal quality still matters; it is demoted in the hierarchy. When the operator faces a trade-off "polish one artifact further vs. close the loop faster," the default is close the loop. Cite: Pankratov 2026 §VI.5.
+
+**Operational consequence for RT protocol.** RT-2 midpoint (Section VI) is the primary τ_cycle control point in EraDev — a short RT-2 cadence IS a short τ_cycle. A cycle where Builder produces a 50% artifact and Validator reframes it in one day has smaller τ_cycle than one where Builder produces a 95% artifact and Validator reframes it in five days — and the former wins on F3 productivity (see III.2.3 below).
+
+Edge case (P0 / high-irreversibility): when Invariant #8 applies (P0 incident declared by operator), signal quality temporarily dominates because an incorrect fix is unrecoverable. τ_cycle primacy yields to blast-radius reality. Outside P0, τ_cycle primacy is the default.
+
+#### III.2.2 F4 — Frame-holder as linear projector
+
+The problem-holder `H` (the role framing the task — may or may not be the Visionary; see role note below) enters the configuration with a `frame_H` carrying assumptions, terminology, goals, and constraints. Let `C ⊂ Ψ` denote the configuration subspace of the full state field. The frame acts as a **linear projector** `Π_H : C → C_H ⊂ C` that restricts admissible solutions to the frame-compatible subspace. From the rank-nullity theorem:
+
+```
+dim(C_H) ≤ dim(C) − dim(ker(Π_H))                                 (F4)
+```
+
+Interpretation: the narrower the frame (larger `ker(Π_H)`), the smaller the admissible solution subspace `C_H`, REGARDLESS of how broadly the `{A_i}` can see. Agents with high individual F cannot recover solutions the frame has already projected out.
+
+**Role note (F4 vs. Visionary).** `H` is the problem-holder for a specific request; the EraDev Visionary is the team-level strategic Ô. In a given configuration H may be occupied by the Visionary, by an external requester, or by one of the `{A_i}` temporarily playing the H role. Formally H ≠ Visionary (Pankratov 2026 §IV.1).
+
+**Connection to existing EraDev.** F4 is the mathematical grounding for Check-First (BL-17) and PRE-FLIGHT (BL-22): both operate by making `frame_H` explicit BEFORE the cycle starts, so that ker(Π_H) can be inspected and — if necessary — reduced by frame revision. A frame disclosed at RT-1 is a frame that can be challenged; a frame held implicitly by H is one that silently shrinks `C_H`. F4 also sharpens `S_adjusted`: agents can be individually coherent (high B_i) and team-synchronized (high S_team) while still operating inside a ker(Π_H)-truncated `C_H` — their S_adjusted is real, but it is S_adjusted of a projected subspace, not of the full problem space.
+
+#### III.2.3 F3 — Convergence rate
+
+Define `v_conv` = rate of configurational convergence toward a working reformulation (units: reformulations per unit time). Then:
+
+```
+v_conv = α / (τ_cycle · (I(C) + ε))                               (F3)
+```
+
+where:
+- `α > 0` — calibration constant (configuration-specific, set per project in v11 after empirical data).
+- `I(C)` — configuration inertia (the team's resistance to reconfiguration). Existing EraDev reading: Blast Radius tier (LOW/MED/HIGH/CRIT) as qualitative proxy — see glossary entry "Configuration inertia I(C)".
+- `ε > 0` — regularizer (prevents divergence at `I(C) → 0`).
+
+Interpretation: v_conv is multiplicative-inverse in both τ_cycle and I(C). Cutting τ_cycle in half doubles v_conv (across all N_conf trajectories, not just one — this is the primacy claim of III.2.1). Cutting I(C) in half also doubles v_conv, but I(C) is a property of the configuration (team size, coupling, legacy) and cannot be changed mid-cycle; τ_cycle CAN. That asymmetry is why τ_cycle is the optimization lever.
+
+**I(C) calibration — OPEN QUESTION (OQ-PT-1).** Three candidate forms from Pankratov 2026 §VI.3: `I(C) = Σ_j w_j · B_j` (inertia as weighted sum of role coherences), OR `I(C) ∝ S_team^(−1)` (inertia as inverse team coherence), OR `I(C) ∝ Var(Λ_role)^(−1)` (inertia as inverse role dispersion). Current EraDev default: Blast Radius tier as qualitative proxy pending v11 calibration against ≥3 RT-3 data points. Report v_conv at RT-3 (alongside S_session) as a diagnostic — do not gate commits on it until calibration is confirmed.
+
+#### III.2.4 F6 — Meta-epistemological productivity Π_meta
+
+Define `Π_meta` = configurationally-adjusted knowledge production per unit time:
+
+```
+Π_meta = S_adjusted / τ_cycle                                     (F6)
+```
+
+Interpretation: Π_meta combines the **coherence** layer (S_adjusted — phantom-coherence-corrected team alignment) with the **cycle-speed** layer (1/τ_cycle) into a single scalar productivity measure. High S_adjusted with long τ_cycle = stagnation (team aligned but cycle is slow). Short τ_cycle with low S_adjusted = churn (fast loop, shallow agreement). Maximizing Π_meta is a STRUCTURAL criterion that replaces one-dimensional "throughput" or "coherence" metrics.
+
+**Relation to S_session (existing metric).** S_session = (1−fix_rate)(1−chain_ratio) · Δ · B_mean measures cycle HEALTH (process discipline). Π_meta measures cycle PRODUCTIVITY per unit time. They are complementary: a healthy cycle (high S_session) with long τ_cycle has low Π_meta — healthy but not productive. A short-τ_cycle cycle with many fixes (low S_session) has volatile Π_meta — fast but wasteful. Report BOTH at RT-3; operator observes which dominates (OQ-PT-6).
+
+#### III.2.5 F7 — Sufficiency threshold (B_received ≥ B_min)
+
+In a configuration transmitting meaning across heterogeneous observation operators `Ô_self ≠ Ô_other`, denote by `B_received` the cognitive coherence of the meaning as received by Ô_other, and by `B_intended` the coherence of the meaning as formed by Ô_self. The structural relation:
+
+```
+B_received ≥ B_min                                                (F7)
+```
+
+replaces the classical equality requirement `B_received = B_intended`. `B_min` is the **sufficiency threshold** — the minimum `B_received` such that the receiver can continue the task without additional clarification from the sender. F7 reinstates "accept ΔÔ ≠ 0" as a working strategy for chronically-irreducible observer asymmetry.
+
+**Paper's empirical calibration.** Pankratov 2026 §VIII.6 cites `B_min / B_intended ≈ 0.70–0.85` from the author's 36-case corpus (paper reference [21], trust level T4 pending preprint publication per RV-04). No per-modality breakdown given. The paper's operational definition: `B_min` is the minimum B_received such that the receiver can execute a **blind continuation** of the task — advance one concrete next step without re-asking the sender.
+
+**Per-modality B_min calibration — DEFERRED to v11 (OQ-PT-3).** Intuitively, code (B_text) tolerates lower B_min than research (B_research) because code has objective verification (compile/test) catching residual ΔÔ, while research lacks such fast ground truth. Tentative starting values, NOT yet calibrated: B_min(B_text) ≈ 0.70, B_min(B_creative) ≈ 0.75, B_min(B_research) ≈ 0.85. v10 ships the formula and reporting convention; numeric calibration waits on v11 cross-project RT-3 data.
+
+**Operational shift.** Previously, the implicit Validator target was `B_received ≈ B_intended` (equality). Under F7, the target becomes `B_received ≥ B_min` (threshold). This is a REAL behavioral change: a Validator that rejects a Builder output because the reception deviates from intention — even when the reception is ABOVE B_min — is over-validating and inflating τ_cycle. The Coherencer and Validator roles carry the operational consequence of F7; the math lives here.
+
+**Per-RIGOR_LEVEL B_min calibration (v10 Bundle D).** Per-modality B_min is RIGOR_LEVEL-dependent, not a fixed constant per domain. Strict work uses tight B_min (hard threshold Validator enforces; tentative B_text=0.70). Structured work uses B_min as a COMMIT target (Builder aims for it; Coherencer flags below-threshold). Exploratory work may use a HIGHER B_min (voice/narrative-quality target) OR advisory B_min (sufficient-for-iterate, not sufficient-for-ship). Emergent work determines B_min POST-HOC — sufficiency is discovered at session end, not pre-gated. OQ-PT-3 (per-modality numeric calibration) + OQ-CR-1 (per-RIGOR_LEVEL numeric calibration) are both deferred to v11 empirical work; v10 Bundle D ships the interpretive layer only.
+
+#### III.2.6 F10 — Practical value (inverted-U bell curve)
+
+Empirical observation from Pankratov 2026 §VI.6: practical value of a model is NOT a monotone function of precision. Beyond a certain precision level, additional refinement REDUCES practical value because the model becomes too rigid to adapt. Formalized as an inverted-U bell curve:
+
+```
+V_practical(τ_precision) = B · (τ_precision / τ*) / (1 + (τ_precision / τ*)²)   (F10)
+```
+
+where `τ_precision` is the precision-expenditure level, `τ*` is the configuration-specific optimum, and `B` is the baseline B-coherence of the artifact. Maximum is achieved at `τ_precision = τ*`, where `V_practical^max = B / 2`.
+
+Numerical fact: V_practical caps at `B/2` — the practical ceiling is HALF the theoretical coherence ceiling. This is not a defect; it is a structural gap between a model and its field applicability. Closing the gap is NOT via further precision refinement (that lowers V_practical past τ*); it is via short τ_cycle (F3) + role dispersion amplification (F2 / Λ_role).
+
+**Connection to existing EraDev.** F10 provides mathematical grounding for Minimum Viable Scope (`roles/analyst_EN.md`, BL-11 scope-creep-as-Muda), for the four-tact 62/38 expansion/compression ratio (§VI) — neither all-expansion nor all-compression optimizes V_practical — and for the operator habit "rough first, refine later" (see §VI.5 habits sweep via L-26).
+
+#### III.2.7 F11 — Growth direction (∇S_direction)
+
+Let `N_carriers(t) ∈ ℕ` denote the count of agents for whom `B_persist(C, t) ≥ B_min` (persistent carriers of the coherent idea at time t). The **structural growth direction** of a multi-agent system (team, community, practice) is:
+
+```
+∇S_direction = (dN_carriers/dt, dΛ_role/dt)  such that  d(B_persist · N_carriers)/dt > 0    (F11)
+```
+
+Interpretation: system growth proceeds NOT toward minimizing distortion (`σ → 0`), but toward (a) increasing the count of coherent carriers AND (b) coordinating their distortions so `B_persist · N_carriers` keeps rising. Distortion coordination ≠ distortion elimination. The Weak Link Principle (Section II) still applies: `0 < B < 1` is the living condition for EACH agent; F11 adds the collective-dynamics statement that the configuration as a whole grows by expanding into new carriers, not by purifying existing ones.
+
+**Notation note (from paper §X.4).** The symbol `∇` in F11 is a **directional label** for the growth-direction vector in the parameter space `(N_carriers, Λ_role)` — NOT a formal gradient operator of a scalar potential. The scalar potential `S_direction` is not defined as a standalone function; F11 specifies a tangent-vector constraint on the derivative of the product `B_persist · N_carriers`. Full formalization as a gradient of a true scalar potential is an open question in the source paper.
+
+**Connection to Weak Link Principle.** Section II states two absorbing states (`B → 0` nihilistic, `B → 1` dogmatic) and the living condition `0 < B < 1`. F11 reinforces this from the COLLECTIVE side: pushing Λ_role → 0 (all agents identical) kills parallel trajectories (F1 OR-aggregation collapses); pushing σ → 0 across the whole configuration makes distortions uniform and destroys the cross-checking that F4's frame-projector depends on. Healthy growth = more carriers + coordinated (not eliminated) distortion gradient.
+
+#### III.2.8 Open Questions (OQ-PT-* + OQ-CR-*)
+
+Parallel Trajectories (Bundle A):
+- **OQ-PT-1:** I(C) calibration — pick one of three candidate forms after ≥3 RT-3 data points. DEFERRED v11.
+- **OQ-PT-3:** Per-modality B_min (B_text=0.70, B_creative=0.75, B_research=0.85 are tentative). DEFERRED v11.
+- **OQ-PT-6:** Π_meta vs S_session — report both at RT-3 until dominance becomes empirical. OPEN.
+- **OQ-PT-7:** Paper [21] preprint publication upgrades empirical layer from T4 → T3 Trust Index. Structural adoptions (F3/F4/F6/F7/F10/F11) are safe at T4 because each is a structural proposal, not an empirical claim. OPEN (out-of-band).
+
+Conditional Rigor / Bundle D (RIGOR_LEVEL axis + FLUX protocol):
+- **OQ-CR-1:** Per-RIGOR_LEVEL B_min empirical values — strict tentative 0.70, structured 0.80, exploratory SOFT, emergent POST-HOC. Needs ≥3 cross-RIGOR_LEVEL RT-3 cycles with post-hoc scoring. DEFERRED v11.
+- **OQ-CR-2:** Incubation-time budget for FLUX long cycles — upper bound on useful incubation for a single-agent creative segment (paper F8 B_persist τ_decay ≈ 2-7 days as prior). Should `rigor_map` carry `incubation_budget.max_hours`, or leave to operator judgment? DEFERRED v11 after observing book-project FLUX runs.
+- **OQ-CR-3:** RIGOR_LEVEL detection heuristics for auto-inference from IFR tokens ("discover"/"explore"/"find" → exploratory; "implement"/"fix" → strict). Regex brittleness risk; operator/Visionary declaration remains primary. DEFERRED v11.
+- **OQ-CR-4:** FLUX protocol adoption metrics — is it actually used? effective? Collect at v11 Phase 1 observation: does `[μ-check ADVISORY]` prevent fewer errors than `[μ-check OK/BLOCKED]` for the same work type, or does it liberate iteration meaningfully? DEFERRED v11.
+- **OQ-CR-5:** Bundle D creativity-protection A/B test vs strict BIM — run same book-chapter / article-introduction work twice (once under FLUX, once under Bundle B unchanged); compare B_received, τ_cycle, operator-rated voice quality. DEFERRED v11.
+
+> Bundled source reference: Pankratov 2026 §§II.0, IV.2, IV.3, V.2, VI.1, VI.2, VI.3, VI.5, VI.6, VII.4, VIII.5, VIII.6, IX.7, X.4, X.5. Provenance + 13-citation attribution: `FOUNDATIONS.md` Part I (foundation #13 NFL) + Part II bibliography additions + Part V FLUX protocol attribution (Bundle D).
+
+---
+
+### III.3 RIGOR_LEVEL axis (v10 Bundle D)
+
+Sections II and III.1-III.2 describe WHAT a configuration looks like and HOW FAST it revises itself. The RIGOR_LEVEL axis adds a third dimension: **WHAT KIND of spec-to-output clarity the task tolerates**. It is ORTHOGONAL to `domain.type` (code/article/book/config/plan/research) — a single domain can host tasks at any rigor level; a single task may span multiple rigor levels per segment.
+
+#### III.3.1 Four levels
+
+| RIGOR_LEVEL | Spec clarity | Output space | Formalization | Verification | BIM application | Examples |
+|---|---|---|---|---|---|---|
+| **strict** | fully-specified (inputs, outputs, AC known before work) | convergent (one correct answer or narrow equivalence class) | formal (types, contracts, proofs) | parse / test / proof / recompute / doc_alignment | **FULL BIM** — μ-check BLOCKING, Cross-Layer Contracts mandatory, F7 hard threshold, τ_cycle primacy (Invariant #17) | formula derivation, API implementation to OpenAPI spec, algorithm correctness, article methods section, reference table |
+| **structured** | mostly-specified (overall shape known, details emerge during work) | mostly-convergent (few valid answers bounded by constraints) | semi-formal (schema, outline, grammar) | readability + schema + structural coherence | **PARTIAL BIM** — Unified Plan required; μ-check BLOCKING with N/A-tolerance; F7 as COMMIT target; Cross-Layer Contracts when layer-crossing | REST API with flexible fields, article results section, config with extensions, plan with ideation segment, port-an-algorithm task |
+| **exploratory** | directional (goal known, path to reach it unknown) | divergent-with-convergent-target (many paths; target itself may shift) | minimal (voice guide, dependency sketch, glossary seed) | review + aesthetic + reader-experience + voice_check | **BIM OFF (IFR+RT-0 stay)** — μ-check ADVISORY; FLUX protocol (§VI.1); Voice Guide (not Unified Plan); Validator ADVISORY; long cycles permitted | article introduction, book chapter draft, prototype code, book discussion/conclusion, research hypothesis framing |
+| **emergent** | absent (spec emerges from the work itself; sometimes the question emerges) | fully divergent (output space discovered, not traversed) | none up-front (post-hoc only) | spot-check + sufficiency (B_received ≥ B_min post-hoc) | **NO PLANNING GATE** — no mandatory RT-1 synthesis; RT-1 consolidates findings only at end of emergent phase; no μ-check | brainstorm-new-theorem, poem, ideation, fishing-expedition data exploration, cold open of a chapter |
+
+#### III.3.2 Selection rule (who declares RIGOR_LEVEL)
+
+Four-layer cascade (lighter to heavier):
+
+1. **Domain default** — the project's `domain:` block in `projects/{PROJECT}/config.md` carries `rigor_default:` (see `templates/domain_skin.md.template` rigor_map schema). Per-domain defaults:
+   - `code` → strict
+   - `config` → strict
+   - `plan` → structured
+   - `research` → strict for methods/proofs, structured for exposition (mixed)
+   - `article` → structured (per-segment overrides usual)
+   - `book` → exploratory (per-chapter overrides usual; structural/reference sections strict)
+2. **Task override** — operator at task start OR Visionary at RT-0 emits `rigor_map:` block in the Unified Plan header. Task override WINS over project default.
+3. **Segment override** — Analyst at RT-1 adds `rigor_map.segments:` per-file / per-section based on IFR analysis. Segment override WINS over task default.
+4. **Agent warning** — Builder or Validator detecting a rigor mismatch (e.g., operator declared `strict` but AC cannot be specified) emits `[RIGOR WARNING: <reason>]` at Jidoka. META receives warning, may escalate to operator for reclassification.
+
+**Default behavior:** Typical session has ZERO manual RIGOR_LEVEL declaration. The default cascade handles common cases. Explicit override is opt-in, used only when the domain default is wrong for THIS task.
+
+#### III.3.3 Relation to existing axes
+
+| Existing axis | RIGOR_LEVEL intersection |
+|---|---|
+| `domain.type` (code/article/…) | RIGOR_LEVEL is orthogonal; same domain can host any rigor level. |
+| `domain.B_modality` (text/creative/research) | Related but not identical: `B_modality` shapes B-weights (diagnostic); RIGOR_LEVEL shapes process gates (μ-check, Unified Plan, FLUX). Creative B-modality has affinity with exploratory/emergent RIGOR_LEVELs but doesn't force them. |
+| OOD scope (text-discrete / continuous) | RIGOR_LEVEL operates INSIDE admissible scope; OOD scope rejects outright. Apophatic Gate (§IV) remains pre-RT-1 enforcement. |
+| Task size (S/M/L/XL) | Orthogonal. Small tasks are usually strict; XL tasks often span multiple RIGOR_LEVELs (per-segment declaration). |
+| BL-34 composition-hazards grid (conditional invariant) | Structural precedent: RIGOR_LEVEL uses the same conditional-invocation pattern (rigor_map triggers level-specific gates). |
+
+#### III.3.4 Relation to paper §VII.4 configuration ensemble
+
+Pankratov 2026 §VII.4 formalizes a configuration ensemble: "в практике малых групп рабочей единицей часто оказывается не одна конфигурация C, а ансамбль {C_1, C_2, ..., C_M}, где разные конфигурации решают разные фазы задачи." The RIGOR_LEVEL axis is EraDev's operational adoption of this principle — per-segment level declaration IS a per-phase configuration selection. Strict segments run the C_strict configuration (high-Λ_role, short τ_cycle, full BIM); exploratory segments run the C_FLUX configuration (low-Λ_role, long τ_cycle permitted, single-voice Ô, advisory checks).
+
+---
+
 ## IV. Activation Operator (EVERY agent runs BEFORE generating output)
 
 ```
@@ -517,6 +687,22 @@ Before ANY commit to framework core files, META+Validator MUST verify no project
 
 **See also**: `projects/{name}/config.md` Iron Rule #7 (original operator-stated rule), BL_CANDIDATES.md (entry for BL promotion to universal law).
 
+### Four Working Habits (v10, from ODTOE parallel_trajectories §VII)
+
+Emergent practices from τ_cycle primacy (Invariant 17, F3 v_conv):
+
+> **Mode-sensitive reading (v10 Bundle D).** These habits apply under RIGOR_LEVEL ∈ {strict, structured} as default. For exploratory/emergent segments (FLUX protocol, §VI.1; RIGOR_LEVEL axis, §III.3), habits #1 and #3 carry qualifiers (below); habits #2 and #4 remain universal.
+
+1. **Short cycles over polished signals**: META optimizes τ_cycle latency first, signal fidelity second. Better: 3× fast cycles at B_received ≥ B_min than 1× slow cycle seeking B_i = B_j parity. **Qualifier (Bundle D):** Applies to RIGOR_LEVEL in {strict, structured}. Exploratory/emergent work (creative prose, book narrative, research ideation, prototype design) may require LONG cycles for incubation (Wallas 1926 preparation/incubation/illumination/verification); Habit #1 does NOT override that. In FLUX segments "polish is not Muda when voice-dependent" — see §VI.1 FLUX protocol.
+
+2. **Explicit Ô declaration**: each agent names its operating frame in output header — "this deliverable assumes Ô_{role/domain}". Prevents phantom decoherence (BL-29). [UNIVERSAL across all RIGOR_LEVELs — especially load-bearing in FLUX where a single-voice-unit Ô coordinates a whole segment.]
+
+3. **B_min sufficiency, not equality**: target B_received ≥ B_min per F7. Stop polishing when threshold crossed. Excess refinement is Muda (overprocessing). **Qualifier (Bundle D):** For creative modalities / exploratory RIGOR_LEVEL, B_min may intentionally be set higher (voice quality, narrative coherence target); sufficiency means "reaches the target bar for THIS work", not "minimum permissible for any task". At emergent level, B_min is POST-HOC (determined after iteration, not during). Per-RIGOR_LEVEL calibration deferred to v11 (see OQ-CR-1 in §III.2.8).
+
+4. **Path-(c) tolerance**: structural Ô divergence is sometimes legitimate. Coherencer accepts ΔÔ ≠ 0 when convergence attempts fail after one pass (see coherent role file path-(c) subsection). [UNIVERSAL — even more essential in FLUX where legitimate voice-divergence is the feature, not the bug.]
+
+These four habits compound: (1)×(2)×(3)×(4) = reduced fix chains, fewer RT-2 reopens, measurable token savings — subject to the mode-sensitive reading above.
+
 ---
 
 ## V. Five Roles (Minimum Viable Team)
@@ -607,6 +793,48 @@ Why parallel for RT-1/RT-3: independent perspectives prevent confirmation bias (
 Why hybrid for RT-2: shared frame exists from RT-1; assessment itself is parallel.
 Why sequential for M execution: fast Builder-Validator feedback on inner torus ring.
 Why parallel+gate for L/XL: speed of parallel + Coherencer sync gate (BL-29 terminology, BL-28 context).
+
+### VI.1 FLUX RT Protocol (exploratory / emergent RIGOR_LEVEL, v10 Bundle D)
+
+**FLUX = Free-flowing, Long-cycle, Unit-of-voice, eXploratory.** FLUX is the RT protocol that replaces BIM (Bundles A+B+C full application) for segments at RIGOR_LEVEL ∈ {exploratory, emergent}. It coexists with the BIM RT protocol; mode transitions are explicit and documented. See §III.3 for the RIGOR_LEVEL axis; see `meta.md` μ-check for the conditional-blocking branch.
+
+**F — Free-flowing generation.**
+- Builder under exploratory/emergent RIGOR_LEVEL produces drafts WITHOUT mid-segment μ-check interruption. Jidoka self-check runs AFTER the segment is drafted, not during. No micro-check within a FLUX segment (flow protection). Visionary has MORE authority — creative intent is primary; Analyst's spec is loose.
+
+**L — Long cycles acceptable.**
+- τ_cycle is NOT the primary optimization target in FLUX segments. Invariant #17 [CODE-ADAPTER] explicitly exempts exploratory/emergent segments; a 24-48 hour incubation gap between drafts is PERMITTED — it is NOT a fix chain (BL-3 does NOT trigger on iteration count for FLUX), it is NOT a τ_cycle violation. Paper's F3 (v_conv) formula still describes dynamics but α is lower and the practical implication inverts: reformulation return is not immediate for incubation-bearing work.
+
+**U — Unit-of-voice protection.**
+- FLUX segments can have a SINGLE agent as voice-keeper (typically Builder). `Λ_role = 0` is PERMITTED when voice coherence is load-bearing — paper's F2' allows Λ_role=0 as a degenerate case; FLUX explicitly admits it. Coherencer enforces voice consistency ACROSS segments (cross-chapter, cross-section), not WITHIN a segment. Multi-Builder parallel work on a single voice-unit is FORBIDDEN under FLUX (opposite of structured/strict where parallelism is encouraged).
+
+**X — eXploratory deliverable.**
+- Builder's exit criterion is "the artifact is GOOD ENOUGH to iterate on" — not "contracts-complete," not "all AC satisfied," not "F7 B_min crossed for all consumers." Validator's role is ADVISORY: emits `[FLUX ADVISORY: findings]`, does not block commit. Coherencer catches GENUINE incoherence (voice drift, glossary contradictions, narrative contradictions across segments) but ALLOWS legitimate divergence (new theme, unforeseen argument structure, mid-draft reframing).
+
+**FLUX vs BIM RT protocol at a glance:**
+
+| Phase | BIM (strict/structured) | FLUX (exploratory/emergent) |
+|---|---|---|
+| RT-0 Visionary solo | IFR past-tense with measurable AC | IFR as DIRECTION with experiential criteria |
+| RT-1 parallel 5-agent | All 5 roles, full Output Formats | Visionary + Analyst (voice guide + glossary seed) + Builder assignment; Validator + Coherencer delayed to post-draft |
+| μ-check | BLOCKING via `doc_alignment` | ADVISORY via `flux_check`; emit `[FLUX segment entered: {scope}, exit criterion: good-enough-to-iterate]` |
+| Build | Short cycles, Jidoka during | Single agent, free-flow, Jidoka AFTER |
+| Validate | Full verification, gate | ADVISORY findings, no gate |
+| RT-2 | Mid-point sync, phantom-coherence check | Post-segment synthesis, legitimate divergence noted |
+| RT-3 | A3 + S_session + prediction delta | A3 + consolidation of emergent findings for future strict/structured work |
+
+**Mode transitions (FLUX ↔ BIM).** Transition triggers:
+- **FLUX → BIM:** Visionary sees enough structure in FLUX output to specify AC; operator requests "this section is stable now — lock it"; or after N FLUX iterations (default 3, project-configurable) Coherencer asks "Is this still emergent, or are we circling?" If circling, propose transition to structured.
+- **BIM → FLUX:** Strict segment failing to converge — Coherencer proposes: "the spec is preventing solution; drop to exploratory for one iteration, re-spec after."
+- Transitions DOCUMENTED in the Unified Plan (§Rigor Map) or its FLUX equivalent, the Voice Guide.
+
+**FLUX exit criterion:** operator / Visionary says "this is alive; ship" — artifact is good-enough-to-iterate, voice is coherent, B_received ≥ B_min for target-not-perfection, Ô declared.
+
+**Relation to existing mechanisms:**
+- **EMP7 orientation loop > optimization loop:** FLUX implements EMP7 directly — orientation primary in exploratory work, optimization secondary.
+- **Paper §VII.4 configuration ensemble:** FLUX is the C-for-exploratory configuration; BIM is the C-for-strict configuration. Both are legitimate; different phases use different ones.
+- **Book skin R-checks:** R1 (readability), R2 (continuity), R3 (glossary) map to FLUX Coherencer's cross-chapter coherence role. R4 (outline fidelity) is RELAXED in FLUX (outline may intentionally evolve).
+- **Paper §X.5 Four Working Habits:** FLUX keeps habits #2 (Ô declaration) + #4 (path-(c) tolerance) universal; rephrases habit #1 (cycles appropriate to incubation needs, polish is not Muda when voice-dependent) and habit #3 (B_min as soft guidance, not hard gate). See §IV Four Working Habits "Mode-sensitive reading" note.
+- **Paper §VIII.8 micro-check:** FLUX runs micro-check AT SEGMENT BOUNDARIES ("how did you hear this draft?"), not WITHIN a segment (flow protection).
 
 ---
 

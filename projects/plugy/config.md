@@ -31,6 +31,7 @@ domain:
       value: strict
   ood_scope: text-discrete
   languages: [en]            # single-language; no bilingual sync gate fires
+  rigor_default: strict       # v10 Bundle D — production code, gRPC/NATS contracts are #1 failure mode, full BIM applies
   examples:
     - "edit gateway -> local go build -> git push -> VPS autodeploy picks up in <1 min -> monitor"
     - "add Python dep -> update requirements.txt -> git push -> autodeploy installs in venv -> verify"

@@ -81,7 +81,7 @@ The harness MUST automatically load a project instruction file at session start.
 - The file MUST be able to reference other files to be loaded (loading sequence)
 - The auto-loaded file bootstraps META identity — without it, L5 collapses to L3
 
-**Why non-negotiable:** META identity, 16 invariants, 6 output types, and mandatory loading sequence all bootstrap from this file. Without it, Lambda = 0 for cold starts.
+**Why non-negotiable:** META identity, 17 invariants, 6 output types, and mandatory loading sequence all bootstrap from this file. Without it, Lambda = 0 for cold starts.
 
 **Examples:** Claude Code `CLAUDE.md`, Cursor `.cursorrules`, Codex system prompt.
 

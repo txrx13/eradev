@@ -22,6 +22,23 @@ domain:
       value: strict
   ood_scope: text-discrete
   languages: [en, ru]        # bilingual EN+RU sync — 8-file artifact set requires both
+  rigor_default: mixed        # v10 Bundle D — article per-segment (methods strict; introduction/discussion exploratory; results structured)
+  rigor_map:
+    - segment: "methods"
+      level: strict
+      rationale: "formal derivations, 50-digit precision, reproducibility gate"
+    - segment: "introduction"
+      level: exploratory
+      rationale: "framing emerges; 'why this matters' cannot be pre-specified"
+    - segment: "discussion"
+      level: exploratory
+      rationale: "implications discovered in writing; narrative coherence not proof"
+    - segment: "results"
+      level: structured
+      rationale: "tables/numbers strict; textual framing emerges"
+    - segment: "abstract"
+      level: structured
+      rationale: "voice-heavy but carries testable claim"
   examples:
     - "Check-First (8 items) -> draft RU .tex -> compile -> translate EN -> compile -> DOCX -> MD -> 8 checks -> commit all 8 files"
     - "add new formula -> recompute 50-digit -> trace dependents -> update conclusions -> re-run Check 2"

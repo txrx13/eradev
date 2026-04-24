@@ -337,6 +337,35 @@ Output it as your FIRST visible message so the operator can verify compliance.
 === BOOTSTRAP COMPLETE — PROCEED ===
 ```
 
+### μ-check (v10, from ODTOE parallel_trajectories F7)
+
+Between RT-1 close and Builder spawn, Coherencer runs μ-check (mu-check) as a pre-Builder gate:
+
+- All sections in `reports/unified-plan-{TASK_ID}-{DATE}.md` populated (template at `templates/unified_plan.md.template`)?
+- Cross-Layer Contracts table present for multi-layer tasks (or N/A with justification)?
+- User Flow section present for UI / consumer-facing tasks (or N/A with justification)?
+- Every role's output reaches `B_received ≥ B_min` — sufficiency threshold, not equality (per paper §II.7 F7)?
+- Every AC maps to ≥1 artifact in Agent Assignments? Every FM has a mitigation in the plan?
+- No dangling references between plan sections (every mentioned artifact / BL / lesson resolves)?
+
+**Verdicts:**
+- PASS → emit `[μ-check OK]` → Builder cleared to spawn.
+- FAIL → block Builder spawn, return to Analyst / Visionary for the missing sections; re-run μ-check until PASS.
+
+**RIGOR_LEVEL modality branch (v10 Bundle D):** μ-check enforcement intensity is conditional on the effective `rigor_map` level for the task (or per segment for multi-segment tasks — see `templates/unified_plan.md.template` §Rigor Map and `templates/domain_skin.md.template` rigor_map schema):
+- **strict** → μ-check is BLOCKING (full `doc_alignment`; all 7 checks must PASS before Builder spawn).
+- **structured** → μ-check is BLOCKING with N/A-tolerance on Cross-Layer Contracts / User Flow when a segment justifiably lacks those layers; partial populations acceptable with one-line rationale.
+- **exploratory** → μ-check is **ADVISORY**. Coherencer still runs the checklist, emits `[μ-check ADVISORY: findings]`, but Builder is cleared to spawn regardless. Missing sections are documented, not blocking.
+- **emergent** → μ-check is **N/A**. Voice Guide (not Unified Plan) may substitute; Coherencer role becomes post-hoc (see FLUX RT Protocol in `eradev.md` §VI.1).
+
+Short-form rule: `if domain.B_modality == creative OR task.rigor_level ∈ {exploratory, emergent}: μ-check = ADVISORY (warn, don't block)`. For strict/structured: μ-check remains BLOCKING as Bundle B shipped.
+
+**Verify method:** `doc_alignment` (canonical, registered in `templates/domain_skin.md.template` verify registry — v10+) for strict/structured. For exploratory/emergent segments Coherencer runs `flux_check` (advisory) in place of `doc_alignment`. Coherencer-owned operation; runs on the Unified Plan (or Voice Guide) synthesis it just produced. Temporal independence (post-synthesis audit) satisfies the independence-check requirement.
+
+**Rationale:** plan admissibility (the old implicit RT-1 gate) ≠ plan completeness. RT-1 closes when 5 role outputs exist; μ-check closes when those 5 outputs, synthesized into one plan, pass the `doc_alignment` bar. The two gates are sequential, not redundant. The RIGOR_LEVEL branch protects creative/exploratory work from over-specification penalties while keeping the strict/structured gate intact where convergent verification is meaningful.
+
+(BL-19 parity: same specification in `meta_RU.md`.)
+
 ### Mid-Session Reclassification (BL-18)
 
 If cumulative work exceeds 1.5x initial estimate: YELLOW — log warning, continue with monitoring.

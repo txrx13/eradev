@@ -298,6 +298,35 @@ T2 checklist triggers: feature flag toggle, protocol-level change, git push, н�
 === BOOTSTRAP COMPLETE — PROCEED ===
 ```
 
+### μ-check (v10, из ODTOE parallel_trajectories F7)
+
+Между закрытием RT-1 и spawn'ом Builder'а, Когерент запускает μ-check (mu-check) как pre-Builder gate:
+
+- Все секции в `reports/unified-plan-{TASK_ID}-{DATE}.md` заполнены (шаблон в `templates/unified_plan.md.template`)?
+- Таблица Cross-Layer Contracts присутствует для многослойных задач (или N/A с обоснованием)?
+- Секция User Flow присутствует для UI / потребительских задач (или N/A с обоснованием)?
+- Вывод каждой роли достигает `B_received ≥ B_min` — порог достаточности, не равенства (по paper §II.7 F7)?
+- Каждый AC мапится на ≥1 артефакт в Agent Assignments? Каждый FM имеет митигацию в плане?
+- Нет висячих ссылок между секциями плана (каждый упомянутый артефакт / BL / урок разрешается)?
+
+**Вердикты:**
+- PASS → emit `[μ-check OK]` → Builder разрешён к spawn.
+- FAIL → блокировать spawn Builder, вернуть Аналитику / Визионеру отсутствующие секции; перезапустить μ-check до PASS.
+
+**Модальная ветка RIGOR_LEVEL (v10 Bundle D):** Интенсивность μ-check условна относительно эффективного `rigor_map` уровня задачи (или посегментно для мульти-сегментных задач — см. `templates/unified_plan.md.template` §Rigor Map и `templates/domain_skin.md.template` rigor_map schema):
+- **strict** → μ-check БЛОКИРУЮЩИЙ (полный `doc_alignment`; все 7 чеков должны ПРОЙТИ до spawn'а Builder).
+- **structured** → μ-check БЛОКИРУЮЩИЙ с N/A-толерантностью на Cross-Layer Contracts / User Flow, когда сегмент обоснованно не имеет этих слоёв; частичное заполнение приемлемо с однострочным обоснованием.
+- **exploratory** → μ-check **СОВЕЩАТЕЛЬНЫЙ (ADVISORY)**. Когерент всё равно прогоняет чеклист, эмитит `[μ-check ADVISORY: findings]`, но Builder разрешён к spawn в любом случае. Отсутствующие секции документируются, не блокируют.
+- **emergent** → μ-check **N/A**. Voice Guide (не Unified Plan) может замещать; роль Когерента становится пост-хок (см. FLUX RT Protocol в `eradev.md` §VI.1).
+
+Короткое правило: `if domain.B_modality == creative ИЛИ task.rigor_level ∈ {exploratory, emergent}: μ-check = ADVISORY (предупреждать, не блокировать)`. Для strict/structured: μ-check остаётся БЛОКИРУЮЩИМ как в Bundle B.
+
+**Verify method:** `doc_alignment` (canonical, зарегистрирован в `templates/domain_skin.md.template` verify registry — v10+) для strict/structured. Для exploratory/emergent сегментов Когерент запускает `flux_check` (совещательный) вместо `doc_alignment`. Операция Когерента; запускается на только что произведённом Unified Plan (или Voice Guide). Временна́я независимость (пост-синтез аудит) удовлетворяет требованию independence-check.
+
+**Обоснование:** plan admissibility (старый неявный gate RT-1) ≠ plan completeness. RT-1 закрывается когда есть 5 выходов ролей; μ-check закрывается когда эти 5 выходов, синтезированные в один план, проходят бар `doc_alignment`. Два gate последовательны, не дублируют друг друга. Модальная ветка RIGOR_LEVEL защищает творческую/исследовательскую работу от штрафов за под-спецификацию, сохраняя жёсткий gate там, где конвергентная верификация имеет смысл.
+
+(BL-19 parity: та же спецификация в `meta.md`.)
+
 После RT-3: кристаллизация A3, дельта предсказаний, обновление спиральной памяти.
 
 **Зачем этот чек-лист:** A/B эксперимент (реальная сессия развёртывания) показал, что чтение фреймворка без явного обеспечения приводит к 95% поведению одиночного Builder. Агент корректно классифицирует XL, но игнорирует собственную классификацию. Этот чек-лист связывает знание → применение (проблема Lambda, BL-4).

@@ -1,0 +1,149 @@
+# Unified Plan — {TASK_ID} ({DATE})
+
+> Authored by: Coherencer (synthesises RT-1 outputs from 5 role agents)
+> Triggered by: every M/L/XL task at RT-1 close, before Builder spawn (BL-34 / BIM-P1)
+> Verify method: `doc_alignment` (see `templates/domain_skin.md.template` verify registry)
+> Purpose: single reviewable artifact replacing the implicit 5-agent RT-1 decision record.
+> This is a META-TEMPLATE — copy to `reports/unified-plan-{TASK_ID}-{DATE}.md` and fill all sections.
+
+## Context
+
+- **Task:** {one-sentence task description as given by operator}
+- **Size:** S / M / L / XL (per eradev.md §IX classification)
+- **Domain:** code | article | book | config | plan | research (from `projects/{PROJECT}/config.md` `domain.type`)
+- **B-modality:** text | creative | research (selects weights per eradev.md §II.1)
+- **OOD scope:** text-discrete (OK) | continuous (REJECT for v10)
+- **Ideal Final Result (past-tense, measurable):** {e.g., "Dark-mode toggle shipped, 0 errors in 24h, theme persists across reload on 100% of users" — Visionary `roles/visionary_EN.md` Output Format}
+
+## Rigor Map (per-segment RIGOR_LEVEL declaration, v10 Bundle D)
+
+Declares which RIGOR_LEVEL (strict / structured / exploratory / emergent) applies to the task as a whole or to each segment. Drives μ-check enforcement (BLOCKING vs ADVISORY), Unified Plan vs Voice Guide selection, and whether Invariant #17 τ_cycle primacy applies. See `eradev.md` §III.3 for the axis and §VI.1 for FLUX protocol (exploratory/emergent).
+
+**Single-segment task:** state `RIGOR_LEVEL: X` for the whole task (`strict` | `structured` | `exploratory` | `emergent`).
+
+**Multi-segment task:** fill the table below.
+
+| Segment | RIGOR_LEVEL | Rationale |
+|---------|------------|-----------|
+| {e.g., "methods section" / "src/api/auth.ts"} | strict | {e.g., "formal derivation / convergent spec known"} |
+| {e.g., "introduction"} | exploratory | {e.g., "conceptual framing emerges during drafting"} |
+| {e.g., "discussion"} | emergent | {e.g., "implications discovered in writing; no pre-specified endpoint"} |
+
+**Resolution order:** if `rigor_map` above is NOT declared, Analyst derives from the project's `domain.rigor_default` (see `projects/{PROJECT}/config.md` and `templates/domain_skin.md.template` rigor_map schema). If domain default is `mixed`, Analyst MUST segment-tag at RT-1.
+
+**FLUX trigger:** if any segment is `exploratory` or `emergent`, FLUX protocol (`eradev.md` §VI.1) applies for that segment: μ-check becomes ADVISORY, Voice Guide may substitute Unified Plan for the FLUX portion, Validator is advisory, long cycles permitted.
+
+<!-- Analyst fills rigor_map at RT-1 phase. Coherencer verifies it at μ-check. If any segment is exploratory/emergent, Coherencer runs `flux_check` (advisory) for that segment instead of full `doc_alignment`. -->
+
+
+<!-- IFR MUST be past-tense — retrospective-from-ideal anchor. "We will deploy X" = violation; "feature deployed, 0 errors" = correct. -->
+
+## Composition Grid (BL-34, required for L/XL with ≥2 refactors in one release window)
+
+If ≥2 independent refactors: link to `reports/composition-hazards-{DATE}.md`. Otherwise: "N/A — single-refactor task".
+
+| Change A | Change B | Interaction | Risk | Mitigation |
+|----------|----------|-------------|------|------------|
+| {R1 name} | {R2 name} | {what breaks if both ship same window} | HIGH/MED/LOW | {parity window / shadow mode / sequencing} |
+
+<!-- For 3+ refactors add N-choose-3 triples table (see templates/composition_hazards.template.md). Missing grid on ≥2-refactor plan = RED on A_F for Visionary. -->
+
+## Cross-Layer Contracts (required when task spans ≥2 architectural layers)
+
+Explicit BE↔FE / DB↔API / service↔service alignment BEFORE code phase. Otherwise: "N/A — single-layer task".
+
+| Producer layer | Consumer layer | Contract artifact | Validation method |
+|----------------|----------------|-------------------|-------------------|
+| BE API | FE client | zod schema OR OpenAPI spec | type-check at build time |
+| DB | BE API | migration + ORM model | schema_validate (parse) |
+| FE form | BE endpoint | form schema | e2e test with known payload |
+
+<!-- Catches "FE expects field X, BE sends field Y" at plan phase, not at test phase. One row per inter-layer contract; validation MUST be executable (not "manual review"). -->
+
+## User Flow (required when task has a UI or consumer-facing surface)
+
+Horizontal user journey: actor / action / system response / failure branches. Otherwise: "N/A — no user-facing surface".
+
+1. **Step 1** — Actor: {role}. Action: {click, type, submit}. Response: {UI/API reaction}. Failure path: {error, recovery}.
+2. **Step 2** — ...
+3. **Step N** — Success state: {definition of "done" for the consumer}.
+
+<!-- User flow ≠ pipeline. Pipeline = artifact production (source→build→deploy). User flow = human consumer experience end-to-end. Elevates agent alignment on consumer experience before module decomposition. -->
+
+## Phase Decomposition
+
+Standard v10 phase order (skip phases marked N/A):
+
+```
+RT-0 (Apophatic Gate) → RT-1 (parallel 5-agent) → Doc Alignment Gate (μ-check) → Build → Validate → RT-2 (mid-point sync) → RT-3 (A3 crystallization)
+```
+
+RT-0 = Apophatic Gate (PROCEED / OOD-REJECT / PROBE-NEEDED, eradev.md §IV).
+RT-1 = 5 role agents spawn in parallel; outputs below.
+Doc Alignment Gate = Coherencer runs `doc_alignment` verify (see §Doc Alignment Verdict).
+Build = N Builders, artifact ownership per Analyst. Validate = verify per `domain.verify.method`.
+RT-2 = phantom-coherence check + ι-feedback + μ-check receipt. RT-3 = A3 + Prediction Delta + S_session.
+
+## Acceptance Criteria (AC-1 .. AC-N)
+
+From Visionary RT-1 output. Each AC MUST be measurable. Target: 3-8 items.
+
+- **AC-1:** {e.g., "Dark-mode toggle visible in settings panel on all supported browsers"}
+- **AC-2:** {e.g., "Theme state persists across reload (localStorage key `theme` === 'dark')"}
+- **AC-N:** ...
+
+<!-- Every AC MUST map to ≥1 artifact in Agent Assignments. AC without mapped artifact → gap, block Builder. -->
+
+## Failure Modes (FM-1 .. FM-M, pre-mortem)
+
+From Visionary RT-1 output. Target: 2-5 items.
+
+- **FM-1:** {e.g., "SSR flicker on first paint"} — probability: MED, impact: LOW. Mitigation: {inline script sets `classList` before React hydration}.
+- **FM-M:** ...
+
+<!-- Every FM MUST have a mitigation in Analyst plan. FM without mitigation → incomplete plan, block Builder. -->
+
+## Agent Assignments
+
+Each role's RT-1 output compressed to 1-3 lines; link to full output if longer.
+
+- **Visionary:** IFR + task zone (Push/Pull/Resonance) + priorities + Blast Radius
+- **Analyst:** inertia (S/M/L/XL) + artifact list + dependencies + pipeline + resource conflicts + cross-layer contracts (if multi-layer)
+- **Builder(s):** artifact ownership (when ≥2 Builders), per Analyst File Ownership
+- **Validator:** verification method + edge cases + DOCS DRIFT CHECK plan
+- **Coherencer:** S_team + synchronization map + Verification Register (≤7 unverified claims) + crystallization
+
+<!-- Missing role output → flag here; Coherencer cannot synthesise absent inputs. -->
+
+## References
+
+- **RT-1 per-role outputs:** `reports/rt1-visionary-{DATE}.md`, `reports/rt1-analyst-{DATE}.md`, ...
+- **Related BL:** e.g., BL-19 (bilingual sync if multi-language), BL-22 (PRE-FLIGHT if external API), BL-34 (composition hazards if ≥2 refactors), BL-35 (rework-discipline if rework-framing detected)
+- **Related lessons:** e.g., L-26 real-use honest gate, EMP11 7-step pipeline, EMP7 orientation vs optimization
+- **Composition Hazards Grid:** {path if ≥2 refactors, or "N/A"}
+- **Prior similar tasks / Lambda anchor:** {paths if applicable}
+
+## Doc Alignment Verdict (filled by Coherencer at μ-check)
+
+<!-- Coherencer fills this AFTER drafting, BEFORE Builder spawn. For strict/structured segments: any failing check BLOCKS Builder spawn until fixed. For exploratory/emergent segments (FLUX): advisory only — findings documented, Builder cleared. See meta.md §μ-check modality branch. -->
+
+- [ ] Rigor Map filled (per-segment RIGOR_LEVEL declared or single-level task stated)
+- [ ] IFR present (past-tense measurable for strict/structured; directional/experiential for exploratory/emergent)
+- [ ] AC ≥ 3, each measurable (strict/structured) / AC ≥ 1 directional criterion (exploratory/emergent)
+- [ ] FM ≥ 2, each with mitigation (strict/structured) / ≥ 1 identified failure mode (exploratory/emergent)
+- [ ] Cross-Layer Contracts populated (or N/A with justification)
+- [ ] User Flow populated (or N/A with justification)
+- [ ] Phase decomposition covers all applicable RT phases
+- [ ] Every AC maps to ≥1 artifact in Agent Assignments
+- [ ] Every FM has a mitigation present in plan
+- [ ] No dangling references (every mentioned artifact / BL / lesson resolves)
+- [ ] B_received ≥ B_min per role (sufficiency, not equality — paper §II.7 F7; strict/structured: hard threshold, exploratory: soft guidance, emergent: post-hoc)
+
+**Verdict (strict/structured):** [μ-check OK → Builder cleared | μ-check BLOCKED — missing: {list}]
+
+**Verdict (exploratory/emergent):** [μ-check ADVISORY: {findings} → Builder cleared]
+
+---
+
+*Upstream protocol: eradev.md §VI (RT-1) + meta.md §14 (Session Entry) + meta.md μ-check (v10)*
+*Template version: v10 (2026-04-24, BIM-P1 + paper-C20 bundle)*

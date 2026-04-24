@@ -77,3 +77,33 @@ Resource conflicts: [ports, files, processes, shared sections, reference keys]
 System dependencies: [packages, utilities, fonts, references, style guides]
 B-check: F=_ E=_ (1-s)=_ L=_ => B=_
 ```
+
+### Cross-Layer Contract Table (required when task spans ≥2 layers)
+
+For any task touching ≥2 architectural layers (BE / FE / DB / infra / external service), produce the following table INSIDE the Implementation Plan output. Purpose: explicit inter-layer alignment BEFORE code phase. Prevents "FE expects field X, BE sends field Y" at test time.
+
+| Producer layer | Consumer layer | Contract artifact | Validation |
+|----------------|----------------|-------------------|------------|
+| BE API         | FE client      | zod schema or OpenAPI spec | type-check at build |
+| DB             | BE API         | migration + ORM model | schema_validate (parse) |
+| FE form        | BE endpoint    | form schema | e2e test with known payload |
+
+Rules:
+- One row per inter-layer contract. Every validation column value MUST be executable (not "manual review").
+- If task is single-layer: omit the table, note "Cross-Layer Contracts: N/A — single-layer task".
+- Missing table on multi-layer task = YELLOW on A_F. Discovered at μ-check → Builder spawn blocked until filled.
+
+### User Flow (required when task has a UI or consumer-facing surface)
+
+For any task whose deliverable is consumed by a human end-user (UI screen, API consumed by an external partner, a published chapter read by readers), produce the following horizontal user journey INSIDE the Implementation Plan output. Purpose: agents align on the CONSUMER experience BEFORE decomposing by module / artifact.
+
+1. **Step 1** — Actor: {user role}. Action: {click, type, submit, read}. System response: {UI / API / text reaction}. Failure path: {error state, recovery action}.
+2. **Step 2** — ...
+3. **Step N** — Success state: {what "done" looks like from the consumer's perspective}.
+
+Rules:
+- User Flow ≠ Pipeline. Pipeline = artifact production lifecycle (source → build → deploy). User Flow = human consumer journey (step 1 → step 2 → success / failure). Both can coexist.
+- If task is pure backend / internal tooling with no consumer-facing surface: omit the section, note "User Flow: N/A — no consumer-facing surface".
+- Missing User Flow on UI-bearing task = YELLOW on A_E (alignment gap: team plans by module, consumer sees one flow).
+
+(BL-19 parity: same rules exist in `roles/analyst.md` for RU stack.)
