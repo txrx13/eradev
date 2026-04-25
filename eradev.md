@@ -939,6 +939,19 @@ Beyond it -- trigger corrective intervention.
 
 Scaling formula: N_teams = ceil(N_modules / 3).
 
+### X.1 Per-role agent counts (composition contract)
+
+| Task | Visionary | Analyst | Builder | Validator | Coherencer |
+|------|:--:|:--:|:--:|:--:|:--:|
+| S | 0-1 | 0-1 | 1 | 1 | 0 |
+| M | 1 | 1 | 1 | 1 | 1 |
+| L | 1 | 1-2 | 2-N (per disjoint module) | 1-N (1:1 with Builders OR shared) | 1 (L2 mandatory if N_Builders >= 2) |
+| XL | 1 | 2-N (parallel per axis) | N (per N_teams = ceil(N_modules/3)) | N (1:1) | 1 (L2) + N team-level (L1 per team) |
+
+**Floor, not ceiling**: above are minimum spawn contracts. Invariant 13 authorizes additional parallel agents when scopes are demonstrably independent and File Ownership Protocol holds. Domain skins MAY override per project-specific needs (e.g., article skin's 2-Builder XL trigger).
+
+**RIGOR_LEVEL override** (FLUX, see §VI.1): exploratory/emergent segments may collapse to Visionary-solo + advisory Validator; Builder/Analyst/Coherencer participation per Visionary judgment.
+
 ### Coherencer Hierarchy (for multi-team)
 - **L1**: Within team. Always present. Syncs 4 roles.
 - **L2**: Between teams. Activated at 2+ teams. Resolves conflicts.
@@ -950,6 +963,16 @@ When 2+ Builders work in parallel, Analyst MUST assign files:
 - Builder-B: [list of files]
 - Shared files: assigned to ONE Builder only.
 - File overlap = Andon (stop).
+
+### X.2 Parallel per-role spawn patterns
+
+- **Visionary**: SINGLETON across RT cycle. Multiple Visionaries violate IFR uniqueness (one True North per task). Visionary-parallel FORBIDDEN.
+- **Analyst**: parallel ALLOWED when scopes are disjoint axes (e.g., one for design, one for empirical audit, one for risk pre-mortem). Coherencer reconciles.
+- **Builder**: parallel ALLOWED when File Ownership Protocol assigns disjoint file regions. BL-29 phantom-decoherence guard applies on shared terminology.
+- **Validator**: 1:1 with Builders by default (each Builder gets dedicated Validator). May SHARE Validator across multiple Builders only when blast radius is LOW and verify.method is identical. Invariant 11 mandates Builder COMPLETES first.
+- **Coherencer**: hierarchy-only spawning. One L1 per RT cycle. **L2 mandatory when N_Builders >= 2.** L3 mandatory for XL or cross-project tasks.
+
+Authorization composite: Invariant 13 (parallelize independent) + File Ownership (disjoint regions) + N_teams = ceil(N_modules/3) (capacity).
 
 ---
 

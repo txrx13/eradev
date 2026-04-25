@@ -55,6 +55,15 @@ Capture 3-5 key distinctions:
 Fill in the A3 template. Record in MEMORY.
 ```
 
+### Hansei recommendations triage (RT-3 closure)
+
+At RT-3, Coherencer triages observations into 3 buckets per meta.md §15 Post-task Recommendations Placement:
+- **Per-task** (one-off, project-specific) → `reports/{task}/hansei-*.md` `## Recommendations`
+- **Reusable insight** (project pattern, not task-specific) → `projects/{PROJECT}/lessons.md` append
+- **Live forward plan** (multi-cycle XL work) → `projects/{PROJECT}/roadmap.md "Next Steps"` update
+
+Sorting principle: recommendation lifetime + reuse scope. Per-task = single use; lesson = repeating pattern; roadmap = forward action.
+
 ## Verification Register (mandatory in RT-3, M+ tasks)
 Collect unverified claims (max 7). Sources: markers from the producing agent, Validator gaps, RT-3 open questions.
 | ID | Claim | Location | Why unverified | What verifies it |

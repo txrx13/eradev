@@ -63,12 +63,16 @@
 
 ---
 
-### BL-22: PRE-FLIGHT Gate for External APIs [CODE-ADAPTER]
-**Source:** Cycle-7 analysis — F=0 in 3/9 incidents (16/42 fixes traced to unverified endpoints)
-**Rule:** Before RT-1 begins on any task involving external APIs, Analyst MUST curl-verify every endpoint the task depends on. Before DEPLOY, Validator MUST re-verify all endpoints against the production environment. Produce a VERIFIED ENDPOINTS artifact listing each URL, HTTP status, and response shape. Unverified endpoint = Builder BLOCK (RED on A_F) at RT-1, Validator BLOCK (RED on A_sigma) at deploy.
-**Why:** Hallucinating that an endpoint exists, returns a certain schema, or behaves a certain way is the top source of F=0 collapse in boundary tasks. Verification costs seconds; a fix chain on a nonexistent endpoint costs 10+ commits.
-**Applies to:** Analyst (RT-1 execution), Validator (deploy re-verification), Builder (must refuse to start without artifact), META (enforce gate)
-**Tier:** T3 (agent-prompt checklist)
+### BL-22: PRE-FLIGHT Gate (External APIs + Baseline Health) [CODE-ADAPTER + UNIVERSAL]
+**Source:** Cycle-7 analysis — F=0 in 3/9 incidents (16/42 fixes traced to unverified endpoints); 2026-04-25 audit (`reports/rt1_pre_flight_test_audit_2026-04-25.md`) — operator pattern "сделай проверки перед началом" exposed missing baseline-health gate for non-API tasks.
+**Rule:** Before RT-1 begins, Analyst Check Agent runs PRE-FLIGHT verification:
+(a) [CODE-ADAPTER scope] external API tasks: verify all endpoints reachable, schemas valid (curl + schema check). Produce a VERIFIED ENDPOINTS artifact listing each URL, HTTP status, and response shape. Unverified endpoint = Builder BLOCK (RED on A_F) at RT-1, Validator BLOCK (RED on A_sigma) at deploy. Before DEPLOY, Validator MUST re-verify all endpoints against the production environment.
+(b) [UNIVERSAL extension] any task with executable `verify.method` (build / cite_check / parse / recompute / structure_check / etc.): run baseline verification on current HEAD; baseline FAIL → P0-baseline RT-1 BEFORE operator's task. Non-executable methods (readability / dry_run / flux_check / doc_alignment) skip baseline (no executable test surface). Operator override: "skip-baseline" trigger word in task description bypasses (logged to lessons.md).
+
+Output: `reports/baseline-{TASK_ID}-{DATE}.md` with PASS/FAIL summary and sample errors.
+**Why:** (a) Hallucinating that an endpoint exists, returns a certain schema, or behaves a certain way is the top source of F=0 collapse in boundary tasks. Verification costs seconds; a fix chain on a nonexistent endpoint costs 10+ commits. (b) Operator's pattern "сделай проверки перед началом" addresses the "built on broken main" failure mode. Without baseline gate, RT-1 may converge on plan that's already broken upstream. Cost ~30-60s (single verify run); eliminates entire failure class.
+**Applies to:** Analyst (RT-1 execution + baseline run), Validator (deploy re-verification), Builder (must refuse to start without artifact), META (enforce gate at Session Entry items 5c + 8)
+**Tier:** T3 (checklist + Session Entry item enforcement)
 
 ---
 

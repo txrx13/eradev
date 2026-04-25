@@ -289,6 +289,15 @@ Output it as your FIRST visible message so the operator can verify compliance.
        OOD scope: ___ (text-discrete = OK, continuous = REJECT for v9).
        Source: projects/{PROJECT}/config.md `domain:` block. Absent block → default type=code, B_modality=text, ood_scope=text-discrete.
        If domain.skin is set: loaded templates/domain_skin.{type}.md alongside role files.
+[ ] 5c. BASELINE HEALTH (BL-22 extension, v10):
+       If domain.verify.method is executable (build/cite_check/parse/recompute/structure_check):
+         Spawn [ANALYST] Check Agent: run domain.verify.command on current HEAD.
+         Output: reports/baseline-{TASK_ID}-{DATE}.md with PASS/FAIL summary.
+         FAIL → P0-baseline RT-1 to fix baseline BEFORE operator's task starts.
+         PASS → proceed to item 6.
+       If domain.verify.method is non-executable (readability/dry_run/flux_check/doc_alignment):
+         Skip baseline check (no executable test surface).
+       Operator override: "skip-baseline" trigger word in task description bypasses (logged to lessons.md).
 [ ] 6. RT-1 PLANNED: For M+ tasks, I will spawn 5 Agent calls (V/A/B/Val/C) BEFORE implementation.
 [ ] 6b. COMPOSITION HAZARDS: If this task ships >=2 independent refactors in one release window,
        Visionary MUST produce `reports/composition-hazards-<date>.md` before RT-1 concludes.
@@ -443,6 +452,22 @@ Each level compresses. META reads ONLY the Cycle Brief, never raw output.
 **Check Agent** (exception only): When META suspects a problem, spawn a disposable agent with specific yes/no questions. Agent reads raw output, answers, dies. META never reads raw output itself.
 
 **Level Separation Rule:** Each orchestration level reads ONLY structured output from the level directly below. META reads Cycle Briefs, never code. META-META reads Hansei Reports, never Cycle Briefs.
+
+### Post-task Recommendations Placement (canonical)
+
+3 existing artifacts cover all post-task recommendation needs — DO NOT create new files:
+
+| Artifact | Scope | Lifetime | Mandatory for |
+|---|---|---|---|
+| `reports/{task}/hansei-*.md` `## Recommendations` section | per-task immutable snapshot | persistent | M+ tasks at RT-3 |
+| `projects/{PROJECT}/lessons.md` | append-only per-project log | persistent | tasks producing reusable insight |
+| `projects/{PROJECT}/roadmap.md "Next Steps"` (if exists) | live forward plan | session-current | XL tasks + multi-cycle work |
+
+**Rejected (do not introduce):**
+- New `recommendations.md` per-project — duplicates lessons.md
+- Per-task BL_CANDIDATES.md entries — BL_CANDIDATES is for UNIVERSAL framework rules only, not per-task notes
+
+**Coordination**: Coherencer at RT-3 ensures recommendations land in correct artifact (Hansei nested vs lessons.md vs roadmap Next Steps) per scope.
 
 ### Context Pruning (at every meta-reflection)
 

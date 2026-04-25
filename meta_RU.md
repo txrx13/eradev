@@ -274,6 +274,15 @@ T2 checklist triggers: feature flag toggle, protocol-level change, git push, н�
        OOD scope: ___ (text-discrete = OK, continuous = REJECT для v9).
        Источник: projects/{PROJECT}/config.md блок `domain:`. Отсутствие блока → по умолчанию type=code, B_modality=text, ood_scope=text-discrete.
        Если domain.skin задан: загружен templates/domain_skin.{type}.md вместе с файлами ролей.
+[ ] 5c. БАЗОВАЯ ПРОВЕРКА (BL-22 extension, v10):
+       Если domain.verify.method исполняемый (build/cite_check/parse/recompute/structure_check):
+         Запустить [ANALYST] Check Agent: выполнить domain.verify.command на текущем HEAD.
+         Выход: reports/baseline-{TASK_ID}-{DATE}.md с PASS/FAIL summary.
+         FAIL → P0-базовая RT-1 для починки baseline ДО старта задачи оператора.
+         PASS → переходить к пункту 6.
+       Если domain.verify.method неисполняемый (readability/dry_run/flux_check/doc_alignment):
+         Пропустить базовую проверку (нет исполняемой тестовой поверхности).
+       Operator override: триггер "skip-baseline" в описании задачи обходит проверку (логируется в lessons.md).
 [ ] 6. RT-1 PLANNED: Для задач M+ я запущу 5 вызовов агентов (V/A/B/Val/C) ДО реализации.
 [ ] 6b. COMPOSITION HAZARDS: Если задача шипит ≥2 независимых рефакторов в одном релиз-окне,
        Visionary ОБЯЗАН создать reports/composition-hazards-<date>.md ДО завершения RT-1.
@@ -372,6 +381,22 @@ Builder (полный артефакт) -> Validator (Структурирова
 **Check Agent** (только исключение): Когда META подозревает проблему — запустить одноразового агента с конкретными вопросами да/нет. Агент читает сырой вывод, отвечает, завершается. META никогда не читает сырой вывод напрямую.
 
 **Правило разделения уровней:** Каждый уровень оркестрации читает ТОЛЬКО структурированный вывод уровня непосредственно ниже. META читает Cycle Brief, никогда код. META-META читает Hansei Reports, никогда Cycle Brief.
+
+### Размещение рекомендаций после задачи (канонически)
+
+3 существующих артефакта покрывают все потребности в пост-задачных рекомендациях — НЕ создавать новые файлы:
+
+| Артефакт | Область | Время жизни | Обязателен для |
+|---|---|---|---|
+| `reports/{task}/hansei-*.md` секция `## Recommendations` | per-task неизменяемый снимок | постоянно | M+ задач на RT-3 |
+| `projects/{PROJECT}/lessons.md` | append-only журнал на проект | постоянно | задач, дающих переиспользуемый инсайт |
+| `projects/{PROJECT}/roadmap.md "Next Steps"` (если существует) | живой план вперёд | актуально на сессию | XL задач + мульти-цикловой работы |
+
+**Отклонено (не вводить):**
+- Новый `recommendations.md` на проект — дублирует lessons.md
+- Per-task записи в BL_CANDIDATES.md — BL_CANDIDATES только для УНИВЕРСАЛЬНЫХ правил фреймворка, не для per-task заметок
+
+**Координация**: Когерент на RT-3 обеспечивает, чтобы рекомендации попали в правильный артефакт (вложенно в Hansei vs lessons.md vs roadmap Next Steps) согласно области.
 
 ### Обрезка контекста (при каждой мета-рефлексии)
 

@@ -161,6 +161,15 @@
 
 ---
 
+### BL-22 sub-(b): Baseline Health Check [UNIVERSAL extension]
+**Source:** 2026-04-25 audit (`reports/rt1_pre_flight_test_audit_2026-04-25.md`) — operator pattern "сделай проверки перед началом" exposed missing baseline-health gate for non-API tasks. Sub-(a) (external API endpoints) remains code-adapter-only — see `BOOTSTRAP_LESSONS_code_adapter.md` BL-22 for the full hybrid entry.
+**Rule (universal sub-(b) only):** Before RT-1 begins on any task with an executable `verify.method` (build / cite_check / parse / recompute / structure_check / etc.), Analyst Check Agent runs `domain.verify.command` on current HEAD. Output: `reports/baseline-{TASK_ID}-{DATE}.md` with PASS/FAIL summary and sample errors. Baseline FAIL → P0-baseline RT-1 BEFORE operator's task. Non-executable methods (readability / dry_run / flux_check / doc_alignment) skip baseline. Operator override: "skip-baseline" trigger word in task description bypasses (logged to lessons.md).
+**Why:** Without a baseline gate, RT-1 may converge on a plan that's already broken upstream ("built on broken main" failure mode). Cost ~30-60s; eliminates entire failure class.
+**Applies to:** Analyst (baseline run), META (enforce gate at Session Entry items 5c + 8), Builder (refuse to start while baseline FAIL)
+**Tier:** T3 (checklist + Session Entry item enforcement)
+
+---
+
 ### BL-26: META Always Delegates — No Exceptions [UNIVERSAL]
 **Source:** Cycle-7 + incident L-016 + gravity hansei — 100% correlation across 5 sessions: delegation = success, direct coding = failure
 **Rule:** META ALWAYS delegates via Agent tool, regardless of task size. S-tasks: spawn Builder + Validator agents. M+ tasks: spawn full 5-role team. No "quick fix" exception exists. The S-task loophole ("classify it S to code it directly") is eliminated — it trained the pattern of pipeline bypass. P0 production incidents declared by operator are the sole exception; post-incident Hansei is mandatory.
@@ -267,7 +276,7 @@ Gaps in this universal file, with the location of the missing BL:
 | BL-14 | Merged | MERGED INTO BL-8 (2026-04-20): rollback-plan consolidated into deployment-event checklist |
 | BL-20 | Retired | RETIRED 2026-04-20: content lifted to meta.md §13 MM3 (Adversarial bootstrap testing) |
 | BL-21 | Merged | MERGED INTO BL-17 (2026-04-20): format-spec-as-input consolidated into pre-generate verification |
-| BL-22 | Code-adapter | `BOOTSTRAP_LESSONS_code_adapter.md` |
+| BL-22 | Hybrid (sub-(a) code-adapter + sub-(b) universal extension above, 2026-04-25) | `BOOTSTRAP_LESSONS_code_adapter.md` (full entry) + sub-(b) inline above |
 | BL-23 | Retired | Merged/retired (see BOOTSTRAP_LESSONS.md budget header) |
 | BL-24 | Code-adapter | `BOOTSTRAP_LESSONS_code_adapter.md` |
 | BL-25 | Code-adapter | `BOOTSTRAP_LESSONS_code_adapter.md` |
