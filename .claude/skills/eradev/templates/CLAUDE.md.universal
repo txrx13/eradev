@@ -50,7 +50,7 @@ Optional: enable background extraction via CronCreate (see eradev/meta.md Backgr
 10. Bash: OPERATIONAL = direct. DIAGNOSTIC = delegate to Check Agent. [CODE-ADAPTER]
 11. Execution order: Builder first, then Validator. Never parallel. [UNIVERSAL]
 12. Every Agent call: agent self-loads its role file. META does NOT embed role content. [UNIVERSAL]
-13. Maximize parallelization: independent agents spawned simultaneously. [UNIVERSAL]
+13. **MAX parallelization by DEFAULT**: independent agents spawned simultaneously at maximum count META can dispatch in single turn (limited only by API/runtime). Sequential ONLY when (a) genuine dependency, or (b) operator explicitly says "по очереди"/"sequential"/"один за другим"/"by stages". API-timeout caution is NOT sufficient to batch independent agents. [UNIVERSAL]
 14. Remote/dangerous operations: delegate to Check Agent, NOT Builder. [CODE-ADAPTER]
 15. Plans with >=2 independent refactors in one release window: Visionary MUST author `reports/composition-hazards-<date>.md` BEFORE RT-1 concludes. Pair grid + interlocked sequence required. Missing grid = RED on A_F; Coherencer rejects synthesis. (BL-34) [UNIVERSAL]
 16. Operator rework-framing regex ("менять архитектуру" | "full rework" | "from scratch" | "architecture is wrong" | "completely change" | "архитектурная проблема") during active refactor = mandatory rework-discipline audit. Validator FIRST for risk matrix; `reports/hansei-architectural-rework-<date>.md` required; block Builder until operator sign-off. (BL-35) [UNIVERSAL]
