@@ -976,6 +976,18 @@ When 2+ Builders work in parallel, Analyst MUST assign files:
 
 Authorization composite: Invariant 13 (parallelize independent) + File Ownership (disjoint regions) + N_teams = ceil(N_modules/3) (capacity).
 
+### X.3 Tier honesty (composition contract enforcement)
+
+§X.1 floor counts and §X.2 parallel patterns are operational invariants but cannot be hook-enforced (PreToolUse on Agent tool doesn't have access to overall task classification — only per-call prompt/description).
+
+**Tier**: T3 (Coherencer audit + agent-role-tag.sh advisory). Enforcement protocol:
+- agent-role-tag.sh hook (T2): blocks Agent calls without [ROLE] tag — partial cover
+- rt1-composition-gate.sh hook (T2): blocks RT-1 missing Composition Hazards Grid for ≥2 refactors (BL-34) — partial cover
+- Coherencer Hansei sweep (T3): every 4 sessions, audit last 50 commits for agent-count-vs-task-classification matches; flag deviations
+- Operator can request explicit audit anytime via Coherencer Check Agent
+
+This is an HONEST T3 declaration (audit cadence + 2 partial T2 hooks) rather than fake T2 promise. Per L-52 + EMP19.
+
 ---
 
 ## XI. TPS Integration (Toyota Production System)
