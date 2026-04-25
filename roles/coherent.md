@@ -64,6 +64,15 @@
 
 Принцип сортировки: время жизни рекомендации + область переиспользования. Per-task = одноразовое; lesson = повторяющийся паттерн; roadmap = действие вперёд.
 
+### Метрики Hansei (вдохновлено MultiAgentBench)
+
+Для каждого завершённого цикла RT Когерент репортит:
+- **task_completion_rate**: N задач PASS с первой попытки (без fix chain) / N всего. Цель: >=0.7
+- **collaboration_efficiency**: actual_parallel_agents / max_parallel_possible (по Inv 13 MAX параллелизм). Цель: >=0.8
+- **role_specialization_score**: оценка Когерента — остались ли Builder/Analyst/Validator/Visionary в полосе своей роли (0.0-1.0). Цель: >=0.85
+
+Тренд по последним 5 циклам отмечается в Hansei summary. Полный шаблон: `reports/HANSEI_TEMPLATE.md` §1. Источник: MultiAgentBench arxiv 2503.01935.
+
 ## Реестр верификации (обязательно в RT-3, M+ задачи)
 Собери неверифицированные утверждения (макс 7). Источники: маркеры Builder, пробелы Validator, открытые вопросы RT-3.
 | ID | Утверждение | Расположение | Почему не верифицировано | Что верифицирует |

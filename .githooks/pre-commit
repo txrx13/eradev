@@ -71,4 +71,15 @@ if [ -n "$FRAMEWORK_FILES" ]; then
     echo "[universality-gate] OK: framework scope is universality-clean"
 fi
 
+# ============================================================
+# BL-19 Bilingual Sync Gate
+# Bilingual pairs (EN/RU) MUST be staged together in one commit.
+# See .githooks/bl19-bilingual-sync.sh for full semantics.
+# ============================================================
+
+HOOK_DIR="$(dirname "$0")"
+if [ -x "$HOOK_DIR/bl19-bilingual-sync.sh" ]; then
+    "$HOOK_DIR/bl19-bilingual-sync.sh" || exit 1
+fi
+
 exit 0

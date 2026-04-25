@@ -64,6 +64,15 @@ At RT-3, Coherencer triages observations into 3 buckets per meta.md §15 Post-ta
 
 Sorting principle: recommendation lifetime + reuse scope. Per-task = single use; lesson = repeating pattern; roadmap = forward action.
 
+### Hansei Metrics (MultiAgentBench-inspired)
+
+For each completed RT cycle, Coherencer reports:
+- **task_completion_rate**: N tasks PASS first-try (no fix chain) / N total. Target: >=0.7
+- **collaboration_efficiency**: actual_parallel_agents / max_parallel_possible (per Inv 13 MAX parallelism). Target: >=0.8
+- **role_specialization_score**: Coherencer rating of whether Builder/Analyst/Validator/Visionary stayed in their role lane (0.0-1.0). Target: >=0.85
+
+Trend across last 5 cycles flagged in Hansei summary. Full template: `reports/HANSEI_TEMPLATE.md` §1. Source: MultiAgentBench arxiv 2503.01935.
+
 ## Verification Register (mandatory in RT-3, M+ tasks)
 Collect unverified claims (max 7). Sources: markers from the producing agent, Validator gaps, RT-3 open questions.
 | ID | Claim | Location | Why unverified | What verifies it |

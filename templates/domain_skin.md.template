@@ -127,6 +127,19 @@ domain:
 - **Independence check:** Coherencer runs `flux_check` on its own synthesized Voice Guide — temporal independence (post-synthesis audit). Unlike `doc_alignment`, `flux_check` does not need a blocking gate because advisory findings are acted on by the operator / Visionary rather than mechanically enforced.
 - **Rationale:** exploratory/emergent work cannot be accurately gated by docs-alignment checks because the spec itself emerges during the work. `flux_check` provides a light audit (did the segment produce something good-enough-to-iterate? is voice coherent? are iterations making progress?) without the over-specification penalty that `doc_alignment` would impose on creative/directional work.
 
+#### Inter-rater reliability for subjective verify methods (v10+ Galileo Cronbach α, NEXT-C1)
+
+The four canonical subjective verify methods — `readability`, `dry_run`, `flux_check`, `doc_alignment` — produce judgments rather than mechanical pass/fail signals (unlike `build` / `parse` / `recompute` which compile, parse, or numerically recompute). Subjective verifiers MUST sample N≥3 independent raters (LLM judges or human reviewers) and compute Cronbach α as the inter-rater reliability metric for the rating set. α below the per-method threshold = re-Validator round (re-sample with fresh raters, fresh seeds, or refined rubric) BEFORE the verdict is accepted. This operationalizes the Galileo 2026 LLM-as-judge calibration pattern (see `reports/rt5_research_new_approaches_2026-04-25.md` row 15) for EraDev's subjective verifiers and gives Validator's E_A a defensible reliability floor instead of single-rater self-report.
+
+| Subjective method | Cronbach α threshold | Rationale |
+|---|---|---|
+| `readability` | ≥ 0.70 | Standard psychometric bar; readability scores are well-studied and raters should converge cleanly. |
+| `dry_run` | ≥ 0.65 | Plan dry-runs involve more interpretive judgment about realism / completeness; modest relaxation. |
+| `flux_check` | ≥ 0.60 | Lower bar — exploratory/emergent segments deliberately permit divergent voice; full convergence not the goal, but raters must still substantially agree the draft is good-enough-to-iterate. |
+| `doc_alignment` | ≥ 0.70 | Plan-completeness checks (AC↔artifact mapping, FM mitigation presence) are largely deterministic; raters should converge tightly. |
+
+Operationally: rater set composition (mix of LLM judges, human reviewers, or both) is project-defined; α computation runs operator-side (NOT a framework hook in this v10 increment — runtime tooling deferred to v11). The Validator role MUST log {N_raters, per-rater scores, α, threshold, pass/fail} alongside its verdict in `reports/`. α below threshold ≠ "the artifact is bad" — it means "the verdict is not yet reliable, re-sample." This preserves Invariant #11 (Builder→Validator sequencing) while adding a reliability gate on the Validator output itself.
+
 ---
 
 ## Vocabulary Mapping

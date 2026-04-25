@@ -44,15 +44,23 @@ fi
 
 TODAY=$(date +%Y-%m-%d)
 
-cat <<EOF
-=== BL-35 REWORK-FRAMING DETECTED ===
+cat >&2 <<EOF
+=== BL-35 REWORK-FRAMING DETECTED (BLOCKING) ===
 Operator message matches rework-trigger regex during active refactor window.
-Required action: spawn Validator FIRST with risk-matrix prompt.
-Produce reports/hansei-architectural-rework-${TODAY}.md with interlocked sequence.
-Block Builder spawn until operator sign-off on decision matrix OD-1..OD-N.
-Template: templates/interlocked_sequence.template.md
-See BL-35 in BOOTSTRAP_LESSONS.md.
-================================
+META MUST NOT proceed to Builder spawn. Mandatory sequence:
+  1. Spawn [VALIDATOR] FIRST with risk-matrix prompt (Inv 16, BL-35).
+  2. Validator prompt MUST include section: "## Operator rework framing: <verbatim quote>".
+  3. Produce reports/hansei-architectural-rework-${TODAY}.md using templates/interlocked_sequence.template.md.
+  4. Enumerate composition hazards per BL-34 (pair grid + 3-way).
+  5. Propose INTERLOCKED SEQUENCE (one pivot at a time, parity windows, kill-switches), never parallel menu.
+  6. Block all Builder spawns until operator sign-off on decision matrix OD-1..OD-N.
+
+Override paths (use only with explicit operator authorization):
+  - Re-run with ERADEV_HOOKS_DISABLED=1 in environment.
+  - Operator may say "skip rework audit" / "proceed without Hansei" verbatim — META cites authorization.
+
+See BL-35 in BOOTSTRAP_LESSONS.md and Invariant 16 in CLAUDE.md.
+=================================================
 EOF
 
-exit 0
+exit 2

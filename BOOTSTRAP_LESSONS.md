@@ -158,6 +158,7 @@
 **Why:** Creating pairs sequentially guarantees immediate desynchronization. The sync audit found eradev_RU.md missing 4 entire sections that existed in eradev.md. Every bilingual pair created without simultaneous sync is technical debt that compounds.
 **Applies to:** ALL roles, META-Orchestrator (enforce bilingual sync rule)
 **Tier:** T2 (hook / CI / lint)
+**Hook:** `.githooks/bl19-bilingual-sync.sh` (added 2026-04-25, RT-7 NEXT-B1, closes L-52 Tier-claim falsification on BL-19). Pairs covered: eradev.md↔eradev_RU.md, meta.md↔meta_RU.md, LOADING_PROTOCOL.md↔LOADING_PROTOCOL_RU.md, roles/*_EN.md↔roles/*.md, templates/domain_skin.{type}.md↔templates/domain_skin.{type}_RU.md. Override: `BL19_OVERRIDE=1` env var (logged) or `git commit --no-verify`.
 
 ### BL-22: PRE-FLIGHT Gate (External APIs + Baseline Health) [CODE-ADAPTER + UNIVERSAL]
 **Source:** Cycle-7 analysis — F=0 in 3/9 incidents (16/42 fixes traced to unverified endpoints); 2026-04-25 audit (`reports/rt1_pre_flight_test_audit_2026-04-25.md`) — operator pattern "сделай проверки перед началом" exposed missing baseline-health gate for non-API tasks.
@@ -256,7 +257,7 @@ When S_team is low but B_mean is high, the team may not be disagreeing on substa
 
 ### BL-35: Rework-discipline audit on "architectural rework" framing [UNIVERSAL]
 **Source:** PLUGY BL-49 Session 5 promoted UNIVERSAL — operator said "полностью менять архитектуру" mid-flight during active Phase Q pivots; literal reading = big-bang = H1/H2/H5 fire simultaneously.
-**Tier:** T2 (operator-message regex detector — see .claude/hooks/rework-framing-detector.sh)
+**Tier:** T1-enforced (operator-message regex detector — see .claude/hooks/rework-framing-detector.sh; UserPromptSubmit hook exits 2 BLOCKING when trigger matches AND active pivot window detected; override via `ERADEV_HOOKS_DISABLED=1` or explicit operator authorization)
 **Rule:** When operator declares "the architecture is wrong" / "full rework" / "from scratch" / "менять архитектуру" / "полностью менять" / "completely change" DURING active pivots, META MUST NOT interpret as "reset everything." Mandatory sequence: (1) spawn Validator FIRST with risk-matrix task; (2) re-validate project NO-GO list against operator's literal request; (3) enumerate composition hazards per BL-34; (4) propose INTERLOCKED SEQUENCE (one pivot at a time with parity windows, kill-switches, shadow-mode) — never a parallel menu; (5) produce `reports/hansei-architectural-rework-<date>.md` using `templates/interlocked_sequence.template.md`; (6) operator sign-off on decision matrix (OD-1..OD-N) BEFORE any Builder spawns. Operator frustration during active pivot = class-shift DETECTOR at ROADMAP level, NOT a permission to parallelize. The Hansei itself breaks any implicit BL-3 chain.
 **Why:** Under outage stress, operator psychology favors "reset everything" framing. Without the audit, META reads it literally as "ship all refactors in parallel" — the most dangerous composition possible. PLUGY 2026-04-20 Hansei proved the audit reshaped 10 proposed refactors into a 4-month interlocked sequence with ≥3× BD ROI vs the parallel alternative.
 **Applies to:** META (trigger detection + Validator spawn ordering), Validator (risk-matrix authorship), Coherencer (Hansei synthesis + interlock verification).
