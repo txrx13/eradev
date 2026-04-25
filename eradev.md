@@ -426,6 +426,8 @@ where:
 - `I(C)` — configuration inertia (the team's resistance to reconfiguration). Existing EraDev reading: Blast Radius tier (LOW/MED/HIGH/CRIT) as qualitative proxy — see glossary entry "Configuration inertia I(C)".
 - `ε > 0` — regularizer (prevents divergence at `I(C) → 0`).
 
+**Unit**: τ_cycle measured in commits between RT-1.start and RT-3.close (preferred for code/research domains). Alternative units when commit cadence isn't natural: wall-clock hours (creative/exploratory FLUX) or conversation-turns (interactive sessions). Project may override via `domain.tau_unit` (deferred to v11).
+
 Interpretation: v_conv is multiplicative-inverse in both τ_cycle and I(C). Cutting τ_cycle in half doubles v_conv (across all N_conf trajectories, not just one — this is the primacy claim of III.2.1). Cutting I(C) in half also doubles v_conv, but I(C) is a property of the configuration (team size, coupling, legacy) and cannot be changed mid-cycle; τ_cycle CAN. That asymmetry is why τ_cycle is the optimization lever.
 
 **I(C) calibration — OPEN QUESTION (OQ-PT-1).** Three candidate forms from Pankratov 2026 §VI.3: `I(C) = Σ_j w_j · B_j` (inertia as weighted sum of role coherences), OR `I(C) ∝ S_team^(−1)` (inertia as inverse team coherence), OR `I(C) ∝ Var(Λ_role)^(−1)` (inertia as inverse role dispersion). Current EraDev default: Blast Radius tier as qualitative proxy pending v11 calibration against ≥3 RT-3 data points. Report v_conv at RT-3 (alongside S_session) as a diagnostic — do not gate commits on it until calibration is confirmed.

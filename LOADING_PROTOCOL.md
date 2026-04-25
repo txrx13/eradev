@@ -100,4 +100,4 @@ The Loading Protocol maps directly to the Activation Operator (eradev.md Section
 
 ---
 
-*EraDev v9 | Agent Loading Protocol | META 6-step path + role-agent 4-step path, aligned to root CLAUDE.md*
+*EraDev v10 | Agent Loading Protocol | META 6-step path + role-agent 4-step path, aligned to root CLAUDE.md*

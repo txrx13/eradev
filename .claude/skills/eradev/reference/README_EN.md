@@ -2,19 +2,27 @@
 
 ## What is EraDev
 
-EraDev is a multi-agent development framework based on ODTOE (Observer-Dependent Theory of Everything) and Toyota Production System principles. Five specialized roles (Visionary, Analyst, Builder, Validator, Coherencer) work through the Round Table protocol, ensuring collective coherence above the individual level.
+EraDev is a framework for multi-agent development of text-discrete artifacts (code, scientific articles, books, plans, research, configs), synthesizing **12 theoretical foundations**:
+
+- **Core**: ODTOE (Observer-Dependent Theory of Everything, by A. Pankratov) for coherence math (B, S_team, P_coll, Ω); Toyota Production System for operational discipline (Jidoka, Andon, Hansei, Yokoten, A3, Kaizen, Coaching Kata); Theory of Constraints (Goldratt) for bottleneck protocols; TRIZ + IFR (Altshuller) for framing tasks via contradiction resolution.
+- **Mathematical substrate**: KAM theorem (Kolmogorov-Arnold-Moser) grounds `R/r = φ` as the most stable toroidal orbit; Hurwitz theorem grounds `n_min = ⌈π⌉+1 = 5` as an invariant; Hofstadter's strange loop grounds L9 self-modification via `Ψ* = Φ(Ψ*)`.
+- **Multi-agent inspirations**: MetaGPT and Google's PaperOrchestra (5-role decomposition — independent convergence on the same attractor); AutoAgent (EMP7 "optimization without orientation is hill-climbing into fog"); MemPalace (memory hierarchy Wings/Rooms/Closets/Drawers -> T1/T2/T3); ECC (background instinct extraction via CronCreate); LangGraph (declarative RT schema; engine deferred to v11).
+
+A META-Orchestrator (Level 9) coordinates five specialized roles (Visionary, Analyst, Builder, Validator, Coherencer) through the Round Table protocol. The Universality Gate (v10) mechanically enforces the split: the framework stays universal, project specifics live in `projects/{PROJECT}/`.
+
+See [FOUNDATIONS.md](./FOUNDATIONS.md) for the full genealogy of sources, named contributors, and methodological borrows.
 
 **v10 key properties:**
 
 - **3-layer runtime enforcement:** CLAUDE.md (auto-bootstrap) + PreToolUse hook (blocks direct Edit/Write from META) + memory persistence (identity survives across sessions)
 - **4-layer file architecture (v9):** L0 IMMUTABLE (ODTOE core) / L1 Universal roles / L2 Domain skins / L3 Project instances
 - **6 output types:** Agent calls, Decisions, Synthesis, Lessons, Reports, Check Agent. Anything else = VIOLATION.
-- **17 invariants** tagged [UNIVERSAL] / [CODE-ADAPTER] for cross-domain adaptation (incl. #15 composition-hazards grid for multi-refactor plans, BL-34; #16 rework-discipline audit on architectural rework framing, BL-35; #17 τ_cycle primacy, ODTOE_parallel_trajectories F3).
+- **17 invariants** tagged [UNIVERSAL] / [CODE-ADAPTER] for cross-domain adaptation (#17 — τ_cycle primacy, ODTOE_parallel_trajectories F3).
 - **6-step loading sequence:** eradev.md, meta.md, BOOTSTRAP_LESSONS.md, config.md, lessons.md + conditional step 6 (domain skin).
 - **13-item session bootstrap** including 5b DOMAIN (modal B-formula selection).
-- **Domain skins (v9):** 6 domain types: code, article, book, config, plan, research.
-- **Self-loading agents (v9):** Invariant 12: agents self-load their role file.
-- **v10 features:** Omega(H_hist) computation, temporal decay, BL compression, Apophatic Gate, /extract skill.
+- **Domain skins (v9):** 6 domain types: code, article, book, config, plan, research. Each with its own B-modality and verification method.
+- **Self-loading agents (v9):** Invariant 12: agents self-load their role file, META does not embed content.
+- **v10 features:** Omega(H_hist) computation (cross-project Lambda amplification), temporal decay (freshness model), BL compression (auto-cleanup candidates), Apophatic Gate (pre-RT-1 checkpoint), /extract skill.
 - **Report Funnel:** Builder (full artifact) -> Validator (Structured Verdict, 7 lines) -> Coherencer (Cycle Brief, 10 lines) -> META. Each level compresses; META never reads raw output.
 
 Each agent's quality is measured by `B = F * E * (1-sigma) * Lambda` -- zeroing any component zeroes the entire result.

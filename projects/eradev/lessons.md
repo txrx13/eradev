@@ -11,45 +11,24 @@ EraDev v7.1 was rebuilt from scratch by 25 agents (5 RT × 5 roles) analyzing tw
 
 ### Lessons
 
-### L-1: 25-agent parallel analysis produces emergent insights [ACTIVE]
-<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: true -->
-1. **25-agent parallel analysis produces emergent insights.** Individual RT teams found different issues. RT1 found duplication (25-30%). RT2 found Lambda problem. RT3 found evolution patterns. RT4 found ODTOE formula errors. Only synthesis (RT5) could see the full picture.
+### L-1..L-4, L-6, L-7, L-10: [ARCHIVED 2026-04-25 → lessons_archive.md]
+<!-- Compression Pass 2026-04-25: codified into framework artifacts (Inv 13, EMP9, CLAUDE.md Language Stack, eradev.md Section 0, meta.md §14, EMP3+L-23, project tooling). Full content preserved in lessons_archive.md. -->
 
-### L-2: P_coll error propagated across multiple documents [ACTIVE]
-<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: true -->
-2. **P_coll error propagated across multiple documents.** The value 0.61 (incorrect) for P_coll at B=0.3, n=3, k=1 was present in eradev_old, eradev_last, and multiple articles. Correct value: 0.657. All 20 analytical agents missed it until RT4-Validator specifically recomputed. Lesson: formula verification requires independent recomputation, not consensus.
-
-### L-3: A/B experiment RU vs EN language stack selection [ACTIVE]
-<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: true -->
-3. **A/B experiment RU vs EN (10 agents): EN prompts give 48% higher B-score for practical tasks.** But RU agents produce deeper mathematical innovations (phi-weighted S_team, Graduated Activation). Neither language is universally better — the task type determines the optimal language stack.
-
-### L-4: Inline routing vs external router [ACTIVE]
-<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false -->
-4. **A/B experiment router.md vs eradev.md Section 0 (10 agents): inline routing wins.** External router.md split the team (Builder went EN, 4 others went RU), creating inter-stack divergence. Inline routing in Section 0 let agents self-determine without forced classification.
-
-### L-5: Pluggy session identity enforcement failure [ACTIVE]
-<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: true -->
+### L-5: Pluggy session identity enforcement failure [SUPERSEDED]
+<!-- valid_from: 2026-04-04 | ended: 2026-04-25 | superseded_by: L-11 | cross_project: true -->
 5. **Pluggy session (real deployment): 95% solo Builder, 5% delegation.** Root cause: bootstrap prompt said "read and proceed" without declaring META identity. Fix: CLAUDE.md auto-bootstrap + meta.md Section 14 checklist. This is the Lambda problem (BL-16): knowledge without enforcement = zero.
+<!-- Supersede note: L-11 (3-Layer Identity Enforcement) addresses the same single-point-collapse failure mode with mechanical 3-layer redundancy. Pluggy 95% solo is the canonical instance L-11 solves. -->
 
-### L-6: Enforcement mechanisms belong in META protocol [ACTIVE]
-<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: true -->
-6. **Section 0.5 was created then removed (5-role vote: 3 vs 2).** Checklist in eradev.md created self-reference problem (checklist inside the file it verifies). Merged into meta.md Section 14 per Option C. Lesson: enforcement mechanisms belong in the META protocol, not in the universal core.
-
-### L-7: Bilingual sync must be simultaneous [ACTIVE]
-<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: true -->
-7. **Bilingual files created without simultaneous sync = immediate tech debt.** eradev_RU.md was created at v7.0, eradev.md was updated to v7.1. Sync audit found 5 HIGH issues. Fix: BL-19 (bilingual sync rule) now in eradev.md Section 0.
-
-### L-8: Check-First prevents format rework [ACTIVE]
-<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: true -->
+### L-8: Check-First prevents format rework [SUPERSEDED]
+<!-- valid_from: 2026-04-04 | ended: 2026-04-25 | superseded_by: EMP11 | cross_project: true -->
 8. **Article format: Check-First prevents 100% of format rework.** Research article was generated with wrong format (no comment groups, \hrule between sections, wrong keywords format). Reading ODTOE_article.tex BEFORE generation would have prevented all issues. Fix: Check-First pipeline in odtoe-articles config.md.
+<!-- Supersede note: EMP11 (7-step first-use pipeline) generalizes Check-First into a domain-invariant pipeline (pre-flight → self-test → smoke → cleanup) for any new abstraction. Check-First is step 1 of the EMP11 pipeline. -->
 
-### L-9: S_adjusted formula discovery [ACTIVE]
-<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false -->
+### L-9: S_adjusted formula discovery [SUPERSEDED]
+<!-- valid_from: 2026-04-04 | ended: 2026-04-25 | superseded_by: L-22 + EMP9 | cross_project: false -->
 9. **S_adjusted = S_team × B_mean — discovered through A/B experiment.** RU-group had S_team=0.95 (high agreement) but B_mean=0.346 (low quality). Without S_adjusted, RU appears healthier. S_adjusted correctly shows EN (0.447) > RU (0.329). All 10 agents in the next experiment independently found a glossary conflict (two S_adjusted definitions).
+<!-- Supersede note: L-22 (Phantom Coherence Check as release gate) cites S_adjusted as the dissonance-amplifying metric and codifies its operational use; EMP9 (structural invariance) explains why the multiplicative form is correct. Discovery context preserved for genealogy. -->
 
-### L-10: Selective converter execution [ACTIVE]
-<!-- valid_from: 2026-04-04 | ended: null | superseded_by: null | cross_project: false -->
-10. **tex2md.py regeneration creates unwanted EN files.** Running the converter on all .tex files (including _EN versions) created EN markdown copies that user didn't request. The converter should be run selectively, not on all files.
 
 ## Mega-Patterns
 
@@ -95,13 +74,15 @@ Source: AutoAgent analysis (April 2026) -- AutoAgent achieves speed through scor
 <!-- valid_from: 2026-04-07 | ended: null | superseded_by: null | cross_project: true -->
 12. **META Output Type Spec is the structural fix for context pollution.** Identity drift was diagnosed not as behavioral but structural: untyped outputs allow any behavior. Enumerating 5 permitted output types makes code output structurally impossible.
 
-### L-13: RT-1 REJECT is healthy [ACTIVE]
-<!-- valid_from: 2026-04-07 | ended: null | superseded_by: null | cross_project: true -->
-13. **RT-1 can REJECT a proposal — this is healthy.** RT-1 on eradev.md decomposition ran 5 roles, 3/5 rejected the split. In-place Part I/II markers accepted as alternative. REJECT is the system working correctly.
+### L-13: [ARCHIVED 2026-04-25 → lessons_archive.md]
+<!-- Compression: codified in eradev.md RT protocols (REJECT outcome is now framework property). -->
 
-### L-14: BL Budget requires active merge [ACTIVE]
-<!-- valid_from: 2026-04-07 | ended: null | superseded_by: null | cross_project: true -->
+### L-14: BL Budget requires active merge [SUPERSEDED]
+<!-- valid_from: 2026-04-07 | ended: 2026-04-25 | superseded_by: L-50 | cross_project: true -->
 14. **BL Budget requires active merge, not just append.** At 27/30, adding new entries required merging BL-13+23 and BL-6+27. Append-only BL management hits the wall; active compression is required.
+<!-- Supersede note: L-50 (extending existing BL beats adding) provides the operational rule that L-14 motivated: when adding rule conceptually adjacent, extend rather than add. L-14's "active compression required" is now the L-50 default. -->
+
+
 
 ### L-15: Bash classification boundary [ACTIVE]
 <!-- valid_from: 2026-04-07 | ended: null | superseded_by: null | cross_project: false -->

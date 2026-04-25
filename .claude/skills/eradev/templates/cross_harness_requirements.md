@@ -9,7 +9,7 @@
 
 ## Purpose
 
-EraDev v9 runs exclusively in Claude Code. This document specifies what a harness
+EraDev v10 runs exclusively in Claude Code. This document specifies what a harness
 must provide for EraDev to operate at L5+ (META delegates via agents, RT-1 produces
 independent multi-role perspectives). It is NOT a porting guide — it is a requirements
 contract that any candidate harness can be evaluated against.
