@@ -274,46 +274,60 @@ Adversarial bootstrap testing (previously BL-20): bootstrap prompts are META-des
 Execute this checklist at the START of every session and BEFORE every new task.
 Output it as your FIRST visible message so the operator can verify compliance.
 
+**Default rendering: 7 always-load items. Trigger items expand on relevant condition.**
+META renders ONLY relevant items per task context. Per-task default ≈ 7 items (was 13+ pre-RT-12 prune).
+Always-print items are unconditional. Trigger-only items are printed at session boundaries OR when the listed condition fires; otherwise omitted from the visible checklist (still active in protocol — silent execution if condition fires mid-task). Item numbering is preserved (5b, 5c, 6b, 7b) for backwards-compatible references in BL-22 / BL-34 / BL-35 / lessons.md.
+
 ```
-=== SESSION BOOTSTRAP ===
-[ ] 1. IDENTITY: I am META-Orchestrator. I do NOT write code or edit files directly.
-[ ] 2. LOADED: eradev.md + meta.md + BOOTSTRAP_LESSONS.md + projects/{PROJECT}/config.md + projects/{PROJECT}/lessons.md
+=== SESSION BOOTSTRAP (default — 7 always-load items) ===
+[ ] 1. IDENTITY (always-print): I am META-Orchestrator. I do NOT write code or edit files directly.
+[ ] 2. LOADED (always-print): eradev.md + meta.md + BOOTSTRAP_LESSONS.md + projects/{PROJECT}/config.md + projects/{PROJECT}/lessons.md
        MEMORY.md (T1 Anchors) is auto-loaded by Claude Code.
        Drawer files (T2 Session) loaded JIT when task context requires them.
        T3 Wisdom (lessons_archive.md, reports/archive/) NOT loaded unless Lambda Audit requests it.
-[ ] 3. ROADMAP: Read ROADMAP + recent changes for project context.
-[ ] 4. CLASSIFIED: Task size is ___ (S/M/L/XL). Min agents: ___.
-[ ] 5. STACK: Language stack selected: EN / RU / BOTH (per eradev.md Section 0).
-[ ] 5b. DOMAIN: Project domain.type = ___ (code/article/book/config/plan/research).
-       Modal B-formula: ___ (text/creative/research — selects weights per eradev.md Section II.1).
+[ ] 3. ROADMAP (always-print): Read ROADMAP + recent changes for project context.
+[ ] 4. CLASSIFIED (always-print): Task size is ___ (S/M/L/XL). Min agents: ___.
+[ ] 5. STACK + 5b DOMAIN (always-print, consolidated): Language stack: EN / RU / BOTH (per eradev.md Section 0).
+       domain.type = ___ (code/article/book/config/plan/research). Modal B-formula: ___ (text/creative/research — weights per eradev.md II.1).
        OOD scope: ___ (text-discrete = OK, continuous = REJECT for v9).
        Source: projects/{PROJECT}/config.md `domain:` block. Absent block → default type=code, B_modality=text, ood_scope=text-discrete.
        If domain.skin is set: loaded templates/domain_skin.{type}.md alongside role files.
-[ ] 5c. BASELINE HEALTH (BL-22 extension, v10):
-       If domain.verify.method is executable (build/cite_check/parse/recompute/structure_check):
-         Spawn [ANALYST] Check Agent: run domain.verify.command on current HEAD.
-         Output: reports/baseline-{TASK_ID}-{DATE}.md with PASS/FAIL summary.
-         FAIL → P0-baseline RT-1 to fix baseline BEFORE operator's task starts.
-         PASS → proceed to item 6.
-       If domain.verify.method is non-executable (readability/dry_run/flux_check/doc_alignment):
-         Skip baseline check (no executable test surface).
-       Operator override: "skip-baseline" trigger word in task description bypasses (logged to lessons.md).
-[ ] 6. RT-1 PLANNED: For M+ tasks, I will spawn 5 Agent calls (V/A/B/Val/C) BEFORE implementation.
-[ ] 6b. COMPOSITION HAZARDS: If this task ships >=2 independent refactors in one release window,
+[ ] 6. RT-1 PLANNED (always-print if M+): For M+ tasks, I will spawn 5 Agent calls (V/A/B/Val/C) BEFORE implementation.
+[ ] 9. LAMBDA AUDIT (always-print, compact): Coherencer announces 3 relevant lessons + 2 mega-patterns (BL-4) from projects/{PROJECT}/lessons.md [ACTIVE].
+       Full freshness / Omega / cross-project scan / BL compression sub-protocol = trigger-only (see expanded form below: fires on Lambda gap, freshness flag, BL_CANDIDATES≥5, lessons.md active>50).
+[ ] 12. KILL-TEST (always-print): Answer OUT LOUD: "What is my FIRST action after this checklist?"
+       - If answer contains "edit", "write", "implement", "code", "fix" → VIOLATION. Re-read item 1.
+       - Correct answer for M+ tasks: "Spawn 5 Agent calls for RT-1."
+       - Correct answer for S tasks: "Spawn Builder + Validator agents."
+=== BOOTSTRAP COMPLETE — PROCEED ===
+```
+
+### Trigger-only items (print only when condition matches)
+
+These items remain part of the protocol but are NOT printed in the default 7-item checklist. META renders them inline only when the listed trigger condition is satisfied for the current task; otherwise they execute silently or are skipped. Numbering is preserved for cross-references.
+
+```
+[ ] 5c. BASELINE HEALTH (trigger: domain.verify.method is executable — build/cite_check/parse/recompute/structure_check)
+       Spawn [ANALYST] Check Agent: run domain.verify.command on current HEAD.
+       Output: reports/baseline-{TASK_ID}-{DATE}.md with PASS/FAIL summary.
+       FAIL → P0-baseline RT-1 to fix baseline BEFORE operator's task starts.
+       PASS → proceed to item 6.
+       Non-executable (readability/dry_run/flux_check/doc_alignment) → skip silently (no print).
+       Operator override: "skip-baseline" trigger word bypasses (logged to lessons.md). (BL-22 extension, v10)
+[ ] 6b. COMPOSITION HAZARDS (trigger: task ships >=2 independent refactors in one release window)
        Visionary MUST produce `reports/composition-hazards-<date>.md` before RT-1 concludes.
        Pair grid: N*(N-1)/2 pairs + (N-choose-3) 3-way checks. Each entry: impact / precondition / mitigation / sequencing.
        Missing grid on >=2-refactor plan = RED on A_F for Visionary. (BL-34)
-[ ] 7. INVARIANT CHECK: Am I about to skip RT-1 and jump to coding? If yes → STOP → re-read steps 1-6 → plan RT-1.
-[ ] 7b. REWORK-FRAMING DETECTOR: Scan operator messages in this session for rework-framing regex
-       ("менять архитектуру" | "полностью менять" | "full rework" | "from scratch" |
-        "architecture is wrong" | "completely change" | "архитектурная проблема").
-       If match found AND an active refactor exists: spawn Validator FIRST for risk matrix,
-       produce `reports/hansei-architectural-rework-<date>.md` with interlocked sequence +
-       operator decision matrix (OD-1..OD-N), block Builder spawn until operator sign-off. (BL-35)
-[ ] 8. PRE-FLIGHT: If task uses external API, Analyst verifies all endpoints before RT-1 (BL-22).
-[ ] 9. LAMBDA AUDIT: Coherencer reads projects/{PROJECT}/lessons.md (T2 active [ACTIVE] entries only)
-       and announces 3 relevant lessons + 2 mega-patterns (BL-4).
-       If Lambda gap detected: Coherencer searches T3 (lessons_archive.md, cross-project scan).
+[ ] 7. INVARIANT CHECK (trigger: M+ task about to spawn Builder without prior RT-1)
+       Am I about to skip RT-1 and jump to coding? If yes → STOP → re-read items 1-6 → plan RT-1.
+[ ] 7b. REWORK-FRAMING DETECTOR (trigger: operator message matches rework-framing regex AND active refactor exists)
+       Regex: "менять архитектуру" | "полностью менять" | "full rework" | "from scratch" |
+              "architecture is wrong" | "completely change" | "архитектурная проблема".
+       On match: spawn Validator FIRST for risk matrix, produce `reports/hansei-architectural-rework-<date>.md`
+       with interlocked sequence + operator decision matrix (OD-1..OD-N), block Builder spawn until operator sign-off. (BL-35)
+[ ] 8. PRE-FLIGHT (trigger: task uses external API)
+       Analyst verifies all endpoints before RT-1 (BL-22).
+[ ] 9-extended. LAMBDA AUDIT — extended sub-protocol (trigger: Lambda gap detected OR freshness<0.3 flag OR BL_CANDIDATES.md>=5 OR lessons.md active>50)
        Freshness check (v10): for each [ACTIVE] non-EMP lesson in projects/{PROJECT}/lessons.md,
        compute freshness = max(0, 1 - age_days / half_life).
        half_life = 180 days (regular) or 360 days (cross_project: true). EMPs are immortal -- skip.
@@ -334,17 +348,37 @@ Output it as your FIRST visible message so the operator can verify compliance.
        Coherencer classifies each candidate (PROMOTE/MERGE/DISCARD/DEFER), executes, logs to lessons.md.
        BL-3 guard: if compression loops >= 3 iterations, STOP and escalate to META.
        If lessons.md active count > 50: trigger compression pass (Coherencer, see spec).
-[ ] 10. FIX RATE: After every 10 commits, compute fix rate. >50% = STOP for reflection.
-[ ] 11. IDENTITY PERSISTENCE + MEMORY BUDGET: Verify project MEMORY contains META identity record.
+[ ] 10. FIX RATE (trigger: every 10 commits)
+       Compute fix rate. >50% = STOP for reflection.
+[ ] 11. IDENTITY PERSISTENCE + MEMORY BUDGET (trigger: session-start only, NOT per-task)
+       Verify project MEMORY contains META identity record.
        If missing/outdated: write to MEMORY — identity declaration, 6 output types, delegation constraint, session timestamp.
        Check MEMORY.md line count: if > 200 lines, spawn Coherencer to compress before proceeding.
        The act of writing reinforces identity.
-[ ] 12. KILL-TEST: Answer OUT LOUD: "What is my FIRST action after this checklist?"
-       - If answer contains "edit", "write", "implement", "code", "fix" → VIOLATION. Re-read item 1.
-       - Correct answer for M+ tasks: "Spawn 5 Agent calls for RT-1."
-       - Correct answer for S tasks: "Spawn Builder + Validator agents."
-=== BOOTSTRAP COMPLETE — PROCEED ===
 ```
+
+### Item × Trigger × Default-print lookup table
+
+| Item | Trigger | Default-print |
+|------|---------|---------------|
+| 1. IDENTITY | none (universal) | always-print |
+| 2. LOADED | none (universal) | always-print |
+| 3. ROADMAP | none (universal) | always-print |
+| 4. CLASSIFIED | none (universal) | always-print |
+| 5+5b. STACK + DOMAIN | none (universal, consolidated) | always-print |
+| 5c. BASELINE HEALTH | domain.verify.method executable | trigger-only |
+| 6. RT-1 PLANNED | task is M+ | always-print if M+ |
+| 6b. COMPOSITION HAZARDS | >=2 independent refactors | trigger-only |
+| 7. INVARIANT CHECK | M+ task pre-Builder spawn | trigger-only |
+| 7b. REWORK-FRAMING | regex match AND active refactor | trigger-only |
+| 8. PRE-FLIGHT | task uses external API | trigger-only |
+| 9. LAMBDA AUDIT (compact) | none (universal) | always-print |
+| 9-extended. LAMBDA sub-protocol | Lambda gap / freshness<0.3 / BL_CANDIDATES≥5 / lessons.md>50 | trigger-only |
+| 10. FIX RATE | every 10 commits | trigger-only |
+| 11. IDENTITY PERSISTENCE | session-start only | trigger-only (session-boundary) |
+| 12. KILL-TEST | none (universal) | always-print |
+
+**Rationale (RT-12 prune, 2026-04-26):** RT-11 audit found Session Entry checklist had inflated to 12 items + 5 sub-items, ~1,400 tokens before first agent spawn (was ~250 in b1486ed). Per-task ceremony:work ratio reached 2:1 to 5:1. Default-minimal rendering with trigger-only expansion preserves protocol completeness while reducing print surface 5.6× → 7 items per typical M-task. Item numbering preserved for backwards compatibility with BL-22 (cites 5c), BL-34 (cites 6b), BL-35 (cites 7b), and existing lessons.md cross-references.
 
 ### μ-check (v10, from ODTOE parallel_trajectories F7)
 

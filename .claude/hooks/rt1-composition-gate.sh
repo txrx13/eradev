@@ -21,9 +21,9 @@ fi
 FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // .tool_input.path // empty' 2>/dev/null || true)
 
 case "$FILE_PATH" in
-  */reports/rt1-*.md) ;;
-  */reports/RT1-*.md) ;;
-  */reports/rt1_*.md) ;;
+  */reports/rt1-*.md|reports/rt1-*.md) ;;
+  */reports/RT1-*.md|reports/RT1-*.md) ;;
+  */reports/rt1_*.md|reports/rt1_*.md) ;;
   *)
     exit 0
     ;;

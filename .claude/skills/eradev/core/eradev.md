@@ -988,6 +988,29 @@ Authorization composite: Invariant 13 (parallelize independent) + File Ownership
 
 This is an HONEST T3 declaration (audit cadence + 2 partial T2 hooks) rather than fake T2 promise. Per L-52 + EMP19.
 
+### X.4 Vocabulary Registry (canonical token map)
+
+This registry resolves multi-referent terms to canonical referents.
+Adding a new term requires checking this registry first (anti-phantom-decoherence).
+
+| Term | Canonical referent | Other senses (deprecated) |
+|---|---|---|
+| **Gate** (capitalized) | Universality Gate (`.githooks/pre-commit`) | — |
+| V-Gate | Engineering validity gate (Validator B-score, BL-A1..A4 cite_check) | «Validator gate» |
+| PR-Gate | Publication readiness gate (article skin BL-A5) | — |
+| Apophatic Gate | OOD detection gate (eradev.md §IV) | — |
+| μ-check | Pre-Builder plan-completeness gate (meta.md §14) | — |
+| **Ready** | Domain-specific completion (article: PR-Gate PASS; code: deploy-verify; research: recompute) | «GREEN», «structural V-Gate PASS» (these are NOT «ready» per RT-9 amendment) |
+| Structural V-Gate PASS | B-score ≥ 0.5, Validator GREEN | NOT «ready» |
+| **Composition** | Multi-Builder file ownership (§X.1 floor counts) | «Composition Hazards Grid» (BL-34, separate concept), «role composition» |
+| Composition Hazards Grid | BL-34 pair grid (≥2 refactors) | — |
+| Role composition | RT-1 5-role team makeup | — |
+| **τ_cycle** | Feedback-cycle length per Inv 17 [CODE-ADAPTER] | «cycle time», «iteration time» |
+
+**Rule**: when introducing new framework term, check registry. If canonical referent exists with different name → use canonical. If new concept → add registry row before usage.
+
+**Token-to-rule ratio target**: ≤ 1.5 tokens per distinct rule. Current (post-RT-11): 2.4. Goal v11: closer to 1.5.
+
 ---
 
 ## XI. TPS Integration (Toyota Production System)

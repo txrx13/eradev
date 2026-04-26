@@ -988,6 +988,29 @@ L10 расширяет предикат релевантности уроков 
 
 Это ЧЕСТНАЯ T3-декларация (cadence аудита + 2 частичных T2-хука), а не фейковое T2-обещание. По L-52 + EMP19.
 
+### X.4 Vocabulary Registry (canonical token map)
+
+Реестр разрешает термины с несколькими референтами в канонические референты.
+Введение нового термина требует проверки реестра первым шагом (anti-phantom-decoherence).
+
+| Term | Canonical referent | Other senses (deprecated) |
+|---|---|---|
+| **Gate** (с заглавной) | Universality Gate (`.githooks/pre-commit`) | — |
+| V-Gate | Engineering validity gate (B-score Валидатора, BL-A1..A4 cite_check) | «Validator gate» |
+| PR-Gate | Publication readiness gate (article skin BL-A5) | — |
+| Apophatic Gate | OOD detection gate (eradev.md §IV) | — |
+| μ-check | Pre-Builder plan-completeness gate (meta.md §14) | — |
+| **Ready** | Domain-specific completion (article: PR-Gate PASS; code: deploy-verify; research: recompute) | «GREEN», «structural V-Gate PASS» (это НЕ «ready» по поправке RT-9) |
+| Structural V-Gate PASS | B-score ≥ 0.5, Валидатор GREEN | НЕ «ready» |
+| **Composition** | Multi-Builder file ownership (§X.1 floor counts) | «Composition Hazards Grid» (BL-34, отдельный концепт), «role composition» |
+| Composition Hazards Grid | BL-34 pair grid (≥2 рефактора) | — |
+| Role composition | RT-1 5-role team makeup | — |
+| **τ_cycle** | Длина цикла обратной связи по Inv 17 [CODE-ADAPTER] | «cycle time», «iteration time» |
+
+**Правило**: при введении нового framework-термина проверить реестр. Если канонический референт существует под другим именем → использовать канонический. Если новый концепт → добавить строку реестра ДО использования.
+
+**Цель token-to-rule ratio**: ≤ 1.5 tokens на distinct rule. Текущий (post-RT-11): 2.4. Цель v11: ближе к 1.5.
+
 ---
 
 ## XI. Интеграция TPS (Toyota Production System)

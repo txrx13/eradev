@@ -1,0 +1,2 @@
+# EraDev session-scoped state (not for commit)
+.eradev/fix-counter-*.txt

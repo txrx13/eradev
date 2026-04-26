@@ -5,33 +5,90 @@
 #
 # agent_id present = subagent (ALLOW all)
 # agent_id absent  = main session / META:
-#   - Edit/Write = BLOCK
+#   - Edit/Write to FRAMEWORK files = BLOCK (always, overrides whitelist)
+#     - rt12 / Wave Prune extension: closes ODTOE F4 (META direct Edit/Write
+#       under operator critique). 5 direct edits at 11:50–11:56 to
+#       Hansei/lessons/CLAUDE.md were the root violation. Whitelist paths
+#       (reports/lessons/memory) stay open as legitimate META outputs;
+#       framework files (CLAUDE.md, eradev.md, roles, hooks, scripts) are
+#       a hard deny list regardless of context.
+#   - Edit/Write to META output types = ALLOW (whitelist)
+#   - Edit/Write elsewhere = BLOCK
 #   - Bash diagnostic (grep, curl, ssh, psql, redis-cli, jq) = BLOCK
 #   - Bash operational (git, ls, cd, mkdir, zip, cp, rm, chmod) = ALLOW
+#
+# Emergency override: ERADEV_HOOKS_DISABLED=1 (P0 only; post-incident Hansei mandatory).
+
+# Emergency override (P0 incident only — post-incident Hansei mandatory per CLAUDE.md Inv 8)
+if [ "${ERADEV_HOOKS_DISABLED:-0}" = "1" ]; then
+  exit 0
+fi
 
 INPUT=$(cat)
 TOOL_NAME=$(echo "$INPUT" | jq -r '.tool_name // empty')
 AGENT_ID=$(echo "$INPUT" | jq -r '.agent_id // empty')
 
-# Subagent = ALLOW everything
+# Subagent = ALLOW everything (delegation flow active)
 if [ -n "$AGENT_ID" ]; then
   exit 0
 fi
 
-# Main session (META) — Edit/Write whitelist (META output types only)
-if [ "$TOOL_NAME" = "Edit" ] || [ "$TOOL_NAME" = "Write" ]; then
+# Main session (META) — Edit/Write enforcement
+if [ "$TOOL_NAME" = "Edit" ] || [ "$TOOL_NAME" = "Write" ] || [ "$TOOL_NAME" = "MultiEdit" ]; then
   FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // .tool_input.path // empty')
 
-  # ALLOW: META output types
+  # Strip leading repo root (path may be absolute or relative)
+  REL_PATH="${FILE_PATH##*/eradev/}"
+
+  # ----- HARD BLOCK: framework files (rt12 Wave Prune, ODTOE F4 closure) -----
+  # These paths MUST never be edited by META directly, even though some
+  # (e.g. CLAUDE.md when the bare basename matched in old whitelist regex)
+  # could otherwise slip through. Order matters: this check runs BEFORE
+  # the whitelist so framework files cannot be exfiltrated via path tricks.
+  if echo "$REL_PATH" | grep -qE '^(CLAUDE\.md|eradev\.md|eradev_RU\.md|meta\.md|meta_RU\.md|FOUNDATIONS\.md|LOADING_PROTOCOL\.md|BOOTSTRAP_LESSONS([^/]*)?\.md)$'; then
+    echo "BLOCKED: META cannot directly Edit/Write framework files (BL-26 + Inv 1)." >&2
+    echo "Path: $FILE_PATH is framework-scope (CLAUDE/eradev/meta/BL/FOUNDATIONS)." >&2
+    echo "Required: spawn [BUILDER] agent via Agent tool." >&2
+    echo "Override: ERADEV_HOOKS_DISABLED=1 (P0 emergency only; post-incident Hansei mandatory)." >&2
+    exit 2
+  fi
+
+  if echo "$REL_PATH" | grep -qE '^(roles|templates)/.*\.md$'; then
+    echo "BLOCKED: META cannot directly Edit/Write framework files (BL-26 + Inv 1)." >&2
+    echo "Path: $FILE_PATH is framework-scope (role / template)." >&2
+    echo "Required: spawn [BUILDER] agent via Agent tool." >&2
+    echo "Override: ERADEV_HOOKS_DISABLED=1 (P0 emergency only; post-incident Hansei mandatory)." >&2
+    exit 2
+  fi
+
+  if echo "$REL_PATH" | grep -qE '^(\.claude/hooks|\.githooks|scripts)/.*\.sh$'; then
+    echo "BLOCKED: META cannot directly Edit/Write framework files (BL-26 + Inv 1)." >&2
+    echo "Path: $FILE_PATH is framework-scope (hook / script)." >&2
+    echo "Required: spawn [BUILDER] agent via Agent tool." >&2
+    echo "Override: ERADEV_HOOKS_DISABLED=1 (P0 emergency only; post-incident Hansei mandatory)." >&2
+    exit 2
+  fi
+
+  # Skill mirror of framework files is also framework-scope
+  if echo "$REL_PATH" | grep -qE '^\.claude/skills/eradev/.*\.md$'; then
+    echo "BLOCKED: META cannot directly Edit/Write framework files (BL-26 + Inv 1)." >&2
+    echo "Path: $FILE_PATH is framework-scope (skill mirror)." >&2
+    echo "Required: spawn [BUILDER] agent via Agent tool." >&2
+    echo "Override: ERADEV_HOOKS_DISABLED=1 (P0 emergency only; post-incident Hansei mandatory)." >&2
+    exit 2
+  fi
+
+  # ----- WHITELIST: META output types (per CLAUDE.md "6 output types") -----
   # 1. Reports: reports/*.md
   # 2. Lessons: projects/*/lessons.md
   # 3. Memory: ~/.claude/projects/*/memory/*.md
   # 4. MEMORY.md at any project root
+  # 5. BL_CANDIDATES.md (background instinct extraction)
   if echo "$FILE_PATH" | grep -qE '(/reports/[^/]+\.md$|/projects/[^/]+/lessons\.md$|/memory/[^/]+\.md$|/MEMORY\.md$|/BL_CANDIDATES\.md$)'; then
     exit 0
   fi
 
-  # BLOCK: everything else (code, configs, framework files)
+  # BLOCK: everything else (code, configs, residual framework files outside whitelist)
   echo "BLOCKED: META can only Write/Edit own output types (reports/, lessons.md, memory). For code/config/framework changes, delegate to [BUILDER] agent. Path: $FILE_PATH (BL-26, BL-31)" >&2
   exit 2
 fi

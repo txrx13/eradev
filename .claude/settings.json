@@ -33,6 +33,10 @@
           {
             "type": "command",
             "command": ".claude/hooks/agent-context-check.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/in-session-fix-counter.sh"
           }
         ]
       }

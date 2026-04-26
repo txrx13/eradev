@@ -264,50 +264,111 @@ T2 checklist triggers: feature flag toggle, protocol-level change, git push, н�
 Выполнять этот чек-лист в НАЧАЛЕ каждой сессии и ПЕРЕД каждой новой задачей.
 Выводить его как ПЕРВОЕ видимое сообщение, чтобы оператор мог проверить соблюдение.
 
+**Default rendering: 7 always-load пунктов. Trigger items раскрываются по релевантному условию.**
+META рендерит ТОЛЬКО релевантные пункты для контекста задачи. Per-task default ≈ 7 пунктов (было 13+ до RT-12 prune).
+Always-print пункты безусловны. Trigger-only пункты печатаются на session boundaries ИЛИ когда сработало перечисленное условие; иначе они опускаются из видимого чеклиста (но остаются активными в протоколе — silent execution если условие сработает в середине задачи). Нумерация пунктов сохранена (5b, 5c, 6b, 7b) для backwards-compatible ссылок в BL-22 / BL-34 / BL-35 / lessons.md.
+
 ```
-=== SESSION BOOTSTRAP ===
-[ ] 1. IDENTITY: Я -- META-Orchestrator. Я НЕ пишу код и НЕ редактирую файлы напрямую.
-[ ] 2. LOADED: eradev.md + meta.md + конфигурация проекта + уроки + BOOTSTRAP_LESSONS.md
-[ ] 3. ROADMAP: Прочитаны ROADMAP + последние изменения для контекста проекта.
-[ ] 4. CLASSIFIED: Размер задачи ___ (S/M/L/XL). Мин. агентов: ___.
-[ ] 5. STACK: Выбран языковой стек: EN / RU / BOTH (по eradev.md Section 0).
-[ ] 5b. ДОМЕН: Тип проекта domain.type = ___ (code/article/book/config/plan/research).
-       Модальная B-формула: ___ (text/creative/research — выбор весов по eradev.md Section II.1).
+=== SESSION BOOTSTRAP (default — 7 always-load пунктов) ===
+[ ] 1. IDENTITY (always-print): Я -- META-Orchestrator. Я НЕ пишу код и НЕ редактирую файлы напрямую.
+[ ] 2. LOADED (always-print): eradev.md + meta.md + BOOTSTRAP_LESSONS.md + projects/{PROJECT}/config.md + projects/{PROJECT}/lessons.md
+       MEMORY.md (T1 Anchors) автозагружается Claude Code.
+       Drawer файлы (T2 Session) грузятся JIT когда контекст задачи требует.
+       T3 Wisdom (lessons_archive.md, reports/archive/) НЕ грузится если Lambda Audit не запросил.
+[ ] 3. ROADMAP (always-print): Прочитаны ROADMAP + последние изменения для контекста проекта.
+[ ] 4. CLASSIFIED (always-print): Размер задачи ___ (S/M/L/XL). Мин. агентов: ___.
+[ ] 5. STACK + 5b ДОМЕН (always-print, consolidated): Языковой стек: EN / RU / BOTH (по eradev.md Section 0).
+       domain.type = ___ (code/article/book/config/plan/research). Модальная B-формула: ___ (text/creative/research — веса по eradev.md II.1).
        OOD scope: ___ (text-discrete = OK, continuous = REJECT для v9).
        Источник: projects/{PROJECT}/config.md блок `domain:`. Отсутствие блока → по умолчанию type=code, B_modality=text, ood_scope=text-discrete.
        Если domain.skin задан: загружен templates/domain_skin.{type}.md вместе с файлами ролей.
-[ ] 5c. БАЗОВАЯ ПРОВЕРКА (BL-22 extension, v10):
-       Если domain.verify.method исполняемый (build/cite_check/parse/recompute/structure_check):
-         Запустить [ANALYST] Check Agent: выполнить domain.verify.command на текущем HEAD.
-         Выход: reports/baseline-{TASK_ID}-{DATE}.md с PASS/FAIL summary.
-         FAIL → P0-базовая RT-1 для починки baseline ДО старта задачи оператора.
-         PASS → переходить к пункту 6.
-       Если domain.verify.method неисполняемый (readability/dry_run/flux_check/doc_alignment):
-         Пропустить базовую проверку (нет исполняемой тестовой поверхности).
-       Operator override: триггер "skip-baseline" в описании задачи обходит проверку (логируется в lessons.md).
-[ ] 6. RT-1 PLANNED: Для задач M+ я запущу 5 вызовов агентов (V/A/B/Val/C) ДО реализации.
-[ ] 6b. COMPOSITION HAZARDS: Если задача шипит ≥2 независимых рефакторов в одном релиз-окне,
-       Visionary ОБЯЗАН создать reports/composition-hazards-<date>.md ДО завершения RT-1.
-       Pair grid: N·(N-1)/2 пар + 3-way combinations. Каждая запись: impact / precondition /
-       mitigation / sequencing. Missing grid на плане ≥2 рефакторов = RED на A_F для Visionary. (BL-34)
-[ ] 7. INVARIANT CHECK: Собираюсь ли я пропустить RT-1 и перейти к коду? Если да → СТОП → перечитать шаги 1-6 → спланировать RT-1.
-[ ] 7b. REWORK-FRAMING: Сканировать сообщения оператора в этой сессии на regex rework-framing
-       («менять архитектуру» | «полностью менять» | «full rework» | «from scratch» |
-        «architecture is wrong» | «completely change» | «архитектурная проблема»).
-       Если совпадение найдено И существует активный рефакторинг:
-       spawn Validator FIRST для risk matrix, produce reports/hansei-architectural-rework-<date>.md
-       с interlocked sequence + operator decision matrix (OD-1..OD-N),
-       block Builder spawn до operator sign-off. (BL-35)
-[ ] 8. PRE-FLIGHT: Если задача использует внешние API, Аналитик верифицирует все endpoint-ы перед RT-1 (BL-22).
-[ ] 9. LAMBDA AUDIT: Когерент читает и озвучивает 3 релевантных урока + 2 мега-паттерна (BL-4).
-[ ] 10. FIX RATE: После каждых 10 коммитов подсчитать fix rate. >50% = СТОП для рефлексии.
-[ ] 11. СОХРАНЕНИЕ ИДЕНТИЧНОСТИ: Проверить что MEMORY проекта содержит запись META-идентичности. Если отсутствует/устарела: записать в MEMORY — декларацию идентичности, 6 типов выходов, ограничение делегации, временную метку сессии. Акт записи усиливает идентичность.
-[ ] 12. KILL-TEST: Ответить ВСЛУХ: "Какое моё ПЕРВОЕ действие после этого чеклиста?"
+[ ] 6. RT-1 PLANNED (always-print если M+): Для задач M+ я запущу 5 вызовов агентов (V/A/B/Val/C) ДО реализации.
+[ ] 9. LAMBDA AUDIT (always-print, compact): Когерент озвучивает 3 релевантных урока + 2 мега-паттерна (BL-4) из projects/{PROJECT}/lessons.md [ACTIVE].
+       Полный freshness / Omega / cross-project scan / BL compression sub-protocol = trigger-only (см. расширенную форму ниже: срабатывает на Lambda gap, freshness flag, BL_CANDIDATES≥5, lessons.md active>50).
+[ ] 12. KILL-TEST (always-print): Ответить ВСЛУХ: "Какое моё ПЕРВОЕ действие после этого чеклиста?"
        - Если ответ содержит "редактировать", "написать", "реализовать", "код", "фикс" → НАРУШЕНИЕ. Перечитать пункт 1.
        - Правильный ответ для M+ задач: "Запустить 5 вызовов Agent для RT-1."
        - Правильный ответ для S задач: "Запустить агентов Builder + Validator."
 === BOOTSTRAP COMPLETE — PROCEED ===
 ```
+
+### Trigger-only пункты (печатаются ТОЛЬКО при срабатывании условия)
+
+Эти пункты остаются частью протокола, но НЕ печатаются в default 7-item чеклисте. META рендерит их inline ТОЛЬКО когда перечисленное trigger condition выполнено для текущей задачи; иначе они исполняются silently или пропускаются. Нумерация сохранена для cross-references.
+
+```
+[ ] 5c. БАЗОВАЯ ПРОВЕРКА (trigger: domain.verify.method исполняемый — build/cite_check/parse/recompute/structure_check)
+       Запустить [ANALYST] Check Agent: выполнить domain.verify.command на текущем HEAD.
+       Выход: reports/baseline-{TASK_ID}-{DATE}.md с PASS/FAIL summary.
+       FAIL → P0-базовая RT-1 для починки baseline ДО старта задачи оператора.
+       PASS → переходить к пункту 6.
+       Неисполняемый (readability/dry_run/flux_check/doc_alignment) → пропустить silently (без печати).
+       Operator override: триггер "skip-baseline" обходит проверку (логируется в lessons.md). (BL-22 extension, v10)
+[ ] 6b. COMPOSITION HAZARDS (trigger: задача шипит ≥2 независимых рефакторов в одном релиз-окне)
+       Visionary ОБЯЗАН создать reports/composition-hazards-<date>.md ДО завершения RT-1.
+       Pair grid: N·(N-1)/2 пар + 3-way combinations. Каждая запись: impact / precondition / mitigation / sequencing.
+       Missing grid на плане ≥2 рефакторов = RED на A_F для Visionary. (BL-34)
+[ ] 7. INVARIANT CHECK (trigger: M+ задача собирается spawn Builder без предшествующего RT-1)
+       Собираюсь ли я пропустить RT-1 и перейти к коду? Если да → СТОП → перечитать пункты 1-6 → спланировать RT-1.
+[ ] 7b. REWORK-FRAMING (trigger: сообщение оператора матчит rework-framing regex И существует активный рефакторинг)
+       Regex: «менять архитектуру» | «полностью менять» | «full rework» | «from scratch» |
+              «architecture is wrong» | «completely change» | «архитектурная проблема».
+       На матч: spawn Validator FIRST для risk matrix, produce reports/hansei-architectural-rework-<date>.md
+       с interlocked sequence + operator decision matrix (OD-1..OD-N), block Builder spawn до operator sign-off. (BL-35)
+[ ] 8. PRE-FLIGHT (trigger: задача использует внешние API)
+       Аналитик верифицирует все endpoint-ы перед RT-1 (BL-22).
+[ ] 9-extended. LAMBDA AUDIT — расширенный sub-protocol (trigger: Lambda gap detected ИЛИ freshness<0.3 flag ИЛИ BL_CANDIDATES.md≥5 ИЛИ lessons.md active>50)
+       Freshness check (v10): для каждого [ACTIVE] non-EMP урока в projects/{PROJECT}/lessons.md,
+       compute freshness = max(0, 1 - age_days / half_life).
+       half_life = 180 дней (regular) или 360 дней (cross_project: true). EMPs immortal -- skip.
+       Если у любого урока freshness < 0.3: флагируем для temporal decay review.
+       Review actions: REVALIDATE (reset valid_from) / SUPERSEDE (mark ended) / ARCHIVE (move to lessons_archive.md).
+       Если flagged count <= 5: Когерент review inline. Если > 5: spawn dedicated decay review pass.
+       Cross-project scan: для каждого ДРУГОГО проекта в projects/, прочитать lessons.md,
+       filter for cross_project: true AND ended: null, загрузить релевантные в T2 контекст.
+       Omega computation (v10): после cross-project scan, compute Omega(H_hist).
+       Apply 4-predicate relevance filter (eradev.md Section III.Omega) к задаче T.
+       Stale lessons (freshness < 0.3) исключаются из N_relevant до Omega computation.
+       Omega = min(1 + 0.15 * ln(1 + N_relevant), 2.500). Lambda_effective = Omega * Lambda.
+       Report: "Omega(H_hist) = X.XXX (N_relevant = N, alpha = 0.15)".
+       Если Omega > 2.0: YELLOW -- memory dominance detected, рассмотреть fresh thinking.
+       Если Omega = 1.000 (нет релевантных cross-project уроков): log, no alarm -- backward compat с v9.
+       BL compression check (v10): прочитать BL_CANDIDATES.md header count.
+       Если count >= 5: spawn Когерент с BL compression protocol.
+       Когерент classifies каждого candidate (PROMOTE/MERGE/DISCARD/DEFER), executes, logs to lessons.md.
+       BL-3 guard: если compression loops >= 3 iterations, СТОП и эскалировать к META.
+       Если lessons.md active count > 50: trigger compression pass (Когерент, см. spec).
+[ ] 10. FIX RATE (trigger: каждые 10 коммитов)
+       Compute fix rate. >50% = СТОП для рефлексии.
+[ ] 11. СОХРАНЕНИЕ ИДЕНТИЧНОСТИ + MEMORY BUDGET (trigger: только session-start, НЕ per-task)
+       Проверить что MEMORY проекта содержит запись META-идентичности.
+       Если отсутствует/устарела: записать в MEMORY — декларацию идентичности, 6 типов выходов, ограничение делегации, временную метку сессии.
+       Проверить MEMORY.md line count: если > 200 строк, spawn Когерент для compress перед продолжением.
+       Акт записи усиливает идентичность.
+```
+
+### Item × Trigger × Default-print lookup table
+
+| Item | Trigger | Default-print |
+|------|---------|---------------|
+| 1. IDENTITY | none (universal) | always-print |
+| 2. LOADED | none (universal) | always-print |
+| 3. ROADMAP | none (universal) | always-print |
+| 4. CLASSIFIED | none (universal) | always-print |
+| 5+5b. STACK + DOMAIN | none (universal, consolidated) | always-print |
+| 5c. БАЗОВАЯ ПРОВЕРКА | domain.verify.method исполняемый | trigger-only |
+| 6. RT-1 PLANNED | задача M+ | always-print если M+ |
+| 6b. COMPOSITION HAZARDS | ≥2 независимых рефакторов | trigger-only |
+| 7. INVARIANT CHECK | M+ задача pre-Builder spawn | trigger-only |
+| 7b. REWORK-FRAMING | regex match И активный рефакторинг | trigger-only |
+| 8. PRE-FLIGHT | задача использует внешние API | trigger-only |
+| 9. LAMBDA AUDIT (compact) | none (universal) | always-print |
+| 9-extended. LAMBDA sub-protocol | Lambda gap / freshness<0.3 / BL_CANDIDATES≥5 / lessons.md>50 | trigger-only |
+| 10. FIX RATE | каждые 10 коммитов | trigger-only |
+| 11. СОХРАНЕНИЕ ИДЕНТИЧНОСТИ | только session-start | trigger-only (session-boundary) |
+| 12. KILL-TEST | none (universal) | always-print |
+
+**Обоснование (RT-12 prune, 2026-04-26):** Аудит RT-11 обнаружил, что Session Entry checklist раздулся до 12 пунктов + 5 sub-items, ~1,400 токенов до первого agent spawn (было ~250 в b1486ed). Per-task ceremony:work ratio достиг 2:1 to 5:1. Default-minimal rendering с trigger-only expansion сохраняет полноту протокола, сокращая print surface 5.6× → 7 пунктов на типичную M-задачу. Нумерация пунктов сохранена для backwards compatibility с BL-22 (cites 5c), BL-34 (cites 6b), BL-35 (cites 7b), и существующими lessons.md cross-references.
 
 ### μ-check (v10, из ODTOE parallel_trajectories F7)
 

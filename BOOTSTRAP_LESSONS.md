@@ -26,11 +26,12 @@
 ---
 
 ### BL-3: Fix Chain > 3 = Structural Problem [CODE-ADAPTER]
-**Source:** Framework invariant (CHECKLIST fix chain counter)
+**Source:** Framework invariant (CHECKLIST fix chain counter); RT-11 ODTOE F7 audit (in-session blindness, 2026-04-26)
 **Rule:** If 3 or more consecutive fixes occur in sequence, STOP. Do not attempt fix number 4. Return to the specification and re-run RT-1.
 **Why:** Three consecutive fixes signal a structural defect, not an execution error. Each fix patches a symptom; the root cause lives upstream. Continuing the fix chain compounds technical debt exponentially. The correct action is Andon: stop the line, find the real constraint (TOC Phase 1).
 **Applies to:** Builder, Validator
 **Tier:** T2 (hook / CI / lint)
+**Hook:** `.claude/hooks/in-session-fix-counter.sh` (added 2026-04-26 RT-12). Counts in-session fix-pattern Agent spawns (description matches `\b(fix|fix-up|repair|patch|correct)\b` or `исправ`); BLOCKS at >=3. Counter rotates daily at `.eradev/fix-counter-{date}.txt`. Override: `ERADEV_HOOKS_DISABLED=1` or `BL3_OVERRIDE=1`. Closes ODTOE F7 (prior hook checked committed `^fix:` messages only — blind to in-flight session per RT-11 audit).
 
 ---
 
@@ -194,6 +195,14 @@ Output: `reports/baseline-{TASK_ID}-{DATE}.md` with PASS/FAIL summary and sample
 
 **Also covers diagnostic Bash:** grep, curl, ssh, psql, redis-cli, jq are diagnostic tools. When META needs to inspect code or query services: (1) formulate a specific question, (2) spawn Check Agent (any role) with that question, (3) receive structured yes/no answer. "I'll just grep quickly" → diagnostic drift → META becomes debugger. Hook enforces this at Layer 2.
 
+**Hook implementation (rt12 Wave Prune, ODTOE F4 closure):** `.claude/hooks/enforce-delegation.sh` is the PreToolUse guard. Subagents (`agent_id` present) bypass; main-session META is constrained. The deny-list overrides the whitelist for framework files — META cannot Edit/Write any of:
+- `CLAUDE.md`, `eradev.md`, `eradev_RU.md`, `meta.md`, `meta_RU.md`, `FOUNDATIONS.md`, `LOADING_PROTOCOL.md`, `BOOTSTRAP_LESSONS*.md`
+- `roles/*.md`, `templates/*.md`
+- `.claude/hooks/*.sh`, `.githooks/*.sh`, `scripts/*.sh`
+- `.claude/skills/eradev/**/*.md` (skill mirror)
+
+Whitelist (META outputs only): `reports/*.md`, `projects/*/lessons.md`, `memory/*.md`, `MEMORY.md`, `BL_CANDIDATES.md`. Emergency override: `ERADEV_HOOKS_DISABLED=1` (P0 only; post-incident Hansei mandatory per CLAUDE.md Inv 8). Source: ODTOE F4 — 5 direct META Edit/Write calls at 11:50–11:56 to Hansei/lessons/CLAUDE.md right after operator critique #117 (`reports/rt11_meta_audit_odtoe_session_2026-04-26.md`).
+
 ### BL-28: Agent Prompt Must Include Explicit Context [UNIVERSAL]
 **Source:** Hansei — gravity session (April 2026), agents refused roleplay due to insufficient directive. v9 amendment: self-loading semantics per CLAUDE.md Invariant 12 + self-loading context architecture
 **Rule:** Every Agent tool call MUST (1) instruct the agent to self-load its role file via Read as its FIRST action, (2) name the role file path in the prompt (e.g., "Read roles/builder_EN.md, apply Activation Operator"), (3) NOT embed role file content into META's context, (4) provide concrete task description + explicit file paths to read + expected output format + project config. The agent is a subprocess with blank context — it self-loads the role file, META names the path. Truncating or embedding the role file in META's prompt is a v9 violation.
@@ -253,14 +262,14 @@ Symmetric to phantom decoherence: an agent proposes a "new" L-N / EMP-N / BL-N /
 
 ### BL-34: Composition Hazards Gate for ≥2 parallel refactors [UNIVERSAL]
 **Source:** PLUGY Hansei 2026-04-20 §6 (hazards H1-H6 enumerated before any Builder spawn prevented big-bang failure); generalizes Invariant 7 (commit-size >5 files = RT-2) from commit-level to ROADMAP-pivot-level.
-**Tier:** T2 (pre-commit hook — see .claude/hooks/rt1-composition-gate.sh)
+**Tier:** T2 (pre-commit hook — see .claude/hooks/rt1-composition-gate.sh; path-glob accepts BOTH absolute AND relative paths since 2026-04-26 RT-12 Pareto-prune B2, closing L-52 falsification recurrence — previous case-pattern `*/reports/rt1_*.md` silently no-op'd on relative paths from agent Write calls)
 **Rule:** Before spawning any Builder work on a plan touching 2+ independent refactors in the same release window, Visionary MUST author a composition-hazards grid (glossary canonical term: **"cross-phase coupling risk"** — see glossary.md #47; "composition hazard" is the project-local alias). Minimum pairs: N·(N-1)/2. For N ≥ 3: add all 3-way combinations. Each grid entry has: impact, precondition, mitigation, sequencing constraint. Missing grid on ≥2-refactor plan = RED on A_F for Visionary; Coherencer REJECTS RT-1 synthesis. Output artifact: `reports/composition-hazards-<date>.md` using `templates/composition_hazards.template.md`. Hazards form hard edges in the sequencing DAG — parallel ship is forbidden until a pairwise mitigation is declared.
 **Why:** PLUGY proposed 10 refactors (R1-R10) across 4 months; hazards H1-H6 (R4 double-rewrite, R2+R5 silent-protector recurrence, R1+R7 PII exposure, R6+R7 FZ-152 exposure, R3+R4 guard-on-guard cascade, R2+R6 classifier duplication) would have produced 3 production incidents if shipped in parallel without enumeration.
 **Applies to:** Visionary (grid author), Coherencer (RT-1 synthesis gate), META (enforce before Builder spawn), Validator (verify grid completeness at G2 gate).
 
 ### BL-35: Rework-discipline audit on "architectural rework" framing [UNIVERSAL]
 **Source:** PLUGY BL-49 Session 5 promoted UNIVERSAL — operator said "полностью менять архитектуру" mid-flight during active Phase Q pivots; literal reading = big-bang = H1/H2/H5 fire simultaneously.
-**Tier:** T1-enforced (operator-message regex detector — see .claude/hooks/rework-framing-detector.sh; UserPromptSubmit hook exits 2 BLOCKING when trigger matches AND active pivot window detected; override via `ERADEV_HOOKS_DISABLED=1` or explicit operator authorization)
+**Tier:** T1-enforced (operator-message regex detector — see .claude/hooks/rework-framing-detector.sh; UserPromptSubmit hook exits 2 BLOCKING when trigger matches AND active pivot window detected, **with rhetorical/conditional/past-tense discrimination guard**: hook exits 0 advisory when message contains question mark OR rhetorical markers («стоит ли», «надо ли», «или нет», «should we», «is it worth») OR past-tense markers («вчера», «уже менял», «yesterday», «previously») UNLESS imperative override present («!», «сделай», «do it», «now»); override via `ERADEV_HOOKS_DISABLED=1` or explicit operator authorization. RT-12 PRUNE-B1 2026-04-26 added guard to neutralize 30-50% live FP rate from perpetual-pivot window.)
 **Rule:** When operator declares "the architecture is wrong" / "full rework" / "from scratch" / "менять архитектуру" / "полностью менять" / "completely change" DURING active pivots, META MUST NOT interpret as "reset everything." Mandatory sequence: (1) spawn Validator FIRST with risk-matrix task; (2) re-validate project NO-GO list against operator's literal request; (3) enumerate composition hazards per BL-34; (4) propose INTERLOCKED SEQUENCE (one pivot at a time with parity windows, kill-switches, shadow-mode) — never a parallel menu; (5) produce `reports/hansei-architectural-rework-<date>.md` using `templates/interlocked_sequence.template.md`; (6) operator sign-off on decision matrix (OD-1..OD-N) BEFORE any Builder spawns. Operator frustration during active pivot = class-shift DETECTOR at ROADMAP level, NOT a permission to parallelize. The Hansei itself breaks any implicit BL-3 chain.
 **Why:** Under outage stress, operator psychology favors "reset everything" framing. Without the audit, META reads it literally as "ship all refactors in parallel" — the most dangerous composition possible. PLUGY 2026-04-20 Hansei proved the audit reshaped 10 proposed refactors into a 4-month interlocked sequence with ≥3× BD ROI vs the parallel alternative.
 **Applies to:** META (trigger detection + Validator spawn ordering), Validator (risk-matrix authorship), Coherencer (Hansei synthesis + interlock verification).
