@@ -5,7 +5,7 @@
 > Applies to projects where `config.md` contains `domain.type: article`
 > Parent BL: BOOTSTRAP_LESSONS_universal.md (22 universal BL inherited)
 > Does NOT inherit BOOTSTRAP_LESSONS_code_adapter.md
-> Last updated: 2026-04-23
+> Last updated: 2026-04-26
 > Upstream roles: roles/{role}_EN.md
 > Upstream math: eradev.md Section II.1 (B_research weights)
 > Overlay: if project requires corpus-specific specializations (filename conventions, preamble, glossary, bilingual mandate, specific citation idiom), add `domain.overlay: <path>` to `config.md` and create an overlay file — see `templates/domain_skin.md.template` for overlay schema
@@ -283,6 +283,45 @@ Floor of 3 keeps tiny articles meaningful; √N = BL-17 Check-First pattern. **S
 
 ---
 
+## PR-Gate (Publication Readiness, BL-A5 extension of Inv 17 publication-layer)
+
+PR-Gate fires AFTER V-Gate (engineering validity, BL-A1..A4) but BEFORE
+declaring артефакт «ready». BL-A5 = sequencing rule: V-Gate ≠ PR-Gate.
+
+V-Gate = the cite_check + BL-A1..A4 set above (engineering validity: bibliography, render, retraction plan, identifier PRE-FLIGHT). V-Gate GREEN means the artifact is structurally sound. It does NOT mean publication-ready. PR-Gate is the second gate that checks the publication surface — typography, visual artifact, naive-reader decodability, stylistic parity, decision-log audit. Sequencing rule (BL-A5): V-Gate ≠ PR-Gate; both must pass; META MUST not declare "ready" on V-Gate alone.
+
+### PR-1 Visual artifact inspection (Validator MUST open rendered PDF)
+- Validator opens rendered PDF (or equivalent visual output), не только text source
+- Checks: typography ligatures correct (em/en-dashes, smart quotes), figures render,
+  cross-references resolve, citation slugs not literal
+- Tier: T3 checklist + T2-upgradable visual diff hook
+- Failure: ANDON, return to Builder for typography fix
+
+### PR-2 Naive-reader test
+- Persona: external reader НЕ knowing project-internal slugs
+- Reads abstract + intro: can decode без looking up project glossary?
+- Failure mode: «slug citations in abstract» (e.g., [L-32], [BL-A2]) instead of
+  full names + journal-style references
+- Tier: T3 checklist (operator-side)
+
+### PR-3 Stylistic parity (across language variants)
+- If domain.bilingual: true — RU/EN versions match in citation style, dash type,
+  paragraph structure
+- Tier: T2 hook (extends BL-19 bilingual sync)
+
+### PR-4 Decision-log audit
+- Each Builder default (e.g., choosing slug citation form) MUST be logged
+- Coherencer reviews log при PR-Gate; flags «buried OD» (per Inv 16 OD-discipline
+  extension to non-rework decisions)
+- Tier: T3 checklist (Coherencer responsibility)
+
+### PR-Gate verdict
+- All 4 PR-checks MUST pass before «publication ready» declaration
+- B-score GREEN на V-Gate ≠ ready (see meta.md GREEN ≢ ready amendment)
+- META MUST not declare ready без explicit PR-Gate PASS
+
+---
+
 ## RT Phase Protocol for articles
 
 Code projects use the canonical phase protocol from `eradev.md` Section VI:
@@ -414,7 +453,7 @@ stat -f %m "$SRC"  # macOS fallback  |  stat -c %Y "$SRC"  # GNU fallback
 
 ## Domain-Specific Bootstrap Lessons
 
-The article skin inherits all 22 universal BL from `BOOTSTRAP_LESSONS_universal.md` **unchanged**, handles each of the 8 code-adapter BL individually (2 transfer unchanged, 4 have article equivalents BL-A1..A4, 2 are N/A), and adds 4 article-specific BL in the BL-A namespace.
+The article skin inherits all 22 universal BL from `BOOTSTRAP_LESSONS_universal.md` **unchanged**, handles each of the 8 code-adapter BL individually (2 transfer unchanged, 4 have article equivalents BL-A1..A4, 2 are N/A), and adds 5 article-specific BL in the BL-A namespace (BL-A1..A5).
 
 ### Universal BL inherited (22 entries — all unchanged, 1-line applicability note each)
 
@@ -460,7 +499,7 @@ Summary: 2 code-adapter BL apply unchanged (BL-3, BL-24); 4 have article equival
 
 ### Article-specific BL (BL-A namespace — separate budget)
 
-These 4 BL live in this skin file ONLY. They do NOT add to the main 30-BL budget. They are loaded by the article domain adapter layer, not by META-Orchestrator's universal bootstrap.
+These 5 BL live in this skin file ONLY. They do NOT add to the main 30-BL budget. They are loaded by the article domain adapter layer, not by META-Orchestrator's universal bootstrap.
 
 **BL-A1: Submission is a Release Event (article adaptation of BL-2)**
 - **Source:** Adapted from BL-2 for the article domain.
@@ -486,15 +525,21 @@ These 4 BL live in this skin file ONLY. They do NOT add to the main 30-BL budget
 - **Why:** Hallucinating that a paper says X is the top F=0 failure in article work. The article skin's C2 (citation attribution) is the L2 version; BL-A4 is the L1 pre-flight that prevents the worst cases before drafting starts.
 - **Applies to:** Analyst (RT-1), Validator (RT-2 re-verification), Builder (block without artifact), META (enforce gate).
 
+**BL-A5: Publication Readiness Gate (V-Gate ≠ PR-Gate sequencing rule, extension of Inv 17 publication-layer)**
+- **Source:** Post-CONSOLIDATION lift, RT-9 ODTOE Hansei (errors F1 ASCII dashes in PDF, F2 slug-citations in abstract, F4 BL-A2 GREEN-blind, F6 missing naive-reader persona). Per L-50 (extend>add) — extension of Inv 17 publication-layer, not a new framework BL.
+- **Rule:** Engineering validity (cite_check + BL-A1..A4 = "V-Gate") and publication readiness ("PR-Gate") are SEPARATE gates. After V-Gate GREEN, before declaring the artifact "ready", the article MUST pass PR-Gate: PR-1 visual artifact inspection (rendered PDF, typography, slug-citations not literal), PR-2 naive-reader test (abstract decodable without project glossary), PR-3 stylistic parity (RU/EN dash type, citation style, paragraph structure if `domain.bilingual: true`), PR-4 decision-log audit (Builder defaults logged, Coherencer flags "buried OD" per Inv 16 OD-discipline extension). Full PR-Gate spec: see "PR-Gate (Publication Readiness)" section above.
+- **Why:** v9 framework caught engineering validity (BL-A1..A4) but NOT publication readiness — Hansei error F1 (ASCII dashes shipped to PDF), F2 (slug-citations in abstract), F4 (BL-A2 GREEN-blind to typography), F6 (no naive-reader persona). PR-Gate makes the publication surface a first-class gate; META MUST not declare "ready" on V-Gate alone (GREEN ≢ ready per meta.md amendment).
+- **Applies to:** Validator (PR-1 rendered PDF inspection + PR-2 naive-reader simulation, PR-3 parity check), Builder (typography correctness, decision-log entries for PR-4), Coherencer (PR-3 cross-language parity + PR-4 OD-audit), META (PR-Gate PASS gate before "ready" declaration).
+
 ### BL budget summary
 
 - Universal BL inherited: **22** (unchanged)
 - Code-adapter BL that apply unchanged: **2** (BL-3, BL-24)
 - Code-adapter BL with article equivalents: **4** (BL-2, BL-6, BL-14 [merged→BL-8 in main BL, 2026-04-20], BL-22 → BL-A1..A4)
 - Code-adapter BL that are N/A for articles: **2** (BL-8, BL-25)
-- Article-specific BL (BL-A namespace, separate budget): **4** (BL-A1..A4)
+- Article-specific BL (BL-A namespace, separate budget): **5** (BL-A1..A5)
 
-**Total BL an article agent carries: 22 universal + 2 transferred code-adapter + 4 BL-A = 28 BL.**
+**Total BL an article agent carries: 22 universal + 2 transferred code-adapter + 5 BL-A = 29 BL.**
 (The 2 N/A code-adapter BL are NOT loaded; article agents do not "know" about them.)
 
 ### Project lessons.md integration
@@ -548,7 +593,7 @@ Tasks that LOOK like article work but FAIL v9's text-discrete AND-gate. Agents m
 
 ## Footer
 
-*Last updated: 2026-04-23*
+*Last updated: 2026-04-26*
 *Upstream roles: roles/{role}_EN.md (all 5 roles — Visionary, Analyst, Builder, Validator, Coherencer)*
 *Upstream math: eradev.md Section II.1 (B_research weights)*
 *Upstream BL: BOOTSTRAP_LESSONS_universal.md (22 universal BL inherited)*

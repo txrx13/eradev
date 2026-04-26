@@ -449,6 +449,29 @@ Each level compresses. META reads ONLY the Cycle Brief, never raw output.
 `ESSENCE: ALIGNED/DRIFTING/MISALIGNED + 1 sentence | METRICS: S_session=_ B_mean=_ fix_rate=_`
 `NEXT: [max 3 recommendations]`
 
+### B-score GREEN ≢ ready (RT-9 amendment 2026-04-26)
+
+B-score reports STRUCTURAL coherence at agent-level (F·E·(1-σ)·Λ multiplicative).
+GREEN (B ≥ 0.5) signals: focus loaded, alignment with task, no internal contradictions, experience applied.
+
+GREEN does NOT signal:
+- **Publication readiness** for article-domain (use PR-Gate per article skin BL-A5)
+- **Deploy readiness** for code-domain (use post-deploy verify per BL-22)
+- **External-frame validation** (B measures internal Ô coherence; external reader may see what internal frame doesn't — see RT-9 EN-Coh phantom coherence finding)
+
+**Rule for META outputs:**
+- After Validator returns B GREEN → state «structural V-Gate PASS», NOT «ready»
+- For article-domain: explicit PR-Gate verdict required before «ready»
+- For code-domain: explicit deploy-verify before «ready»
+- For research-domain: explicit recompute + provenance check before «ready»
+
+**Recovery path** if META declared «ready» prematurely:
+- Operator catches → no fix chain triggered (operator authority overrides per L-59)
+- Hansei records «ready-inflation» as observation
+- Coherencer adds to next periodic Tier-claim sweep
+
+This amendment closes RT-9 EN-V finding R3 «GREEN means ready is framework vocabulary defect».
+
 **Check Agent** (exception only): When META suspects a problem, spawn a disposable agent with specific yes/no questions. Agent reads raw output, answers, dies. META never reads raw output itself.
 
 **Level Separation Rule:** Each orchestration level reads ONLY structured output from the level directly below. META reads Cycle Briefs, never code. META-META reads Hansei Reports, never Cycle Briefs.

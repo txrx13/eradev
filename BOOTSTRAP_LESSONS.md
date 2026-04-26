@@ -220,6 +220,9 @@ When S_team is low but B_mean is high, the team may not be disagreeing on substa
 **Symptom of phantom decoherence:** S_team < 0.5 AND B_mean ≥ 0.7 AND pair-wise role outputs share entities but disagree on predicates.
 **Source:** v9 Wave 9 ODTOE mining — `reports/v9_odtoe_multiagent_mining_2026-04-11.md` REC-2, derived from `ODTOE_multiagent_coherence.md` §III.8.
 
+**Phantom NEWNESS (RT-10 Wave A B2 / L-58 / PN-1, sister of phantom decoherence on the time axis):**
+Symmetric to phantom decoherence: an agent proposes a "new" L-N / EMP-N / BL-N / Invariant entry whose substance is already documented in the knowledge base. Source: RT-9 phantom-newness audit (2026-04-25) — 12.9 % genuine-novelty rate (4 / 31 proposals); operator caught L-A9 as exact duplicate of L-1 (2026-04-04). Without a pre-grep step, every fresh session repeats BL-16 (knowledge without enforcement = Lambda zero) recursively. Mandatory pre-grep before any new ID proposal — match keywords / nouns / verbs of the proposed title against `lessons.md`, `lessons_archive.md`, `BOOTSTRAP_LESSONS.md`, `eradev.md`, `FOUNDATIONS.md`, `projects/*/lessons.md`. If overlap found: re-frame as extension (L-50 supersede / temporal triple) instead of fresh ID. Enforcement: T2 pre-commit hook `.githooks/phantom-newness-check.sh` (PN-1) chained from `.githooks/pre-commit`. Override: `PN_OVERRIDE=1`, `--phantom-checked` sentinel in commit message, or `ERADEV_HOOKS_DISABLED=1`.
+
 ### BL-30: Defense-In-Depth for Enforcement [UNIVERSAL]
 **Source:** v8 session — 3-layer identity enforcement design (CLAUDE.md + hook + memory persistence)
 **Rule:** Any critical enforcement mechanism must have at least 2 independent layers. A single enforcement point is a single point of failure. If the mechanism can be bypassed by skipping one file/step, add redundant layers.

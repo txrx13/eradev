@@ -5,7 +5,7 @@
 > Применяется к проектам с `config.md` содержащим `domain.type: article`
 > Родительские BL: BOOTSTRAP_LESSONS_universal.md (22 универсальных BL наследуется)
 > НЕ наследует BOOTSTRAP_LESSONS_code_adapter.md
-> Последнее обновление: 2026-04-23
+> Последнее обновление: 2026-04-26
 > Вышестоящие роли: roles/{role}_EN.md
 > Вышестоящая математика: eradev.md Section II.1 (веса B_research)
 > Overlay: если проекту нужны корпус-специфичные специализации (конвенция имён файлов, преамбула, глоссарий, двуязычный мандат, идиома цитирования), добавить `domain.overlay: <path>` в `config.md` и создать overlay-файл — см. схему в `templates/domain_skin.md.template`
@@ -228,6 +228,45 @@ grep -cE 'undefined|multiply.defined|Citation .* undefined|could not find' /tmp/
 
 ---
 
+## PR-Gate (Publication Readiness, BL-A5 расширение Inv 17 publication-layer)
+
+PR-Gate срабатывает ПОСЛЕ V-Gate (engineering validity, BL-A1..A4), но ДО
+объявления артефакта «ready». BL-A5 = правило секвенирования: V-Gate ≠ PR-Gate.
+
+V-Gate = набор cite_check + BL-A1..A4 выше (engineering validity: библиография, рендер, план ретракции, PRE-FLIGHT идентификаторов). V-Gate GREEN означает структурную целостность артефакта. Это НЕ означает publication-ready. PR-Gate — второй гейт, проверяющий публикационную поверхность: типографику, визуальный артефакт, декодируемость наивным читателем, стилистический паритет, аудит decision-log. Правило секвенирования (BL-A5): V-Gate ≠ PR-Gate; оба должны пройти; META НЕ ДОЛЖЕН объявлять «ready» только на V-Gate.
+
+### PR-1 Визуальная инспекция артефакта (Validator ОБЯЗАН открыть отрендеренный PDF)
+- Validator открывает отрендеренный PDF (или эквивалентный визуальный output), не только text source
+- Проверки: типографические лигатуры корректны (em/en-dashes, smart quotes), рисунки рендерятся,
+  перекрёстные ссылки разрешаются, citation slugs не литералы
+- Tier: T3 checklist + T2-upgradable visual diff hook
+- Отказ: ANDON, возврат Builder для исправления типографики
+
+### PR-2 Тест наивного читателя
+- Персона: внешний читатель, НЕ знающий project-internal slugs
+- Читает аннотацию + введение: декодирует БЕЗ обращения к проектному глоссарию?
+- Режим отказа: «slug citations в аннотации» (напр., [L-32], [BL-A2]) вместо
+  полных имён + journal-style references
+- Tier: T3 checklist (operator-side)
+
+### PR-3 Стилистический паритет (между языковыми вариантами)
+- Если domain.bilingual: true — RU/EN версии совпадают в стиле цитирования, типе тире,
+  структуре параграфов
+- Tier: T2 hook (расширение BL-19 bilingual sync)
+
+### PR-4 Аудит decision-log
+- Каждое Builder default (напр., выбор формы slug-цитирования) ДОЛЖЕН быть залогирован
+- Coherencer ревьюит лог при PR-Gate; флагует «buried OD» (per Inv 16 OD-discipline
+  расширение на non-rework решения)
+- Tier: T3 checklist (ответственность Coherencer)
+
+### Вердикт PR-Gate
+- Все 4 PR-проверки ДОЛЖНЫ пройти до объявления «publication ready»
+- B-score GREEN на V-Gate ≠ ready (см. meta.md GREEN ≢ ready amendment)
+- META НЕ ДОЛЖЕН объявлять ready без явного PR-Gate PASS
+
+---
+
 ## Протокол RT-фаз для статей
 
 Три точки вызова RT:
@@ -318,7 +357,7 @@ stat -f %m "$SRC"  # macOS fallback  |  stat -c %Y "$SRC"  # GNU
 
 ## Доменно-специфичные Bootstrap Lessons
 
-Скин наследует все 22 универсальных BL из `BOOTSTRAP_LESSONS_universal.md` **без изменений**, обрабатывает 8 code-adapter BL индивидуально (2 переходят, 4 имеют эквиваленты BL-A1..A4, 2 — N/A), добавляет 4 article-специфичных BL.
+Скин наследует все 22 универсальных BL из `BOOTSTRAP_LESSONS_universal.md` **без изменений**, обрабатывает 8 code-adapter BL индивидуально (2 переходят, 4 имеют эквиваленты BL-A1..A4, 2 — N/A), добавляет 5 article-специфичных BL (BL-A1..A5).
 
 ### Универсальные BL (22 записи — все без изменений)
 
@@ -353,15 +392,21 @@ Summary: 2 applies unchanged + 4 → BL-A1..A4 + 2 N/A.
 **BL-A4: PRE-FLIGHT библиографии (адаптация BL-22)**
 Перед RT-1 Analyst ОБЯЗАН проверить каждый идентификатор: (a) синтаксис валиден (C3), (b) для novel (T3/T4) источник доступен И ≥1 факт подтверждён. Произвести VERIFIED REFERENCES артефакт. Applies to: Analyst (RT-1), Validator (RT-2), Builder (block без артефакта), META.
 
+**BL-A5: Publication Readiness Gate (правило секвенирования V-Gate ≠ PR-Gate, расширение Inv 17 publication-layer)**
+- **Источник:** Post-CONSOLIDATION lift, RT-9 ODTOE Hansei (ошибки F1 ASCII-тире в PDF, F2 slug-citations в аннотации, F4 BL-A2 GREEN-blind, F6 отсутствие персоны наивного читателя). По L-50 (extend>add) — расширение Inv 17 publication-layer, НЕ новый framework BL.
+- **Правило:** Engineering validity (cite_check + BL-A1..A4 = «V-Gate») и publication readiness («PR-Gate») — РАЗНЫЕ гейты. После V-Gate GREEN, до объявления артефакта «ready», статья ДОЛЖНА пройти PR-Gate: PR-1 визуальная инспекция (отрендеренный PDF, типографика, slug-citations не литералы), PR-2 тест наивного читателя (аннотация декодируется без проектного глоссария), PR-3 стилистический паритет (RU/EN тип тире, стиль цитирования, структура параграфов если `domain.bilingual: true`), PR-4 аудит decision-log (Builder defaults залогированы, Coherencer флагует «buried OD» по расширению Inv 16 OD-discipline). Полная спецификация PR-Gate: см. секцию «PR-Gate (Publication Readiness)» выше.
+- **Зачем:** v9 framework ловил engineering validity (BL-A1..A4) но НЕ publication readiness — Hansei ошибки F1 (ASCII-тире отгружены в PDF), F2 (slug-citations в аннотации), F4 (BL-A2 GREEN-blind к типографике), F6 (нет персоны наивного читателя). PR-Gate делает публикационную поверхность first-class гейтом; META НЕ ДОЛЖЕН объявлять «ready» только на V-Gate (GREEN ≢ ready по meta.md amendment).
+- **Applies to:** Validator (PR-1 инспекция отрендеренного PDF + PR-2 симуляция наивного читателя, PR-3 проверка паритета), Builder (корректность типографики, записи decision-log для PR-4), Coherencer (PR-3 cross-language паритет + PR-4 OD-аудит), META (PR-Gate PASS гейт перед объявлением «ready»).
+
 ### Итого BL
 
 - Универсальные: **22** (без изменений)
 - Code-adapter applies unchanged: **2** (BL-3, BL-24)
 - Article equivalents: **4** (BL-A1..A4)
 - N/A: **2** (BL-8, BL-25)
-- Article-specific (BL-A): **4** (отдельный бюджет)
+- Article-specific (BL-A): **5** (отдельный бюджет, BL-A1..A5)
 
-**Total: 22 + 2 + 4 = 28 BL.**
+**Total: 22 + 2 + 5 = 29 BL.**
 
 ### Интеграция с project lessons.md
 
@@ -406,7 +451,7 @@ Summary: 2 applies unchanged + 4 → BL-A1..A4 + 2 N/A.
 
 ---
 
-*Последнее обновление: 2026-04-23*
+*Последнее обновление: 2026-04-26*
 *Вышестоящие роли: roles/{role}_EN.md*
 *Вышестоящая математика: eradev.md Section II.1 (веса B_research)*
 *Вышестоящие BL: BOOTSTRAP_LESSONS_universal.md (22 наследуется)*

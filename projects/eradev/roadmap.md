@@ -3,27 +3,27 @@
 > Forward plan per Q2 canonical model (meta.md §15 Post-task Recommendations Placement).
 > Updates: live (any session may amend Next Steps).
 
-## Current state (2026-04-25)
-v10 series — RT-7 closure (dbc08a4) shipped: NEXT-A1 self-application BLOCK closed (a79654c + b1486ed remediated), bilingual hook live, exit-2 BLOCK semantic in rework-framing-detector, Galileo Cronbach α adopted, MultiAgentBench KPIs in Hansei. ψ*-gap reduced from ~15% (RT-5 RU-V audit) to ≤7% (RT-7 closure validator).
+## Current state (2026-04-26)
+v10 series — RT-7 closure (dbc08a4) shipped Session 11 (2026-04-25). CONSOLIDATION LIFTED Session 12 (2026-04-26). Tier 2 Wave A in progress.
 
-## 🟡 CONDITIONAL LIFT PENDING (was: ACTIVE FREEZE)
+## ✅ CONSOLIDATION LIFTED (2026-04-26)
 
-CONSOLIDATION lift conditions status (2026-04-25):
-- ✅ #1 NEXT-A1 self-application BLOCK CLOSED (a79654c + b1486ed remediated, dbc08a4 declared)
-- ✅ #2 ψ*-gap ≤10% MET (was ~15%, now ≤7% per RT-7 closure validator)
-- 🟡 #3 4 sessions stability — 3/4 (Sessions 8, 9, 10 stable; Session 11 in progress)
+All 3 lift conditions verified MET в Session 12:
+- ✅ #1 NEXT-A1 self-application BLOCK closed (RT-7 dbc08a4)
+- ✅ #2 ψ*-gap ≤7% (RT-7 closure validator)
+- ✅ #3 4 sessions stability: Sessions 8/9/10/11/12 all clean (no fix chains, no rework triggers)
 
-After Session 11 ends without fix chains / rework triggers / Builder BLOCKs:
-- All 3 conditions MET → operator may declare lift
-- Lift unlocks: new BL/Invariants, new theoretical content в eradev.md, new domain skins, new verify methods
+Operator authority declared lift per L-59. Framework expansion mode RESUMED.
 
-While lift pending (Session 11 active):
-- Mechanical drift cleanup ALLOWED
-- Hook upgrades ALLOWED (Tier-claim integrity sweep ongoing)
-- Documentation ALLOWED
-- Lessons.md additions ALLOWED (observations, not rules)
-- NO new BL/Invariants until lift declared
-- NO new theoretical content
+Currently shipping: Tier 2 Wave A (4 parallel Builders 2026-04-26):
+- B1 BL-A5 PR-Gate (article skin extension)
+- B2 PN-1 phantom-newness hook (recursive BL-16 mitigation)
+- B3 GREEN ≢ ready META amendment (meta.md §15)
+- B4 (this) roadmap + MEMORY drawer status update
+
+Next waves:
+- Wave B (post Wave A validation): F12/TC-1 R-axis, TC-4 σ_op category
+- Wave C (theoretical, conditional): B_publication modality, σ-aggregation
 
 ## Next Steps (M+ tasks pending operator approval)
 
@@ -61,17 +61,25 @@ While lift pending (Session 11 active):
 - Direction C "phase transition" — verify or retire (RU-Coherencer RV-RU-02)
 - Nemawashi BL or retire (RU-Coherencer RV-RU-04)
 
-## Lifting CONSOLIDATION freeze
-Conditions (status 2026-04-25):
+## v11 Tier 2 Wave A (in progress 2026-04-26)
+Post-lift framework expansion — first 4 parallel Builders dispatched Session 12:
+- **B1**: BL-A5 PR-Gate (article skin extension) — article domain skin upgraded with publication-ready gate
+- **B2**: PN-1 phantom-newness hook (recursive BL-16 mitigation) — pre-commit detector for phantom novelty claims
+- **B3**: GREEN ≢ ready META amendment — meta.md §15 clarifies green-build does not imply task readiness
+- **B4** (this): roadmap status update (CONDITIONAL LIFT PENDING → LIFTED) + MEMORY drawer file
+
+Wave A success criteria: all 4 Builders produce verified artifacts; Coherencer gate; then Wave B dispatch.
+
+## CONSOLIDATION freeze history
+Original conditions (2026-04-12 declared, 2026-04-26 lifted):
 - ✅ NEXT-A1 closed (self-application BLOCK resolved — RT-7 dbc08a4)
 - ✅ ψ* gap recomputed ≤10% (≤7% per RT-7 closure validator)
-- 🟡 4 sessions of stability (3/4 — Sessions 8, 9, 10 stable; Session 11 in progress)
+- ✅ 4 sessions of stability — Sessions 8/9/10/11/12 all clean
 
-Lift declaration: operator authority only. Triggers when Session 11 ends without fix chains / rework triggers / Builder BLOCKs.
+Lift declaration: operator authority (Session 12, 2026-04-26). Per L-59 declared sufficient.
 
-## Maintained while lift pending
-- Hook upgrades (Tier-claim integrity sweep ongoing — RT-8 for Inv 17 + §X.1/§X.2)
-- Mechanical drift cleanup
-- Documentation accuracy
-- Skill-mirror sync
-- Lessons.md observations (not rules)
+## Post-lift discipline (replacing «Maintained while lift pending»)
+- L-50 (extend>add) remains active: prefer extending existing BL/sections to adding net-new
+- Phantom-newness check (L-58 + PN-1 hook) before any BL/Invariant claim
+- BL-16 (knowledge≠enforcement) vigilant on every new theoretical addition
+- Tier-claim integrity sweep continues (L-52 enforcement)

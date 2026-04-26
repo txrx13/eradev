@@ -82,4 +82,13 @@ if [ -x "$HOOK_DIR/bl19-bilingual-sync.sh" ]; then
     "$HOOK_DIR/bl19-bilingual-sync.sh" || exit 1
 fi
 
+# ============================================================
+# PN-1 Phantom-Newness Gate (L-58, BL-29 sister, EMP6 ext)
+# Detects proposed L-N / EMP-N / BL-N IDs whose titles overlap
+# existing knowledge-base entries. See .githooks/phantom-newness-check.sh.
+# ============================================================
+if [ -x "$HOOK_DIR/phantom-newness-check.sh" ]; then
+    "$HOOK_DIR/phantom-newness-check.sh" || exit 1
+fi
+
 exit 0
