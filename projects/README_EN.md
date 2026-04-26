@@ -1,5 +1,10 @@
 # How to Create a New Project in EraDev
 
+> **NOTE:** Project instances live at `<host-repo>/projects/{name}/`, NOT here.
+> This directory contains seed templates and per-project documentation only.
+> Each instance's `config.md` and `lessons.md` are tracked in the host repo's
+> `projects/{name}/` directory, not in this framework subrepo.
+
 ## 1. Project Directory Structure
 
 Create a directory `projects/<project-name>/` with the following structure:
