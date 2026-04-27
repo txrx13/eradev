@@ -55,6 +55,7 @@ Deploy EraDev ({PROJECT} = basename of current directory):
 | 5. Context check | `.claude/hooks/agent-context-check.sh` | Advisory: warns if agent prompt lacks context |
 | 6. Fix chain | `.githooks/pre-commit` | Blocks commit at 3+ consecutive fixes |
 | 7. Phantom-newness (PN-1) | `.githooks/phantom-newness-check.sh` | BLOCKS commits adding new BL/L-/EMP IDs, Invariants, or template files whose keywords overlap existing entries (BL-29 sister; L-58). Bypass: `PN_OVERRIDE=1`, `--phantom-checked`, or `[novel-add]` in commit message |
+| 8. GREEN-then-failed (F2) | `.githooks/green-then-failed.sh` | Post-commit ADVISORY (never blocks): logs commits with `B-check:...GREEN` to `.git/eradev_green_log`; on subsequent `fix:`/`revert:`/`hotfix:` within 7 days, appends an entry to `reports/green_failures.md` for the next Hansei pass. Disable: `ERADEV_HOOKS_DISABLED=1` |
 
 **Note:** These are runtime enforcement hooks. Separately, EraDev uses a 4-layer file architecture: L0 IMMUTABLE (ODTOE core) / L1 Universal roles / L2 Domain skins / L3 Project instances.
 
