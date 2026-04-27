@@ -291,6 +291,11 @@ Always-print пункты безусловны. Trigger-only пункты печ
        Pre-v10 обратная совместимость: если для проекта нет механизма измерения, LF = Λ_consulted (additive-форма становится тождеством).
        Hook: `.claude/hooks/check-leverage.sh` (PreToolUse Bash на `git commit`) BLOCKs коммит когда 3 последовательных framework-self коммита имеют LF < 0.10.
        Bypass: ERADEV_HOOKS_DISABLED=1 (только P0); коммит-message tag `[retire-pass]` освобождает retire-pass коммиты от LF check.
+       Печатать intent_ratio = X.XX (META discipline metric, BT-1 Phase 2.2 M-cure).
+       intent_ratio = (count of META first-actions that are Agent calls or Check Agent spawns) / max(1, total META first-actions in current measurement window).
+       Привязка к ε_meta canonical (CLAUDE.md "META Output Specification"): output types #1 (Agent calls) и #6 (Check Agent) идут в INTENT numerator; types #3-#5 (Synthesis/Lessons/Reports) — OUTPUT-class Edit/Write в ε_meta whitelist (НЕ считаются first-action нарушениями); type #2 (Decisions) — text emission (нейтрально).
+       VIOLATION class: META first-action = прямой Edit/Write к non-whitelisted пути ИЛИ diagnostic Bash. Hook `.claude/hooks/enforce-delegation.sh` BLOCKs (exit 2) на machine boundary.
+       Healthy band: intent_ratio ≥ 0.85 за rolling 10-action окно. < 0.50 = ANDON, обязательный Hansei.
        Полный freshness / Omega / cross-project scan / BL compression sub-protocol = trigger-only (см. расширенную форму ниже: срабатывает на Lambda gap, freshness flag, BL_CANDIDATES≥5, lessons.md active>50).
 [ ] 12. KILL-TEST (always-print): Ответить ВСЛУХ: "Какое моё ПЕРВОЕ действие после этого чеклиста?"
        - Если ответ содержит "редактировать", "написать", "реализовать", "код", "фикс" → НАРУШЕНИЕ. Перечитать пункт 1.

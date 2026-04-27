@@ -83,7 +83,14 @@ if [ "$TOOL_NAME" = "Edit" ] || [ "$TOOL_NAME" = "Write" ] || [ "$TOOL_NAME" = "
     exit 2
   fi
 
-  # ----- WHITELIST: META output types (per CLAUDE.md "6 output types") -----
+  # ----- WHITELIST: ε_meta anchor (per CLAUDE.md "META Output Specification") -----
+  # ε_meta is the canonical anchor for META OUTPUT-class first-actions:
+  # output types #3 (Reports), #4 (Lessons), #5 (Synthesis/Memory) per the
+  # 6-output-types table in CLAUDE.md. Types #1 (Agent calls), #2 (Decisions),
+  # #6 (Check Agent) are INTENT-class — handled via Agent tool / text output,
+  # not Edit/Write, so do not appear in this path whitelist.
+  # Single-source-of-truth: any drift between this list and CLAUDE.md
+  # ε_meta declaration = M-cure regression (BT-1 Phase 2.2).
   # 1. Reports: reports/*.md
   # 2. Lessons: projects/*/lessons.md
   # 3. Memory: ~/.claude/projects/*/memory/*.md

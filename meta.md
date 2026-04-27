@@ -301,6 +301,11 @@ Always-print items are unconditional. Trigger-only items are printed at session 
        Pre-v10 backward compat: if no measurement vehicle is available for the project, LF = Λ_consulted (additive form becomes identity).
        Hook: `.claude/hooks/check-leverage.sh` (PreToolUse Bash on `git commit`) BLOCKs commit when 3 consecutive framework-self commits have LF < 0.10.
        Bypass: ERADEV_HOOKS_DISABLED=1 (P0 only); commit message tag `[retire-pass]` exempts retire-pass commits from LF check.
+       Print intent_ratio = X.XX (META discipline metric, BT-1 Phase 2.2 M-cure).
+       intent_ratio = (count of META first-actions that are Agent calls or Check Agent spawns) / max(1, total META first-actions in current measurement window).
+       Anchored to ε_meta canonical (CLAUDE.md "META Output Specification"): output types #1 (Agent calls) and #6 (Check Agent) count toward INTENT numerator; types #3-#5 (Synthesis/Lessons/Reports) are OUTPUT-class Edit/Write to ε_meta whitelist (NOT counted as first-action violations); type #2 (Decisions) is text emission (neutral).
+       VIOLATION class: META first-action = direct Edit/Write to non-whitelisted path OR diagnostic Bash. Hook `.claude/hooks/enforce-delegation.sh` BLOCKs (exit 2) at machine boundary.
+       Healthy band: intent_ratio ≥ 0.85 over rolling 10-action window. < 0.50 = ANDON, mandatory Hansei.
        Full freshness / Omega / cross-project scan / BL compression sub-protocol = trigger-only (see expanded form below: fires on Lambda gap, freshness flag, BL_CANDIDATES≥5, lessons.md active>50).
 [ ] 12. KILL-TEST (always-print): Answer OUT LOUD: "What is my FIRST action after this checklist?"
        - If answer contains "edit", "write", "implement", "code", "fix" → VIOLATION. Re-read item 1.
