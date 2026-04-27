@@ -18,6 +18,33 @@ fi
 TRIGGER_RE='менять архитектуру|полностью менять|архитектурная проблема|full rework|from scratch|architecture is wrong|completely change'
 
 if ! printf '%s' "$MESSAGE" | grep -qiE "$TRIGGER_RE"; then
+  # F1 (RT-11 OPEN): scope-bypass guard. Operator critique without rework framing
+  # still triggers META scope-creep (see rt11 §F1: "META expands task scope without
+  # re-classifying" after critiques #117 etc.). Emit non-blocking advisory reminding
+  # META to re-classify (S/M/L/XL) before responding and to stay within original task scope.
+  # Anti-pattern guarded: no ML, no heuristics — single regex on critique vocabulary.
+  CRITIQUE_RE='нарушены инструкции|ты не делаешь|ты не следуешь|почему ты не|это нарушение|violation|you did(n.t| not)|you'\''re not following|why didn'\''t you|that'\''s a violation|нарушение инвариант|нарушение правил'
+  if printf '%s' "$MESSAGE" | grep -qiE "$CRITIQUE_RE"; then
+    echo "[rework-framing-detector] F1 critique-trigger matched, advisory" >>"$LOG" 2>/dev/null || true
+    cat >&2 <<'EOF'
+=== F1 SCOPE-BYPASS ADVISORY (non-blocking) ===
+Operator critique vocabulary detected. Per CLAUDE.md Inv 16 (F1 amendment) +
+BL-35 / RT-11 §F1: META MUST re-classify task (S/M/L/XL) BEFORE responding,
+and MUST NOT expand scope beyond the original ask while addressing the critique.
+
+Required first actions (in order):
+  1. Re-classify the (now-reframed) task per Inv 3.
+  2. State the classification explicitly in your reply.
+  3. Constrain response to the critique itself — no scope expansion, no new
+     refactors, no parallel framework reform unless operator explicitly asks.
+  4. If critique implies framework change: spawn [VALIDATOR] for risk matrix,
+     do not Edit/Write directly (Inv 1).
+
+Source: reports/rt11_meta_audit_odtoe_session_2026-04-26.md §F1
+        reports/eradev_full_roadmap_2026-04-26.md Tier 3 F1
+================================================
+EOF
+  fi
   exit 0
 fi
 
