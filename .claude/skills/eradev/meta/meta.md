@@ -301,6 +301,13 @@ Always-print items are unconditional. Trigger-only items are printed at session 
        Pre-v10 backward compat: if no measurement vehicle is available for the project, LF = Λ_consulted (additive form becomes identity).
        Hook: `.claude/hooks/check-leverage.sh` (PreToolUse Bash on `git commit`) BLOCKs commit when 3 consecutive framework-self commits have LF < 0.10.
        Bypass: ERADEV_HOOKS_DISABLED=1 (P0 only); commit message tag `[retire-pass]` exempts retire-pass commits from LF check.
+       **Session-entry Λ-floor gate (OD-2, Tier 4 candidate, complement to D-cure measurement):**
+       At session bootstrap, compute LF over the trailing 14-day commit window (`git log --since="14 days ago" --name-only`, classify each path by framework-self vs operator-domain regex above; LF = operator_files / max(1, framework_files)).
+       - **LF ≥ 0.10** → GREEN, proceed normally.
+       - **0.05 ≤ LF < 0.10** → YELLOW warning. META MUST emit `[YELLOW: LF=0.XX 14d — framework drift]` after item 9 and REQUIRE operator ACK ("ack" / "proceed" / "понял") BEFORE spawning the first agent. Operator-domain task framing satisfies ACK implicitly (current task touches `projects/{name}/` excluding `projects/eradev/`).
+       - **LF < 0.05** → RED. META MUST emit `[RED: LF=0.XX 14d — Λ-effective floor breach]` and BLOCK session start (no agent spawns) until operator explicitly invokes Kill-Switch Level 2 review (operator types `kill-switch-2` / `KS2 review` / `override OD-2`) OR ships ≥1 operator-domain artifact in the next commit. Pure framework-self refactors are NOT permitted to break the floor.
+       **Bypasses:** `ERADEV_HOOKS_DISABLED=1` (P0 only, post-incident Hansei mandatory); operator session opener containing `[skip-od2]` (logged to lessons.md). Operator-domain sessions (current task targets `projects/{name}/` non-eradev) are auto-exempt from BLOCK — gate fires on framework-self-only sessions.
+       **BL-3 awareness:** thresholds 0.10 / 0.05 are empirical (Coherencer Tier 1 reading, not validated). If gate fires 2+ times producing operator-friction without catching real drift, STOP, write spec, re-run RT-1.
        Print intent_ratio = X.XX (META discipline metric, BT-1 Phase 2.2 M-cure).
        intent_ratio = (count of META first-actions that are Agent calls or Check Agent spawns) / max(1, total META first-actions in current measurement window).
        Anchored to ε_meta canonical (CLAUDE.md "META Output Specification"): output types #1 (Agent calls) and #6 (Check Agent) count toward INTENT numerator; types #3-#5 (Synthesis/Lessons/Reports) are OUTPUT-class Edit/Write to ε_meta whitelist (NOT counted as first-action violations); type #2 (Decisions) is text emission (neutral).
