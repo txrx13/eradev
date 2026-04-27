@@ -286,6 +286,9 @@ V-Gate = набор cite_check + BL-A1..A4 выше (engineering validity: би�
 4. Аннотация маркерами (если проект объявляет)
 5. Переход к секции I+1
 
+**Pre-drafting gate языковой чистоты (per L-40 + L-46 ODTOE):**
+Перед drafting RU section content, проверить что META spec НЕ содержит bare English content words в spec body (excluding math/code/L-21 KEEP). Если обнаружено, ANDON: это META prompt-design failure, не Builder issue. Не paper over translating on the fly — ANDON forces upstream fix per L-46 inheritance rule.
+
 **Исключение (только L/XL):** для XL-статьи (>8000 слов, >4 секций) Analyst может разделить между двумя Builders по владению секциями. Гейт Coherencer ОБЯЗАТЕЛЕН.
 
 ---

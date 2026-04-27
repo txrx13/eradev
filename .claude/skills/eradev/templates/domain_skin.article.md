@@ -350,6 +350,9 @@ The article Builder is a **SINGLE agent** (not "outliner + drafter" split). With
 
 Outline + draft live in the same mental model of the argument. Splitting them into two agents would cause the drafter to lose the context that the outliner had — increasing |B_outliner − B_drafter| and decreasing S_team. Keeping them unified is consistent with the v9 principle that *role is a focus, not a specialization*.
 
+**Pre-drafting language-purity gate (per L-40 + L-46 ODTOE):**
+Before drafting RU section content, verify META spec contains NO bare English content words in the spec body (excluding math/code/L-21 KEEP). If detected, ANDON: this is META prompt-design failure, not Builder issue. Don't paper over by translating on the fly — ANDON forces upstream fix per L-46 inheritance rule.
+
 **Exception (L/XL only):** For an XL article (>8000 words, >4 sections), the Analyst plan may split work across *two Builders* by section ownership (Builder A owns sections I-III, Builder B owns sections IV-VI). File Ownership rule from `analyst_EN.md` Responsibilities 4 applies. Coherencer gate is MANDATORY between Builder completion and Validator start.
 
 ### Pipeline block
