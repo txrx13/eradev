@@ -55,7 +55,18 @@ Deploy EraDev ({PROJECT} = basename of current directory):
 | 5. Context check | `.claude/hooks/agent-context-check.sh` | Advisory: warns if agent prompt lacks context |
 | 6. Fix chain | `.githooks/pre-commit` | Blocks commit at 3+ consecutive fixes |
 | 7. Phantom-newness (PN-1) | `.githooks/phantom-newness-check.sh` | BLOCKS commits adding new BL/L-/EMP IDs, Invariants, or template files whose keywords overlap existing entries (BL-29 sister; L-58). Bypass: `PN_OVERRIDE=1`, `--phantom-checked`, or `[novel-add]` in commit message |
-| 8. GREEN-then-failed (F2) | `.githooks/green-then-failed.sh` | Post-commit ADVISORY (never blocks): logs commits with `B-check:...GREEN` to `.git/eradev_green_log`; on subsequent `fix:`/`revert:`/`hotfix:` within 7 days, appends an entry to `reports/green_failures.md` for the next Hansei pass. Disable: `ERADEV_HOOKS_DISABLED=1` |
+| 8. Leverage discipline (D-cure) | `.claude/hooks/check-leverage.sh` | PreToolUse on `git commit`: BLOCKS if 3 consecutive framework-self commits show LF<0.10 (operator/framework file ratio). Enforces Λ component decomposition discipline (eradev.md §II.1). |
+| 9. GREEN-then-failed (F2) | `.githooks/green-then-failed.sh` | Post-commit ADVISORY (never blocks): logs commits with `B-check:...GREEN` to `.git/eradev_green_log`; on subsequent `fix:`/`revert:`/`hotfix:` within 7 days, appends an entry to `reports/green_failures.md` for the next Hansei pass. Disable: `ERADEV_HOOKS_DISABLED=1` |
+| 10. Pre-validator handoff (R-3) | `.claude/hooks/pre-validator-handoff.sh` | PostToolUse on `[VALIDATOR]` Agent calls: ADVISORY (default) — warns if Validator output lacks evidence 4-tuple `{name, command, stdout_excerpt, verdict}` per gate (Inv 18). Strict mode: `ERADEV_VALIDATOR_STRICT=1` (block). Disable: `ERADEV_HOOKS_DISABLED=1` |
+| 11. BL-19 bilingual sync | `.githooks/bl19-bilingual-sync.sh` | Pre-commit check: blocks commits that update only one language pair of bilingual file groups (e.g. `eradev.md` without `eradev_RU.md`, `roles/X.md` without `roles/X_EN.md`). Enforces BT-3 bilingual parity. |
+| 12. Bilingual purity | `.githooks/check-bilingual-purity.sh` | Pre-commit: blocks `projects/{P}/articles/*.{tex,md}` commits with mixed-language content (Latin-Cyrillic compounds + bare English in RU prose). Per-project keep-list at `projects/{P}/articles/.bilingual-keep-list`. Override: `BILINGUAL_PURITY_OVERRIDE=1` env or `[bilingual-override]` commit-msg tag. (W7-F1) |
+
+Additional hooks (not in numbered enforcement chain, but installed):
+- `.claude/hooks/agent-context-check.sh` (advisory prompt context check, see Layer 5 above)
+- `.claude/hooks/bl-tier-check.sh` (BL tier discipline advisory)
+- `.claude/hooks/in-session-fix-counter.sh` (session-scoped fix counter for BL-3 awareness)
+- `.claude/hooks/rework-framing-detector.sh` (Inv 16 + F1 scope-bypass advisory)
+- `.claude/hooks/rt1-composition-gate.sh` (Inv 15 composition-hazards grid gate)
 
 **Note:** These are runtime enforcement hooks. Separately, EraDev uses a 4-layer file architecture: L0 IMMUTABLE (ODTOE core) / L1 Universal roles / L2 Domain skins / L3 Project instances.
 

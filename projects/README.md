@@ -102,3 +102,24 @@ projects/<project-name>/
 - [ ] `a3/` директория создана (пустая)
 - [ ] Промпты ролей НЕ содержат хардкод проекта
 - [ ] Decision Log содержит запись об инициализации
+
+---
+
+## 8. Framework-self проекты (F8 allow-list)
+
+> Применимо только к проектам, живущим **внутри** репозитория `eradev/` (например `projects/eradev/`),
+> а не к внешним host-инстансам.
+
+Корневой `.gitignore` фреймворка по умолчанию исключает `projects/*`, чтобы host-проекты
+не попадали в коммиты ядра. Для framework-self проектов (саморазвитие фреймворка) необходимо
+добавить явный allow-list:
+
+```gitignore
+# allow framework-self projects
+!projects/<name>/
+!projects/<name>/**
+```
+
+**Чтобы добавить новый framework-self проект:** допиши `!projects/<name>/` (и при необходимости
+`!projects/<name>/**`) в allow-list `.gitignore` корня фреймворка. Без этого `git status` не увидит
+файлы внутри `projects/<name>/`, и trackable-артефакты (config, lessons, отчёты) выпадут из коммитов.

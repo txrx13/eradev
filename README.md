@@ -19,7 +19,7 @@ META-Orchestrator (Level 9) координирует пять специализ
 - **3-layer runtime enforcement** -- CLAUDE.md (авто-загрузка) + PreToolUse hook (блокирует Edit/Write из главной сессии) + memory persistence (идентичность сохраняется между сессиями)
 - **4-layer file architecture (v9)** -- L0 IMMUTABLE (ODTOE core) / L1 Universal roles / L2 Domain skins / L3 Project instances
 - **6 output types** -- META производит только: Agent calls, Decisions, Synthesis, Lessons, Reports, Check Agent. Всё остальное = нарушение.
-- **17 invariants** -- с тегами [UNIVERSAL] / [CODE-ADAPTER] для адаптации под не-кодовые домены (#17 — τ_cycle primacy, ODTOE_parallel_trajectories F3).
+- **19 invariants** -- с тегами [UNIVERSAL] / [CODE-ADAPTER] для адаптации под не-кодовые домены (#17 — τ_cycle primacy, ODTOE_parallel_trajectories F3; #18 — evidence-bearing Validator handoff; #19 — bilingual prompt language-purity).
 - **6-step loading sequence** -- eradev.md, meta.md, BOOTSTRAP_LESSONS.md, config.md, lessons.md + условный шаг 6 (domain skin).
 - **13-item session bootstrap** -- включая 5b DOMAIN (выбор модальной B-формулы).
 - **Domain skins (v9)** -- 6 типов доменов: code, article, book, config, plan, research. Каждый со своей B-модальностью и методом верификации.
@@ -36,7 +36,7 @@ META-Orchestrator (Level 9) координирует пять специализ
 eradev/
 ├── README.md                       # Этот файл -- входная точка (RU)
 ├── README_EN.md                    # Входная точка (EN)
-├── CLAUDE.md                       # Auto-Bootstrap для Claude Code (17 invariants, 6-step loading)
+├── CLAUDE.md                       # Auto-Bootstrap для Claude Code (19 invariants, 6-step loading)
 ├── LOADING_PROTOCOL.md             # Порядок загрузки файлов агентом
 ├── BOOTSTRAP_LESSONS.md            # 30 уроков холодного старта (BL-1..BL-32)
 ├── eradev.md                       # Конституция (EN): ODTOE, TPS, Round Table, формулы
@@ -112,7 +112,7 @@ LOAD (6 steps):
 4. projects/{PROJECT}/config.md  5. projects/{PROJECT}/lessons.md
 6. IF domain.skin set: eradev/templates/domain_skin.{type}.md
 
-RULES: S-tasks = Builder+Validator. M+ = 5-role RT-1. 17 invariants ([UNIVERSAL]/[CODE-ADAPTER]).
+RULES: S-tasks = Builder+Validator. M+ = 5-role RT-1. 19 invariants ([UNIVERSAL]/[CODE-ADAPTER]).
        Bash: operational direct, diagnostic delegate. Session bootstrap: 13 items (incl. 5b DOMAIN).
 KILL-TEST: first action = agent call.
 
@@ -181,7 +181,7 @@ True North -- это не цель, а направление. Сформули�
 | `roles/builder.md` | Промпт Строителя: реализация, Security Checklist, паттерны |
 | `roles/validator.md` | Промпт Валидатора: проверка, обратная связь, шкала диссонанса |
 | `roles/coherent.md` | Промпт Когерента: синхронизация, L1/L2/L3, Kill-Switch |
-| `CLAUDE.md` | Auto-Bootstrap: 17 invariants, 6-step loading, Domain Awareness, KILL-TEST |
+| `CLAUDE.md` | Auto-Bootstrap: 19 invariants, 6-step loading, Domain Awareness, KILL-TEST |
 | `BOOTSTRAP_LESSONS.md` | 30 уроков холодного старта (BL-1..BL-32) |
 | `glossary.md` | Единый глоссарий терминов ODTOE -> EraDev |
 | `LOADING_PROTOCOL.md` | Agent Loading Protocol: порядок загрузки файлов |
