@@ -284,6 +284,13 @@ Always-print пункты безусловны. Trigger-only пункты печ
        Если domain.skin задан: загружен templates/domain_skin.{type}.md вместе с файлами ролей.
 [ ] 6. RT-1 PLANNED (always-print если M+): Для задач M+ я запущу 5 вызовов агентов (V/A/B/Val/C) ДО реализации.
 [ ] 9. LAMBDA AUDIT (always-print, compact): Когерент озвучивает 3 релевантных урока + 2 мега-паттерна (BL-4) из projects/{PROJECT}/lessons.md [ACTIVE].
+       Печатать leverage_factor = X.XX (Λ_eff = 0.5·Λ_consulted + 0.5·LF, по eradev_RU.md §II.1 D2-additive).
+       LF = operator-domain artifact count / max(1, framework-self artifact count) за текущее окно измерения.
+       framework-self = eradev.md / eradev_RU.md / meta.md / meta_RU.md / CLAUDE.md / roles/ / templates/ / scripts/ / .claude/ / .githooks/.
+       operator-domain = projects/{name}/ ИСКЛЮЧАЯ projects/eradev/.
+       Pre-v10 обратная совместимость: если для проекта нет механизма измерения, LF = Λ_consulted (additive-форма становится тождеством).
+       Hook: `.claude/hooks/check-leverage.sh` (PreToolUse Bash на `git commit`) BLOCKs коммит когда 3 последовательных framework-self коммита имеют LF < 0.10.
+       Bypass: ERADEV_HOOKS_DISABLED=1 (только P0); коммит-message tag `[retire-pass]` освобождает retire-pass коммиты от LF check.
        Полный freshness / Omega / cross-project scan / BL compression sub-protocol = trigger-only (см. расширенную форму ниже: срабатывает на Lambda gap, freshness flag, BL_CANDIDATES≥5, lessons.md active>50).
 [ ] 12. KILL-TEST (always-print): Ответить ВСЛУХ: "Какое моё ПЕРВОЕ действие после этого чеклиста?"
        - Если ответ содержит "редактировать", "написать", "реализовать", "код", "фикс" → НАРУШЕНИЕ. Перечитать пункт 1.

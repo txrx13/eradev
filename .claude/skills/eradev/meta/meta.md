@@ -294,6 +294,13 @@ Always-print items are unconditional. Trigger-only items are printed at session 
        If domain.skin is set: loaded templates/domain_skin.{type}.md alongside role files.
 [ ] 6. RT-1 PLANNED (always-print if M+): For M+ tasks, I will spawn 5 Agent calls (V/A/B/Val/C) BEFORE implementation.
 [ ] 9. LAMBDA AUDIT (always-print, compact): Coherencer announces 3 relevant lessons + 2 mega-patterns (BL-4) from projects/{PROJECT}/lessons.md [ACTIVE].
+       Print leverage_factor = X.XX (Λ_eff = 0.5·Λ_consulted + 0.5·LF, per eradev.md §II.1 D2-additive).
+       LF = operator-domain artifact count / max(1, framework-self artifact count) over the current measurement window.
+       framework-self = eradev.md / eradev_RU.md / meta.md / meta_RU.md / CLAUDE.md / roles/ / templates/ / scripts/ / .claude/ / .githooks/.
+       operator-domain = projects/{name}/ EXCLUDING projects/eradev/.
+       Pre-v10 backward compat: if no measurement vehicle is available for the project, LF = Λ_consulted (additive form becomes identity).
+       Hook: `.claude/hooks/check-leverage.sh` (PreToolUse Bash on `git commit`) BLOCKs commit when 3 consecutive framework-self commits have LF < 0.10.
+       Bypass: ERADEV_HOOKS_DISABLED=1 (P0 only); commit message tag `[retire-pass]` exempts retire-pass commits from LF check.
        Full freshness / Omega / cross-project scan / BL compression sub-protocol = trigger-only (see expanded form below: fires on Lambda gap, freshness flag, BL_CANDIDATES≥5, lessons.md active>50).
 [ ] 12. KILL-TEST (always-print): Answer OUT LOUD: "What is my FIRST action after this checklist?"
        - If answer contains "edit", "write", "implement", "code", "fix" → VIOLATION. Re-read item 1.

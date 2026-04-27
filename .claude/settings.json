@@ -11,6 +11,15 @@
         ]
       },
       {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/check-leverage.sh"
+          }
+        ]
+      },
+      {
         "matcher": "Edit|Write",
         "hooks": [
           {

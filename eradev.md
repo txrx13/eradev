@@ -148,6 +148,33 @@ META reads `domain.B_modality` from `projects/{name}/config.md` during session b
 
 > See `CLAUDE.md` §Domain Awareness for the bootstrap-load copy of these weights (auto-loaded by every session) and `projects/{name}/config.md` `domain.B_modality` field for the per-project selection vehicle.
 
+**Λ component decomposition (v10, BT-1 D-cure D2-additive).** Λ is a composite of two equally-weighted sub-components:
+
+```
+Λ = 0.5 · Λ_consulted + 0.5 · leverage_factor
+```
+
+- **Λ_consulted** ∈ [0, 1] — the v8/v9 component: fraction of relevant lessons / mega-patterns / BL entries actually consulted and applied during the work block. Computed at Jidoka self-check.
+- **leverage_factor** (LF) ∈ [0, 1] — the v10 axis-discipline component: ratio of operator-domain artifacts to framework-self artifacts shipped in the current measurement window.
+  - `framework-self` = files in `eradev.md`, `eradev_RU.md`, `meta.md`, `meta_RU.md`, `CLAUDE.md`, `roles/`, `templates/`, `scripts/`, `.claude/`, `.githooks/`.
+  - `operator-domain` = files in `projects/{name}/` EXCLUDING `projects/eradev/`.
+  - LF = operator-domain count / max(1, framework-self count) at commit boundary, clipped to [0, 1].
+  - Pre-v10 default (no measurement available): LF = Λ_consulted (additive becomes identity Λ = Λ_consulted, v8-compatible).
+
+**B-projection ladder (uniform 0.25 weights, F=0.90, E=0.85, (1-σ)=0.85, Λ_c=0.85):**
+
+| LF | Λ_D2 | B |
+|---:|---:|---:|
+| 0.012 (empirical low) | 0.431 | 0.280 ANDON |
+| 0.30 (GREEN-floor) | 0.575 | 0.374 ANDON |
+| 0.50 | 0.675 | 0.439 approaching GREEN |
+| 0.70 | 0.775 | 0.504 GREEN |
+| 1.00 (operator-only) | 0.925 | 0.601 GREEN |
+
+**Backward compatibility (FM-4 defense, II.1 Λ-extension).** Pre-v10 projects with no measurement vehicle for LF default to LF = Λ_consulted, which makes the additive form collapse to identity Λ = Λ_consulted. Existing v8/v9 B-scores are preserved exactly. Migration is opt-in: D-cure hook (`.claude/hooks/check-leverage.sh`) begins reporting LF only when the project ships actual `projects/{name}/` artifacts alongside framework edits.
+
+**Frozen-snapshot semantics (Σ_pre / Σ_post).** Reports / Hansei written BEFORE the D-cure commit hash use the v9 Λ formula (Λ = Λ_consulted only). Reports written AFTER the D-cure commit use the v10 D2-additive formula. The boundary is the D-cure commit hash itself; agents do NOT retro-rescore prior B-snapshots under v10 weights.
+
 ---
 
 ### II.2 v9 OOD scope (what v9's coherence math applies to)

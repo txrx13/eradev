@@ -147,6 +147,33 @@ META читает `domain.B_modality` из `projects/{name}/config.md` во вр
 
 > См. `CLAUDE.md` §Domain Awareness для bootstrap-загружаемой копии этих весов (авто-загружается каждой сессией) и `projects/{name}/config.md` поле `domain.B_modality` для механизма выбора на уровне проекта.
 
+**Декомпозиция компонента Λ (v10, BT-1 D-cure D2-additive).** Λ — это композит из двух равновзвешенных подкомпонентов:
+
+```
+Λ = 0.5 · Λ_consulted + 0.5 · leverage_factor
+```
+
+- **Λ_consulted** ∈ [0, 1] — компонент v8/v9: доля релевантных уроков / мега-паттернов / BL-записей, реально consulted и applied во время рабочего блока. Вычисляется на Jidoka self-check.
+- **leverage_factor** (LF) ∈ [0, 1] — компонент дисциплины оси v10: отношение operator-domain артефактов к framework-self артефактам, отгруженных в текущем окне измерения.
+  - `framework-self` = файлы в `eradev.md`, `eradev_RU.md`, `meta.md`, `meta_RU.md`, `CLAUDE.md`, `roles/`, `templates/`, `scripts/`, `.claude/`, `.githooks/`.
+  - `operator-domain` = файлы в `projects/{name}/` ИСКЛЮЧАЯ `projects/eradev/`.
+  - LF = operator-domain count / max(1, framework-self count) на границе коммита, clipped в [0, 1].
+  - Pre-v10 default (нет измерения): LF = Λ_consulted (additive становится тождеством Λ = Λ_consulted, v8-совместимо).
+
+**B-projection ladder (равномерные веса 0.25, F=0.90, E=0.85, (1-σ)=0.85, Λ_c=0.85):**
+
+| LF | Λ_D2 | B |
+|---:|---:|---:|
+| 0.012 (эмпирический минимум) | 0.431 | 0.280 ANDON |
+| 0.30 (GREEN-floor) | 0.575 | 0.374 ANDON |
+| 0.50 | 0.675 | 0.439 приближается к GREEN |
+| 0.70 | 0.775 | 0.504 GREEN |
+| 1.00 (operator-only) | 0.925 | 0.601 GREEN |
+
+**Обратная совместимость (FM-4 защита, II.1 Λ-расширение).** Pre-v10 проекты без механизма измерения LF откатываются на LF = Λ_consulted, что коллапсирует additive-форму к тождеству Λ = Λ_consulted. Существующие v8/v9 B-scores сохранены точно. Миграция opt-in: hook D-cure (`.claude/hooks/check-leverage.sh`) начинает рапортовать LF только когда проект отгружает реальные `projects/{name}/` артефакты совместно с framework-правками.
+
+**Семантика frozen-snapshot (Σ_pre / Σ_post).** Отчёты / Hansei, написанные ДО commit-hash D-cure, используют v9-формулу Λ (Λ = Λ_consulted only). Отчёты, написанные ПОСЛЕ commit-hash D-cure, используют v10 D2-additive формулу. Границей является сам D-cure commit hash; агенты НЕ ретро-пересчитывают предыдущие B-snapshot под весами v10.
+
 ---
 
 ### II.2 Область применения v9 / OOD (что покрывает математика когерентности v9)
