@@ -5,6 +5,22 @@
 > Lessons here retain all temporal metadata (valid_from, ended, superseded_by).
 > To recall an archived lesson into T2 session context, Coherencer pulls it at Lambda Audit.
 
+## retire-pass entry template (BT-1 Phase 2.3 P-cure)
+
+When retiring a BL / Invariant / Lesson via retire-pass, append a block here using this format. The paired commit MUST carry the `[retire-pass]` tag in its message (exempts the commit from D-cure leverage_factor BLOCK and from phantom-newness-check). Each retire-pass increments Ω_pruned for the current 4-session audit window.
+
+```
+### {ID}: {Title} [ARCHIVED YYYY-MM-DD]
+<!-- valid_from: YYYY-MM-DD | ended: YYYY-MM-DD | superseded_by: {ID|artifact-anchor|null} | cross_project: true|false | retire_pass: true -->
+Archive rationale: {one line — what made this retirable. Codified into framework? Superseded by stronger lesson? Domain-shift made obsolete? Empirically falsified?}
+
+{Original lesson body, preserved verbatim for audit trail.}
+```
+
+**Counted toward Ω_pruned only if:** entry has `retire_pass: true` in metadata AND is committed within the 4-session window AND the commit message includes `[retire-pass]`.
+
+**Not counted (legitimate but distinct):** plain supersession during compression passes (no `retire_pass: true`), test/demo entries, edits to existing archived rows.
+
 ## Archived Lessons
 
 ### Compression Pass 2026-04-25 (RT-6, EMP18 CONSOLIDATION mode)

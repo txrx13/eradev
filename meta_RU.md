@@ -296,6 +296,11 @@ Always-print пункты безусловны. Trigger-only пункты печ
        Привязка к ε_meta canonical (CLAUDE.md "META Output Specification"): output types #1 (Agent calls) и #6 (Check Agent) идут в INTENT numerator; types #3-#5 (Synthesis/Lessons/Reports) — OUTPUT-class Edit/Write в ε_meta whitelist (НЕ считаются first-action нарушениями); type #2 (Decisions) — text emission (нейтрально).
        VIOLATION class: META first-action = прямой Edit/Write к non-whitelisted пути ИЛИ diagnostic Bash. Hook `.claude/hooks/enforce-delegation.sh` BLOCKs (exit 2) на machine boundary.
        Healthy band: intent_ratio ≥ 0.85 за rolling 10-action окно. < 0.50 = ANDON, обязательный Hansei.
+       Печатать Ω_pruned = N (retirement organ metric, BT-1 Phase 2.3 P-cure).
+       Ω_pruned = количество BL/Inv/Lessons retired за trailing 4-session окно через retire-pass.
+       retire-pass = explicit deprecation entry в lessons_archive.md (или projects/{name}/lessons_archive.md) с `ended:` метаданными, paired с commit, тегированным `[retire-pass]` (D-cure exemption tag, shipped Phase 2.1).
+       Healthy band: Ω_pruned ≥ 1 за 4-session окно. Ω_pruned = 0 за 4 sessions = dormancy WARNING (retirement organ atrophy → Λ-discipline regression risk; триггер Hansei через templates/hansei_dormancy_template_RU.md).
+       Hook: `.githooks/phantom-newness-check.sh` (Tier T2, Wave 0 shipped) BLOCKs phantom-newness; retire-pass commits exempt через `[retire-pass]` sentinel (существующий override mechanism, без нового флага).
        Полный freshness / Omega / cross-project scan / BL compression sub-protocol = trigger-only (см. расширенную форму ниже: срабатывает на Lambda gap, freshness flag, BL_CANDIDATES≥5, lessons.md active>50).
 [ ] 12. KILL-TEST (always-print): Ответить ВСЛУХ: "Какое моё ПЕРВОЕ действие после этого чеклиста?"
        - Если ответ содержит "редактировать", "написать", "реализовать", "код", "фикс" → НАРУШЕНИЕ. Перечитать пункт 1.

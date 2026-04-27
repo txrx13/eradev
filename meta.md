@@ -306,6 +306,11 @@ Always-print items are unconditional. Trigger-only items are printed at session 
        Anchored to ε_meta canonical (CLAUDE.md "META Output Specification"): output types #1 (Agent calls) and #6 (Check Agent) count toward INTENT numerator; types #3-#5 (Synthesis/Lessons/Reports) are OUTPUT-class Edit/Write to ε_meta whitelist (NOT counted as first-action violations); type #2 (Decisions) is text emission (neutral).
        VIOLATION class: META first-action = direct Edit/Write to non-whitelisted path OR diagnostic Bash. Hook `.claude/hooks/enforce-delegation.sh` BLOCKs (exit 2) at machine boundary.
        Healthy band: intent_ratio ≥ 0.85 over rolling 10-action window. < 0.50 = ANDON, mandatory Hansei.
+       Print Ω_pruned = N (retirement organ metric, BT-1 Phase 2.3 P-cure).
+       Ω_pruned = count of BL/Inv/Lessons retired in the trailing 4-session window via retire-pass.
+       retire-pass = explicit deprecation entry in lessons_archive.md (or projects/{name}/lessons_archive.md) with `ended:` metadata, paired with a commit tagged `[retire-pass]` (D-cure exemption tag, shipped Phase 2.1).
+       Healthy band: Ω_pruned ≥ 1 per 4-session window. Ω_pruned = 0 over 4 sessions = dormancy WARNING (retirement organ atrophy → Λ-discipline regression risk; trigger Hansei via templates/hansei_dormancy_template.md).
+       Hook: `.githooks/phantom-newness-check.sh` (Tier T2, Wave 0 shipped) BLOCKs phantom-newness; retire-pass commits exempt via `[retire-pass]` sentinel (existing override mechanism, no new flag).
        Full freshness / Omega / cross-project scan / BL compression sub-protocol = trigger-only (see expanded form below: fires on Lambda gap, freshness flag, BL_CANDIDATES≥5, lessons.md active>50).
 [ ] 12. KILL-TEST (always-print): Answer OUT LOUD: "What is my FIRST action after this checklist?"
        - If answer contains "edit", "write", "implement", "code", "fix" → VIOLATION. Re-read item 1.

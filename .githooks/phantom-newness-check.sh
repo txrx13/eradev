@@ -23,9 +23,13 @@ set -euo pipefail
 REPO_ROOT=$(git rev-parse --show-toplevel)
 
 # Sentinel check: if a prepared commit message contains a bypass token, skip.
-# Accepted sentinels:  --phantom-checked  OR  [novel-add]
+# Accepted sentinels:
+#   --phantom-checked  — operator manually audited
+#   [novel-add]        — operator-authorized novel addition (e.g. via roadmap)
+#   [retire-pass]      — retirement-organ commit (BT-1 Phase 2.3 P-cure); archive entries are
+#                        legitimately keyword-overlapping with the active corpus they replace
 COMMIT_MSG_FILE="$REPO_ROOT/.git/COMMIT_EDITMSG"
-if [ -f "$COMMIT_MSG_FILE" ] && grep -qE -- '(--phantom-checked|\[novel-add\])' "$COMMIT_MSG_FILE" 2>/dev/null; then
+if [ -f "$COMMIT_MSG_FILE" ] && grep -qE -- '(--phantom-checked|\[novel-add\]|\[retire-pass\])' "$COMMIT_MSG_FILE" 2>/dev/null; then
   exit 0
 fi
 
