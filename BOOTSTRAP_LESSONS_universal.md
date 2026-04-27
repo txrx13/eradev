@@ -104,7 +104,6 @@
 **Why:** A bug found in one API endpoint likely exists in sibling endpoints built from the same template. Fixing only the discovered instance leaves n-1 copies of the same defect. Yokoten converts a point fix into a systemic improvement, raising Lambda for the entire team.
 **Applies to:** Coherencer (gate owner), Builder (grep execution), Validator (verify completeness), Analyst (propagation scope)
 **Tier:** T2 (hook / CI / lint)
-**Cross-domain note:** "Grep the codebase" is the code-domain enforcement tool. For articles: terminology scan / citation scan. For books: voice/metaphor scan across chapters. For configs: key-name pattern scan. The principle (one lesson propagates to all analogous sites) is universal.
 
 ---
 
@@ -150,23 +149,18 @@
 **Why:** Creating pairs sequentially guarantees immediate desynchronization. The sync audit found eradev_RU.md missing 4 entire sections that existed in eradev.md. Every bilingual pair created without simultaneous sync is technical debt that compounds.
 **Applies to:** ALL roles, META-Orchestrator (enforce bilingual sync rule)
 **Tier:** T2 (hook / CI / lint)
-
----
-
-> BL-20 RETIRED 2026-04-20: content lifted to meta.md §13 MM3 (Adversarial bootstrap testing).
-
----
-
-> BL-21 MERGED INTO BL-17 (2026-04-20): format-spec-as-input consolidated into pre-generate verification.
+**Hook:** `.githooks/bl19-bilingual-sync.sh` (added 2026-04-25, RT-7 NEXT-B1, closes L-52 Tier-claim falsification on BL-19). Pairs covered: eradev.md↔eradev_RU.md, meta.md↔meta_RU.md, LOADING_PROTOCOL.md↔LOADING_PROTOCOL_RU.md, roles/*_EN.md↔roles/*.md, templates/domain_skin.{type}.md↔templates/domain_skin.{type}_RU.md. Override: `BL19_OVERRIDE=1` env var (logged) or `git commit --no-verify`.
 
 ---
 
 ### BL-22 sub-(b): Baseline Health Check [UNIVERSAL extension]
-**Source:** 2026-04-25 audit (`reports/rt1_pre_flight_test_audit_2026-04-25.md`) — operator pattern "сделай проверки перед началом" exposed missing baseline-health gate for non-API tasks. Sub-(a) (external API endpoints) remains code-adapter-only — see `BOOTSTRAP_LESSONS_code_adapter.md` BL-22 for the full hybrid entry.
-**Rule (universal sub-(b) only):** Before RT-1 begins on any task with an executable `verify.method` (build / cite_check / parse / recompute / structure_check / etc.), Analyst Check Agent runs `domain.verify.command` on current HEAD. Output: `reports/baseline-{TASK_ID}-{DATE}.md` with PASS/FAIL summary and sample errors. Baseline FAIL → P0-baseline RT-1 BEFORE operator's task. Non-executable methods (readability / dry_run / flux_check / doc_alignment) skip baseline. Operator override: "skip-baseline" trigger word in task description bypasses (logged to lessons.md).
-**Why:** Without a baseline gate, RT-1 may converge on a plan that's already broken upstream ("built on broken main" failure mode). Cost ~30-60s; eliminates entire failure class.
-**Applies to:** Analyst (baseline run), META (enforce gate at Session Entry items 5c + 8), Builder (refuse to start while baseline FAIL)
+**Source:** 2026-04-25 audit (`reports/rt1_pre_flight_test_audit_2026-04-25.md`) — operator pattern "сделай проверки перед началом" exposed missing baseline-health gate for non-API tasks.
+**Rule:** Any task with executable `verify.method` (build / cite_check / parse / recompute / structure_check / etc.) MUST run baseline verification on current HEAD before RT-1; baseline FAIL → P0-baseline RT-1 BEFORE operator's task. Non-executable methods (readability / dry_run / flux_check / doc_alignment) skip baseline (no executable test surface). Operator override: "skip-baseline" trigger word in task description bypasses (logged to lessons.md).
+Output: `reports/baseline-{TASK_ID}-{DATE}.md` with PASS/FAIL summary and sample errors.
+**Why:** Operator's pattern "сделай проверки перед началом" addresses the "built on broken main" failure mode. Without baseline gate, RT-1 may converge on plan that's already broken upstream. Cost ~30-60s (single verify run); eliminates entire failure class.
+**Applies to:** Analyst (RT-1 baseline run), META (enforce gate at Session Entry items 5c + 8)
 **Tier:** T3 (checklist + Session Entry item enforcement)
+**Note:** Full BL-22 entry (including code-adapter sub-(a) for external APIs) lives in `BOOTSTRAP_LESSONS_code_adapter.md`. This is the universal extension for non-API tasks.
 
 ---
 
@@ -179,6 +173,14 @@
 
 **Also covers diagnostic Bash:** grep, curl, ssh, psql, redis-cli, jq are diagnostic tools. When META needs to inspect code or query services: (1) formulate a specific question, (2) spawn Check Agent (any role) with that question, (3) receive structured yes/no answer. "I'll just grep quickly" → diagnostic drift → META becomes debugger. Hook enforces this at Layer 2.
 
+**Hook implementation (rt12 Wave Prune, ODTOE F4 closure):** `.claude/hooks/enforce-delegation.sh` is the PreToolUse guard. Subagents (`agent_id` present) bypass; main-session META is constrained. The deny-list overrides the whitelist for framework files — META cannot Edit/Write any of:
+- `CLAUDE.md`, `eradev.md`, `eradev_RU.md`, `meta.md`, `meta_RU.md`, `FOUNDATIONS.md`, `LOADING_PROTOCOL.md`, `BOOTSTRAP_LESSONS*.md`
+- `roles/*.md`, `templates/*.md`
+- `.claude/hooks/*.sh`, `.githooks/*.sh`, `scripts/*.sh`
+- `.claude/skills/eradev/**/*.md` (skill mirror)
+
+Whitelist (META outputs only): `reports/*.md`, `projects/*/lessons.md`, `memory/*.md`, `MEMORY.md`, `BL_CANDIDATES.md`. Emergency override: `ERADEV_HOOKS_DISABLED=1` (P0 only; post-incident Hansei mandatory per CLAUDE.md Inv 8). Source: ODTOE F4 — 5 direct META Edit/Write calls at 11:50–11:56 to Hansei/lessons/CLAUDE.md right after operator critique #117 (`reports/rt11_meta_audit_odtoe_session_2026-04-26.md`).
+
 ---
 
 ### BL-28: Agent Prompt Must Include Explicit Context [UNIVERSAL]
@@ -187,6 +189,8 @@
 **Why:** Self-loading keeps META context lean and prevents version drift across parallel agents — each agent Reads the current role file state, not a META-embedded snapshot that may be stale by the time a later agent spawns. v8 (pre-v9) used the "embed full file" pattern to guarantee context; v9 Invariant 12 replaces it with path-naming + agent-side self-load, which both saves tokens and ensures every agent sees the single source of truth on disk. The original failure mode (three of five RT-1 agents refused to work in the gravity session because the prompt said "act as Visionary" without a directive to read the role file) is still covered: the prompt must explicitly name the path and instruct the Read action as step 1.
 **Applies to:** META-Orchestrator (agent spawning), all roles (when delegating sub-tasks)
 **Tier:** T3 (agent-prompt checklist)
+
+**v10 extension (architectural rework framing):** When operator framing matches BL-35 trigger regex during an active refactor window, the spawned [VALIDATOR] prompt MUST include a section `## Operator rework framing: <verbatim quote>` reproducing the operator's literal words. Without this section, Validator may mis-scope the risk matrix to a generic review instead of a BL-49 rework-discipline audit. META-Orchestrator enforces at Agent spawn; operator rework framings are load-bearing context, not stylistic noise. See Invariant 16 and meta.md §14 item 7b.
 
 ---
 
@@ -206,6 +210,9 @@ When S_team is low but B_mean is high, the team may not be disagreeing on substa
 
 **Symptom of phantom decoherence:** S_team < 0.5 AND B_mean ≥ 0.7 AND pair-wise role outputs share entities but disagree on predicates.
 **Source:** v9 Wave 9 ODTOE mining — `reports/v9_odtoe_multiagent_mining_2026-04-11.md` REC-2, derived from `ODTOE_multiagent_coherence.md` §III.8.
+
+**Phantom NEWNESS (RT-10 Wave A B2 / L-58 / PN-1, sister of phantom decoherence on the time axis):**
+Symmetric to phantom decoherence: an agent proposes a "new" L-N / EMP-N / BL-N / Invariant entry whose substance is already documented in the knowledge base. Source: RT-9 phantom-newness audit (2026-04-25) — 12.9 % genuine-novelty rate (4 / 31 proposals); operator caught L-A9 as exact duplicate of L-1 (2026-04-04). Without a pre-grep step, every fresh session repeats BL-16 (knowledge without enforcement = Lambda zero) recursively. Mandatory pre-grep before any new ID proposal — match keywords / nouns / verbs of the proposed title against `lessons.md`, `lessons_archive.md`, `BOOTSTRAP_LESSONS.md`, `eradev.md`, `FOUNDATIONS.md`, `projects/*/lessons.md`. If overlap found: re-frame as extension (L-50 supersede / temporal triple) instead of fresh ID. Enforcement: T2 pre-commit hook `.githooks/phantom-newness-check.sh` (PN-1) chained from `.githooks/pre-commit`. Override: `PN_OVERRIDE=1`, `--phantom-checked` sentinel in commit message, or `ERADEV_HOOKS_DISABLED=1`.
 
 ---
 
@@ -247,7 +254,7 @@ When S_team is low but B_mean is high, the team may not be disagreeing on substa
 
 ### BL-34: Composition Hazards Gate for ≥2 parallel refactors [UNIVERSAL]
 **Source:** PLUGY Hansei 2026-04-20 §6 (hazards H1-H6 enumerated before any Builder spawn prevented big-bang failure); generalizes Invariant 7 (commit-size >5 files = RT-2) from commit-level to ROADMAP-pivot-level.
-**Tier:** T2 (pre-commit hook — see .claude/hooks/rt1-composition-gate.sh)
+**Tier:** T2 (pre-commit hook — see .claude/hooks/rt1-composition-gate.sh; path-glob accepts BOTH absolute AND relative paths since 2026-04-26 RT-12 Pareto-prune B2, closing L-52 falsification recurrence — previous case-pattern `*/reports/rt1_*.md` silently no-op'd on relative paths from agent Write calls)
 **Rule:** Before spawning any Builder work on a plan touching 2+ independent refactors in the same release window, Visionary MUST author a composition-hazards grid (glossary canonical term: **"cross-phase coupling risk"** — see glossary.md #47; "composition hazard" is the project-local alias). Minimum pairs: N·(N-1)/2. For N ≥ 3: add all 3-way combinations. Each grid entry has: impact, precondition, mitigation, sequencing constraint. Missing grid on ≥2-refactor plan = RED on A_F for Visionary; Coherencer REJECTS RT-1 synthesis. Output artifact: `reports/composition-hazards-<date>.md` using `templates/composition_hazards.template.md`. Hazards form hard edges in the sequencing DAG — parallel ship is forbidden until a pairwise mitigation is declared.
 **Why:** PLUGY proposed 10 refactors (R1-R10) across 4 months; hazards H1-H6 (R4 double-rewrite, R2+R5 silent-protector recurrence, R1+R7 PII exposure, R6+R7 FZ-152 exposure, R3+R4 guard-on-guard cascade, R2+R6 classifier duplication) would have produced 3 production incidents if shipped in parallel without enumeration.
 **Applies to:** Visionary (grid author), Coherencer (RT-1 synthesis gate), META (enforce before Builder spawn), Validator (verify grid completeness at G2 gate).
@@ -256,7 +263,7 @@ When S_team is low but B_mean is high, the team may not be disagreeing on substa
 
 ### BL-35: Rework-discipline audit on "architectural rework" framing [UNIVERSAL]
 **Source:** PLUGY BL-49 Session 5 promoted UNIVERSAL — operator said "полностью менять архитектуру" mid-flight during active Phase Q pivots; literal reading = big-bang = H1/H2/H5 fire simultaneously.
-**Tier:** T2 (operator-message regex detector — see .claude/hooks/rework-framing-detector.sh)
+**Tier:** T1-enforced (operator-message regex detector — see .claude/hooks/rework-framing-detector.sh; UserPromptSubmit hook exits 2 BLOCKING when trigger matches AND active pivot window detected, **with rhetorical/conditional/past-tense discrimination guard**: hook exits 0 advisory when message contains question mark OR rhetorical markers («стоит ли», «надо ли», «или нет», «should we», «is it worth») OR past-tense markers («вчера», «уже менял», «yesterday», «previously») UNLESS imperative override present («!», «сделай», «do it», «now»); override via `ERADEV_HOOKS_DISABLED=1` or explicit operator authorization. RT-12 PRUNE-B1 2026-04-26 added guard to neutralize 30-50% live FP rate from perpetual-pivot window.)
 **Rule:** When operator declares "the architecture is wrong" / "full rework" / "from scratch" / "менять архитектуру" / "полностью менять" / "completely change" DURING active pivots, META MUST NOT interpret as "reset everything." Mandatory sequence: (1) spawn Validator FIRST with risk-matrix task; (2) re-validate project NO-GO list against operator's literal request; (3) enumerate composition hazards per BL-34; (4) propose INTERLOCKED SEQUENCE (one pivot at a time with parity windows, kill-switches, shadow-mode) — never a parallel menu; (5) produce `reports/hansei-architectural-rework-<date>.md` using `templates/interlocked_sequence.template.md`; (6) operator sign-off on decision matrix (OD-1..OD-N) BEFORE any Builder spawns. Operator frustration during active pivot = class-shift DETECTOR at ROADMAP level, NOT a permission to parallelize. The Hansei itself breaks any implicit BL-3 chain.
 **Why:** Under outage stress, operator psychology favors "reset everything" framing. Without the audit, META reads it literally as "ship all refactors in parallel" — the most dangerous composition possible. PLUGY 2026-04-20 Hansei proved the audit reshaped 10 proposed refactors into a 4-month interlocked sequence with ≥3× BD ROI vs the parallel alternative.
 **Applies to:** META (trigger detection + Validator spawn ordering), Validator (risk-matrix authorship), Coherencer (Hansei synthesis + interlock verification).

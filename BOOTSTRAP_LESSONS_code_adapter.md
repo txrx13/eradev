@@ -33,11 +33,12 @@
 ---
 
 ### BL-3: Fix Chain > 3 = Structural Problem [CODE-ADAPTER]
-**Source:** Framework invariant (CHECKLIST fix chain counter)
+**Source:** Framework invariant (CHECKLIST fix chain counter); RT-11 ODTOE F7 audit (in-session blindness, 2026-04-26)
 **Rule:** If 3 or more consecutive fixes occur in sequence, STOP. Do not attempt fix number 4. Return to the specification and re-run RT-1.
 **Why:** Three consecutive fixes signal a structural defect, not an execution error. Each fix patches a symptom; the root cause lives upstream. Continuing the fix chain compounds technical debt exponentially. The correct action is Andon: stop the line, find the real constraint (TOC Phase 1).
 **Applies to:** Builder, Validator
 **Tier:** T2 (hook / CI / lint)
+**Hook:** `.claude/hooks/in-session-fix-counter.sh` (added 2026-04-26 RT-12). Counts in-session fix-pattern Agent spawns (description matches `\b(fix|fix-up|repair|patch|correct)\b` or `исправ`); BLOCKS at >=3. Counter rotates daily at `.eradev/fix-counter-{date}.txt`. Override: `ERADEV_HOOKS_DISABLED=1` or `BL3_OVERRIDE=1`. Closes ODTOE F7 (prior hook checked committed `^fix:` messages only — blind to in-flight session per RT-11 audit).
 
 ---
 
@@ -56,10 +57,6 @@
 **Rule:** Toggling a feature flag, flipping a config, deploying code, and any other behavior-changing production event are all DEPLOYMENT EVENTS. Each requires the full Pre-Deploy checklist BEFORE execution: (a) written rollback plan ("how to undo this in one command"), (b) canary window with monitoring, (c) health check post-deploy, (d) 30-minute observation window. If rollback cannot be described in advance, authorization to deploy is withheld.
 **Why:** A feature-flag flip changes production behavior identically to a code deploy. Treating it as "just config" bypasses the safety net. Under incident pressure, decision quality drops — pre-written rollback is executed mechanically when needed. Writing the rollback plan beforehand also forces verification that rollback is actually possible.
 **Applies to:** Builder, Validator, Analyst.
-
----
-
-> BL-14 MERGED INTO BL-8 (2026-04-20): rollback-plan consolidated into deployment-event checklist. See root `BOOTSTRAP_LESSONS.md` BL-8 (or BL-8 above in this file — the merged body lives in the code-adapter BL-8 entry).
 
 ---
 

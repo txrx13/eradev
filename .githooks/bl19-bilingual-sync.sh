@@ -113,6 +113,111 @@ while IFS= read -r f; do
     esac
 done <<< "$STAGED"
 
+# --- 4. Skill-mirror sync (BT-3, 2026-04-27) -----------------------------
+# When a canonical framework file is staged, its skill-bundle mirror MUST be
+# staged in the same commit AND be byte-identical to the canonical version.
+# Mirror layout under `.claude/skills/eradev/`:
+#   eradev.md, eradev_RU.md           -> core/
+#   meta.md, meta_RU.md, LOADING_PROTOCOL.md, BOOTSTRAP_LESSONS.md -> meta/
+#   roles/*.md                        -> roles/
+#   templates/*.md                    -> templates/
+SKILL_ROOT=".claude/skills/eradev"
+
+# Helper: compare canonical staged content vs mirror staged content (or vs
+# working tree for unstaged mirror). Uses git's staged blob if mirror is
+# staged, otherwise the on-disk mirror file. Returns 0 if equal, 1 if not.
+mirror_byte_match() {
+    local canon="$1"
+    local mirror="$2"
+    # Get canonical staged content
+    local canon_blob
+    canon_blob=$(git diff --cached --diff-filter=ACMR --name-only -- "$canon" | head -1)
+    [ -z "$canon_blob" ] && return 0  # canon not staged → nothing to enforce
+    # Compare staged canonical vs (staged-mirror if staged, else on-disk mirror)
+    local mirror_content
+    if is_staged "$mirror"; then
+        mirror_content=$(git show ":$mirror" 2>/dev/null || true)
+    else
+        if [ -f "$mirror" ]; then
+            mirror_content=$(cat "$mirror")
+        else
+            return 1
+        fi
+    fi
+    local canon_content
+    canon_content=$(git show ":$canon" 2>/dev/null || true)
+    [ "$canon_content" = "$mirror_content" ]
+}
+
+# Map canonical -> mirror (single-file pairs)
+SKILL_FIXED=(
+    "eradev.md|${SKILL_ROOT}/core/eradev.md"
+    "eradev_RU.md|${SKILL_ROOT}/core/eradev_RU.md"
+    "meta.md|${SKILL_ROOT}/meta/meta.md"
+    "meta_RU.md|${SKILL_ROOT}/meta/meta_RU.md"
+    "LOADING_PROTOCOL.md|${SKILL_ROOT}/meta/LOADING_PROTOCOL.md"
+    "BOOTSTRAP_LESSONS.md|${SKILL_ROOT}/meta/BOOTSTRAP_LESSONS.md"
+)
+
+for pair in "${SKILL_FIXED[@]}"; do
+    canon="${pair%|*}"
+    mirror="${pair#*|}"
+    if is_staged "$canon"; then
+        if ! is_staged "$mirror"; then
+            violations+=("$canon staged, skill mirror $mirror NOT staged")
+        elif ! mirror_byte_match "$canon" "$mirror"; then
+            violations+=("$canon and $mirror staged but content NOT byte-identical")
+        fi
+    fi
+    # Reverse: if mirror staged, canonical must also be staged
+    if is_staged "$mirror" && ! is_staged "$canon"; then
+        violations+=("$mirror staged, canonical $canon NOT staged")
+    fi
+done
+
+# Map roles/*.md and templates/*.md (glob-driven)
+while IFS= read -r f; do
+    [ -z "$f" ] && continue
+    case "$f" in
+        roles/*.md)
+            mirror="${SKILL_ROOT}/roles/$(basename "$f")"
+            if ! is_staged "$mirror"; then
+                violations+=("$f staged, skill mirror $mirror NOT staged")
+            elif ! mirror_byte_match "$f" "$mirror"; then
+                violations+=("$f and $mirror staged but content NOT byte-identical")
+            fi
+            ;;
+        templates/*.md)
+            # Skip the schema template itself (no mirror expected)
+            case "$f" in
+                templates/domain_skin.md.template) ;;
+                *)
+                    mirror="${SKILL_ROOT}/templates/$(basename "$f")"
+                    if [ -f "$mirror" ] || is_staged "$mirror"; then
+                        if ! is_staged "$mirror"; then
+                            violations+=("$f staged, skill mirror $mirror NOT staged")
+                        elif ! mirror_byte_match "$f" "$mirror"; then
+                            violations+=("$f and $mirror staged but content NOT byte-identical")
+                        fi
+                    fi
+                    ;;
+            esac
+            ;;
+        "${SKILL_ROOT}"/roles/*.md)
+            canon="roles/$(basename "$f")"
+            if [ -f "$canon" ] && ! is_staged "$canon"; then
+                violations+=("$f staged, canonical $canon NOT staged")
+            fi
+            ;;
+        "${SKILL_ROOT}"/templates/*.md)
+            canon="templates/$(basename "$f")"
+            if [ -f "$canon" ] && ! is_staged "$canon"; then
+                violations+=("$f staged, canonical $canon NOT staged")
+            fi
+            ;;
+    esac
+done <<< "$STAGED"
+
 # --- Report and block ---
 if [ ${#violations[@]} -gt 0 ]; then
     echo "" >&2
