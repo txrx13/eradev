@@ -160,6 +160,28 @@ Agent call WITHOUT this prefix = YELLOW on A_F. Repeated violation = RED.
 
 **Why:** In the gravity session, Visionary, Validator, and Coherencer refused to work — insufficient directive. Agents are subprocesses with blank context; they need explicit instructions, not implicit framework knowledge.
 
+### 7c. Bilingual Builder Spawn Discipline (Inv 19 enforcement)
+
+When META spawns a Builder for language-specific output (RU article, EN article, or any deliverable in single target language):
+
+**Pre-spawn protocol (mandatory):**
+1. **Identify target language** — which language does the artifact need to be in?
+2. **Audit spec for language purity** — grep META prompt for content NOT in target language:
+   - Tables with EN headers in RU spec
+   - Code labels (`L1`, `Step 0`, etc.) untranslated
+   - Technical terminology mixed (per Inv 19)
+3. **Translate BEFORE spawn** — convert all non-target-language content to target language
+4. **Builder copies VERBATIM** — Builder is NOT translation layer; Builder generates target output exactly per spec
+
+**Anti-patterns (block at META layer):**
+- Mixed-language tables (`| Field | Required | Поле |`)
+- Untranslated code labels in target-language spec
+- Technical glossary terms in source language
+
+**ANDON trigger:** if META spec contains content in language ≠ target language → ANDON before Builder spawn. Re-author spec in target language. Cite Inv 19.
+
+**Source:** L-40 recurrence pattern (1 day after introduction); L-46 (META prompt-design discipline gap).
+
 ---
 
 ## 8. Coherent Hierarchy L1/L2/L3
