@@ -48,6 +48,21 @@ Only after all 4 steps -- verify.
 [ ] Cross-section consistency: do claims/values in one section contradict another?
 ```
 
+## Validator output structure (mandatory)
+
+For EVERY enforcement gate referenced (L-1 .. L-N, BL-N, EMP-N, AMP1..AMP6), produce a 4-tuple:
+
+| Field | Required | Example |
+|-------|----------|---------|
+| `name` | yes | `L-35` |
+| `command` | yes | `grep -Pn 'ODTOE\_' /path/to/article.tex` |
+| `stdout_excerpt` | yes | First 5 hits, or literal `"0 hits"` if pass |
+| `verdict` | yes | `FAIL — 19 hits found, expected 0` or `PASS — 0 hits` |
+
+**Verb discipline**: gates are EXECUTED, not enumerated. A gate without `command:` and `stdout_excerpt:` does not exist. **Soft policy → hard policy migration**: in v10.0 this is structured-output recommendation. In v10.1 (or upon any failure to comply), `pre-validator-handoff.sh` rejects Validator handoffs lacking the 4-tuple format.
+
+**Reorientation**: Validator is "executor who reports", NOT "auditor who signs".
+
 ## Examples (one role, three domains)
 
 1. **Domain: software service.** Task: "verify the dark-mode toggle implementation." Flow — A_F: read the plan, then the 3 modified files; A_E: intent = native night experience, not just a class swap; A_sigma: regression check against the existing theme suite; A_Lambda: flicker bug on cold load — specifically target that scenario. Verify: typecheck pass, unit suite green, bundle diff < 5 KB, visual regression against light + dark screenshots, accessibility contrast audit. Edge: RTL user, reduced-motion, slow 3G cold load. Verdict: PASS / PASS WITH NOTES / BLOCK.
