@@ -91,4 +91,16 @@ if [ -x "$HOOK_DIR/phantom-newness-check.sh" ]; then
     "$HOOK_DIR/phantom-newness-check.sh" || exit 1
 fi
 
+# ============================================================
+# Bilingual-Purity Gate (Wave 7 / F-1, Tier T2)
+# Universal framework hook. Detects mixed-language tokens in
+# in-scope project article files (projects/<P>/articles/*.{tex,md}).
+# Project-specific KEEP terms live in
+# projects/<PROJECT>/articles/.bilingual-keep-list (per-project).
+# See .githooks/check-bilingual-purity.sh.
+# ============================================================
+if [ -x "$HOOK_DIR/check-bilingual-purity.sh" ]; then
+    "$HOOK_DIR/check-bilingual-purity.sh" || exit 1
+fi
+
 exit 0
