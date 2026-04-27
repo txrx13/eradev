@@ -38,7 +38,12 @@ if [ "$TOOL_NAME" = "Edit" ] || [ "$TOOL_NAME" = "Write" ] || [ "$TOOL_NAME" = "
   FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // .tool_input.path // empty')
 
   # Strip leading repo root (path may be absolute or relative)
-  REL_PATH="${FILE_PATH##*/eradev/}"
+  # BT-2: use non-greedy '#*/eradev/' (shortest prefix match) so nested
+  # '/eradev/' segments inside the project (e.g. projects/eradev/...,
+  # .claude/skills/eradev/...) are preserved in REL_PATH. The previous
+  # greedy '##*/eradev/' stripped through the LAST '/eradev/', making the
+  # skill-mirror deny-pattern (lines below) dead code for any nested path.
+  REL_PATH="${FILE_PATH#*/eradev/}"
 
   # ----- HARD BLOCK: framework files (rt12 Wave Prune, ODTOE F4 closure) -----
   # These paths MUST never be edited by META directly, even though some
@@ -108,7 +113,13 @@ if [ "$TOOL_NAME" = "Bash" ]; then
   fi
 
   # BLOCK: diagnostic patterns
-  if echo "$COMMAND" | grep -qiE '(grep|rg|curl|wget|ssh|psql|redis-cli|jq|yq|dig|nslookup|netstat|lsof|docker|kubectl)'; then
+  # BT-4: word boundaries (\b) prevent substring matches inside legitimate
+  # vocabulary. Without \b, the short tokens 'rg' / 'dig' / 'jq' / 'yq'
+  # match inside ordinary words like 'divergence', 'paradigm', 'jquery',
+  # 'syzygy' — blocking META commits with theoretical/strategic prose.
+  # Self-witnessed in RT-12 commit cycle (operator commit message
+  # containing "divergence" was LIVE-BLOCKED by the unbounded 'rg').
+  if echo "$COMMAND" | grep -qiE '\b(grep|rg|curl|wget|ssh|psql|redis-cli|jq|yq|dig|nslookup|netstat|lsof|docker|kubectl)\b'; then
     echo "BLOCKED: META cannot run diagnostic Bash. Delegate to Check Agent ([ANALYST] or [VALIDATOR]). Command: '$(echo "$COMMAND" | head -c 80)' (BL-26)" >&2
     exit 2
   fi
