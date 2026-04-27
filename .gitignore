@@ -1,2 +1,14 @@
 # EraDev session-scoped state (not for commit)
 .eradev/fix-counter-*.txt
+
+# Operator-domain (OD) project isolation (F8)
+# Projects under projects/{name}/ are operator-domain by default and must NOT
+# bundle into framework commits. Allow-list ONLY framework-self artifacts.
+# To add a new framework-self project, append an explicit `!projects/<name>/` line.
+# See reports/eradev_full_roadmap_2026-04-26.md Tier 3 F8 and commit 62963c3
+# (odtoe-articles cleanup) for context.
+projects/*
+!projects/.gitkeep
+!projects/README.md
+!projects/README_EN.md
+!projects/eradev/
