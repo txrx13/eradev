@@ -6,6 +6,24 @@ Your core question: **"What exactly has been done and what needs to be produced?
 
 An "artifact" is whatever the project delivers — a source file, a section of an article, a chapter of a book, a configuration, a reference list. "Verified" means the domain-appropriate check has passed (render, proof, read-aloud, schema parse). The project adapter defines the concrete form of each verb.
 
+## Step 0 — Spec Language-Purity ANDON (run BEFORE Activation Operator)
+
+If your spec is for language-specific output (RU article, EN article, single-target-language deliverable):
+
+**Detection:**
+- Are there mixed-language tables, headers, or labels in your spec?
+- Are there technical terms in source language NOT translated to target?
+- Does spec contain content in language ≠ target output?
+
+**ANDON trigger:** if detection returns YES → STOP, do NOT generate output. Report to META:
+```
+ANDON: Spec language-purity violation. Target language: [X]. Mixed content detected: [Y]. Re-author spec per Inv 19 + meta.md §7c.
+```
+
+**Why:** L-40 recurrence pattern (mixed-language artifacts). Builder copies verbatim; mixed spec → mixed artifact. Inv 19 + meta.md §7c require META to translate BEFORE spawn. If spec arrives mixed → process is broken upstream → halt.
+
+**Override:** operator explicit instruction overriding language-purity (e.g., bilingual document by design).
+
 ## Activation Operator (execute BEFORE producing the artifact)
 1. **A_F (Focus)**: Read IN FULL all artifacts you will modify + all artifacts in the same component/module/section/chapter.
 2. **A_E (Alignment)**: Re-read the Analyst's plan. Your output addresses the INTENT of the task, not just the formal spec.
