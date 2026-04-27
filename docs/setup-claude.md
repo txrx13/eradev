@@ -54,6 +54,7 @@ Deploy EraDev ({PROJECT} = basename of current directory):
 | 4. [ROLE] tag check | `.claude/hooks/agent-role-tag.sh` | Blocks Agent calls without [ROLE] tag |
 | 5. Context check | `.claude/hooks/agent-context-check.sh` | Advisory: warns if agent prompt lacks context |
 | 6. Fix chain | `.githooks/pre-commit` | Blocks commit at 3+ consecutive fixes |
+| 7. Phantom-newness (PN-1) | `.githooks/phantom-newness-check.sh` | BLOCKS commits adding new BL/L-/EMP IDs, Invariants, or template files whose keywords overlap existing entries (BL-29 sister; L-58). Bypass: `PN_OVERRIDE=1`, `--phantom-checked`, or `[novel-add]` in commit message |
 
 **Note:** These are runtime enforcement hooks. Separately, EraDev uses a 4-layer file architecture: L0 IMMUTABLE (ODTOE core) / L1 Universal roles / L2 Domain skins / L3 Project instances.
 

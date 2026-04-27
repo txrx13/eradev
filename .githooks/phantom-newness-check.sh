@@ -22,9 +22,10 @@ set -euo pipefail
 
 REPO_ROOT=$(git rev-parse --show-toplevel)
 
-# Sentinel check: if a prepared commit message contains the bypass token, skip.
+# Sentinel check: if a prepared commit message contains a bypass token, skip.
+# Accepted sentinels:  --phantom-checked  OR  [novel-add]
 COMMIT_MSG_FILE="$REPO_ROOT/.git/COMMIT_EDITMSG"
-if [ -f "$COMMIT_MSG_FILE" ] && grep -q -- '--phantom-checked' "$COMMIT_MSG_FILE" 2>/dev/null; then
+if [ -f "$COMMIT_MSG_FILE" ] && grep -qE -- '(--phantom-checked|\[novel-add\])' "$COMMIT_MSG_FILE" 2>/dev/null; then
   exit 0
 fi
 
@@ -53,12 +54,13 @@ if [ ${#EXISTING_FILES[@]} -gt 0 ]; then
   unset IFS
 fi
 
-[ ${#EXISTING_FILES[@]} -eq 0 ] && exit 0
-
 STAGED=$(git diff --cached --name-only --diff-filter=AM | grep '\.md$' || true)
-[ -z "$STAGED" ] && exit 0
 
 violations=()
+
+# Skip the heading-ID scan when knowledge-base anchors are missing OR when no
+# markdown files are staged — but extensions below (templates/) may still run.
+if [ ${#EXISTING_FILES[@]} -gt 0 ] && [ -n "$STAGED" ]; then
 
 # Process each staged markdown file.
 while IFS= read -r file; do
@@ -88,8 +90,11 @@ while IFS= read -r file; do
     # Pure-bash slice avoids macOS head -c quirks under pipefail.
     TITLE="${TITLE_RAW:0:120}"
 
-    # Skip if ID already exists in knowledge base — that's a different lint
-    # (renumbering / collision), not phantom newness. We focus on title overlap.
+    # Skip if the ID already existed at HEAD — this is an edit (typo / wording
+    # update), not a new entry. Phantom newness is only about NEW additions.
+    if git show HEAD:"$file" 2>/dev/null | grep -qE "^###[[:space:]]+${ID}:"; then
+      continue
+    fi
 
     # Tokenize title — keep ASCII + Cyrillic word chars, length ≥ 4, lowercase.
     KEYWORDS=$(echo "$TITLE" \
@@ -124,6 +129,102 @@ while IFS= read -r file; do
   done <<< "$ID_LINES"
 done <<< "$STAGED"
 
+fi  # end heading-ID scan guard
+
+# ----------------------------------------------------------------------------
+# Extension 1: New Invariant lines in CLAUDE.md "## Invariants" section.
+# A genuine new invariant is a numbered top-level list item (e.g. "18. ...").
+# Re-numbering existing items is NOT phantom newness; we focus on additions
+# whose lead phrase semantically overlaps an existing invariant or BL entry.
+# ----------------------------------------------------------------------------
+if echo "$STAGED" | grep -qx 'CLAUDE.md'; then
+  CLAUDE_ADDS=$(git diff --cached -- CLAUDE.md | grep '^+' | grep -v '^+++' || true)
+  # Numbered invariant lines in additions, e.g. "+18. Some new rule..."
+  INV_LINES=$(echo "$CLAUDE_ADDS" \
+    | grep -oE '^\+[0-9]+\.[[:space:]]+[A-ZА-Я*][^$]{10,}' \
+    | sort -u || true)
+  if [ -n "$INV_LINES" ]; then
+    while IFS= read -r line; do
+      [ -z "$line" ] && continue
+      # Strip the leading "+N. " prefix; keep first 120 chars of the rule body.
+      BODY=$(echo "$line" | sed -E 's/^\+[0-9]+\.[[:space:]]+//' | tr -d '\r')
+      BODY="${BODY:0:120}"
+      KEYWORDS=$(echo "$BODY" \
+        | tr '[:upper:]' '[:lower:]' \
+        | tr -c 'a-zабвгдеёжзийклмнопрстуфхцчшщъыьэюя' ' ' \
+        | awk '{for(i=1;i<=NF;i++) if(length($i)>=4) print $i}' \
+        | sort -u \
+        | head -8)
+      [ -z "$KEYWORDS" ] && continue
+      mk=()
+      mf=()
+      while IFS= read -r kw; do
+        [ -z "$kw" ] && continue
+        hit=$(grep -lE -- "$kw" "${EXISTING_FILES[@]}" 2>/dev/null | head -1 || true)
+        if [ -n "$hit" ]; then
+          mk+=("$kw")
+          mf+=("$hit")
+        fi
+      done <<< "$KEYWORDS"
+      if [ ${#mk[@]} -ge 3 ]; then
+        top_file=$(printf '%s\n' "${mf[@]}" | sort | uniq -c | sort -rn | awk 'NR==1{$1=""; sub(/^ */,""); print}')
+        kw_summary=$(printf '%s,' "${mk[@]}" | sed 's/,$//')
+        rel_top=${top_file#"$REPO_ROOT/"}
+        violations+=("Invariant '${BODY:0:60}...' — keywords [${kw_summary}] overlap with ${rel_top}")
+      fi
+    done <<< "$INV_LINES"
+  fi
+fi
+
+# ----------------------------------------------------------------------------
+# Extension 2: New template files added under templates/.
+# A genuinely new template should not have keyword overlap with an existing
+# template's filename or first heading.
+# ----------------------------------------------------------------------------
+NEW_TEMPLATES=$(git diff --cached --name-only --diff-filter=A | grep -E '^templates/[^/]+$' || true)
+if [ -n "$NEW_TEMPLATES" ]; then
+  EXISTING_TEMPLATES=()
+  for t in "$REPO_ROOT"/templates/*; do
+    [ -f "$t" ] && EXISTING_TEMPLATES+=("$t")
+  done
+  while IFS= read -r newt; do
+    [ -z "$newt" ] && continue
+    base=$(basename "$newt")
+    # Tokenize the whole basename (split on . _ - and digits) — this handles
+    # multi-dot filenames like CLAUDE.md.template2 → "claude md template".
+    stem="$base"
+    KEYWORDS=$(echo "$stem" \
+      | tr '[:upper:]' '[:lower:]' \
+      | tr -c 'a-zабвгдеёжзийклмнопрстуфхцчшщъыьэюя' ' ' \
+      | awk '{for(i=1;i<=NF;i++) if(length($i)>=4) print $i}' \
+      | sort -u \
+      | head -8)
+    [ -z "$KEYWORDS" ] && continue
+    mk=()
+    mf=()
+    while IFS= read -r kw; do
+      [ -z "$kw" ] && continue
+      # Search existing template *names*, not staged file itself.
+      for et in "${EXISTING_TEMPLATES[@]}"; do
+        # Skip if it IS the new file (already on disk in some flows).
+        [ "$et" = "$REPO_ROOT/$newt" ] && continue
+        ebase=$(basename "$et")
+        if echo "$ebase" | grep -qiE -- "$kw"; then
+          mk+=("$kw")
+          mf+=("$et")
+          break
+        fi
+      done
+    done <<< "$KEYWORDS"
+    if [ ${#mk[@]} -ge 2 ]; then
+      top_file=$(printf '%s\n' "${mf[@]}" | sort | uniq -c | sort -rn | awk 'NR==1{$1=""; sub(/^ */,""); print}')
+      kw_summary=$(printf '%s,' "${mk[@]}" | sed 's/,$//')
+      rel_top=${top_file#"$REPO_ROOT/"}
+      violations+=("Template '${newt}' — name keywords [${kw_summary}] overlap with existing ${rel_top}")
+    fi
+  done <<< "$NEW_TEMPLATES"
+fi
+
 if [ ${#violations[@]} -gt 0 ]; then
   {
     echo ""
@@ -135,7 +236,7 @@ if [ ${#violations[@]} -gt 0 ]; then
     echo "  1. Re-frame as extension of existing entry (L-50 supersede / temporal triple)."
     echo "  2. Run manual grep audit; if genuinely novel, override:"
     echo "       PN_OVERRIDE=1 git commit ..."
-    echo "     OR include '--phantom-checked' anywhere in the commit message."
+    echo "     OR include '--phantom-checked' or '[novel-add]' anywhere in the commit message."
     echo "  3. Drop the proposed ID and reference the existing entry instead."
     echo ""
   } >&2
