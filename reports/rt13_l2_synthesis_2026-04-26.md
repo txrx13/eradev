@@ -1,7 +1,7 @@
 # RT-13 L2 Synthesis — BT-1 Visionary Triad (P / M / D), all-3 sequenced
 
 **Date:** 2026-04-26
-**Role:** [COHERENCER] L2 (post-RT synthesis layer; 5-role topology)
+**Role:** [COHERENT] L2 (post-RT synthesis layer; 5-role topology)
 **Domain:** code (skin: `templates/domain_skin.code.md`); B-modality = text (uniform 0.25).
 **Operator decision (verbatim):** "(all-3 sequenced) option a" + "продолжи" → ship-all-3 sequenced; L2 synthesizes 8 RT-1 outputs + 2 hazards reports into Unified Plan.
 **Mandate:** Author Unified Plan + operator decision matrix BEFORE Builder spawn. Honest σ. L-52 falsifiability per claim. L-60 explicit synthesis (this artifact IS the synthesis layer).
@@ -86,7 +86,7 @@ Sources: A-RU §4 line 69; Coh-RU §2.2 (EMP18 critical row); Val-RU §3.4 C1.
 - **A-RU §4:** "ψ*-gap CURRENTLY UNKNOWN" — last estimate Session 10 ~15%; not recomputed after Session 11. EMP18 mandates freeze if gap > 10%.
 - **Coh-RU §2.2:** EMP18 + cure-3 critical conflict; resolution depends on framing-as-activation discipline. If Builder framing drift → EMP18 fires → cure-3 freeze. Risk non-zero.
 
-**Convergent recommendation:** **mandatory ψ*-gap recompute before D-ship (or before P, depending on order chosen)**. Single Validator+Coherencer task, 1 RT cycle. If gap < 10%, ship-clear. If ≥ 10%, EMP18 freeze override required from operator. **Cannot ship without this.**
+**Convergent recommendation:** **mandatory ψ*-gap recompute before D-ship (or before P, depending on order chosen)**. Single Validator+Coherent task, 1 RT cycle. If gap < 10%, ship-clear. If ≥ 10%, EMP18 freeze override required from operator. **Cannot ship without this.**
 
 ### 4.4 4th hidden leg — measurement self-reference + ε_meta double-count
 
@@ -115,7 +115,7 @@ Sources: Coh-EN §1 file-touch matrix; B-RU §2 file-pair table; Val-EN CROSS-S1
 - **B-RU §2:** D-cure has largest sync surface (3 pairs × 2 mirrors = 6 files); skill-mirror drift outside BL-19 hook coverage.
 - **Val-EN CROSS-S1:** sequenced-ship test for §9 print collision: total §9 line count: pre-cure N + 2 (or 3); deterministic order required.
 
-**Convergent recommendation:** **single-Builder-per-file-per-phase rule**; Coherencer L1 gate after each cure; Validator skill-mirror diff (canonical-vs-skill exit-0) as RT-2 post-condition.
+**Convergent recommendation:** **single-Builder-per-file-per-phase rule**; Coherent L1 gate after each cure; Validator skill-mirror diff (canonical-vs-skill exit-0) as RT-2 post-condition.
 
 ---
 
@@ -163,7 +163,7 @@ Sources: Coh-EN §1 file-touch matrix; B-RU §2 file-pair table; Val-EN CROSS-S1
 
 ---
 
-## 8. Coherencer L2 recommendation
+## 8. Coherent L2 recommendation
 
 **β (Adjust + ship).**
 
@@ -173,10 +173,10 @@ Sources: Coh-EN §1 file-touch matrix; B-RU §2 file-pair table; Val-EN CROSS-S1
 3. β is honest: it does NOT promise B ≥ 0.5 GREEN — it promises that *measurement* is correct and *enforcement* is real. Therapy (operator artifact ship) is operator's job, not framework's. β makes the framework an honest mirror; α makes it a flattering mirror.
 
 **Specifically: spec β requires before Builder spawn:**
-- (1) ψ*-gap recompute task (1 RT cycle: Validator + Coherencer; gates Builder).
+- (1) ψ*-gap recompute task (1 RT cycle: Validator + Coherent; gates Builder).
 - (2) Co-spec spike (1 RT cycle): produce shared spec artifact with `ε_meta` enumeration, frozen-snapshot rule, dormancy audit deliverable, BLOCK-hook thresholds for Ω_pruned + intent_ratio + leverage_factor; clip floor decision (recommend [0.5, 1.0] OR additive).
 - (3) Lock D→M→P sequence (B-EN §4 + Val-RU §3.3 + Coh-EN+RU path-c default).
-- (4) Builder pairs spawn parallel EN+RU per Inv 13; Coherencer gate per cure; final Validator post-wave + dormancy audit at 4-session boundary.
+- (4) Builder pairs spawn parallel EN+RU per Inv 13; Coherent gate per cure; final Validator post-wave + dormancy audit at 4-session boundary.
 
 ---
 
@@ -187,7 +187,7 @@ Uniform 0.25 weights (code modality, B_text v8-compatible).
 - **F (Focus) = 0.85** — All 10 RT-1 + hazards reports read in full (V-EN, V-RU, A-EN, A-RU, B-EN, B-RU, Val-EN, Val-RU, Coh-EN, Coh-RU); CLAUDE.md (loaded), `roles/coherent_EN.md`, `templates/domain_skin.code.md` consulted; cited specific report:line ranges per L-52. Did NOT recompute ψ*-gap (out of scope; proposed as β pre-condition); did NOT re-read RT-11 source report (cited indirectly via 10 reports).
 - **E (Alignment) = 0.85** — All 10 sections delivered (TL;DR, B-aggregate table, sequencing tally, convergent findings ×6, B-projection table, 5 co-spec status, decision matrix ×5, recommendation, B-score, sources). Operator's verbatim "(all-3 sequenced) option a" + "продолжи" honored — produced Unified Plan with operator decision matrix; did NOT spawn implementation; did NOT commit. -0.15 for line count overshoot (~280 lines; brief allowed up to 180; convergence required more).
 - **(1-σ) = 0.65** — **σ = 0.35 declared explicitly**: (a) my recommendation β assumes operator will accept "ANDON measurement is valid output" framing; if operator reads B=0.276 post-cure as "still failing" and rejects, β collapses to δ; (b) clip floor decision [0.5, 1.0] vs additive composition not adjudicated (RT-1 input gap); my §5 additive estimate is L2-internal, not in any RT-1 report; (c) sequencing default to D→M→P based on 5 votes + B-EN reframe but Coh-EN's P→M→D rationale (Inv ID stability for KILL-TEST) is non-trivial — if hook references retired IDs, M silently bypasses; mitigation is downstream-references audit but not implemented; (d) 4th-hidden-leg (measurement self-reference) flagged in 5 reports; resolvable per Val-RU §4 but adds 2 snapshot files I did NOT spec in this synthesis; (e) post-cure B-projection assumes constant F/E/σ — actual cure-3 ship may shift F/E (more focus burden, alignment penalty during transition window).
-- **Λ (Experience) = 0.85** — Applied L-50 (extend>add audit confirmed by 8 of 10 reports; A-RU §6 flag re D-cure as borderline REDEFINE noted); L-52 (Tier-falsification — every claim cites report:line); L-53 (path-(c) ΔÔ resolution accepted by both Coherencers, applied here); L-58 (phantom-newness — ZERO new BL/Inv/L proposed; β co-spec is extension of existing); L-60 (this artifact IS the synthesis, not implicit); L-61 (label hygiene — "ANDON" not whitewashed); EMP18 (ψ*-gap freeze trigger surfaced as β pre-condition); Inv 17 (τ_cycle considered for ε option penalty).
+- **Λ (Experience) = 0.85** — Applied L-50 (extend>add audit confirmed by 8 of 10 reports; A-RU §6 flag re D-cure as borderline REDEFINE noted); L-52 (Tier-falsification — every claim cites report:line); L-53 (path-(c) ΔÔ resolution accepted by both Coherents, applied here); L-58 (phantom-newness — ZERO new BL/Inv/L proposed; β co-spec is extension of existing); L-60 (this artifact IS the synthesis, not implicit); L-61 (label hygiene — "ANDON" not whitewashed); EMP18 (ψ*-gap freeze trigger surfaced as β pre-condition); Inv 17 (τ_cycle considered for ε option penalty).
 
 **B = 0.85 × 0.85 × 0.65 × 0.85 = 0.399**
 

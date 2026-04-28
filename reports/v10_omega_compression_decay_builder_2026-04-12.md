@@ -23,7 +23,7 @@
 
 **Item 1 (Omega activation):** Added Omega computation block to meta.md item 9 (7 lines). Includes 4-predicate relevance filter reference, formula with ceiling, Lambda_effective equation, report format, Omega > 2.0 YELLOW warning, and v9 backward-compat note. In eradev.md: replaced v9 caveat with v10 activation statement, closed OQ-Omega-1 and OQ-Omega-2, kept OQ-Omega-3 open for v11. In CLAUDE.md: added 1-line note about Omega in session bootstrap.
 
-**Item 2 (BL compression):** Added BL compression trigger block to meta.md item 9 (4 lines). Count >= 5 trigger, Coherencer spawn with PROMOTE/MERGE/DISCARD/DEFER classification, BL-3 guard with 3-iteration limit and META escalation. In BL_CANDIDATES.md: added spec reference and classification taxonomy (2 lines).
+**Item 2 (BL compression):** Added BL compression trigger block to meta.md item 9 (4 lines). Count >= 5 trigger, Coherent spawn with PROMOTE/MERGE/DISCARD/DEFER classification, BL-3 guard with 3-iteration limit and META escalation. In BL_CANDIDATES.md: added spec reference and classification taxonomy (2 lines).
 
 **Item 3 (Temporal decay):** Added freshness check block to meta.md item 9 (6 lines). Formula reference, half_life values (180/360/immortal), freshness < 0.3 threshold, review actions (REVALIDATE/SUPERSEDE/ARCHIVE), inline vs dedicated review pass branching. Added freshness filter note to Omega computation: stale lessons excluded from N_relevant. In eradev.md: freshness exclusion documented in v10 activation paragraph.
 
@@ -58,7 +58,7 @@ Dependency satisfied: freshness (step 2) runs before Omega (step 4), so stale le
 | AC-2 Omega output format matches eradev.md | PASS (report format in meta.md references eradev.md Section III.Omega) |
 | AC-3 Freshness check protocol in meta.md | PASS (half_life 180/360, EMP immunity, threshold 0.3) |
 | AC-4 Freshness filters N_relevant | PASS (explicit line: "Stale lessons freshness < 0.3 excluded from N_relevant") |
-| AC-5 BL compression trigger in meta.md | PASS (count >= 5, Coherencer spawn, BL-3 guard) |
+| AC-5 BL compression trigger in meta.md | PASS (count >= 5, Coherent spawn, BL-3 guard) |
 | AC-6 BL classification taxonomy in BL_CANDIDATES.md | PASS (PROMOTE/MERGE/DISCARD/DEFER) |
 | AC-7 v9 caveat removed from eradev.md | PASS (replaced with v10 activation statement) |
 | AC-8 OQ-Omega-1 and OQ-Omega-2 closed | PASS (CLOSED in eradev.md, OQ-Omega-3 remains OPEN) |
@@ -75,7 +75,7 @@ Configuration / plan / schema:
   [x] Backwards compatibility with the previous version (v9 projects unaffected)
 ```
 
-Blast Radius: **LOW** (protocol documentation changes only; no runtime behavior until Coherencer executes the protocol)
+Blast Radius: **LOW** (protocol documentation changes only; no runtime behavior until Coherent executes the protocol)
 
 ---
 

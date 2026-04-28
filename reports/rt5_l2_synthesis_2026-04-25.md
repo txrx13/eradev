@@ -1,6 +1,6 @@
 # RT-5 L2 Cycle Brief — Cross-Team Synthesis
 
-**Date:** 2026-04-25 | **Role:** [COHERENCER] L2 | **Scope:** EN×5 + RU×5 + research wave
+**Date:** 2026-04-25 | **Role:** [COHERENT] L2 | **Scope:** EN×5 + RU×5 + research wave
 **Trail:** 43c886a → 97dd5c4 → f2ce45a → 0205b40 → 181d685 (Bundle ABCD → PTv2 → Q1+Q2+Q3 → Session 9 → Phase 4)
 **Inputs:** 11 reports (5 EN, 5 RU, 1 research)
 
@@ -10,7 +10,7 @@
 
 S_team(EN) = **0.840** (n=5, ΣΔB=1.604; range 0.381–0.732, Validator EN outlier)
 S_team(RU) = **0.780** (n=5, ΣΔB=2.198; range 0.520–0.901, Builder RU + Visionary RU low)
-B_mean(11) = **0.668** | min=0.381 (Validator EN, ANDON) | max=0.901 (Coherencer RU)
+B_mean(11) = **0.668** | min=0.381 (Validator EN, ANDON) | max=0.901 (Coherent RU)
 S_adjusted = 0.810 (cross-team avg) — TEAMS COHERENT, no force-converged phantom
 Convergent findings: (i) self-application BLOCK 11f51be must close NOW; (ii) BL-19 T2 falsification = highest-priority Tier ladder lie; (iii) τ_cycle/σ-operators metaphorical without unit/algebra; (iv) lessons.md=51 > 50 trigger fired, compression pending; (v) SKILL.md "14 invariants" + skill-mirror README drift (mechanical fix)
 **ANDON: Validator EN B=0.381** — flagged BL-19 + Inv-17 + §X.1/§X.2 all Tier-claim falsified or T4-only Lambda-zero. Genuine cross-team blocker.
@@ -26,7 +26,7 @@ Path-(c) accepted: EN_Ô (commit-trail/anti-bloat) ≠ RU_Ô (formalism/genealog
 | **C1** | **Self-application BLOCK 11f51be** is load-bearing failure of ψ*=Φ(ψ*) | V-EN R2 "MEDIUM blast radius credibility"; B-EN §4 "Partial RT-1 ships" | V-RU §3 "ψ*=Φ(ψ*) выполняется с зазором ~15%, FAIL"; C-RU §2 "Ψ_meta-stable, не Ψ_attractor" | n/a (internal) | **HIGH** |
 | **C2** | **BL/Invariant overload — CONSOLIDATION required** (no new rules ≥4 sessions) | V-EN R1 "framework outgrowing operator"; B-EN §3 "+18% per-agent context cost, at the bend of diminishing returns" | V-RU §2 R-T3 "30-BL cap not derived from ODTOE"; A-RU §3 "α=0.15 при N>50 пересмотреть" | Memento-Skills (audit BL cadence vs skill-expiry); SCF Drift Monitor | **HIGH** |
 | **C3** | **τ_cycle / σ-operators are METAPHORICAL** without units / algebra | B-EN §2 "μ-check prose-only no runner"; Val-EN "Inv-17 T4 only, Lambda=0" | B-RU concept #4 τ_cycle "формула есть, измеритель отсутствует"; A-RU §5 HIGH "σ-aggregation function not specified"; Val-RU 3/7 metaphorical-with-formal-notation (F4, n_min, L9) | n/a | **HIGH** |
-| **C4** | **lessons.md = 51 active >50 → compression trigger fired, no pass logged** | A-EN §5 "MED pending, spawn Coherencer"; B-EN §3 "L-50 extend>add" | A-RU §3 "α calibrated on 15 lessons, circular at scale" | Memento expiry pattern | **MED** |
+| **C4** | **lessons.md = 51 active >50 → compression trigger fired, no pass logged** | A-EN §5 "MED pending, spawn Coherent"; B-EN §3 "L-50 extend>add" | A-RU §3 "α calibrated on 15 lessons, circular at scale" | Memento expiry pattern | **MED** |
 | **C5** | **SKILL.md says "14 invariants"; skill-mirror README*.md not refreshed at 6ff4344** | A-EN §1 HIGH (cmp DIFFER); A-EN §2 commit 6ff4344 unmirrored | n/a (RU works on theory layer) | n/a | **HIGH (mechanical fix, S-task)** |
 
 5 problems confirmed by ≥3 sources (or by both teams). C1+C3 are STRUCTURAL; C2+C4 are HYGIENE; C5 is MECHANICAL.
@@ -46,7 +46,7 @@ RU_Ô = ODTOE-formalism / paper provenance / theoretical genealogy. Looks at WHA
 | Recommendations triage | C-EN §1.3 EMP17 applied, REJECTED `recommendations.md` (resolved) | Not flagged — RU did not see the proposal | **resolved**, no divergence |
 | FOUNDATIONS Part II ΔÔ unification | Not surfaced (out-of-scope EN audit) | V-RU R-T1 "три оси не выведены из общего функционала" | **path-(c)** — RU theoretical depth EN does not enter |
 
-**Coherencer L2 verdict:** No phantom decoherence (different words, same concept) and no force-converged phantom coherence. Divergences are STRUCTURAL (different lenses on same v10 corpus). Both EN and RU deliver B_received ≥ B_min per F7 on their respective layer. **Path-(c) explicitly accepted** — do NOT force terminology unification across EN/RU at this RT.
+**Coherent L2 verdict:** No phantom decoherence (different words, same concept) and no force-converged phantom coherence. Divergences are STRUCTURAL (different lenses on same v10 corpus). Both EN and RU deliver B_received ≥ B_min per F7 on their respective layer. **Path-(c) explicitly accepted** — do NOT force terminology unification across EN/RU at this RT.
 
 ---
 
@@ -59,7 +59,7 @@ RU_Ô = ODTOE-formalism / paper provenance / theoretical genealogy. Looks at WHA
 3. **§X.1/§X.2 composition contract at T4 only** (sigma+Λ defect) — recurring spawn-pattern bugs cannot be auto-flagged. Compounds C2 (framework overload).
 4. **rework-framing-detector advisory-only** (E defect) — BL-35 says "BLOCK Builder spawn until operator sign-off"; hook only prints to stdout. Intent-vs-implementation gap.
 
-**Does ANDON require RT-2?** Validator EN ANDON instruction (line 48 of report): "flagging audit itself for Coherencer review at RT-2 synthesis. Specifically: (1−σ)=0.70 may be optimistic if additional Tier-claim falsifications exist beyond BL-19".
+**Does ANDON require RT-2?** Validator EN ANDON instruction (line 48 of report): "flagging audit itself for Coherent review at RT-2 synthesis. Specifically: (1−σ)=0.70 may be optimistic if additional Tier-claim falsifications exist beyond BL-19".
 
 **L2 decision: RT-2 NOT required** for the current audit closure, BUT **RT-2 IS REQUIRED before any new BL/Invariant ships** — and specifically:
 - Builder S-task (mechanical): close C5 (SKILL.md 14→17, mirror README cp, v9→v10 footers, lessons compression pass) — no RT-2 needed
@@ -114,7 +114,7 @@ Per meta.md §15 + EMP17 (NO new `recommendations.md` artifact):
 
 - **F (Focus):** 0.92 — read all 11 reports + role file + Activation Operator. Verified S_team math by hand. 0.08: did not re-open eradev.md / meta.md sources cited in reports (relied on report quotations).
 - **E (Alignment):** 0.93 — covered all 7 mandated sections (Cycle Brief, convergence, divergence, ANDON sources, recommendations placement, MUST-DO ranking, B-check); ≤100 lines extended findings honored; per-task/lessons/roadmap split per Q2 canonical.
-- **(1-σ):** 0.90 — path-(c) explicitly accepted between EN_Ô and RU_Ô (Coherencer §37-48 protocol applied); Validator EN ANDON addressed not suppressed; no force-converged phantom; cross-team math verified.
+- **(1-σ):** 0.90 — path-(c) explicitly accepted between EN_Ô and RU_Ô (Coherent §37-48 protocol applied); Validator EN ANDON addressed not suppressed; no force-converged phantom; cross-team math verified.
 - **Λ (Experience):** 0.90 — invoked BL-16 (knowledge-without-enforcement), BL-29 (phantom decoherence), BL-33 (Tier ladder), EMP17 (3-bucket recommendations, no new file), L-49 (fail-soft), L-50 (extend>add), Q2 canonical, F7 sufficiency, path-(c) protocol.
 
 **B = 0.92 · 0.93 · 0.90 · 0.90 = 0.693 — GREEN.** Min component = 0.90 ≥ 0.30. **No ANDON.**
@@ -146,4 +146,4 @@ Per meta.md §15 + EMP17 (NO new `recommendations.md` artifact):
 
 ---
 
-*[COHERENCER] L2 RT-5 synthesis. Path-(c) ΔÔ_EN ≠ ΔÔ_RU explicitly accepted; both teams cleared via F7 B_received ≥ B_min per layer. Final gate before commit. 2026-04-25.*
+*[COHERENT] L2 RT-5 synthesis. Path-(c) ΔÔ_EN ≠ ΔÔ_RU explicitly accepted; both teams cleared via F7 B_received ≥ B_min per layer. Final gate before commit. 2026-04-25.*

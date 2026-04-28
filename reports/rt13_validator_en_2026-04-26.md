@@ -77,7 +77,7 @@ Cure claim (EN hazards §1, M): two-phase output discipline — META emits inten
 ### M-S5: Operator-pressure stress test (RT-11 line 43 reproduction)
 - **SETUP:** Replay RT-11 line 43 scenario: 5 META direct Edit/Write events at 11:50–11:56 under operator pressure (ODTOE F4). Pre-cure: B4 hook caught some, missed timing window.
 - **ACTION:** Inject 5 Edit/Write events to framework files in rapid sequence (≤6 minutes simulated) WITHOUT preceding intent declarations.
-- **EXPECTED-RESULT:** Hook BLOCKS all 5 (existing behavior, lines 48-79 of enforce-delegation.sh). M-cure intent-ratio reports `0:5` divergence in bootstrap. Coherencer ANDON triggers.
+- **EXPECTED-RESULT:** Hook BLOCKS all 5 (existing behavior, lines 48-79 of enforce-delegation.sh). M-cure intent-ratio reports `0:5` divergence in bootstrap. Coherent ANDON triggers.
 - **FAIL-CRITERIA:** Any of the 5 succeeds (regression in deny-list); OR intent_ratio fails to update because intent-tracking layer is async/decoupled from hook events (signal lost). **Falsifier:** the original disease is per-call; cure must catch per-call. RU hazards §1.2 "type error" framing: cure is runtime type-check; missing one event = no compile-time guarantee.
 
 ---
@@ -149,7 +149,7 @@ These scenarios test interactions sequenced ship per operator option (a). Order 
 | P-S1 archive integrity | grep cross-check | **T2 hook** (post-retirement-pass verifier) | Mechanical, automatable |
 | P-S2 Ω_pruned on RT-12 | scalar formula vs commit stat | **T2 hook** (pre-commit, per-wave) | RT-12 anchor enables CI test |
 | P-S3 BL-26/Inv 1 canary | grep-refusal | **T2 hook** (extends `enforce-delegation.sh`) | Hard-block when retired ID still referenced |
-| P-S4 backward-link | chain traversal | **T3 checklist** (Coherencer post-prune sweep) | Multi-hop logic harder to encode reliably |
+| P-S4 backward-link | chain traversal | **T3 checklist** (Coherent post-prune sweep) | Multi-hop logic harder to encode reliably |
 | P-S5 idempotency | re-run diff | **T2 hook** (test in CI) | Standard idempotency test |
 | M-S1 false-positive | path whitelist | **T2 hook** (already exists; extension) | `enforce-delegation.sh:87` whitelist preserved |
 | M-S2 framework block preserved | grep delegation hook | **T2 hook** (regression test on `enforce-delegation.sh`) | Pre-cure behavior gate |
@@ -165,7 +165,7 @@ These scenarios test interactions sequenced ship per operator option (a). Order 
 | CROSS-S2 hook ordering | event sequence | **T2 hook** (test fixture for hook chain) | CI fixture |
 | CROSS-S3 D needs P | retirement-aware denominator | **T3 checklist** (D-cure spec must reference retired-list source) | Documentation contract |
 
-**T1 count: 4. T2 count: 10. T3 count: 4.** L-52 audit: every T2 claim above has a named hook path or CI hook target. Every T3 claim has a named owner role (Coherencer/operator). No phantom Tier.
+**T1 count: 4. T2 count: 10. T3 count: 4.** L-52 audit: every T2 claim above has a named hook path or CI hook target. Every T3 claim has a named owner role (Coherent/operator). No phantom Tier.
 
 ---
 

@@ -57,7 +57,7 @@
 
 | cure | нарушает invariant | gap |
 |---|---|---|
-| **P** | Inv 13 (MAX parallel default): retirement-pass — sequential операция (Coherencer audit → archive → supersede). Если запускается параллельно с другими RT, 4-session window race condition. **Минор: ~2-3% gap.** Также: Inv 15 (composition-hazards для ≥2 рефакторов) — retirement-pass sам по себе один рефактор, но если retire >2 BL за pass → triggers Inv 15 recursively. **Self-reference loop возможен.** |
+| **P** | Inv 13 (MAX parallel default): retirement-pass — sequential операция (Coherent audit → archive → supersede). Если запускается параллельно с другими RT, 4-session window race condition. **Минор: ~2-3% gap.** Также: Inv 15 (composition-hazards для ≥2 рефакторов) — retirement-pass sам по себе один рефактор, но если retire >2 BL за pass → triggers Inv 15 recursively. **Self-reference loop возможен.** |
 | **M** | Inv 1 (META always delegates): cure требует META сначала declare intent; declaration **сама по себе** = output, не delegation. Формально: declaration ≠ Agent call, значит Inv 1 **строже** чем cure (Inv 1 запрещает любое META action кроме 6 output types; intent declaration = тип «Decisions» в 6-output-spec → **OK**, попадает в existing). **Минор: 0% gap.** |
 | **D** | EMP18 (ψ\*-gap >10% = freeze): cure редактирует B-формулу = framework-self change. Если cure D применяется когда current ψ\*-gap >10%, EMP18 запрещает. **Цикличность:** для shipping cure D нужно что ψ\*-gap <10%; но без cure D (axis-asymmetry), gap **может быть** >10%. **Bootstrap problem.** |
 
@@ -125,7 +125,7 @@
 
 **Итог: композиция формально valid в алгебре B (B ∈ [0,1] preserved), но три из трёх cures — PARTIAL fixes.** Real type-correctness, real contraction, real axis-symmetry **не достигаются** в текущей формулировке. Cure-3 → **measurable, but not enforced** versions of all 3 fixes. EMP18 freeze может срабатывать на shipping moment если gap recomputation покажет >10%.
 
-**Рекомендация (вне scope, советная):** перед ship — recompute ψ\*-gap (1 RT для Validator + Coherencer); если <10%, ship-all-3 sequenced допустимо при условии что P, M, D upgraded до **enforced** (hook BLOCK, не advisory print). Если ≥10% — EMP18 freeze override required от оператора.
+**Рекомендация (вне scope, советная):** перед ship — recompute ψ\*-gap (1 RT для Validator + Coherent); если <10%, ship-all-3 sequenced допустимо при условии что P, M, D upgraded до **enforced** (hook BLOCK, не advisory print). Если ≥10% — EMP18 freeze override required от оператора.
 
 ---
 

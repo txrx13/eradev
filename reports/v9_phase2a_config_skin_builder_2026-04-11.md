@@ -13,7 +13,7 @@
 ## Activation Operator Results
 
 - **A_F (Focus):** Read `roles/builder_EN.md` (97 lines) for role protocol. Read `reports/v9_phase2a_config_skin_spec_2026-04-11.md` IN FULL (787 lines, source-of-truth contract). Read `templates/domain_skin.md.template` (139 lines, structural skeleton). Read `templates/domain_skin.code.md` (172 lines, text-modality identity-skin sibling — format reference). Read head of `templates/domain_skin.article.md` (80 lines, research-modality full-override — table-style reference). Read `BOOTSTRAP_LESSONS_universal.md` headings (235 lines, 22 universal BL enumeration verified). Read `projects/odtoe-articles/config.md` head (40 lines, live-config YAML-fence pattern reference). Read `eradev.md` lines 140-168 (Section II.1 line 144 `B_config` v10 hook verbatim confirmed + Section II.2 OOD AND-gate). All load-bearing references touched before first keystroke.
-- **A_E (Alignment):** The artifact is a SKIN FILE, not a spec. It must be PRODUCT-shaped (350-550 lines, Markdown, loaded by META at runtime), not SPEC-shaped (hundreds of pages of rationale). Intent is to preserve every FIXED item verbatim from the spec while compressing the spec's ~900 lines of prose into ~540 lines of directly-usable skin content. The skin addresses the EXACT user intent: when META encounters a project `config.md` with `domain.type: config`, this file becomes the bridge between abstract role files and config-specific work, enabling every downstream agent (Visionary, Analyst, Builder, Validator, Coherencer) to do config work without reinventing vocabulary, verification, or BL inheritance.
+- **A_E (Alignment):** The artifact is a SKIN FILE, not a spec. It must be PRODUCT-shaped (350-550 lines, Markdown, loaded by META at runtime), not SPEC-shaped (hundreds of pages of rationale). Intent is to preserve every FIXED item verbatim from the spec while compressing the spec's ~900 lines of prose into ~540 lines of directly-usable skin content. The skin addresses the EXACT user intent: when META encounters a project `config.md` with `domain.type: config`, this file becomes the bridge between abstract role files and config-specific work, enabling every downstream agent (Visionary, Analyst, Builder, Validator, Coherent) to do config work without reinventing vocabulary, verification, or BL inheritance.
 - **A_σ (Consistency):** No conflict with `templates/domain_skin.md.template` (10-section structure followed: header, Vocabulary, Role Focus, Verification, RT Phase Protocol, Checklists, Examples, BL, OOD, B-weight). No conflict with `templates/domain_skin.code.md` (same text-modality profile, same uniform 0.25×4 weights, same B-check format in examples). No conflict with `templates/domain_skin.article.md` (different modality — research vs text — but both use evidence-cited vocabulary tables and catching-role-labeled examples). Load-bearing terms KEY / SCHEMA / ENV-VAR / SECRET / PRECEDENCE / DANGLING-REF differ from plan skin's STEP / DEPENDENCY / CONTINGENCY — zero overlap per spec's AC-11. Verification prefix `P` is distinct from plan's `DR` — no collision. BL-C namespace is distinct from BL-P. All 22 universal BL listed verbatim from `BOOTSTRAP_LESSONS_universal.md` (spec-check and self-verification both performed). One σ watchpoint I noted while writing: the spec's "FLEXIBLE" list allowed me to add rows 23-27 to the vocabulary table; I kept the table at exactly 22 rows because the 22 rows in the spec were already load-bearing and adding more rows would inflate the skin without adding value — this aligns with BL-11 (scope creep is muda) and BL-31 (constrain output types). Builder discretion inside spec bounds, no escalation needed.
 - **A_Λ (Experience):** Applied BL-17 (pre-generate verification) by reading the schema (the template, the spec, the sibling skins) BEFORE drafting any section. Applied BL-21 (format specifications are inputs) by reading `domain_skin.md.template` first to lock the section order. Applied BL-28 (agent prompts must name explicit context) by citing `eradev.md` line 144 and line 117 directly in the header block rather than leaving the v10 hook as a vague reference. Applied BL-29 (verify established terminology) by reading `BOOTSTRAP_LESSONS_universal.md` to confirm the 22 BL list before copying Section 7.1 from the spec — this caught zero drift but forestalled any hypothetical stale-BL-name risk. Applied BL-24 (one commit = one phase) in scope discipline: this Builder produced ONLY the skin file + this report, and did NOT touch any role file, any live project config, any BL file, or any other skin. Applied the same 3-example catching-role+phase+fix format from the article skin because it worked in Phase 2.1 and was explicitly prescribed by the spec's Section 6.
 
@@ -29,7 +29,7 @@
 1. Header block (lines 1-14) — `Type: config`, `Modality: text (uniform 0.25/0.25/0.25/0.25)`, `Parent BL: BOOTSTRAP_LESSONS_universal.md`, `Does NOT inherit BOOTSTRAP_LESSONS_code_adapter.md`, `Verify method: parse`, live reference configs list — all FIXED items verbatim from spec §1.2
 2. Purpose / When META Loads This Skin (lines 16-26) — routing explanation + scope
 3. Vocabulary Mapping (lines 28-64) — 22 rows with evidence-cited "Where used" column — matches spec §2 exactly; all row numbers and load-bearing definitions preserved
-4. Role Focus Overrides (lines 66-175) — 5 sub-sections (Visionary / Analyst / Builder / Validator / Coherencer), each with FIRST focus anchor + artifact definition + primary/secondary/tertiary failure modes + Jidoka self-check (3-7 questions per role); Analyst's 9-part Deliverable Template included verbatim
+4. Role Focus Overrides (lines 66-175) — 5 sub-sections (Visionary / Analyst / Builder / Validator / Coherent), each with FIRST focus anchor + artifact definition + primary/secondary/tertiary failure modes + Jidoka self-check (3-7 questions per role); Analyst's 9-part Deliverable Template included verbatim
 5. Verification Protocol `parse` expanded (lines 177-281) — 7 P-check table, L1/L2 split note, curated secrets regex list verbatim from spec §4.2, placeholder whitelist, code/plan-skin analogy table, full verification block with per-format commands (YAML/TOML/JSON/INI/ENV/Markdown-fenced)
 6. RT Phase Protocol (lines 283-341) — RT-0/RT-1/RT-2 invocation points, RT-lite vs full 5-role decision tree verbatim from spec §5.2, RT-lite rules, single-Builder vs split rules, pipeline block
 7. Checklists (lines 343-367) — Pre-Generation (7 items, BL-17 + BL-21 + BL-C4 derived) + Post-Generation (11 items, P1-P7 + BL-29 + BL-C2 + BL-C3 + Jidoka)
@@ -67,7 +67,7 @@
 - Spec §5.2 RT-lite decision tree: ✓ fenced block, all 4 branches preserved
 - Spec §5.3 single Builder vs split: ✓ rules + XL exception
 - Spec §5.4 pipeline block: ✓ fenced block matching spec
-- Spec §6 examples (3 entries): ✓ Example 1 YAML indent (catching=Validator, phase=RT-1, fix=re-indent), Example 2 `.env.example` secret (catching=Validator, phase=RT-2 or pre-commit, fix=rotate+placeholder+Yokoten+BL-C2), Example 3 port drift (catching=Coherencer, phase=RT-2, fix=unify) — all three preserved per spec §6 with catching role + phase + fix verbatim in meaning. B-check added per Phase 2.1 article skin precedent.
+- Spec §6 examples (3 entries): ✓ Example 1 YAML indent (catching=Validator, phase=RT-1, fix=re-indent), Example 2 `.env.example` secret (catching=Validator, phase=RT-2 or pre-commit, fix=rotate+placeholder+Yokoten+BL-C2), Example 3 port drift (catching=Coherent, phase=RT-2, fix=unify) — all three preserved per spec §6 with catching role + phase + fix verbatim in meaning. B-check added per Phase 2.1 article skin precedent.
 - Spec §7.1 universal BL 22-entry table: ✓ all 22 entries present with applicability note, "**Critical for configs**" emphasis on BL-11/BL-13/BL-17/BL-21/BL-29 (matches spec)
 - Spec §7.2 code-adapter BL individual treatment: ✓ 8 rows, BL-3/BL-24 transfer unchanged, BL-2→C1/BL-6→C2/BL-14→C3/BL-22→C4, BL-8 lifted to vocab row 18, BL-25 lifted to P5+P6, **zero pure-N/A** confirmed
 - Spec §7.3 BL-C1..C4 entries: ✓ 4 full entries, each with Source / Rule / Why / Applies to
@@ -145,7 +145,7 @@ B_text = 0.25·F + 0.25·E + 0.25·(1-σ) + 0.25·Λ
 B = 0.915 — GREEN (B ≥ 0.5, min component 0.90 ≥ 0.3 — no ANDON)
 ```
 
-**Andon status:** NONE. Skin file ready for Validator RT-1 gate and for META's Phase 2.A closing Coherencer sweep.
+**Andon status:** NONE. Skin file ready for Validator RT-1 gate and for META's Phase 2.A closing Coherent sweep.
 
 **Fix chain count this session:** 0 (no retries, no thrash — the spec was concrete enough that every decision was pre-made, as predicted by the spec's Inverted IFR).
 
@@ -175,12 +175,12 @@ B-check: F=0.92  E=0.92  (1-σ)=0.92  Λ=0.90  → B = 0.915 GREEN
 - P3: secrets scan (zero non-placeholder hits — verified by Builder)
 - P4: dangling reference scan (zero internal dangling refs; sibling skin refs are forward-looking to parallel Builders' outputs)
 - P5: precedence sanity (N/A — single-file artifact)
-- P6: cross-skin consistency — the moment the plan/book/research Builders land their outputs, Phase 2.A Coherencer should run the verification-prefix + BL-namespace collision check from spec §AC-11 across all 4 new skins
+- P6: cross-skin consistency — the moment the plan/book/research Builders land their outputs, Phase 2.A Coherent should run the verification-prefix + BL-namespace collision check from spec §AC-11 across all 4 new skins
 - P7: schema version alignment — skin is v9, `B_config` v10 hook is explicitly deferred
 
-**To Coherencer (Phase 2.A closing gate):** cross-skin BL-C / BL-P / BL-B / BL-R namespace scan + verification-letter-prefix collision scan + vocabulary load-bearing-terms overlap scan + backward-compat smoke test against the 4 live configs. This Builder's skin is one of 4 inputs to that gate.
+**To Coherent (Phase 2.A closing gate):** cross-skin BL-C / BL-P / BL-B / BL-R namespace scan + verification-letter-prefix collision scan + vocabulary load-bearing-terms overlap scan + backward-compat smoke test against the 4 live configs. This Builder's skin is one of 4 inputs to that gate.
 
-**To META:** one of the 4 parallel Phase 2.A skin Builders has closed. 3 siblings (book, plan, research) remain. After all 4 land, Phase 2.A Coherencer gate + eventual Hansei will close the Phase 2.A wave and unblock Phase 2.B (RT-1 real-world validation of each skin against a trial project).
+**To META:** one of the 4 parallel Phase 2.A skin Builders has closed. 3 siblings (book, plan, research) remain. After all 4 land, Phase 2.A Coherent gate + eventual Hansei will close the Phase 2.A wave and unblock Phase 2.B (RT-1 real-world validation of each skin against a trial project).
 
 ---
 
@@ -188,4 +188,4 @@ B-check: F=0.92  E=0.92  (1-σ)=0.92  Λ=0.90  → B = 0.915 GREEN
 *Target: templates/domain_skin.config.md (538 lines, GREEN B=0.915)*
 *Predecessor: reports/v9_phase2a_config_skin_spec_2026-04-11.md (787-line Analyst spec)*
 *Siblings in flight: templates/domain_skin.book.md, templates/domain_skin.plan.md, templates/domain_skin.research.md*
-*Next step: Validator RT-1 gate + Phase 2.A closing Coherencer sweep (separate tasks, not this Builder's scope)*
+*Next step: Validator RT-1 gate + Phase 2.A closing Coherent sweep (separate tasks, not this Builder's scope)*

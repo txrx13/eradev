@@ -154,7 +154,7 @@ Per Inv 18 caveat (`hansei:226`): treat with structural skepticism. EN-A paralle
 
 ---
 
-## 7. Краткая формальная сводка для Coherencer
+## 7. Краткая формальная сводка для Coherent
 
 1. **6/6 σ-операторов активны**; σ-aggregation function — DEFER v11 (корректно не применена).
 2. **B_modality mismatch:** B_research выбран formally правильно по single-field lookup, но defects класса PR имели creative-modality природу → per-task override рекомендуется (RT-1=research, PR-Gate=creative).
@@ -162,4 +162,4 @@ Per Inv 18 caveat (`hansei:226`): treat with structural skepticism. EN-A paralle
 4. **ψ*-gap +0.5..1.5%:** Hansei §6 предлагает 9 framework additions без EMP18 closure-check → формальное нарушение freeze trigger; project-local L-A5..L-A10 OK, BL-A5/Inv 17-18 → DEFER до closure.
 5. **Provenance:** 2/8 ключевых claims UNCALIBRATED (B-measurement statements). Требуется F6 Π_meta или per-modality B decomposition.
 
-**Главный formal вывод:** Hansei — корректно diagnostic для project layer (L-A5..L-A10), но при попытке стать framework-level patch (BL-A5, Inv 17-18) сам становится EMP18-violation. Coherencer должен расщепить scope: project-lessons → COMMIT, framework-additions → BLOCK до ψ*-gap closure-check.
+**Главный formal вывод:** Hansei — корректно diagnostic для project layer (L-A5..L-A10), но при попытке стать framework-level patch (BL-A5, Inv 17-18) сам становится EMP18-violation. Coherent должен расщепить scope: project-lessons → COMMIT, framework-additions → BLOCK до ψ*-gap closure-check.

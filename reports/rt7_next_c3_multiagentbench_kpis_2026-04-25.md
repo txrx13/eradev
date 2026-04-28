@@ -18,16 +18,16 @@ Skill mirror has no `HANSEI_TEMPLATE.md` (templates dir is for roles/skins only;
 
 - **task_completion_rate** = N PASS first-try (no fix chain) / N total | target >=0.7
 - **collaboration_efficiency** = actual_parallel_agents / max_parallel_possible (per Inv 13) | target >=0.8
-- **role_specialization_score** = Coherencer rating (0-1.0) of role-lane staying for Builder/Analyst/Validator/Visionary | target >=0.85
+- **role_specialization_score** = Coherent rating (0-1.0) of role-lane staying for Builder/Analyst/Validator/Visionary | target >=0.85
 
-Trend across last 5 cycles flagged in Hansei summary. Coherencer reports per RT cycle.
+Trend across last 5 cycles flagged in Hansei summary. Coherent reports per RT cycle.
 
 ## Verification
 
 - Domain check: parse — markdown sections valid, headings hierarchical (§1 → ### Hansei Metrics).
 - Content gate: each of 5 files contains `Hansei Metrics` (EN) or `Метрики Hansei` (RU) header + 3 metrics + source citation.
 - Bilingual sync: EN and RU strings semantically equivalent (target thresholds identical, source citation matched).
-- Cross-link: role files reference `reports/HANSEI_TEMPLATE.md §1` so Coherencer can navigate to full template.
+- Cross-link: role files reference `reports/HANSEI_TEMPLATE.md §1` so Coherent can navigate to full template.
 - Backward compat: existing Hansei reports unaffected (additive section, no schema break).
 
 ## Validation
@@ -43,7 +43,7 @@ Trend across last 5 cycles flagged in Hansei summary. Coherencer reports per RT 
 
 ## Blast Radius: LOW
 
-Template extension only (additive; no behavior change to Coherencer Cycle Brief format which remains 10-line max per meta.md §15).
+Template extension only (additive; no behavior change to Coherent Cycle Brief format which remains 10-line max per meta.md §15).
 
 ## B-check
 F=0.95 E=0.95 (1-s)=0.95 L=0.90 => B=0.77

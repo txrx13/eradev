@@ -38,7 +38,7 @@ Each phase is a keyed entry in the `phases` map:
 phases:
   <phase_id>:
     name: <string>              # Human-readable phase name
-    roles: [<role>, ...]        # Roles participating (visionary|analyst|builder|validator|coherencer)
+    roles: [<role>, ...]        # Roles participating (visionary|analyst|builder|validator|coherent)
     mode: <sequential|parallel|hybrid>  # Execution model
     gate: <string>              # Gate condition (human-readable, evaluated by META)
     depends_on: [<phase_id>, ...]  # Phases that must complete before this one starts
@@ -65,16 +65,16 @@ Gates are human-readable conditions that META evaluates. They are NOT executable
 | Gate Expression | Meaning | Checked By |
 |----------------|---------|------------|
 | `all_responses_received` | All spawned agents returned output | META |
-| `S_adjusted >= 0.45` | Team coherence meets threshold | Coherencer at RT |
+| `S_adjusted >= 0.45` | Team coherence meets threshold | Coherent at RT |
 | `B >= 0.5 AND no_andon` | Quality passes and no stop signals | Validator |
 | `all_checks_pass` | All verification checks green | Validator |
 | `artifact_produced` | Builder produced the deliverable | Builder |
 | `central_claim_defined` | Visionary established the core thesis | Visionary |
 | `unified_plan_accepted` | META synthesized and no RED flags | META |
 | `fix_chain < 3` | No runaway fix loop (BL-3) | Trace Accumulator |
-| `cross_check_pass` | Coherencer terminology/interface gate | Coherencer |
+| `cross_check_pass` | Coherent terminology/interface gate | Coherent |
 | `go_nogo_majority` | Majority of roles vote GO at RT-3 | META (5/5 or 4/5) |
-| `apophatic_pass` | Apophatic Gate cleared (v10, Section IV) | Visionary + Coherencer |
+| `apophatic_pass` | Apophatic Gate cleared (v10, Section IV) | Visionary + Coherent |
 
 ### 1.4 Mode Semantics
 
@@ -82,7 +82,7 @@ Gates are human-readable conditions that META evaluates. They are NOT executable
 |------|----------|-----------|
 | `parallel` | All roles spawned simultaneously. No agent sees another's output. | RT-1, RT-3 (independence prevents confirmation bias) |
 | `sequential` | Roles execute in list order. Each sees previous output. | Execution (Builder then Validator on inner torus ring) |
-| `hybrid` | One role broadcasts, then others assess in parallel. | RT-2 (Coherencer broadcasts, 4 roles assess) |
+| `hybrid` | One role broadcasts, then others assess in parallel. | RT-2 (Coherent broadcasts, 4 roles assess) |
 
 ---
 
@@ -155,7 +155,7 @@ rt_graph:
 
     rt_1:
       name: "Full Round Table -- Understanding"
-      roles: [visionary, analyst, builder, validator, coherencer]
+      roles: [visionary, analyst, builder, validator, coherent]
       mode: parallel
       gate: "all_responses_received AND S_adjusted >= 0.45"
       depends_on: [apophatic_gate]
@@ -179,7 +179,7 @@ rt_graph:
 
     rt_2:
       name: "Midpoint Course Correction"
-      roles: [visionary, analyst, builder, validator, coherencer]
+      roles: [visionary, analyst, builder, validator, coherent]
       mode: hybrid
       gate: "S_adjusted >= 0.45"
       depends_on: [validation]
@@ -187,7 +187,7 @@ rt_graph:
 
     rt_3:
       name: "Final Acceptance"
-      roles: [visionary, analyst, builder, validator, coherencer]
+      roles: [visionary, analyst, builder, validator, coherent]
       mode: parallel
       gate: "go_nogo_majority AND all_checks_pass"
       depends_on: [rt_2]
@@ -195,7 +195,7 @@ rt_graph:
 
 ### 2.3 L/XL-Task Graph (Multi-Round with RT-per-Cluster)
 
-Complex graph for large tasks (2+ modules, architecture changes). Multiple Builder teams with Coherencer cross-check gates between them.
+Complex graph for large tasks (2+ modules, architecture changes). Multiple Builder teams with Coherent cross-check gates between them.
 
 ```yaml
 rt_graph:
@@ -213,7 +213,7 @@ rt_graph:
 
     apophatic_gate:
       name: "Apophatic Gate"
-      roles: [visionary, coherencer]
+      roles: [visionary, coherent]
       mode: sequential
       gate: "apophatic_pass"
       depends_on: [rt_0]
@@ -221,7 +221,7 @@ rt_graph:
 
     rt_1:
       name: "Full RT -- Understanding + Decomposition"
-      roles: [visionary, analyst, builder, validator, coherencer]
+      roles: [visionary, analyst, builder, validator, coherent]
       mode: parallel
       gate: "all_responses_received AND S_adjusted >= 0.45 AND unified_plan_accepted"
       depends_on: [apophatic_gate]
@@ -235,9 +235,9 @@ rt_graph:
       repeat: 3
       on_fail: andon
 
-    coherencer_cross_check:
-      name: "Coherencer Cross-Check Gate"
-      roles: [coherencer]
+    coherent_cross_check:
+      name: "Coherent Cross-Check Gate"
+      roles: [coherent]
       mode: sequential
       gate: "cross_check_pass"
       depends_on: [execution_parallel]
@@ -248,12 +248,12 @@ rt_graph:
       roles: [validator]
       mode: parallel
       gate: "all_clusters_B >= 0.5 AND no_andon"
-      depends_on: [coherencer_cross_check]
+      depends_on: [coherent_cross_check]
       on_fail: retry
 
     rt_2:
       name: "Midpoint Course Correction"
-      roles: [visionary, analyst, builder, validator, coherencer]
+      roles: [visionary, analyst, builder, validator, coherent]
       mode: hybrid
       gate: "S_adjusted >= 0.45"
       depends_on: [validation_parallel]
@@ -277,7 +277,7 @@ rt_graph:
 
     rt_3:
       name: "Final Acceptance"
-      roles: [visionary, analyst, builder, validator, coherencer]
+      roles: [visionary, analyst, builder, validator, coherent]
       mode: parallel
       gate: "go_nogo_majority AND all_checks_pass AND S_adjusted >= 0.45"
       depends_on: [validation_round_2]
@@ -285,9 +285,9 @@ rt_graph:
 
 **XL extension:** XL tasks use the L graph with `multi_team: true` annotation. This means:
 - `execution_parallel` spawns `N_teams = ceil(N_modules / 3)` Builder instances
-- `coherencer_cross_check` activates L2 Coherencer hierarchy (cross-team terminology + interface sync)
+- `coherent_cross_check` activates L2 Coherent hierarchy (cross-team terminology + interface sync)
 - `validation_parallel` spawns matching Validator instances per team
-- If N_teams > 3, an L3 Coherencer coordinates L2 Coherencers
+- If N_teams > 3, an L3 Coherent coordinates L2 Coherents
 
 ---
 

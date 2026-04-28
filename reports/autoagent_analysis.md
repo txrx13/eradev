@@ -117,7 +117,7 @@ Every optimization loop must be embedded within an orientation loop:
 
 One without the other produces: stagnation (orientation without optimization) or efficient convergence to the wrong answer (optimization without orientation).
 
-**Rule:** At every 10th iteration of any score-driven loop, pause and run a mini-RT with Visionary + Coherencer. Ask: "Is the thing we are scoring still the right thing to score?"
+**Rule:** At every 10th iteration of any score-driven loop, pause and run a mini-RT with Visionary + Coherent. Ask: "Is the thing we are scoring still the right thing to score?"
 
 ---
 

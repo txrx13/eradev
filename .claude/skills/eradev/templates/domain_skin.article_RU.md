@@ -136,10 +136,10 @@ META загружает этот скин, когда `config.md` проекта
   - Q6 (Skin-DEF-f): «Для каждой нумерованной формулы — деривация / цитирование с указателем / аксиоматическая метка / маркер гипотезы? Если ни одно — C6b FAIL.»
   - Q7 (Skin-DEF-e): «self_cite_rate вычислен. Вердикт по лестнице: PASS (0-30%) / NOTES (30-50%) / NOTES ESCALATED (50-70%) / FAIL (≥70%). Если ≥50% — записал ли load-bearing обоснование?»
 
-### Coherencer (фокус на статьях)
+### Coherent (фокус на статьях)
 
-- **ПЕРВЫЙ якорь (A_F override):** Прочитать полный набор артефактов. Прочитать проектный глоссарий (если существует — `projects/{PROJECT}/glossary.md`). Прочитать 3 ближайших соседа. Coherencer заботится о *вписывании этой статьи в корпус*.
-- **Определение артефакта:** Корпус + эта статья = новый корпус. L2 Coherencer работа.
+- **ПЕРВЫЙ якорь (A_F override):** Прочитать полный набор артефактов. Прочитать проектный глоссарий (если существует — `projects/{PROJECT}/glossary.md`). Прочитать 3 ближайших соседа. Coherent заботится о *вписывании этой статьи в корпус*.
+- **Определение артефакта:** Корпус + эта статья = новый корпус. L2 Coherent работа.
 - **Основной режим отказа:** «Глоссарный дрифт» — термин, определённый в глоссарии как X, используется со значением Y. Или коллизия символов. Или формула из статьи A с одним значением и в этой с другим. Все — (1-σ) failures на уровне корпуса.
 - **Вторичный (если проект двуязычный):** Фантомная когерентность между языковыми версиями. Обе «согласны», но вводят одну и ту же ошибку. Митигация: независимая верификация выборки формул и цитирований.
 - **Jidoka (article-специализация):**
@@ -148,7 +148,7 @@ META загружает этот скин, когда `config.md` проекта
   - Q3: «Если цитируется формула из статьи N — совпадает дословно?»
   - Q4: «Если двуязычный — языковые версии структурно эквивалентны (секций, формул, цитирований, рисунков)?»
   - Q5: «Независимый spot-check 3 формул — пересчитать без чтения статьи?»
-- **Правило двуязычной синхронизации (BL-19):** Если проект `bilingual: true`, Coherencer — ПРИНУДИТЕЛЬ правила language-parity. Коммит ЗАБЛОКИРОВАН если набор неполный ИЛИ размеры языковых версий расходятся >50%.
+- **Правило двуязычной синхронизации (BL-19):** Если проект `bilingual: true`, Coherent — ПРИНУДИТЕЛЬ правила language-parity. Коммит ЗАБЛОКИРОВАН если набор неполный ИЛИ размеры языковых версий расходятся >50%.
 
 ---
 
@@ -164,7 +164,7 @@ META загружает этот скин, когда `config.md` проекта
 | **C2** | **Атрибуция цитирования** — утверждение X, цитирующее источник S, действительно поддержано S (не просто упомянуто) | Validator | **L2** | Чтение источника (человек + LLM) |
 | **C3** | **Синтаксическая валидность идентификаторов** — DOI, arXiv ID, URL, ISBN и др. | Validator | **L1** | Regex |
 | **C4** | **Внутренние перекрёстные ссылки** — `§3.2`, `\ref{thm:main}`, `\eqref{eq:main}` и т.д. — разрешаются к реальной секции/теореме/формуле в том же исходнике | Validator | **L1** | Лог compile/render |
-| **C5** | **Здравость самоцитирования** — каждое самоцитирование нагрузочно (не padding). Количественная лестница: 0-30% PASS / 30-50% NOTES / 50-70% NOTES ESCALATED / ≥70% FAIL | Validator + Coherencer | **L2** | Суждение + порог self_cite_rate |
+| **C5** | **Здравость самоцитирования** — каждое самоцитирование нагрузочно (не padding). Количественная лестница: 0-30% PASS / 30-50% NOTES / 50-70% NOTES ESCALATED / ≥70% FAIL | Validator + Coherent | **L2** | Суждение + порог self_cite_rate |
 | **C6a** | **Фактуальная согласованность** — числа в аннотации совпадают с телом, таблицами, рисунками | Validator | **L2** | Кросс-ссылочный скан |
 | **C6b** | **Провенанс формул** — каждая нумерованная формула имеет Derived / Cited-with-pointer / Axiomatic / Conjectured маркер. Asserted-without-derivation = FAIL | Validator | **L2** | Классификация провенанса; `grep -B3 -A1 '<formula-tag>'` + ручное bucketing |
 
@@ -222,7 +222,7 @@ grep -cE 'undefined|multiply.defined|Citation .* undefined|could not find' /tmp/
 - **0–30% → PASS.** Норма для single-author академических статей.
 - **30–50% → PASS WITH NOTES.** Повышено — editorial review.
 - **50–70% → PASS WITH NOTES ESCALATED.** Substantial — Builder ОБЯЗАН обосновать load-bearing роль каждого self-cite.
-- **≥70% → FAIL.** Echo chamber. Require restructure ИЛИ Validator justification + Coherencer co-sign.
+- **≥70% → FAIL.** Echo chamber. Require restructure ИЛИ Validator justification + Coherent co-sign.
 
 **Основа:** эмпирическая норма для peer-reviewed physics ~30%; single-author research corpora могут идти выше по конструкции. Проекты с намеренно выше self-cite profile могут сдвинуть пороги через overlay.
 
@@ -256,9 +256,9 @@ V-Gate = набор cite_check + BL-A1..A4 выше (engineering validity: би�
 
 ### PR-4 Аудит decision-log
 - Каждое Builder default (напр., выбор формы slug-цитирования) ДОЛЖЕН быть залогирован
-- Coherencer ревьюит лог при PR-Gate; флагует «buried OD» (per Inv 16 OD-discipline
+- Coherent ревьюит лог при PR-Gate; флагует «buried OD» (per Inv 16 OD-discipline
   расширение на non-rework решения)
-- Tier: T3 checklist (ответственность Coherencer)
+- Tier: T3 checklist (ответственность Coherent)
 
 ### Вердикт PR-Gate
 - Все 4 PR-проверки ДОЛЖНЫ пройти до объявления «publication ready»
@@ -289,7 +289,7 @@ V-Gate = набор cite_check + BL-A1..A4 выше (engineering validity: би�
 **Pre-drafting gate языковой чистоты (per L-40 + L-46 ODTOE):**
 Перед drafting RU section content, проверить что META spec НЕ содержит bare English content words в spec body (excluding math/code/L-21 KEEP). Если обнаружено, ANDON: это META prompt-design failure, не Builder issue. Не paper over translating on the fly — ANDON forces upstream fix per L-46 inheritance rule.
 
-**Исключение (только L/XL):** для XL-статьи (>8000 слов, >4 секций) Analyst может разделить между двумя Builders по владению секциями. Гейт Coherencer ОБЯЗАТЕЛЕН.
+**Исключение (только L/XL):** для XL-статьи (>8000 слов, >4 секций) Analyst может разделить между двумя Builders по владению секциями. Гейт Coherent ОБЯЗАТЕЛЕН.
 
 ---
 
@@ -344,9 +344,9 @@ stat -f %m "$SRC"  # macOS fallback  |  stat -c %Y "$SRC"  # GNU
 - **Исправление:** (a) ослабить утверждение; (b) найти поддерживающий источник; (c) независимая деривация.
 - **Почему cite_check один не ловит:** C1 PASS, C3 PASS. Только C2 (чтение источника) ловит.
 
-### Пример 2: Противоречие контура (σ-отказ Coherencer)
+### Пример 2: Противоречие контура (σ-отказ Coherent)
 - **Сценарий:** Секция III: «метрика — функционал информационного состояния наблюдателя». Секция V: «балковая метрика объективна, не зависит от наблюдателя». Взаимное противоречие.
-- **Роль-ловец:** **Coherencer** (σ-спайк). **Фаза:** RT-1 (перед драфтом).
+- **Роль-ловец:** **Coherent** (σ-спайк). **Фаза:** RT-1 (перед драфтом).
 - **Исправление:** RT-1.5, Visionary уточняет нагрузочное определение, контур переписывается.
 - **Маппинг словаря:** «observer-dependent metric» vs «observer-independent» = **symbol collision** (строка 22).
 
@@ -390,16 +390,16 @@ Summary: 2 applies unchanged + 4 → BL-A1..A4 + 2 N/A.
 Перед коммитом Builder ОБЯЗАН: (a) compile/render каждого объявленного output, exit 0, (b) нет критических warning в изменённой секции, (c) все внутренние ссылки разрешаются. Applies to: Builder, Validator, META.
 
 **BL-A3: План ретракции перед подачей (адаптация BL-14)**
-Перед подачей Builder ОБЯЗАН документировать процедуру ретракции: контакты, текст уведомления, corpus-level rollback. Applies to: Visionary, Builder, Coherencer. (Примечание: BL-14 merged→BL-8 в main BOOTSTRAP_LESSONS.md 2026-04-20; BL-A3 сохраняет code_adapter-провенанс.)
+Перед подачей Builder ОБЯЗАН документировать процедуру ретракции: контакты, текст уведомления, corpus-level rollback. Applies to: Visionary, Builder, Coherent. (Примечание: BL-14 merged→BL-8 в main BOOTSTRAP_LESSONS.md 2026-04-20; BL-A3 сохраняет code_adapter-провенанс.)
 
 **BL-A4: PRE-FLIGHT библиографии (адаптация BL-22)**
 Перед RT-1 Analyst ОБЯЗАН проверить каждый идентификатор: (a) синтаксис валиден (C3), (b) для novel (T3/T4) источник доступен И ≥1 факт подтверждён. Произвести VERIFIED REFERENCES артефакт. Applies to: Analyst (RT-1), Validator (RT-2), Builder (block без артефакта), META.
 
 **BL-A5: Publication Readiness Gate (правило секвенирования V-Gate ≠ PR-Gate, расширение Inv 17 publication-layer)**
 - **Источник:** Post-CONSOLIDATION lift, RT-9 ODTOE Hansei (ошибки F1 ASCII-тире в PDF, F2 slug-citations в аннотации, F4 BL-A2 GREEN-blind, F6 отсутствие персоны наивного читателя). По L-50 (extend>add) — расширение Inv 17 publication-layer, НЕ новый framework BL.
-- **Правило:** Engineering validity (cite_check + BL-A1..A4 = «V-Gate») и publication readiness («PR-Gate») — РАЗНЫЕ гейты. После V-Gate GREEN, до объявления артефакта «ready», статья ДОЛЖНА пройти PR-Gate: PR-1 визуальная инспекция (отрендеренный PDF, типографика, slug-citations не литералы), PR-2 тест наивного читателя (аннотация декодируется без проектного глоссария), PR-3 стилистический паритет (RU/EN тип тире, стиль цитирования, структура параграфов если `domain.bilingual: true`), PR-4 аудит decision-log (Builder defaults залогированы, Coherencer флагует «buried OD» по расширению Inv 16 OD-discipline). Полная спецификация PR-Gate: см. секцию «PR-Gate (Publication Readiness)» выше.
+- **Правило:** Engineering validity (cite_check + BL-A1..A4 = «V-Gate») и publication readiness («PR-Gate») — РАЗНЫЕ гейты. После V-Gate GREEN, до объявления артефакта «ready», статья ДОЛЖНА пройти PR-Gate: PR-1 визуальная инспекция (отрендеренный PDF, типографика, slug-citations не литералы), PR-2 тест наивного читателя (аннотация декодируется без проектного глоссария), PR-3 стилистический паритет (RU/EN тип тире, стиль цитирования, структура параграфов если `domain.bilingual: true`), PR-4 аудит decision-log (Builder defaults залогированы, Coherent флагует «buried OD» по расширению Inv 16 OD-discipline). Полная спецификация PR-Gate: см. секцию «PR-Gate (Publication Readiness)» выше.
 - **Зачем:** v9 framework ловил engineering validity (BL-A1..A4) но НЕ publication readiness — Hansei ошибки F1 (ASCII-тире отгружены в PDF), F2 (slug-citations в аннотации), F4 (BL-A2 GREEN-blind к типографике), F6 (нет персоны наивного читателя). PR-Gate делает публикационную поверхность first-class гейтом; META НЕ ДОЛЖЕН объявлять «ready» только на V-Gate (GREEN ≢ ready по meta.md amendment).
-- **Applies to:** Validator (PR-1 инспекция отрендеренного PDF + PR-2 симуляция наивного читателя, PR-3 проверка паритета), Builder (корректность типографики, записи decision-log для PR-4), Coherencer (PR-3 cross-language паритет + PR-4 OD-аудит), META (PR-Gate PASS гейт перед объявлением «ready»).
+- **Applies to:** Validator (PR-1 инспекция отрендеренного PDF + PR-2 симуляция наивного читателя, PR-3 проверка паритета), Builder (корректность типографики, записи decision-log для PR-4), Coherent (PR-3 cross-language паритет + PR-4 OD-аудит), META (PR-Gate PASS гейт перед объявлением «ready»).
 
 ### Итого BL
 
@@ -423,7 +423,7 @@ Summary: 2 applies unchanged + 4 → BL-A1..A4 + 2 N/A.
 
 ## Проектно-специфичный указатель на глоссарий
 
-Скин НЕ зашивает конкретный глоссарий. Если проект ведёт — `projects/{PROJECT}/glossary.md`, читается Analyst во время Check-First пункта 6, Builder во время A_σ, Validator на RT-2, Coherencer на corpus-integration gate.
+Скин НЕ зашивает конкретный глоссарий. Если проект ведёт — `projects/{PROJECT}/glossary.md`, читается Analyst во время Check-First пункта 6, Builder во время A_σ, Validator на RT-2, Coherent на corpus-integration gate.
 
 ### Универсальные article-writing термины (не проектно-специфичные)
 

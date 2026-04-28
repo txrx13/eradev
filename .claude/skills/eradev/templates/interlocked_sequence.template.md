@@ -1,6 +1,6 @@
 # Interlocked Sequence — {PROJECT} {DATE}
 
-> Authored by: Coherencer
+> Authored by: Coherent
 > Triggered by: BL-35 rework-discipline audit (operator rework-framing detected)
 > Operator directive: {verbatim quote}
 > Active refactor window at trigger: {which phases were in flight}
@@ -61,7 +61,7 @@ No Builder work starts on any refactor until the OD gating that refactor is answ
 
 [Class of bugs should become impossible to construct, NOT merely easier to find]
 
-## B-self-check (Coherencer, Jidoka)
+## B-self-check (Coherent, Jidoka)
 
 F / E / (1-σ) / Λ / B = ___
 S_team across RT-1 role agents: ___

@@ -27,4 +27,4 @@
 
 **B-check**: F=1.0 (read full §III.2.3 + §III.2.4 + neighboring sections), E=1.0 (addresses MUST-DO #5 verbatim — RU-Builder fix recommendation applied), (1-σ)=1.0 (no terminology conflicts; `domain.tau_unit` parallels existing `domain.skin`/`domain.verify.method` schema), Λ=1.0 (consulted L2 synthesis + RU-Builder source report) → **B = 1.0**
 
-**Out-of-scope respected**: did NOT touch SKILL.md (Builder A), lessons.md (Coherencer), roadmap.md (Builder C).
+**Out-of-scope respected**: did NOT touch SKILL.md (Builder A), lessons.md (Coherent), roadmap.md (Builder C).

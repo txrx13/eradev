@@ -44,7 +44,7 @@ Aligned with `CLAUDE.md` `## Invariants` block (items 1-16, including BL-34 Inva
 
 ---
 
-## Notes for Coherencer / lessons
+## Notes for Coherent / lessons
 
 - Drift pattern: when invariant roster is extended (here +2: 14 -> 16), narrative rationale lines in Layer B docs (requirements specs, compat matrices) are a predictable drift site. Worth noting for future invariant-roster additions -- Analyst pre-flight checklist should include `grep -n "N invariant" templates/ README.md` where N is the prior count.
 - Skill-mirror pattern: root-first edit + `cp` to `.claude/skills/eradev/templates/` is the standard sync path. Mirror directly only if the template is skill-only (not the case here).

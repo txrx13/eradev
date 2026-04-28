@@ -291,7 +291,7 @@ builder_output:
 
 ---
 
-## 4. Validator -> Coherencer
+## 4. Validator -> Coherent
 
 **Purpose**: Deliver verification verdict with classified bugs and edge-case evidence.
 **Torus path**: Inner ring -> Outer ring handoff (fast -> slow).
@@ -322,10 +322,10 @@ validator_output:
     B: float
 ```
 
-### Output Schema (Coherencer receives and must parse)
+### Output Schema (Coherent receives and must parse)
 
 ```yaml
-coherencer_intake:
+coherent_intake:
   verdict: enum
   bugs: list[{id, severity, description, b_deficit, file, fix_suggestion}]
   edge_cases_tested: list[{scenario, result, notes}]
@@ -371,15 +371,15 @@ validator_output:
 
 ---
 
-## 5. Coherencer -> All Roles
+## 5. Coherent -> All Roles
 
 **Purpose**: Broadcast team state, lessons, sync status, and conflicts to all agents.
 **Torus path**: Outer ring (slow) -- strategy sync. Broadcast to both rings.
 
-### Input Schema (from Coherencer)
+### Input Schema (from Coherent)
 
 ```yaml
-coherencer_output:
+coherent_output:
   s_team: float              # 0.0-1.0, team coherence score
   s_adjusted: float          # S after conflict resolution (may differ from s_team)
   memory_lessons:
@@ -426,7 +426,7 @@ all_roles_intake:
 ### Example
 
 ```yaml
-coherencer_output:
+coherent_output:
   s_team: 0.78
   s_adjusted: 0.82
   memory_lessons:
@@ -480,5 +480,5 @@ coherencer_output:
    - PASS: proceed to next phase.
    - PASS_WITH_NOTES: proceed, but listed items must be tracked in spiral gap.
    - FAIL: return to Builder (inner ring) or escalate to Analyst (if plan-level issue).
-6. **Memory lesson cap**: Coherencer broadcasts exactly 3 lessons (top 3). Additional lessons go to project lessons.md, not the broadcast.
-7. **S_team threshold**: If s_team < 0.5, Coherencer MUST trigger synchronization before broadcasting. The broadcast itself must include the resolution steps taken.
+6. **Memory lesson cap**: Coherent broadcasts exactly 3 lessons (top 3). Additional lessons go to project lessons.md, not the broadcast.
+7. **S_team threshold**: If s_team < 0.5, Coherent MUST trigger synchronization before broadcasting. The broadcast itself must include the resolution steps taken.

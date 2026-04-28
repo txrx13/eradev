@@ -1,6 +1,6 @@
 # RT-11 L2 Synthesis — META-Audit ⊕ Pareto-Prune Reconciliation
 
-**Date:** 2026-04-26 | **Role:** [COHERENCER L2] | **Inputs:** 6 RT-11 audits + 6 RT-12 prune Builders
+**Date:** 2026-04-26 | **Role:** [COHERENT L2] | **Inputs:** 6 RT-11 audits + 6 RT-12 prune Builders
 **Window:** baseline `b1486ed` (2026-04-23) → post-RT-12 HEAD (2026-04-26)
 **Mode:** L2 cross-team sync, structural V-Gate (per RT-9 amendment: GREEN ≢ ready)
 
@@ -26,7 +26,7 @@ RT-11 surfaced **15 distinct findings** across 6 audit lenses (8 ODTOE-session p
 | **F8** OD-bundling slug-citation bypass (odtoe-session §2 line 23) | none — only Vocabulary Registry mentions OD; no `.eradev/od-open.md` ledger file | **OPEN** (mechanism missing) |
 | **rework-framing FP 30-50%** (validator_hooks §"Top 3" line 23) | **B1** — discrimination guard (rhetorical/conditional/past-tense vs imperative); 7/7 scenarios | **CLOSED** |
 | **rt1-composition-gate path-glob T2 leak** (validator_hooks §line 25) | **B2** — case-glob accepts `*/reports/rt1_*.md|reports/rt1_*.md`; L-52 sweep now genuinely 4/4 | **CLOSED** |
-| **Vocabulary tokens ×21 / phantom decoherence on Gate, Ready, Composition, τ_cycle** (analyst_empirical line 75; coherent_incoherence §3) | **B6** — eradev.md §X.4 Vocabulary Registry, 13 rows EN/RU + skill mirrors | **PARTIAL** (registry exists; tokens NOT collapsed in source — additive, not consolidative; Coherencer's «do NOT spawn 36th BL» honored but token-to-rule ratio unchanged at write-time, only at lookup-time) |
+| **Vocabulary tokens ×21 / phantom decoherence on Gate, Ready, Composition, τ_cycle** (analyst_empirical line 75; coherent_incoherence §3) | **B6** — eradev.md §X.4 Vocabulary Registry, 13 rows EN/RU + skill mirrors | **PARTIAL** (registry exists; tokens NOT collapsed in source — additive, not consolidative; Coherent's «do NOT spawn 36th BL» honored but token-to-rule ratio unchanged at write-time, only at lookup-time) |
 | **Checklist inflation 5.6× (12 items, 1.4k tokens)** (builder_bloat §1) | **B3** — meta.md §14 default 7-item + 9 trigger-only block; numbering 5b/5c/6b/7b preserved | **CLOSED** at default-render layer |
 | **Hook accretion 6→9, override matrix 5 paths** (builder_bloat §3) | RT-12 added 1 NEW hook (`in-session-fix-counter.sh`) + extended 2 → **net +1 hook (10 hooks)**; override paths unchanged | **OPEN — moved in wrong direction** |
 | **Pruning organ atrophy / no retire-supersede mechanism** (visionary_strategic §3 R1) | none | **OPEN — structural** |

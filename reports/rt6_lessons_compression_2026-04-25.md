@@ -1,4 +1,4 @@
-# RT-6 Lessons Compression — Coherencer Report (2026-04-25)
+# RT-6 Lessons Compression — Coherent Report (2026-04-25)
 
 **Trigger**: meta.md item 9 (active count >50). Source: 54 L-N + 18 EMP = 72 total in lessons.md. Mode: EMP18 CONSOLIDATION + L-50 (extend > add).
 

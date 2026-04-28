@@ -76,7 +76,7 @@ domain:
 - **Common values:** `[en]`, `[en, ru]`, `[en, fr]`, `[en, zh]`, etc.
 - **Interpretation:** files ending in `_<lang>.md` (or equivalent convention declared per-project) are considered translations of each other. Any edit to one MUST be mirrored to the others in the same commit — but ONLY when `languages.length > 1`.
 - **Single-language projects** (`languages: [en]` or field omitted): bilingual-sync gates do NOT fire. The project has no mirror to maintain.
-- **Multi-language projects** (`languages.length > 1`): bilingual/multilingual sync rule is active. Coherencer enforces it at RT-2.
+- **Multi-language projects** (`languages.length > 1`): bilingual/multilingual sync rule is active. Coherent enforces it at RT-2.
 
 ### `verify.method` is extensible (v10+)
 
@@ -89,12 +89,12 @@ domain:
   - `contraindication_scan` — medical protocol drafts scanned against a drug-interaction / allergen database.
   - `ingredient_check` — culinary recipes validated against allergen / substitution lists.
   - `accessibility_audit` — UI configs validated against a11y rules (WCAG, ARIA).
-- **Registry semantics:** `verify.method` is a REGISTRY. The 7 canonical methods are the framework's default set; projects extend with custom methods as their domain demands. The skin vocabulary map (`test / tests pass`, `validate`, `verify`) is bound to whichever method the project declares — canonical or custom. Coherencer, Validator, and Builder agents read `verify.method` from the project config and act accordingly; they do NOT hard-code the canonical methods.
+- **Registry semantics:** `verify.method` is a REGISTRY. The 7 canonical methods are the framework's default set; projects extend with custom methods as their domain demands. The skin vocabulary map (`test / tests pass`, `validate`, `verify`) is bound to whichever method the project declares — canonical or custom. Coherent, Validator, and Builder agents read `verify.method` from the project config and act accordingly; they do NOT hard-code the canonical methods.
 
 #### Canonical method: `doc_alignment` (v10+, plan-class artifacts)
 
 - **Definition:** verifies that documentation layers are mutually consistent BEFORE the code / artifact-production phase. Distinct from `build` (code passes), `cite_check` (citations resolve), etc. — `doc_alignment` tests the PLAN as a document against a documented quality bar.
-- **Triggers:** between RT-1 close and Builder spawn (the μ-check gate, see `meta.md` §μ-check). Coherencer-owned.
+- **Triggers:** between RT-1 close and Builder spawn (the μ-check gate, see `meta.md` §μ-check). Coherent-owned.
 - **Checks (all required):**
   1. `templates/unified_plan.md.template` has been instantiated as `reports/unified-plan-{TASK_ID}-{DATE}.md` and every section is populated (or marked N/A with a one-line justification).
   2. Cross-Layer Contracts table populated for multi-layer tasks (≥2 architectural layers).
@@ -105,7 +105,7 @@ domain:
   7. F7 sufficiency threshold documented per-layer: `B_received ≥ B_min` (not equality). B_min per layer currently set by operator judgment; v11 target = empirical calibration from task corpus.
 - **Success criteria:** all 7 checks PASS → emit `[μ-check OK]` → Builder cleared. Any FAIL → block Builder spawn, return to Analyst / Visionary for missing sections.
 - **Failure modes:** "plan reads polished but misses layer" (catches via check 2); "AC without artifact" (check 4); "FM without mitigation" (check 4); "dangling reference to a deleted BL / lesson" (check 5); "over-polished plan that starves Andon" (F10 anti-pattern — plans MUST be minimum-sufficient, not maximum-fidelity).
-- **Independence check:** Coherencer runs `doc_alignment` on its OWN synthesized plan — so the "independence" here is temporal (post-synthesis audit), not agent-role. For XL tasks a L2 Coherencer MAY audit an L1 Coherencer's output for additional independence.
+- **Independence check:** Coherent runs `doc_alignment` on its OWN synthesized plan — so the "independence" here is temporal (post-synthesis audit), not agent-role. For XL tasks a L2 Coherent MAY audit an L1 Coherent's output for additional independence.
 - **Calibration (v10):** B_min thresholds per layer are currently static (operator judgment). v11 target = empirical calibration from accumulated corpus of `reports/unified-plan-*.md` artifacts with pass/fail history.
 - **RIGOR_LEVEL applicability (v10 Bundle D):** `doc_alignment` applies ONLY to RIGOR_LEVEL ∈ {strict, structured}. For exploratory/emergent, use `flux_check` (below) instead. The μ-check modality branch (see `meta.md` §μ-check) selects which verify method runs per segment.
 - **Rationale:** plan admissibility (old RT-1 implicit gate) ≠ plan completeness. `doc_alignment` makes the completeness check explicit and auditable.
@@ -113,7 +113,7 @@ domain:
 #### Canonical method: `flux_check` (v10+ Bundle D, exploratory/emergent artifacts)
 
 - **Definition:** advisory verification for RIGOR_LEVEL ∈ {exploratory, emergent} segments. Distinct from `doc_alignment` (BLOCKING gate for strict/structured) — `flux_check` is ADVISORY and does NOT block commit. See `eradev.md` §VI.1 FLUX RT Protocol.
-- **Triggers:** at the μ-check position between RT-1 close and Builder spawn, for any segment where `rigor_map.effective ∈ {exploratory, emergent}`. Coherencer-owned.
+- **Triggers:** at the μ-check position between RT-1 close and Builder spawn, for any segment where `rigor_map.effective ∈ {exploratory, emergent}`. Coherent-owned.
 - **Checks (all advisory):**
   1. Voice Guide (or Unified Plan in degraded form) exists at `reports/voice-guide-{TASK_ID}-{DATE}.md` or `reports/unified-plan-{TASK_ID}-{DATE}.md`.
   2. IFR is present (may be directional / experiential rather than past-tense measurable).
@@ -124,7 +124,7 @@ domain:
   7. Exit criterion declared: "the next pass can start from this" — AND the segment has not degenerated into circling (≥ N iterations without direction change triggers transition-to-structured proposal per §VI.1 mode transitions).
 - **Success criteria:** all 7 checks PASS → emit `[μ-check ADVISORY: all green — FLUX segment continues]` → Builder cleared. Partial FAIL → emit `[μ-check ADVISORY: {findings}]` → Builder still cleared (operator / Visionary may choose to act on findings or transition to structured).
 - **Failure modes:** "voice drift across chapters" (catches via check 5); "iteration count exceeds budget without direction change" (check 7 → transition proposal); "B_received below aesthetic target" (check 6 → advisory, not blocking); "Ô not declared" (check 3 → Habit #2 violation, still universal).
-- **Independence check:** Coherencer runs `flux_check` on its own synthesized Voice Guide — temporal independence (post-synthesis audit). Unlike `doc_alignment`, `flux_check` does not need a blocking gate because advisory findings are acted on by the operator / Visionary rather than mechanically enforced.
+- **Independence check:** Coherent runs `flux_check` on its own synthesized Voice Guide — temporal independence (post-synthesis audit). Unlike `doc_alignment`, `flux_check` does not need a blocking gate because advisory findings are acted on by the operator / Visionary rather than mechanically enforced.
 - **Rationale:** exploratory/emergent work cannot be accurately gated by docs-alignment checks because the spec itself emerges during the work. `flux_check` provides a light audit (did the segment produce something good-enough-to-iterate? is voice coherent? are iterations making progress?) without the over-specification penalty that `doc_alignment` would impose on creative/directional work.
 
 #### Inter-rater reliability for subjective verify methods (v10+ Galileo Cronbach α, NEXT-C1)
@@ -184,7 +184,7 @@ Each role retains its Activation Operator and Jidoka protocol from `roles/{role}
 - Failure handling: {what Validator does on FAIL — rollback, patch, escalate}
 - Independence rule: {e.g., "recompute formulas independently, don't trust prior results"}
 
-### Coherencer
+### Coherent
 - Cross-artifact consistency: {what must match across files — glossary, formula IDs, version numbers}
 - Language sync (BL-19 v10+): applies ONLY when `domain.languages.length > 1`. For single-language projects (`languages: [en]` or field omitted) bilingual sync is a NO-OP. For multi-language projects, every edit to one language's file must be mirrored to the others in the same commit. {project-specific file-naming convention for language mirrors, e.g., `_EN.md` / `_RU.md`}
 - Drift detection: {what signals phantom coherence specific to this domain}

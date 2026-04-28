@@ -21,7 +21,7 @@
 This task is not Push (foundational axiom change) and not Pull (known target with measurable path). It is Resonance — bridging "software engineering roles" and "universal task-solving roles." Resonance zone means:
 - Criteria are indicative, RT-2 may revise
 - Deep mode — multiple hypotheses stay alive
-- Coherencer must synthesize contradictions, not enforce uniformity
+- Coherent must synthesize contradictions, not enforce uniformity
 
 ---
 
@@ -43,7 +43,7 @@ This task is not Push (foundational axiom change) and not Pull (known target wit
 | Analyst | **Decomposer** — what parts | Technical Lead | Methodology designer | Outline architect | Market analyst |
 | Builder | **Executor** — materialize | Engineer | Section writer | Chapter drafter | Plan author |
 | Validator | **Verifier** — does it hold | QA Engineer | Peer reviewer | Editor | Financial modeler |
-| Coherencer | **Synthesizer** — does it cohere | Project Manager | Abstract/discussion author | Narrative integrator | Exec summary writer |
+| Coherent | **Synthesizer** — does it cohere | Project Manager | Abstract/discussion author | Narrative integrator | Exec summary writer |
 
 **Empirical validation of n_min = 5:** Google's PaperOrchestra (2026) independently arrived at 5 agents for scientific paper writing: Outline / Plotting / Literature Review / Section Writing / Content Refinement. These map 1-to-1 to EraDev's abstractions. MetaGPT independently converged on 5 roles for software. Two independent teams, two different domains, both converged on n=5. This is empirical evidence of a stable attractor, not a coincidence.
 
@@ -196,7 +196,7 @@ No eradev.md changes. No meta.md changes. No invariant changes. Minimum viable u
 
 ---
 
-## Synthesis for Coherencer
+## Synthesis for Coherent
 
 The VISIONARY output for RT-1 converges on a single proposal with three concrete artifacts:
 
@@ -208,7 +208,7 @@ The VISIONARY output for RT-1 converges on a single proposal with three concrete
 
 **Fallback if universalization fails**: Keep EraDev software-only. Publish ODTOE math as the portable contribution. Other frameworks (PaperOrchestra for science, Book-Agent for books) handle their domains; EraDev stays in its lane. This fallback is acceptable because ODTOE math is already the unique contribution; the 5 roles are a reusable pattern but not irreducibly tied to universality.
 
-**Critical question for the team**: Is it better to be the best software multi-agent framework or the second-best universal multi-agent framework? This is a True North question for the Coherencer to arbitrate during RT-1 synthesis.
+**Critical question for the team**: Is it better to be the best software multi-agent framework or the second-best universal multi-agent framework? This is a True North question for the Coherent to arbitrate during RT-1 synthesis.
 
 ---
 
@@ -219,14 +219,14 @@ The VISIONARY output for RT-1 converges on a single proposal with three concrete
 B-diagnostics (rate 0.0-1.0):
   F (Focus):       0.85 -- Read all required files (visionary_EN.md, config.md, lessons.md, both comparison reports, ODTOE CLAUDE.md, AGENTS.md, multiagent research 200 lines) + 4 web searches. Not 1.0 because did not read full 1399-line multiagent research doc.
   E (Alignment):   0.90 -- Proposal serves True North (self-application of scope expansion). Three orthogonal risk mitigations. AC/FM aligned with config Iron Rules.
-  (1-sigma):       0.80 -- No contradictions with existing architecture (additive wrapper). Minor tension: FM-3 permits n in {5,7}, slightly inconsistent with eradev.md n_min=ceil(pi)+1=5 axiom — flagged for Coherencer.
+  (1-sigma):       0.80 -- No contradictions with existing architecture (additive wrapper). Minor tension: FM-3 permits n in {5,7}, slightly inconsistent with eradev.md n_min=ceil(pi)+1=5 axiom — flagged for Coherent.
   Lambda (Experience): 0.85 -- Referenced BL-17, BL-19, BL-21, BL-24, EMP1, EMP3, EMP5, EMP7. Cross-referenced PaperOrchestra + MetaGPT convergence.
   B = F * E * (1-sigma) * Lambda = 0.85 * 0.90 * 0.80 * 0.85 = 0.520
 ```
 
 B = 0.520 — above 0.5 threshold, no Andon. Minimum component (1-sigma) = 0.80, above 0.3 floor. No phantom coherence risk — proposal contains explicit contradictions flagged (FM-3 tension on n=5 axiom).
 
-Self-critique: This analysis is Visionary-only. The Builder must ask "how do I write a book skin in 200 lines?" The Validator must ask "how do I measure B_mean across domains in practice?" The Analyst must decompose "universal = ?" into concrete primitives. The Coherencer must arbitrate FM-3 (n=5 rigid vs n in {5,7} flexible). My role ends here — direction set, synthesis for RT-1 delivered.
+Self-critique: This analysis is Visionary-only. The Builder must ask "how do I write a book skin in 200 lines?" The Validator must ask "how do I measure B_mean across domains in practice?" The Analyst must decompose "universal = ?" into concrete primitives. The Coherent must arbitrate FM-3 (n=5 rigid vs n in {5,7} flexible). My role ends here — direction set, synthesis for RT-1 delivered.
 
 ---
 

@@ -42,9 +42,9 @@ Implements the research recommendation: Apophatic as GATE FUNCTION in Section IV
 Content includes:
 - Gate protocol (YES/NO/UNCERTAIN decision tree)
 - Gate location (after RT-0, before RT-1)
-- Gate ownership (Visionary primary, Coherencer tie-breaker)
+- Gate ownership (Visionary primary, Coherent tie-breaker)
 - 3 specific failure scenarios the gate catches (composite OOD, premise validity, negative spec)
-- Explicit NOT-list (not a role, not a Validator replacement, not a Coherencer replacement)
+- Explicit NOT-list (not a role, not a Validator replacement, not a Coherent replacement)
 - Evaluation criterion (>20% fire rate = consider role promotion; <5% = retire gate)
 
 ### Deliverable 3: L10 Cross-Domain Lambda

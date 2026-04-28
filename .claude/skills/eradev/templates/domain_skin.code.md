@@ -53,7 +53,7 @@ No override — see `roles/builder_EN.md` / `roles/builder.md`. Production proto
 ### Validator
 No override — see `roles/validator_EN.md` / `roles/validator.md`. Verification protocol: run the full test suite (unit + integration + E2E as applicable), run linter, run type checker. Success criteria: all exit codes 0; no new warnings; coverage not regressing.
 
-### Coherencer
+### Coherent
 No override — see `roles/coherent_EN.md` / `roles/coherent.md`. Cross-artifact consistency: API schemas match between producer and consumer, terminology matches glossary, BL-19 bilingual sync for docs. Drift detection: grep for deprecated symbols, check for duplicate logic, verify test/prod parity.
 
 ---

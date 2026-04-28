@@ -39,7 +39,7 @@
 **Source:** Framework invariant (ODTOE collective formulas)
 **Rule:** Never use raw S_team alone to judge team health. Always compute S_adjusted = S_team x B_mean, where B_mean is the arithmetic mean of all agent B values.
 **Why:** S_team measures agreement, not quality. Five agents can perfectly agree on the wrong answer (S=1.0, B_mean=0.2, S_adjusted=0.2). Without the B_mean multiplier, high coherence masks low competence.
-**Applies to:** Coherencer, Validator
+**Applies to:** Coherent, Validator
 **Tier:** T3 (agent-prompt checklist)
 
 ---
@@ -48,7 +48,7 @@
 **Source:** A/B experiment (RT analysis)
 **Rule:** When S_team > 0.8 but B_mean < 0.4, flag PHANTOM COHERENCE. Do not proceed. Trigger Kill-Switch level 2 ("Challenge premise").
 **Why:** High agreement among low-quality agents is the most dangerous configuration. It feels productive -- everyone agrees, output flows quickly -- but the team is synchronized around a flawed model. This is the false-signal trap: confidence without competence. The antidote is managed dissonance, not more consensus.
-**Applies to:** Coherencer, Validator, Visionary
+**Applies to:** Coherent, Validator, Visionary
 **Tier:** T3 (agent-prompt checklist)
 
 ---
@@ -93,7 +93,7 @@
 **Source:** Framework invariant (TPS Hansei, RT-3 acceptance)
 **Rule:** In every RT-3, the Hansei question is "Why did our PROCESS produce this result?" -- never "Who made this mistake?"
 **Why:** Blame-oriented retrospectives suppress Andon signals in future rounds. If agents fear blame, they hide problems instead of surfacing them. Process-oriented reflection improves the system for all future cycles. The goal is to fix the machine, not punish the operator.
-**Applies to:** ALL roles (led by Coherencer)
+**Applies to:** ALL roles (led by Coherent)
 **Tier:** T3 (agent-prompt checklist)
 
 ---
@@ -102,7 +102,7 @@
 **Source:** Framework invariant (TPS Yokoten) + Cycle-7 incident #8 (dialog dedup fix applied to one site, 3 missed)
 **Rule:** When a lesson is learned from an incident, propagate it horizontally to ALL analogous contexts. After every fix commit, grep the codebase for analogous patterns. A single-site fix is incomplete by definition. Log grep results and either fix all sites or document why each non-fix is safe.
 **Why:** A bug found in one API endpoint likely exists in sibling endpoints built from the same template. Fixing only the discovered instance leaves n-1 copies of the same defect. Yokoten converts a point fix into a systemic improvement, raising Lambda for the entire team.
-**Applies to:** Coherencer (gate owner), Builder (grep execution), Validator (verify completeness), Analyst (propagation scope)
+**Applies to:** Coherent (gate owner), Builder (grep execution), Validator (verify completeness), Analyst (propagation scope)
 **Tier:** T2 (hook / CI / lint)
 
 ---
@@ -111,7 +111,7 @@
 **Source:** Framework invariant (Spiral Gap, Section IX)
 **Rule:** Accept that each cycle leaves approximately 2% unresolved. Record these open questions in the A3 template. Do not force closure on genuinely open problems.
 **Why:** (pi-3)^2 ~ 0.02. Perfect closure is a mathematical impossibility in iterative systems. The residual is the fuel for the next spiral turn. Forcing premature closure creates false confidence (dogmatic collapse, B->1). Honest open questions are more valuable than dishonest answers.
-**Applies to:** ALL roles (especially Visionary and Coherencer)
+**Applies to:** ALL roles (especially Visionary and Coherent)
 **Tier:** T4 (docs-only, conceptual constant)
 
 ---
@@ -138,7 +138,7 @@
 **Source:** META Hansei — session grew from M to XL without reclassification
 **Rule:** If cumulative work exceeds 2x the initial task classification estimate (e.g., started as M but spawned 80+ agents), STOP and formally reclassify. Graduated: 1.5x = YELLOW (log warning, continue with monitoring), 2x = RED (mandatory stop and reclassify). Announce the new classification and adjust team structure accordingly.
 **Why:** Scope creep without reclassification means the process is undersized for the actual work. The META-Orchestrator continues running M-level protocols for XL-level work, resulting in insufficient RT cycles and oversight.
-**Applies to:** META-Orchestrator, Coherencer (scope monitoring)
+**Applies to:** META-Orchestrator, Coherent (scope monitoring)
 **Tier:** T3 (agent-prompt checklist)
 
 ---
@@ -168,7 +168,7 @@ Output: `reports/baseline-{TASK_ID}-{DATE}.md` with PASS/FAIL summary and sample
 **Source:** Cycle-7 + incident L-016 + gravity hansei — 100% correlation across 5 sessions: delegation = success, direct coding = failure
 **Rule:** META ALWAYS delegates via Agent tool, regardless of task size. S-tasks: spawn Builder + Validator agents. M+ tasks: spawn full 5-role team. No "quick fix" exception exists. The S-task loophole ("classify it S to code it directly") is eliminated — it trained the pattern of pipeline bypass. P0 production incidents declared by operator are the sole exception; post-incident Hansei is mandatory.
 **Why:** META bypassing its own pipeline is the recursive Lambda problem: the enforcer stops enforcing. The deployment session started with "just fix this small thing" and ended with 2.5 hours of solo coding. S-task delegation costs seconds (one Agent call); the behavioral precedent of skipping it costs entire sessions.
-**Applies to:** META-Orchestrator (absolute self-constraint), Coherencer (monitor for any direct META output not in the 5 permitted types), Validator (reject any META-authored artifact)
+**Applies to:** META-Orchestrator (absolute self-constraint), Coherent (monitor for any direct META output not in the 5 permitted types), Validator (reject any META-authored artifact)
 **Tier:** T2 (hook / CI / lint)
 
 **Also covers diagnostic Bash:** grep, curl, ssh, psql, redis-cli, jq are diagnostic tools. When META needs to inspect code or query services: (1) formulate a specific question, (2) spawn Check Agent (any role) with that question, (3) receive structured yes/no answer. "I'll just grep quickly" → diagnostic drift → META becomes debugger. Hook enforces this at Layer 2.
@@ -198,14 +198,14 @@ Whitelist (META outputs only): `reports/*.md`, `projects/*/lessons.md`, `memory/
 **Source:** Hansei — gravity session (April 2026), terminology drift across parallel Builder outputs
 **Rule:** Before generating any artifact for an existing project, grep/read the project's existing outputs to identify established terminology, naming conventions, and notation patterns. Use them exactly. Do not invent new terms, transliterations, or abbreviations when the project already has established ones.
 **Why:** Three Builders working in parallel each chose different transliterations and notation styles, creating inconsistencies that required manual cleanup. The cost of reading existing conventions first is seconds; the cost of harmonizing divergent terminology after generation is hours. This generalizes beyond articles to code (variable naming, API conventions), docs (glossary terms), and configs (key naming patterns).
-**Applies to:** Builder (pre-generation check), Validator (terminology consistency audit), Coherencer (cross-Builder sync)
+**Applies to:** Builder (pre-generation check), Validator (terminology consistency audit), Coherent (cross-Builder sync)
 **Tier:** T3 (agent-prompt checklist)
 
 **Phantom DECOHERENCE (v9 Wave 9 extension, symmetric to BL-5 phantom coherence):**
-When S_team is low but B_mean is high, the team may not be disagreeing on substance — they may be using different terminology for the same concept. This is the symmetric failure of phantom coherence. Coherencer MUST:
+When S_team is low but B_mean is high, the team may not be disagreeing on substance — they may be using different terminology for the same concept. This is the symmetric failure of phantom coherence. Coherent MUST:
 
 1. Before declaring "team disagrees", run a glossary unification pass: extract key terms each role uses, check for synonyms, translate across terminology systems (code vs paper vs mathematical formalism).
-2. If synonym analysis reduces the disagreement surface by ≥40%, re-score S_team on the unified terminology. Report both original S_team and unified S_team in the Coherencer output.
+2. If synonym analysis reduces the disagreement surface by ≥40%, re-score S_team on the unified terminology. Report both original S_team and unified S_team in the Coherent output.
 3. If disagreement persists after glossary unification, it's genuine divergence — escalate to Visionary for scope re-derivation.
 
 **Symptom of phantom decoherence:** S_team < 0.5 AND B_mean ≥ 0.7 AND pair-wise role outputs share entities but disagree on predicates.
@@ -238,7 +238,7 @@ Symmetric to phantom decoherence: an agent proposes a "new" L-N / EMP-N / BL-N /
 **Source:** Hansei v8 session — BL-27 stale references found in 5 files after merge into BL-6
 **Rule:** After merging BL entries (e.g., BL-13+BL-23 → BL-13), immediately grep the entire repo for all old BL-N references. Replace orphan references with the merged BL-N ID. Commit reference cleanup in the same commit as the merge.
 **Why:** BL numbers are referenced across 20+ files (CLAUDE.md, SKILL.md, eradev.md, role files, reports). Merging without grepping creates Lambda gaps: agents encounter "BL-27" but find no definition. The cost of grepping is seconds; the cost of stale refs is agent confusion (A_F collapse).
-**Applies to:** META-Orchestrator (merge execution), Coherencer (verify completeness), Validator (post-merge audit)
+**Applies to:** META-Orchestrator (merge execution), Coherent (verify completeness), Validator (post-merge audit)
 **Tier:** T3 (agent-prompt checklist)
 
 ---
@@ -248,16 +248,16 @@ Symmetric to phantom decoherence: an agent proposes a "new" L-N / EMP-N / BL-N /
 **Tier:** T2 (pre-commit hook on BOOTSTRAP_LESSONS.md — see .claude/hooks/bl-tier-check.sh)
 **Rule:** Every new BL or invariant MUST declare its enforcement tier on a `Tier:` line. Preference order when authoring a rule: **T1 type-level / schema / compile-time** (bug unconstructible) > **T2 automated check** (pre-commit hook / CI lint / pre-merge gate) > **T3 checklist** in agent prompt (awareness, review-time catch) > **T4 .md description only** (documentation, operator vigilance). A rule that lives only at T4 is effectively Lambda=0 for any recurring bug class (BL-16 recursive). Bugs that recur 2+ times under a T3/T4 rule are flagged for tier-upgrade review; the upgrade path template is "can this be a type? if no, can it be a hook? if no, can it be a checklist?"
 **Why:** PLUGY 19-bug burst (2026-04-18..04-20): 6/6 bug classes had project-local rules in form 1 (docs) — ZERO had form 3 (hook/CI). All 6 rules were Lambda-zero per BL-16. BL-50 (DeliverableText newtype) proved that tier-1 (compile-time) enforcement makes a whole class of bugs unconstructible — which is categorically stronger than any policy or review.
-**Applies to:** META (authoring rules), Coherencer (crystallizing lessons), Validator (reviewing BL proposals), Builder (picking enforcement mechanism).
+**Applies to:** META (authoring rules), Coherent (crystallizing lessons), Validator (reviewing BL proposals), Builder (picking enforcement mechanism).
 
 ---
 
 ### BL-34: Composition Hazards Gate for ≥2 parallel refactors [UNIVERSAL]
 **Source:** PLUGY Hansei 2026-04-20 §6 (hazards H1-H6 enumerated before any Builder spawn prevented big-bang failure); generalizes Invariant 7 (commit-size >5 files = RT-2) from commit-level to ROADMAP-pivot-level.
 **Tier:** T2 (pre-commit hook — see .claude/hooks/rt1-composition-gate.sh; path-glob accepts BOTH absolute AND relative paths since 2026-04-26 RT-12 Pareto-prune B2, closing L-52 falsification recurrence — previous case-pattern `*/reports/rt1_*.md` silently no-op'd on relative paths from agent Write calls)
-**Rule:** Before spawning any Builder work on a plan touching 2+ independent refactors in the same release window, Visionary MUST author a composition-hazards grid (glossary canonical term: **"cross-phase coupling risk"** — see glossary.md #47; "composition hazard" is the project-local alias). Minimum pairs: N·(N-1)/2. For N ≥ 3: add all 3-way combinations. Each grid entry has: impact, precondition, mitigation, sequencing constraint. Missing grid on ≥2-refactor plan = RED on A_F for Visionary; Coherencer REJECTS RT-1 synthesis. Output artifact: `reports/composition-hazards-<date>.md` using `templates/composition_hazards.template.md`. Hazards form hard edges in the sequencing DAG — parallel ship is forbidden until a pairwise mitigation is declared.
+**Rule:** Before spawning any Builder work on a plan touching 2+ independent refactors in the same release window, Visionary MUST author a composition-hazards grid (glossary canonical term: **"cross-phase coupling risk"** — see glossary.md #47; "composition hazard" is the project-local alias). Minimum pairs: N·(N-1)/2. For N ≥ 3: add all 3-way combinations. Each grid entry has: impact, precondition, mitigation, sequencing constraint. Missing grid on ≥2-refactor plan = RED on A_F for Visionary; Coherent REJECTS RT-1 synthesis. Output artifact: `reports/composition-hazards-<date>.md` using `templates/composition_hazards.template.md`. Hazards form hard edges in the sequencing DAG — parallel ship is forbidden until a pairwise mitigation is declared.
 **Why:** PLUGY proposed 10 refactors (R1-R10) across 4 months; hazards H1-H6 (R4 double-rewrite, R2+R5 silent-protector recurrence, R1+R7 PII exposure, R6+R7 FZ-152 exposure, R3+R4 guard-on-guard cascade, R2+R6 classifier duplication) would have produced 3 production incidents if shipped in parallel without enumeration.
-**Applies to:** Visionary (grid author), Coherencer (RT-1 synthesis gate), META (enforce before Builder spawn), Validator (verify grid completeness at G2 gate).
+**Applies to:** Visionary (grid author), Coherent (RT-1 synthesis gate), META (enforce before Builder spawn), Validator (verify grid completeness at G2 gate).
 
 ---
 
@@ -266,7 +266,7 @@ Symmetric to phantom decoherence: an agent proposes a "new" L-N / EMP-N / BL-N /
 **Tier:** T1-enforced (operator-message regex detector — see .claude/hooks/rework-framing-detector.sh; UserPromptSubmit hook exits 2 BLOCKING when trigger matches AND active pivot window detected, **with rhetorical/conditional/past-tense discrimination guard**: hook exits 0 advisory when message contains question mark OR rhetorical markers («стоит ли», «надо ли», «или нет», «should we», «is it worth») OR past-tense markers («вчера», «уже менял», «yesterday», «previously») UNLESS imperative override present («!», «сделай», «do it», «now»); override via `ERADEV_HOOKS_DISABLED=1` or explicit operator authorization. RT-12 PRUNE-B1 2026-04-26 added guard to neutralize 30-50% live FP rate from perpetual-pivot window.)
 **Rule:** When operator declares "the architecture is wrong" / "full rework" / "from scratch" / "менять архитектуру" / "полностью менять" / "completely change" DURING active pivots, META MUST NOT interpret as "reset everything." Mandatory sequence: (1) spawn Validator FIRST with risk-matrix task; (2) re-validate project NO-GO list against operator's literal request; (3) enumerate composition hazards per BL-34; (4) propose INTERLOCKED SEQUENCE (one pivot at a time with parity windows, kill-switches, shadow-mode) — never a parallel menu; (5) produce `reports/hansei-architectural-rework-<date>.md` using `templates/interlocked_sequence.template.md`; (6) operator sign-off on decision matrix (OD-1..OD-N) BEFORE any Builder spawns. Operator frustration during active pivot = class-shift DETECTOR at ROADMAP level, NOT a permission to parallelize. The Hansei itself breaks any implicit BL-3 chain.
 **Why:** Under outage stress, operator psychology favors "reset everything" framing. Without the audit, META reads it literally as "ship all refactors in parallel" — the most dangerous composition possible. PLUGY 2026-04-20 Hansei proved the audit reshaped 10 proposed refactors into a 4-month interlocked sequence with ≥3× BD ROI vs the parallel alternative.
-**Applies to:** META (trigger detection + Validator spawn ordering), Validator (risk-matrix authorship), Coherencer (Hansei synthesis + interlock verification).
+**Applies to:** META (trigger detection + Validator spawn ordering), Validator (risk-matrix authorship), Coherent (Hansei synthesis + interlock verification).
 
 ---
 

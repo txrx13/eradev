@@ -41,7 +41,7 @@ Some divergences between agents' observation operators Ô cannot be converged �
 - OR phantom decoherence check fails (S_team low, B_mean high → terminology drift)
 - AND after one glossary unification pass divergence persists
 
-Coherencer MAY choose path (c): accept ΔÔ ≠ 0, document the disagreement explicitly, and verify sufficiency via B_received ≥ B_min (per paper F7) instead of forcing B_i = B_j parity.
+Coherent MAY choose path (c): accept ΔÔ ≠ 0, document the disagreement explicitly, and verify sufficiency via B_received ≥ B_min (per paper F7) instead of forcing B_i = B_j parity.
 
 Output: "Divergence accepted: Agent X operates on Ô_x, Agent Y on Ô_y. Both deliverables cleared because B_received ≥ B_min per target layer."
 
@@ -57,7 +57,7 @@ Fill in the A3 template. Record in MEMORY.
 
 ### Hansei recommendations triage (RT-3 closure)
 
-At RT-3, Coherencer triages observations into 3 buckets per meta.md §15 Post-task Recommendations Placement:
+At RT-3, Coherent triages observations into 3 buckets per meta.md §15 Post-task Recommendations Placement:
 - **Per-task** (one-off, project-specific) → `reports/{task}/hansei-*.md` `## Recommendations`
 - **Reusable insight** (project pattern, not task-specific) → `projects/{PROJECT}/lessons.md` append
 - **Live forward plan** (multi-cycle XL work) → `projects/{PROJECT}/roadmap.md "Next Steps"` update
@@ -66,10 +66,10 @@ Sorting principle: recommendation lifetime + reuse scope. Per-task = single use;
 
 ### Hansei Metrics (MultiAgentBench-inspired)
 
-For each completed RT cycle, Coherencer reports:
+For each completed RT cycle, Coherent reports:
 - **task_completion_rate**: N tasks PASS first-try (no fix chain) / N total. Target: >=0.7
 - **collaboration_efficiency**: actual_parallel_agents / max_parallel_possible (per Inv 13 MAX parallelism). Target: >=0.8
-- **role_specialization_score**: Coherencer rating of whether Builder/Analyst/Validator/Visionary stayed in their role lane (0.0-1.0). Target: >=0.85
+- **role_specialization_score**: Coherent rating of whether Builder/Analyst/Validator/Visionary stayed in their role lane (0.0-1.0). Target: >=0.85
 
 Trend across last 5 cycles flagged in Hansei summary. Full template: `reports/HANSEI_TEMPLATE.md` §1. Source: MultiAgentBench arxiv 2503.01935.
 

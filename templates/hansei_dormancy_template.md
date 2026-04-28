@@ -2,7 +2,7 @@
 
 > Trigger: Ω_pruned == 0 over the trailing 4-session window (no BL/Inv/Lesson retired via retire-pass).
 > Cadence: post-RT-12 every 4 sessions, OR ad-hoc when meta.md §14 item 9 prints Ω_pruned = 0.
-> Authoring role: Coherencer. Reviewer: META + Operator.
+> Authoring role: Coherent. Reviewer: META + Operator.
 > Anchors: BT-1 Phase 2.3 P-cure (retirement organ); D-cure leverage_factor (axis); M-cure intent_ratio (META discipline).
 > Output path: `reports/hansei-dormancy-{YYYY-MM-DD}.md`.
 
@@ -58,7 +58,7 @@ For each entry approved for retirement:
 - [ ] **GREEN** — ≥ 1 retire-pass executed this window, Ω_pruned now ≥ 1. No corrective action.
 - [ ] **YELLOW** — 0 retire-pass executed but ≥ 3 KEEP/REVALIDATE rationales documented (corpus genuinely fresh). Schedule next audit at S{N+4}, no escalation.
 - [ ] **RED** — 0 retire-pass AND no documented rationale (retirement organ atrophy). Trigger:
-  - Spawn Coherencer for compression pass on lessons.md (see meta.md §14 item 9-extended BL compression).
+  - Spawn Coherent for compression pass on lessons.md (see meta.md §14 item 9-extended BL compression).
   - Re-run this template at S{N+1} (not S{N+4}) — accelerated cadence.
   - If 2 consecutive RED windows: escalate to BT-1 v2 framing review (per BT-1 roadmap §C5 fail-action).
 
@@ -66,7 +66,7 @@ For each entry approved for retirement:
 
 - [ ] `.githooks/phantom-newness-check.sh` accepts `[retire-pass]` sentinel (existing override; no new flag added).
 - [ ] `.claude/hooks/check-leverage.sh` exempts `[retire-pass]`-tagged commits from LF<0.10 BLOCK (D-cure shipped).
-- [ ] `.claude/hooks/enforce-delegation.sh` does NOT misclassify retire-pass edits to lessons_archive.md (Coherencer Synthesis output type, ε_meta whitelist).
+- [ ] `.claude/hooks/enforce-delegation.sh` does NOT misclassify retire-pass edits to lessons_archive.md (Coherent Synthesis output type, ε_meta whitelist).
 
 ## 8. Cross-project signal (optional)
 
@@ -76,4 +76,4 @@ If multiple projects retired entries this window:
 
 ---
 
-**Sign-off:** Coherencer {agent_id} / META review {date} / Operator ack {date}.
+**Sign-off:** Coherent {agent_id} / META review {date} / Operator ack {date}.

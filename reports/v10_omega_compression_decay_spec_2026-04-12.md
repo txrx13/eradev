@@ -13,14 +13,14 @@
 
 ## 0. Activation Operator Log
 
-- **A_F (Focus):** Read in full: `roles/analyst_EN.md` (mission + activation + jidoka); `eradev.md` Section III.Omega (lines 281-335: formula, predicate, 4 relevance checks, RT-3 reporting format, thresholds, 3 deferred OQ-Omega items); `meta.md` (full: Section 14 session bootstrap 13-item checklist with items 2/9/11 memory-related, Section 7b Agent Prompt Template, Lambda Audit protocol); `BOOTSTRAP_LESSONS.md` (30 BL at budget cap, split into 22 UNIVERSAL + 8 CODE-ADAPTER); `BL_CANDIDATES.md` (empty, 0 candidates, process header defined with 5-step Coherencer protocol); `projects/eradev/lessons.md` (37 lessons L-1 through L-37, 12 EMPs EMP1-EMP12, temporal metadata present on all entries, all [ACTIVE], none with `ended` dates); `projects/odtoe-articles/lessons.md` (39 lessons L-1 through L-39, 8 AMPs, temporal metadata present, cross_project tags on ~15 entries); `reports/v9_phase2b_memory_hierarchy_spec_2026-04-12.md` (full: T1/T2/T3 architecture, Closet/Drawer split, temporal triples schema, BL staging, reports INDEX, cross-project scan protocol, implementation plan); `CLAUDE.md` (14 invariants, domain awareness, loading sequence, language stack).
+- **A_F (Focus):** Read in full: `roles/analyst_EN.md` (mission + activation + jidoka); `eradev.md` Section III.Omega (lines 281-335: formula, predicate, 4 relevance checks, RT-3 reporting format, thresholds, 3 deferred OQ-Omega items); `meta.md` (full: Section 14 session bootstrap 13-item checklist with items 2/9/11 memory-related, Section 7b Agent Prompt Template, Lambda Audit protocol); `BOOTSTRAP_LESSONS.md` (30 BL at budget cap, split into 22 UNIVERSAL + 8 CODE-ADAPTER); `BL_CANDIDATES.md` (empty, 0 candidates, process header defined with 5-step Coherent protocol); `projects/eradev/lessons.md` (37 lessons L-1 through L-37, 12 EMPs EMP1-EMP12, temporal metadata present on all entries, all [ACTIVE], none with `ended` dates); `projects/odtoe-articles/lessons.md` (39 lessons L-1 through L-39, 8 AMPs, temporal metadata present, cross_project tags on ~15 entries); `reports/v9_phase2b_memory_hierarchy_spec_2026-04-12.md` (full: T1/T2/T3 architecture, Closet/Drawer split, temporal triples schema, BL staging, reports INDEX, cross-project scan protocol, implementation plan); `CLAUDE.md` (14 invariants, domain awareness, loading sequence, language stack).
 
 - **A_E (Alignment):** META's task: produce a combined spec for 3 closely related v10 items concrete enough for a single Builder session (~200-400 lines of modifications). The 3 items share the same data substrate (lessons.md with temporal metadata, BL_CANDIDATES.md, meta.md tiered loading). Intent is to close the 3 deferred OQ-Omega items from eradev.md and make the Phase 2.B infrastructure actually produce numerical output. This is not new formalism -- the Omega formula already exists; this spec activates it.
 
 - **A_sigma (Consistency):** Checked for conflicts:
   - Omega formula is defined in eradev.md Section III.Omega and is NOT modified by this spec -- only activated.
   - meta.md Section 14 was already updated by Phase 2.B for cross-project scan (item 9) -- this spec adds Omega computation to that protocol.
-  - BL_CANDIDATES.md exists with a process header that already defines a 5-step compression flow -- this spec formalizes the Coherencer protocol that executes it.
+  - BL_CANDIDATES.md exists with a process header that already defines a 5-step compression flow -- this spec formalizes the Coherent protocol that executes it.
   - Temporal decay adds freshness scoring to lessons.md but does NOT modify the lesson entry format (valid_from/ended/superseded_by already exist from Phase 2.B).
   - No conflict with Phase 2.A skins, Phase 2.C extraction, or v9 GA features.
   - Lambda_effective = Omega * Lambda changes the B-score -- but eradev.md Section III.Omega already defines this equation; the spec only adds the computational trigger.
@@ -58,10 +58,10 @@ v9 caveat (eradev.md line 328): "v9 does NOT require Omega computation. Agents o
 Omega is computed at TWO points:
 
 **Point A: Session start (Lambda Audit, meta.md Section 14 item 9).**
-After the Coherencer's cross-project scan (Phase 2.B protocol), count N_relevant. Compute Omega. Report in bootstrap output. This is the per-session Omega baseline.
+After the Coherent's cross-project scan (Phase 2.B protocol), count N_relevant. Compute Omega. Report in bootstrap output. This is the per-session Omega baseline.
 
 **Point B: RT-3 (Coherence Report).**
-Coherencer recomputes N_relevant using the 4-predicate relevance test against the ACTUAL task that was executed (not the pre-task estimate from session start). Report Omega in the RT-3 Coherence Report (format already defined in eradev.md).
+Coherent recomputes N_relevant using the 4-predicate relevance test against the ACTUAL task that was executed (not the pre-task estimate from session start). Report Omega in the RT-3 Coherence Report (format already defined in eradev.md).
 
 ### 1.3 Computation Protocol
 
@@ -123,12 +123,12 @@ This format already exists in eradev.md Section III.Omega. No change needed to t
 
 Current text (Phase 2.B):
 ```
-[ ] 9. LAMBDA AUDIT: Coherencer reads projects/{PROJECT}/lessons.md (T2 active [ACTIVE] entries only)
+[ ] 9. LAMBDA AUDIT: Coherent reads projects/{PROJECT}/lessons.md (T2 active [ACTIVE] entries only)
        and announces 3 relevant lessons + 2 mega-patterns (BL-4).
-       If Lambda gap detected: Coherencer searches T3 (lessons_archive.md, cross-project scan).
+       If Lambda gap detected: Coherent searches T3 (lessons_archive.md, cross-project scan).
        Cross-project scan: for each OTHER project in projects/, read lessons.md,
        filter for cross_project: true AND ended: null, load relevant ones into T2 context.
-       If lessons.md active count > 50: trigger compression pass (Coherencer, see spec).
+       If lessons.md active count > 50: trigger compression pass (Coherent, see spec).
 ```
 
 New text (v10 addition after cross-project scan):
@@ -156,25 +156,25 @@ Also remove or update the "Three Open Questions for v10 (deferred)" block at lin
 
 ---
 
-## 2. Item 2: BL Coherencer Compression Protocol
+## 2. Item 2: BL Coherent Compression Protocol
 
 ### 2.1 Current State
 
-BL_CANDIDATES.md exists at repo root. Count = 0. The process header defines 5 steps but no Coherencer agent protocol (no classification taxonomy, no PROMOTE/MERGE/DISCARD decision tree, no BL-3 guard).
+BL_CANDIDATES.md exists at repo root. Count = 0. The process header defines 5 steps but no Coherent agent protocol (no classification taxonomy, no PROMOTE/MERGE/DISCARD decision tree, no BL-3 guard).
 
 Phase 2.C extraction prompt produces candidates via CronCreate or /extract skill. The pipeline feeds BL_CANDIDATES.md. But no consumer protocol exists.
 
 ### 2.2 Trigger
 
 BL_CANDIDATES.md reaches >= 5 entries. Checked:
-- By Coherencer at session start (Lambda Audit, meta.md item 9).
+- By Coherent at session start (Lambda Audit, meta.md item 9).
 - By extraction prompt after writing a new candidate (at :17 and :47 marks per Phase 2.C CronCreate).
 - Manually by META when operator requests it.
 
 ### 2.3 Agent
 
-Coherencer role. Agent prompt includes:
-1. Read `roles/coherencer_EN.md`, apply Activation Operator.
+Coherent role. Agent prompt includes:
+1. Read `roles/coherent_EN.md`, apply Activation Operator.
 2. Read `BL_CANDIDATES.md` (full).
 3. Read `BOOTSTRAP_LESSONS.md` (full, currently 30 entries).
 4. Read `projects/eradev/lessons.md` (scan for relevant lessons that might inform classification).
@@ -182,7 +182,7 @@ Coherencer role. Agent prompt includes:
 
 ### 2.4 Classification Taxonomy
 
-For each candidate in BL_CANDIDATES.md, the Coherencer classifies it as one of:
+For each candidate in BL_CANDIDATES.md, the Coherent classifies it as one of:
 
 | Classification | Meaning | Action |
 |---------------|---------|--------|
@@ -194,7 +194,7 @@ For each candidate in BL_CANDIDATES.md, the Coherencer classifies it as one of:
 ### 2.5 Protocol (step by step)
 
 ```
-COMPRESSION PROTOCOL (Coherencer)
+COMPRESSION PROTOCOL (Coherent)
 
 Input: BL_CANDIDATES.md with >= 5 entries
        BOOTSTRAP_LESSONS.md (current 30 BL)
@@ -292,9 +292,9 @@ If the compression protocol itself loops (e.g., PROMOTE triggers budget check, b
 After the existing Lambda Audit text, add:
 ```
        BL compression check: read BL_CANDIDATES.md header count.
-       If count >= 5: spawn Coherencer with BL compression protocol
+       If count >= 5: spawn Coherent with BL compression protocol
        (see reports/v10_omega_compression_decay_spec Section 2).
-       Coherencer reads BL_CANDIDATES.md + BOOTSTRAP_LESSONS.md, classifies each candidate
+       Coherent reads BL_CANDIDATES.md + BOOTSTRAP_LESSONS.md, classifies each candidate
        (PROMOTE/MERGE/DISCARD/DEFER), executes, logs result to lessons.md.
        BL-3 guard: if compression loops >= 3 iterations, STOP and escalate.
 ```
@@ -303,7 +303,7 @@ After the existing Lambda Audit text, add:
 
 After the existing process header, add:
 ```
-> Full Coherencer compression protocol: reports/v10_omega_compression_decay_spec_2026-04-12.md Section 2
+> Full Coherent compression protocol: reports/v10_omega_compression_decay_spec_2026-04-12.md Section 2
 > Classification: PROMOTE / MERGE / DISCARD / DEFER
 ```
 
@@ -358,19 +358,19 @@ Not all lessons decay equally:
 
 Temporal decay review fires at **session start** during the Lambda Audit (meta.md Section 14 item 9).
 
-The Coherencer scans `projects/{PROJECT}/lessons.md` for entries where:
+The Coherent scans `projects/{PROJECT}/lessons.md` for entries where:
 - `freshness < 0.3` (i.e., older than ~126 days for regular, ~252 days for cross-project)
 - Entry is NOT an EMP
 - Entry has `ended: null` (still active)
 
-If any such entries found, Coherencer flags them for review.
+If any such entries found, Coherent flags them for review.
 
 ### 3.5 Review Protocol
 
 For each flagged lesson:
 
 ```
-TEMPORAL DECAY REVIEW (Coherencer)
+TEMPORAL DECAY REVIEW (Coherent)
 
 Step 1: READ the lesson text. Understand the failure mode it describes.
 
@@ -434,8 +434,8 @@ After the Omega computation addition (Item 1), add:
        EMPs are immortal -- skip freshness check.
        If any lesson has freshness < 0.3: flag for review.
        Report: "{N} lessons flagged for temporal decay review (freshness < 0.3)."
-       If N > 0 AND N <= 5: Coherencer reviews inline during Lambda Audit.
-       If N > 5: Coherencer spawns a dedicated decay review pass (separate agent, not inline).
+       If N > 0 AND N <= 5: Coherent reviews inline during Lambda Audit.
+       If N > 5: Coherent spawns a dedicated decay review pass (separate agent, not inline).
 ```
 
 **File: `eradev.md`** -- NO changes. The freshness model is a META protocol concern, not a mathematical formalism. It does not appear in the B formula or the Omega formula. It is an input filter to N_relevant, implemented in meta.md.
@@ -476,7 +476,7 @@ The 3 items interact through shared data and sequencing:
 3. Within a single session start, the execution order is:
    - Lambda Audit reads lessons.md (existing Phase 2.B)
    - Freshness check flags stale lessons (Item 3)
-   - If stale lessons found: Coherencer reviews (Item 3)
+   - If stale lessons found: Coherent reviews (Item 3)
    - Cross-project scan gathers cross_project lessons (existing Phase 2.B)
    - Omega computation on filtered N_relevant (Item 1)
    - BL_CANDIDATES.md count check (Item 2 trigger, independent)
@@ -563,7 +563,7 @@ Total: ~52 lines of actual changes across 4 files. Well within "single Builder s
 | AC-2 | Omega output format matches eradev.md | Compare meta.md output spec with eradev.md RT-3 format | N_relevant, Omega, S_total fields present |
 | AC-3 | Freshness check protocol in meta.md | Read meta.md item 9 | Contains: half_life values (180/360), EMP immunity, review threshold (0.3) |
 | AC-4 | Freshness filters N_relevant | Read meta.md Omega computation | Stale lessons (freshness < 0.3) excluded from N_relevant |
-| AC-5 | BL compression trigger in meta.md | Read meta.md item 9 | Contains: count >= 5 trigger, Coherencer spawn, BL-3 guard |
+| AC-5 | BL compression trigger in meta.md | Read meta.md item 9 | Contains: count >= 5 trigger, Coherent spawn, BL-3 guard |
 | AC-6 | BL classification taxonomy in BL_CANDIDATES.md | Read BL_CANDIDATES.md | Contains: PROMOTE/MERGE/DISCARD/DEFER reference |
 | AC-7 | v9 caveat removed from eradev.md | Read Section III.Omega | No "theoretical placeholder" language. v10 activation statement present. |
 | AC-8 | OQ-Omega-1 and OQ-Omega-2 closed | Read eradev.md OQ section | OQ-1 marked CLOSED (temporal decay), OQ-2 marked CLOSED (cross-project). OQ-3 remains open. |
@@ -584,14 +584,14 @@ Is 180 days the right half_life? For a fast-moving codebase, 90 days might be be
 Recommendation: Start with 180/360 (regular/cross-project). Add `domain.half_life_days` to config.md schema as optional override if the defaults prove wrong. Do NOT add this field in v10 -- wait for empirical evidence from at least 2 decay review cycles.
 
 ### OQ-v10-3: Revalidation Inflation
-When a Coherencer revalidates a lesson (freshness < 0.3 but still valid), it resets `valid_from` to today. This means a lesson can be kept alive indefinitely through periodic revalidation. Is this desirable or does it defeat the purpose of decay?
+When a Coherent revalidates a lesson (freshness < 0.3 but still valid), it resets `valid_from` to today. This means a lesson can be kept alive indefinitely through periodic revalidation. Is this desirable or does it defeat the purpose of decay?
 
 Recommendation: Desirable. The point of decay is not to kill lessons but to force periodic review. A lesson that survives 3 revalidation cycles is STRONGLY validated -- it has been explicitly confirmed relevant on 3 separate occasions. This is more valuable than a lesson that was written once and never questioned. Track revalidation count as a quality signal, not a risk signal.
 
 ### OQ-v10-4: Compression Interaction with Decay
 When lessons.md exceeds 50 active entries (Phase 2.B compression trigger), should the compression pass prefer archiving low-freshness lessons over merging high-freshness ones?
 
-Recommendation: Yes. Compression priority order: (1) Archive lessons with freshness = 0 AND no recent references. (2) Merge lessons with overlapping failure modes. (3) Keep high-freshness lessons intact. This is a natural extension -- the Coherencer already has the freshness data from the decay check that runs before compression.
+Recommendation: Yes. Compression priority order: (1) Archive lessons with freshness = 0 AND no recent references. (2) Merge lessons with overlapping failure modes. (3) Keep high-freshness lessons intact. This is a natural extension -- the Coherent already has the freshness data from the decay check that runs before compression.
 
 ---
 

@@ -16,7 +16,7 @@
 - Files in commit: **34 changed, +2045 / -161**
 - Hooks fired: `[universality-gate] OK: framework scope is universality-clean`
 - PN hook: cleared via `PN_OVERRIDE=1` (no second token needed)
-- Phantom-newness pre-cleared by Coherencer audit (`reports/rt12_phantom_newness_audit_2026-04-26.md`): 2 GENUINE_NEW (L-60, L-63) + 2 EXTENDS (L-61 of L-52, L-62 of L-53)
+- Phantom-newness pre-cleared by Coherent audit (`reports/rt12_phantom_newness_audit_2026-04-26.md`): 2 GENUINE_NEW (L-60, L-63) + 2 EXTENDS (L-61 of L-52, L-62 of L-53)
 
 ## Push step
 - **First push attempt**: REJECTED — remote diverged (1 new commit `62359c3 projects/: remove odtoe-articles/ contamination`); `git status` snapshot was stale relative to remote at push time

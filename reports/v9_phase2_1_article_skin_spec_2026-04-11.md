@@ -12,9 +12,9 @@
 ## Activation Operator Results
 
 - **A_F (Focus)**: Read `roles/analyst_EN.md`, `templates/domain_skin.md.template`, `reports/v9_phase0a_visionary_2026-04-11.md`, `reports/v9_phase0a_analyst_2026-04-11.md`, `projects/odtoe-articles/config.md` (FULL file, 299 lines — authoritative live reference), all 5 role files (`visionary_EN.md`, `analyst_EN.md`, `builder_EN.md`, `validator_EN.md`, `coherent_EN.md`), `BOOTSTRAP_LESSONS_universal.md` (22 BL), `BOOTSTRAP_LESSONS_code_adapter.md` (8 BL). True North: produce a spec rigorous enough that a Builder writes the skin file in one shot without design decisions.
-- **A_E (Alignment)**: The spec must be a BRIDGE, not a replacement. Role files already carry article examples (Visionary Ex.2, Analyst Ex.2, Builder Ex.2, Validator Ex.2, Coherencer Ex.2) — they are partially abstract. The skin adds *focus overrides*, not reruns. And `odtoe-articles/config.md` already contains a full Check-First pipeline, 8 verification checks, 8-file bilingual rule, and role→check mapping table. The skin must UNIFY with these, not contradict or duplicate them. Intent: first concrete L2 skin that serves as a template-in-practice for the 4 other skins (code, book, config, plan, research) to follow.
+- **A_E (Alignment)**: The spec must be a BRIDGE, not a replacement. Role files already carry article examples (Visionary Ex.2, Analyst Ex.2, Builder Ex.2, Validator Ex.2, Coherent Ex.2) — they are partially abstract. The skin adds *focus overrides*, not reruns. And `odtoe-articles/config.md` already contains a full Check-First pipeline, 8 verification checks, 8-file bilingual rule, and role→check mapping table. The skin must UNIFY with these, not contradict or duplicate them. Intent: first concrete L2 skin that serves as a template-in-practice for the 4 other skins (code, book, config, plan, research) to follow.
 - **A_σ (Consistency)**: No conflict with L0 (ODTOE core untouched — skin is pure L2 metadata). No conflict with Phase 0.A schema (`domain.skin` field already exists). No conflict with `odtoe-articles/config.md` (this spec explicitly mirrors its Check-First pipeline and 8-check structure). No conflict with Phase 1 role files (all 5 role files are vocabulary-abstract — this skin layers on top). One TENSION noted: the config.md "EraDev Role Mapping for Articles" table assigns Validator to OWN all 8 checks (final gate), while other roles OWN specific checks. The skin must respect this ownership map — and will by referencing it explicitly.
-- **A_Λ (Experience)**: Consulted BL-17 (Check-First = prevention, not rework — directly informs the Pre-Generation Checklist section), BL-19 (bilingual RU+EN — directly informs the BL-19-in-article rule), BL-21 (format-first — directly informs the Example 2 story about cold-first reference-reading), BL-28 (agent prompt must include explicit context — directly informs why the skin file itself cannot be "excerpted" in prompts; either the prompt references the skin path OR the agent reads it; no truncation), BL-29 (terminology before generating — informs Coherencer's drift-detection section of the skin), BL-32 (grep after BL merge — informs my BL-A1 for articles: "grep after terminology change"). Phase 0.A Visionary report establishes that scientific article with theorems/proofs → `research` modality (weights F=0.30, E=0.20, (1-σ)=0.35, Λ=0.15), not `creative`. I will apply this.
+- **A_Λ (Experience)**: Consulted BL-17 (Check-First = prevention, not rework — directly informs the Pre-Generation Checklist section), BL-19 (bilingual RU+EN — directly informs the BL-19-in-article rule), BL-21 (format-first — directly informs the Example 2 story about cold-first reference-reading), BL-28 (agent prompt must include explicit context — directly informs why the skin file itself cannot be "excerpted" in prompts; either the prompt references the skin path OR the agent reads it; no truncation), BL-29 (terminology before generating — informs Coherent's drift-detection section of the skin), BL-32 (grep after BL merge — informs my BL-A1 for articles: "grep after terminology change"). Phase 0.A Visionary report establishes that scientific article with theorems/proofs → `research` modality (weights F=0.30, E=0.20, (1-σ)=0.35, Λ=0.15), not `creative`. I will apply this.
 
 ---
 
@@ -198,19 +198,19 @@ Each role retains its Activation Operator (A_F, A_E, A_σ, A_Λ) and Jidoka self
   - Q4: "Are the numbers in the abstract, body, tables, and figures INTERNALLY CONSISTENT? (Check 7 + factual-consistency subcheck)"
   - Q5: "Are both RU and EN versions validated (not just one)?"
 
-### 3.5 Coherencer
+### 3.5 Coherent
 
-- **FIRST focus anchor (A_F override)**: Read the full bilingual 8-file set. Read the ODTOE glossary (46 canonical terms — `odtoe-articles/config.md` line 48). Read the 3 nearest neighbor articles from the corpus. Coherencer cares about *this article's fit with the corpus*, not the article in isolation.
-- **What the role considers "the artifact"**: The corpus + this article = new corpus. Coherencer checks that (old corpus) ∪ (this article) remains coherent. This is L2 Coherencer work (cross-team coherence, per `coherent_EN.md` Levels).
+- **FIRST focus anchor (A_F override)**: Read the full bilingual 8-file set. Read the ODTOE glossary (46 canonical terms — `odtoe-articles/config.md` line 48). Read the 3 nearest neighbor articles from the corpus. Coherent cares about *this article's fit with the corpus*, not the article in isolation.
+- **What the role considers "the artifact"**: The corpus + this article = new corpus. Coherent checks that (old corpus) ∪ (this article) remains coherent. This is L2 Coherent work (cross-team coherence, per `coherent_EN.md` Levels).
 - **Primary failure mode**: "Glossary drift" — a term that the glossary defines as X is used in the new article with meaning Y. Or the `\Lambda` symbol collision. Or a formula that appears in article A with one value and in this article with a slightly different value. These are ALL (1-σ) failures at the corpus level.
-- **Secondary failure mode** (article-specific): Phantom coherence between RU and EN. Both versions "agree" because they were generated in the same session, but actually introduce the same error in both — so cross-language check doesn't catch it. Mitigation: Coherencer must perform independent verification of a sample of formulas and citations, not just diff RU↔EN.
+- **Secondary failure mode** (article-specific): Phantom coherence between RU and EN. Both versions "agree" because they were generated in the same session, but actually introduce the same error in both — so cross-language check doesn't catch it. Mitigation: Coherent must perform independent verification of a sample of formulas and citations, not just diff RU↔EN.
 - **Jidoka self-check specialization (article)**:
   - Q1: "Does the new article use every technical term exactly as the 46-term glossary defines it? (BL-29)"
   - Q2: "Are there any symbol collisions with existing corpus articles? (`\Lambda`-style check)"
   - Q3: "If this article cites a formula from corpus article N, does it match article N verbatim?"
   - Q4: "Are RU and EN versions byte-equivalent in structure (same section count, same formula count, same citation count, same figure count)?"
   - Q5: "Independent spot-check: pick 3 formulas from the new article, recompute them without reading the article's computation. Do my results match?"
-- **Bilingual sync rule (BL-19) specialization**: Coherencer is the ENFORCER of the 8-file rule. Commit is BLOCKED if fewer than 8 files exist. Commit is BLOCKED if file sizes diverge by >50% (suggests one version is incomplete).
+- **Bilingual sync rule (BL-19) specialization**: Coherent is the ENFORCER of the 8-file rule. Commit is BLOCKED if fewer than 8 files exist. Commit is BLOCKED if file sizes diverge by >50% (suggests one version is incomplete).
 
 ---
 
@@ -226,7 +226,7 @@ The skin file's verification section maps directly to `domain.verify.method: cit
 | **C2** | **Citation attribution** — claim X that cites `[Smith2020]` is actually supported by Smith2020 (not just mentioned by it) | Validator | **L2** (pre-submission: requires reading the cited paper) | Human + LLM assisted — best-effort |
 | **C3** | **DOI / arXiv ID syntactic validity** — each DOI matches the DOI regex; each arXiv ID matches the arXiv regex | Validator | **L1** | Pure regex check, automated |
 | **C4** | **Internal cross-references** — `§3.2`, `\ref{thm:main}`, `\ref{fig:curve}`, `\eqref{eq:main}` all resolve to real section/theorem/figure/equation inside the same `.tex` file | Validator | **L1** (LaTeX's own warnings cover this; Validator must READ the warnings) | Rendering/parser — automated |
-| **C5** | **Self-citation sanity** — if author cites own prior work, the citation is load-bearing (not padding); at least one sentence explains what the prior work contributes | Validator + Coherencer | **L2** | Human judgment + Coherencer review |
+| **C5** | **Self-citation sanity** — if author cites own prior work, the citation is load-bearing (not padding); at least one sentence explains what the prior work contributes | Validator + Coherent | **L2** | Human judgment + Coherent review |
 | **C6** | **Factual consistency** — numbers reported in abstract match numbers in body; figures match tables; abstract N = body N = table N | Validator | **L2** | Cross-reference scan — requires reading all occurrences of each numeric claim |
 
 ### 4.2 Relationship to the 7+1 verification checks in `odtoe-articles/config.md`
@@ -285,7 +285,7 @@ The Builder must produce a block matching this structure (filling in the command
 # SECTION 5 — RT Phase Protocol Adjustments
 
 Code projects use the canonical phase protocol from `eradev.md` Section VI:
-Visionary (direction) → Analyst (design) → Builder (implement) → Validator (test) → Coherencer (integrate)
+Visionary (direction) → Analyst (design) → Builder (implement) → Validator (test) → Coherent (integrate)
 
 Articles need adjustments because the work profile is different. The skin file must specify:
 
@@ -315,7 +315,7 @@ This is a *loop*, not a split. One Builder agent, multiple sections per Builder 
 
 **Rationale for NOT splitting outliner + drafter:** Outline + draft live in the same mental model of the argument. Splitting them into two agents would cause the drafter to lose the context that the outliner had — increasing |B_outliner − B_drafter| and decreasing S_team. Keeping them unified is consistent with the v9 principle that role is a focus, not a specialization.
 
-**Exception (L/XL only):** For an XL article (>8000 words, >4 sections), the Analyst plan may split work across *two Builders* by section ownership (Builder A owns sections I-III, Builder B owns sections IV-VI). File Ownership rule from `analyst_EN.md` Responsibilities 4 applies. Coherencer gate is MANDATORY between Builder completion and Validator start.
+**Exception (L/XL only):** For an XL article (>8000 words, >4 sections), the Analyst plan may split work across *two Builders* by section ownership (Builder A owns sections I-III, Builder B owns sections IV-VI). File Ownership rule from `analyst_EN.md` Responsibilities 4 applies. Coherent gate is MANDATORY between Builder completion and Validator start.
 
 ### 5.3 Pre-RT "Visionary solo" phase?
 
@@ -339,7 +339,7 @@ RT-0 (Visionary solo, optional) → thesis/corpus-collision approval
 RT-1 (full 5-role) → outline + claims table + Analyst plan
 Builder loop per section:
   draft RU .tex → draft EN .tex → compile both → evidence markers → next section
-Coherencer gate (after all sections drafted)
+Coherent gate (after all sections drafted)
 RT-2 (full 5-role) → 6 cite_checks + 8 config.md checks + BL-19 8-file check
 Commit all 8 files together (per `odtoe-articles/config.md` line 106)
 Submission / preprint / journal → outside EraDev scope (manual operator action)
@@ -361,15 +361,15 @@ The skin file must include 3 examples matching the template at `templates/domain
 - **Fix**: Builder must either (a) weaken the claim to match Smith2020 ("for measurable-phase-space observer states, λ_L > 0 per [Smith2020]"), or (b) find a source that actually proves the stronger claim, or (c) provide an independent derivation. This is a Check 4 (no fitting) concern: if no source exists, the claim MUST be derived from ODTOE postulates or removed.
 - **Why cite_check alone would miss this**: C1 (bibliography completeness) would say PASS — the citation is in the bibliography. C3 (DOI syntax) would say PASS — the DOI is valid. Only C2 (reading the cited source) catches it. This is why the skin's verification protocol distinguishes L1 (mechanical) from L2 (interpretive) checks.
 
-### Example 2: Outline contradiction between sections (Coherencer σ failure)
+### Example 2: Outline contradiction between sections (Coherent σ failure)
 
 - **Input**: "Draft outline for an 8-section article 'Dualities in ODTOE observer geometry.'"
 - **Scenario**: Analyst plan lists Section III as "Observer-dependent metric" with the definition "the metric is a functional of the observer's information state" and lists Section V as "Bulk metric reconstruction" with the definition "the bulk metric is objective and independent of any observer." At RT-1, both section sketches pass Builder's Jidoka (each is internally consistent).
-- **What Coherencer finds**: The two sections are mutually contradictory — Section III says metric is observer-dependent, Section V says it is observer-independent. If the article were drafted as-is, Section V would silently overwrite Section III's assertion.
-- **Catching role**: **Coherencer** (this is the canonical Coherencer failure-mode — divergent meanings of the same term across parallel work).
-- **Phase**: **RT-1** (outline review, before Builder starts drafting). Coherencer's σ (contradiction rate) spikes because Sections III and V disagree on a foundational term.
-- **Fix**: Coherencer invokes Phantom Coherence Check (`coherent_EN.md` Key Rules 2) and asks each role individually: "Is the metric observer-dependent or objective?" The divergence forces a RT-1.5 where Visionary clarifies which definition is the article's load-bearing one, and the outline is rewritten so that either (a) Section V redefines "bulk metric" as an information-theoretic construct compatible with Section III, or (b) Section V is removed entirely.
-- **How the skin's vocabulary maps this**: "observer-dependent metric" vs "observer-independent metric" = a SYMBOL COLLISION (`\Lambda`-style pattern from `analyst_EN.md` Ex.2 line 45). Vocabulary mapping #2 (function → claim) and #3 (module → section) apply. Coherencer's drift detection (Section 3.5 Q1-Q2 above) catches this by running the "does the new article use every technical term exactly as the glossary defines it?" query.
+- **What Coherent finds**: The two sections are mutually contradictory — Section III says metric is observer-dependent, Section V says it is observer-independent. If the article were drafted as-is, Section V would silently overwrite Section III's assertion.
+- **Catching role**: **Coherent** (this is the canonical Coherent failure-mode — divergent meanings of the same term across parallel work).
+- **Phase**: **RT-1** (outline review, before Builder starts drafting). Coherent's σ (contradiction rate) spikes because Sections III and V disagree on a foundational term.
+- **Fix**: Coherent invokes Phantom Coherence Check (`coherent_EN.md` Key Rules 2) and asks each role individually: "Is the metric observer-dependent or objective?" The divergence forces a RT-1.5 where Visionary clarifies which definition is the article's load-bearing one, and the outline is rewritten so that either (a) Section V redefines "bulk metric" as an information-theoretic construct compatible with Section III, or (b) Section V is removed entirely.
+- **How the skin's vocabulary maps this**: "observer-dependent metric" vs "observer-independent metric" = a SYMBOL COLLISION (`\Lambda`-style pattern from `analyst_EN.md` Ex.2 line 45). Vocabulary mapping #2 (function → claim) and #3 (module → section) apply. Coherent's drift detection (Section 3.5 Q1-Q2 above) catches this by running the "does the new article use every technical term exactly as the glossary defines it?" query.
 
 ### Example 3: Numerical inconsistency abstract vs table (C6 failure, cite_check blind spot)
 
@@ -392,7 +392,7 @@ The article skin inherits all 22 universal BL unchanged and handles each of the 
 | BL | Title | Applicability to article work |
 |---|---|---|
 | BL-1 | Lambda=0.5 as Cold-Start Default | Applies unchanged — a fresh article project starts with Λ=0.5; accumulates as articles land in the corpus |
-| BL-4 | S_adjusted = S_team × B_mean | Applies unchanged — Coherencer at RT-2 computes S_adjusted from the 5 role B scores |
+| BL-4 | S_adjusted = S_team × B_mean | Applies unchanged — Coherent at RT-2 computes S_adjusted from the 5 role B scores |
 | BL-5 | Phantom Coherence Detection | Applies unchanged — article-specific manifestation is "RU and EN both contain the same formula error" (see Section 3.5 secondary failure) |
 | BL-7 | EN for Practical Tasks, RU for Theoretical Depth | Applies unchanged — article drafting is practical (EN role files), theorem derivation is theoretical (RU role files may be used for formula derivation) |
 | BL-9 | Interface Contracts Between Roles | Applies unchanged — Analyst→Builder contract is the section-by-section claims table; Builder→Validator contract is the 8-file bilingual set + evidence markers |
@@ -410,7 +410,7 @@ The article skin inherits all 22 universal BL unchanged and handles each of the 
 | BL-26 | META Always Delegates | Applies unchanged — META never drafts article prose directly |
 | BL-28 | Agent Prompt Must Include Explicit Context | Applies unchanged — article-task agent prompts must name the skin file path AND role file path |
 | BL-29 | Verify Established Terminology Before Generating | **Critical for articles** — article Builder must scan corpus for terminology before drafting (the 46-term ODTOE glossary) |
-| BL-30 | Defense-In-Depth | Applies unchanged — article validation has layers: Builder Jidoka + Coherencer gate + Validator 8-checks |
+| BL-30 | Defense-In-Depth | Applies unchanged — article validation has layers: Builder Jidoka + Coherent gate + Validator 8-checks |
 | BL-31 | Constrain Output Types | Applies unchanged — Builder's output is the 8-file set, not prose explanations |
 | BL-32 | Grep After BL Merge | Applies unchanged — if article glossary terms are renamed, grep the whole corpus for orphan references |
 
@@ -449,7 +449,7 @@ These 4 BL live in the article skin file ONLY. They do NOT add to the main 30-BL
 - **Source:** Adapted from BL-14 for the article domain.
 - **Rule:** Before an article is submitted to a journal or uploaded as a preprint, Builder MUST document the retraction procedure: who to contact, what the retraction notice would say, and what the corpus-level rollback looks like (e.g., "remove from corpus, mark as retracted in index, note in changelog"). If you cannot describe how to undo a submission, you do not have permission to submit.
 - **Why:** Post-submission pressure (editor deadlines, reviewer hostility, public visibility) is when cognitive load peaks. A pre-written retraction plan executes mechanically when needed.
-- **Applies to:** Visionary (approve retraction plan), Builder (write it), Coherencer (store in MEMORY).
+- **Applies to:** Visionary (approve retraction plan), Builder (write it), Coherent (store in MEMORY).
 
 **BL-A4: Bibliography PRE-FLIGHT (article adaptation of BL-22)**
 - **Source:** Adapted from BL-22 for the article domain.
@@ -490,7 +490,7 @@ The Builder must produce `/Users/antonpankratov/Downloads/eradev/templates/domai
   9. B-weight Adjustment
   10. Footer (last updated, upstream roles, upstream math)
 - **[AS-4]** Vocabulary table has at least 15 rows (all 20 from Section 2 of this spec, plus 0-5 Builder additions)
-- **[AS-5]** Role Focus Overrides has all 5 sub-sections (Visionary, Analyst, Builder, Validator, Coherencer), each with FIRST focus anchor, artifact definition, primary failure mode, Jidoka specialization
+- **[AS-5]** Role Focus Overrides has all 5 sub-sections (Visionary, Analyst, Builder, Validator, Coherent), each with FIRST focus anchor, artifact definition, primary failure mode, Jidoka specialization
 - **[AS-6]** Verification Protocol section contains: (a) the block matching Section 4.3, (b) the 6 cite_check table (C1-C6), (c) a note clarifying that cite_check is a SUBSET of the full 8-check protocol in `projects/odtoe-articles/config.md`
 - **[AS-7]** Examples section has all 3 examples from Section 6 of this spec (unsupported claim, outline contradiction, numerical inconsistency) with catching role + phase + fix clearly labeled
 - **[AS-8]** Domain-Specific Bootstrap Lessons section references BOTH the 22 universal BL (inherited) AND the BL-A1..A4 additions, with a clear budget note

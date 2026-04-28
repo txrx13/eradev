@@ -49,7 +49,7 @@
 
 **Path-(c)** (eradev.md §700, Habits #4): tolerance к ΔÔ ≠ 0 после одной попытки convergence.
 
-**Здесь:** ΔÔ между article-skin Ô («ODTOE article corpus с slug-conventions») и framework Ô («publication-grade artifact») **не был замечен как ΔÔ**. Coherencer P-02 поднял decision-needed, что по path-(c) логике должно было triggerнуть operator escalation. **Path-(c) дефект:** нет protocol различающего «accepted ΔÔ (legitimate divergence)» от «pending ΔÔ (decision needed)». Default-to-Builder-discretion = силовое схлопывание pending в accepted без consensus.
+**Здесь:** ΔÔ между article-skin Ô («ODTOE article corpus с slug-conventions») и framework Ô («publication-grade artifact») **не был замечен как ΔÔ**. Coherent P-02 поднял decision-needed, что по path-(c) логике должно было triggerнуть operator escalation. **Path-(c) дефект:** нет protocol различающего «accepted ΔÔ (legitimate divergence)» от «pending ΔÔ (decision needed)». Default-to-Builder-discretion = силовое схлопывание pending в accepted без consensus.
 
 **Связь с F4:** path-(c) tolerance работает корректно ТОЛЬКО при disclosed frame_H. Pending OD есть undisclosed frame divergence — `ker(Π_H)` нарастает каждый цикл.
 

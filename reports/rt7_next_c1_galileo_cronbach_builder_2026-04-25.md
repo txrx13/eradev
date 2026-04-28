@@ -36,4 +36,4 @@
 - Λ = 0.90 — applied prior research finding (Galileo 2026 row 15) faithfully; cited the source report inline; deferred runtime tooling per CONSOLIDATION constraint
 - **B = 0.95 × 0.95 × 0.95 × 0.90 ≈ 0.77** (well above 0.5 threshold; no Andon)
 
-**Status:** READY for Validator + Coherencer (skill mirror diff already verified empty, but Coherencer should re-confirm at RT close).
+**Status:** READY for Validator + Coherent (skill mirror diff already verified empty, but Coherent should re-confirm at RT close).

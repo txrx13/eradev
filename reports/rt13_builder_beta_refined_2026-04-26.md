@@ -52,7 +52,7 @@ A-EN §5 projection at GREEN-floor LF=0.30: Λ = 0.85·0.30 = 0.255 → B = 0.90
 
 ### 2.1 P-cure: BLOCK new BL/Inv add via PN-1 hook extension
 
-**Original Builder EN §1:** advisory print of `Ω_pruned` in bootstrap §9; Coherencer 4-session cadence audit (Tier-3 advisory).
+**Original Builder EN §1:** advisory print of `Ω_pruned` in bootstrap §9; Coherent 4-session cadence audit (Tier-3 advisory).
 
 **β BLOCK upgrade:**
 - **Hook file:** `.claude/hooks/check-phantom-newness.sh` (existing PN-1 hook — EXTEND, not new).
@@ -86,7 +86,7 @@ A-EN §5 projection at GREEN-floor LF=0.30: Λ = 0.85·0.30 = 0.255 → B = 0.90
 
 ### 2.4 Honest σ on BLOCK semantics
 
-- (i) **Bypass env vars are escape hatches.** If operator habitually sets `ERADEV_BYPASS_PN1=1` or `ERADEV_OPERATOR_SESSION=1`, BLOCK becomes ceremonial. Mitigation: `reports/.bypass_log` logged + Coherencer Tier-3 review at 4-session boundary flags excessive bypass usage as YELLOW.
+- (i) **Bypass env vars are escape hatches.** If operator habitually sets `ERADEV_BYPASS_PN1=1` or `ERADEV_OPERATOR_SESSION=1`, BLOCK becomes ceremonial. Mitigation: `reports/.bypass_log` logged + Coherent Tier-3 review at 4-session boundary flags excessive bypass usage as YELLOW.
 - (ii) **Hook reliability.** `.claude/hooks/` execution depends on Claude Code harness invoking them; if harness skips hooks (e.g., direct file write outside tool layer), no block. Pre-commit hook is enforced by git; PreToolUse hook is enforced by harness. **Two-tier reliability** (P + D = git-enforced; M = harness-enforced).
 - (iii) **Race conditions.** P's BLOCK on `Ω_pruned < 1.0` and D's BLOCK on `LF < 0.10` could conflict: retire-pass commit increases Ω_pruned but may simultaneously increase framework-self count → triggers D BLOCK. Mitigation: retire-pass commits exempted from D's LF check via commit message tag `[retire-pass]` (greppable; documented in P-cure spec).
 
@@ -126,7 +126,7 @@ L2 synthesis §3 explicit verdict: PATH_C_ACCEPTED with default to **D → M →
 | **M phase** | EN-Builder appends to §14 (D's §14 already shipped + Σ_post active): `intent_ratio = M:N` print line below D's leverage line. RU mirrors. | 3 (EN) + 3 (RU) |
 | **P phase** | EN-Builder appends to §14 (D + M lines stable): `Ω_pruned = M/N (4-session window)` print line below M's intent line. RU mirrors. | 4 (EN) + 4 (RU) |
 
-**Coherencer L1 gate after each phase verifies §14 has exactly N print lines (N=baseline+1 after D, baseline+2 after M, baseline+3 after P). No overwrite, only append.**
+**Coherent L1 gate after each phase verifies §14 has exactly N print lines (N=baseline+1 after D, baseline+2 after M, baseline+3 after P). No overwrite, only append.**
 
 ### 4.2 `.claude/hooks/` — 2-way collision (P + M)
 
@@ -149,7 +149,7 @@ L2 synthesis §3 explicit verdict: PATH_C_ACCEPTED with default to **D → M →
 
 ### 4.3 `meta.md` §15 Hansei — adjacent collision (P + D)
 
-**β rule: P adds retire-pass cadence in §15.A subsection; D adds 4-session leverage audit in §15.B subsection. Adjacent, not overlapping. Coherencer reviews diff for unintended overlap before commit.**
+**β rule: P adds retire-pass cadence in §15.A subsection; D adds 4-session leverage audit in §15.B subsection. Adjacent, not overlapping. Coherent reviews diff for unintended overlap before commit.**
 
 ---
 
@@ -159,13 +159,13 @@ L2 synthesis §3 explicit verdict: PATH_C_ACCEPTED with default to **D → M →
 
 ```
 Phase D (D-cure): D-EN ‖ D-RU         [2 Builders parallel; Inv 13]
-   ↓ Coherencer L1 gate (verifies §14 has 1 new line; Σ_pre snapshot present; pre-commit hook installed; B preserves [0,1])
+   ↓ Coherent L1 gate (verifies §14 has 1 new line; Σ_pre snapshot present; pre-commit hook installed; B preserves [0,1])
    ↓ Validator gate (1 Validator, EN/RU bilingual; verifies pre-commit hook BLOCKs as designed via dry-run staged-diff with synthetic LF<0.10)
 Phase M (M-cure): M-EN ‖ M-RU         [2 Builders parallel; Inv 13]
-   ↓ Coherencer L1 gate (verifies §14 has 2 new lines; KILL-TEST 2-phase; ε_meta enumerated; PreToolUse hook in place)
+   ↓ Coherent L1 gate (verifies §14 has 2 new lines; KILL-TEST 2-phase; ε_meta enumerated; PreToolUse hook in place)
    ↓ Validator gate (1 Validator; dry-run intent-omission scenario triggers BLOCK; ε_meta exemption verified for Agent calls + Reports)
 Phase P (P-cure): P-EN ‖ P-RU         [2 Builders parallel; Inv 13]
-   ↓ Coherencer L1 gate (verifies §14 has 3 new lines; retirement-pass template + auto-demote on `ended` field)
+   ↓ Coherent L1 gate (verifies §14 has 3 new lines; retirement-pass template + auto-demote on `ended` field)
    ↓ Validator gate (1 Validator; dry-run new BL add with Ω_pruned<1.0 triggers BLOCK; retire-pass commit exemption tag works)
 Skill-mirror sweep: 1 Builder         [sequential after P]
    ↓ Final wave Validator (1 Validator; dormancy audit T1∧T2∧T3 firing per L2 §6 C5)
@@ -181,7 +181,7 @@ Skill-mirror sweep: 1 Builder         [sequential after P]
 | Skill-mirror | 1 | 1 |
 | **TOTAL Builders** | **7** | n/a |
 | **TOTAL Validators** | **4** (one per gate + final) | n/a |
-| **TOTAL gates** | **3 Coherencer L1 + 4 Validator** | n/a |
+| **TOTAL gates** | **3 Coherent L1 + 4 Validator** | n/a |
 
 Matches Coh-EN §3 recommendation of 7 Builders + 4 Validators.
 
@@ -206,11 +206,11 @@ LOC inflation contained: 30% growth for 5× safety improvement (advisory→BLOCK
 Uniform 0.25 weights (code modality, B_text v8-compatible).
 
 - **F (Focus) = 0.85** — Read in full: original Builder EN, A-EN (B-projection ladder), A-RU (3 PARTIAL verdicts, formal proofs), Coh-EN (file collisions, Builder count), L2 synthesis (β recommendation, 5 co-spec conditions). Consulted: `roles/builder_EN.md` Activation operator, `templates/domain_skin.code.md` (no override). Did NOT directly read `enforce-delegation.sh` source code or `check-phantom-newness.sh` source — referenced from prior reports (carryover σ from original Builder EN).
-- **E (Alignment) = 0.85** — Operator's verbatim "(β) ⭐ Coherencer recommends" honored: D-formula choice (D2 chosen with B-projection ladder), BLOCK enforcement specified per cure (with hook file + trigger + block action), sequence locked D→M→P (no re-debate), collision resolution per Coh-EN. Output structure matches task spec (D1/D2 choice + per-cure refined diff sketch + BLOCK spec + sequence + Builder count + LOC + B + delta from original). -0.15 for line count drift (~280 actual vs ~100-150 target — see σ).
+- **E (Alignment) = 0.85** — Operator's verbatim "(β) ⭐ Coherent recommends" honored: D-formula choice (D2 chosen with B-projection ladder), BLOCK enforcement specified per cure (with hook file + trigger + block action), sequence locked D→M→P (no re-debate), collision resolution per Coh-EN. Output structure matches task spec (D1/D2 choice + per-cure refined diff sketch + BLOCK spec + sequence + Builder count + LOC + B + delta from original). -0.15 for line count drift (~280 actual vs ~100-150 target — see σ).
 - **(1-σ) = 0.70** — **σ = 0.30 declared honestly:**
   - (i) **Line count overshoot:** target 100-150 lines, actual ~280 — same overshoot pattern as original Builder EN. L-57 (tight) only partially honored.
   - (ii) **D2 axis-asymmetry partial:** A-RU §3 demanded symmetric defensibility_brake on (1-σ) axis; D2 only fixes Λ side. Defensibility-axis still unpenalized for audit overhead. Not addressed in β scope (would require new σ-amendment, out of L-50 budget).
-  - (iii) **Bypass env vars are real escape hatches.** `ERADEV_BYPASS_PN1` + `ERADEV_OPERATOR_SESSION` could degrade BLOCK to ceremony if abused. Mitigation via bypass log + Coherencer Tier-3 review, but mitigation itself is advisory (recursive PARTIAL).
+  - (iii) **Bypass env vars are real escape hatches.** `ERADEV_BYPASS_PN1` + `ERADEV_OPERATOR_SESSION` could degrade BLOCK to ceremony if abused. Mitigation via bypass log + Coherent Tier-3 review, but mitigation itself is advisory (recursive PARTIAL).
   - (iv) **Hook reliability split:** D + P enforced by git pre-commit (deterministic); M enforced by harness PreToolUse (depends on tool layer respecting hooks). If harness ever runs Edit/Write outside hook layer → silent bypass.
   - (v) **Race condition between P and D BLOCKs** acknowledged + mitigated via `[retire-pass]` commit tag, but tag is text — operator can mistype or forget. Validator dry-run catches design-time but not runtime mistakes.
   - (vi) **Source code not directly verified:** `enforce-delegation.sh`, `check-phantom-newness.sh`, `eradev.md` §II.1 line ranges all cited from prior reports, not opened in this β session (would require deeper Builder pre-flight; flagged for actual implementation Builder).
@@ -269,7 +269,7 @@ Uniform 0.25 weights (code modality, B_text v8-compatible).
 1. **D-formula choice: D2 (additive)** — `Λ = 0.5·Λ_c + 0.5·LF`, no clip needed. B-projection at empirical LF=0.012 → 0.280 (vs α 0.066 catastrophic); at LF=0.30 GREEN-floor → 0.374; at LF=0.70 → 0.504 GREEN. Linear, monotonic, backward-compatible (Λ_c=LF default → Λ=Λ_c identity). Beats D1 (clip [0.5,1.0] multiplicative; never reaches GREEN).
 2. **BLOCK enforcement on all 3 cures (advisory→BLOCK):** P = `check-phantom-newness.sh` exit 1 on new BL/Inv when Ω_pruned<1.0 over 4 sessions; M = `enforce-delegation.sh` exit 2 on direct Edit without INTENT or with INTENT but first-tool≠Agent (with ε_meta whitelist for META 6 outputs); D = `check-leverage.sh` exit 3 on 3 consecutive framework commits with LF<0.10 (with `[retire-pass]` commit-tag exemption).
 3. **Sequence LOCKED D→M→P** (L2 PATH_C_ACCEPTED + B-EN §4 reframe + 5 votes). D first (lowest blast-radius, additive math + Σ_pre snapshot + pre-commit hook); M second (extends D's stable §9 surface); P last (preserves abort-safety; PN-1 BLOCK gates further ID growth).
-4. **Collision resolution:** §14 = serialize append (D adds 1 line, M appends 1, P appends 1; Coherencer L1 verifies line count per phase); hooks = disjoint files (D=check-leverage; M=enforce-delegation; P=check-phantom-newness; pre-commit chain order P→D); §15 = P/D in adjacent subsections .A/.B.
+4. **Collision resolution:** §14 = serialize append (D adds 1 line, M appends 1, P appends 1; Coherent L1 verifies line count per phase); hooks = disjoint files (D=check-leverage; M=enforce-delegation; P=check-phantom-newness; pre-commit chain order P→D); §15 = P/D in adjacent subsections .A/.B.
 5. **Total: 7 Builders (3 EN+RU pairs + 1 skill-mirror) + 4 Validators (1 per phase gate + 1 final). LOC ~184 (+30% from original ~141 for BLOCK layer). ZERO new BL/Inv (L-50 clean; β extends 3 existing hooks + adds 1 pre-commit chain entry). B = 0.430 ANDON (design σ=0.30: line overshoot, hook source not opened, axis-asymmetry partial, bypass escape hatches, harness-vs-git reliability split, race-condition mitigation tag-based).**
 
 ---

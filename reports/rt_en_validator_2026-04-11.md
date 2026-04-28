@@ -170,8 +170,8 @@
 - **The "stable attractor" claim is over-reach.** Two frameworks built by humans in the same year for the same task converging on the same decomposition could be path-dependent (both trained on human software teams) rather than a law of nature.
 
 **Action for universalization:** Formally test the 5-role model against non-software domains. Known parallels:
-- Science labs: PI / Postdoc / Grad student / Reviewer / Lab manager → maps to 5 roles but weakly (PI and Visionary both strategic; Grad student and Builder mechanical; Reviewer=Validator; Lab manager=Coherencer; Postdoc=Analyst). Plausible.
-- Film production: Director / Writer / Actor / Editor / Producer → maps weakly (Director=Visionary; Writer=Analyst; Actor=Builder; Editor=Validator; Producer=Coherencer). Plausible but role identity blurred.
+- Science labs: PI / Postdoc / Grad student / Reviewer / Lab manager → maps to 5 roles but weakly (PI and Visionary both strategic; Grad student and Builder mechanical; Reviewer=Validator; Lab manager=Coherent; Postdoc=Analyst). Plausible.
+- Film production: Director / Writer / Actor / Editor / Producer → maps weakly (Director=Visionary; Writer=Analyst; Actor=Builder; Editor=Validator; Producer=Coherent). Plausible but role identity blurred.
 - **Counterexample:** Solo art (painting, poetry) has no natural decomposition into 5 roles. The 5-role model is a teamwork attractor, not a universal cognitive pattern.
 
 ---
@@ -213,7 +213,7 @@
 The framework assumes "5 roles × RT × ODTOE coherence" is universal. These task types stress or break that assumption:
 
 ### 1. Solo Art / Poetry / Music Composition
-- No natural role decomposition. A single artist is the Visionary, Analyst, Builder, Validator, and Coherencer simultaneously.
+- No natural role decomposition. A single artist is the Visionary, Analyst, Builder, Validator, and Coherent simultaneously.
 - Splitting the work into 5 agents **destroys the integrated creative state** (flow). Evidence: [CoComposer research](https://arxiv.org/html/2509.00132v1) found multi-agent music composition "significantly lags behind in core aesthetic dimensions" compared to dedicated single-agent models.
 - **Break point:** Creativity is not a pipelined activity. Pipelining it creates worse output.
 - **Implication:** For solo-creative tasks, the framework should default to **single-agent mode with Inner Critique** (one agent cycling through 5 role perspectives internally), not 5 parallel agents.
@@ -221,7 +221,7 @@ The framework assumes "5 roles × RT × ODTOE coherence" is universal. These tas
 ### 2. Formal Theorem Proving
 - Mixed signals from research. [MA-LoT](https://arxiv.org/html/2503.03205v2) shows multi-agent gets 61% accuracy on MiniF2F-Lean4 vs 55% single-agent.
 - BUT the multi-agent architecture there is specialized (Planner / Prover / Critic / Verifier with Lean tools), not EraDev's 5-role model.
-- EraDev's Visionary, Coherencer roles add no value to theorem proving; the task reduces to Analyst + Builder + Validator in a tight loop.
+- EraDev's Visionary, Coherent roles add no value to theorem proving; the task reduces to Analyst + Builder + Validator in a tight loop.
 - **Break point:** Some tasks have natural 3-role or 2-role structures. 5-role forces irrelevant cognitive overhead.
 - **Implication:** Role count should be task-dependent. n_min = 5 is a theorem about teamwork stability, not a claim that 5 is always optimal.
 
@@ -246,7 +246,7 @@ The framework assumes "5 roles × RT × ODTOE coherence" is universal. These tas
 - Research tasks have no "done" criterion. RT-3 ("go/no-go acceptance") is ill-defined.
 - True North becomes unstable: the direction changes based on findings.
 - **Break point:** Exploration vs exploitation — EraDev is structured for exploitation.
-- **Implication:** Need an "Exploration Mode" with no RT-3, periodic Coherencer check-ins, Visionary re-alignment, but no acceptance gate.
+- **Implication:** Need an "Exploration Mode" with no RT-3, periodic Coherent check-ins, Visionary re-alignment, but no acceptance gate.
 
 ### 7. Therapy / Policy Analysis / Ethical Review
 - These involve **stakeholder perspectives**, not task perspectives. 5 roles representing cognitive functions miss the point; you need 5 *stakeholders* (client, practitioner, family, regulator, ethicist).
@@ -361,7 +361,7 @@ For each of 5 canonical non-code domains, run a representative task end-to-end t
 | T1.1 | Research synthesis | "Write a 2000-word literature review on topic X with 10 cited sources" | Validator flags source quality issues; Builder uses WebSearch+WebFetch; final review passes peer-review rubric |
 | T1.2 | Creative writing | "Draft a 500-word short story with theme Y" | 5-role mode vs single-agent A/B test; measure reader rating + word-quality metrics |
 | T1.3 | Theorem proving | "Prove X in Lean4" | 5-role mode vs minimal agent from [arxiv 2602.24273](https://arxiv.org/html/2602.24273); measure success rate |
-| T1.4 | Policy analysis | "Analyze regulation Z for stakeholder impacts" | Validator enumerates missed stakeholder groups; Coherencer syncs perspectives |
+| T1.4 | Policy analysis | "Analyze regulation Z for stakeholder impacts" | Validator enumerates missed stakeholder groups; Coherent syncs perspectives |
 | T1.5 | Art direction | "Generate moodboard + spec for Q product launch" | Media-output quality metric (no B-formula applicable) |
 
 ### Test Battery T2: Borrow Activation

@@ -319,7 +319,7 @@ Always-print пункты безусловны. Trigger-only пункты печ
        - **0.05 ≤ LF < 0.10** → YELLOW warning. META ОБЯЗАН эмитировать `[YELLOW: LF=0.XX 14d — framework drift]` после item 9 и ТРЕБОВАТЬ ACK оператора ("ack" / "proceed" / "понял") ДО спавна первого агента. Operator-domain task framing удовлетворяет ACK неявно (текущая задача затрагивает `projects/{name}/` исключая `projects/eradev/`).
        - **LF < 0.05** → RED. META ОБЯЗАН эмитировать `[RED: LF=0.XX 14d — Λ-effective floor breach]` и BLOCK старт сессии (никаких агентских спавнов) пока оператор явно не вызовет Kill-Switch Level 2 review (оператор пишет `kill-switch-2` / `KS2 review` / `override OD-2`) ИЛИ не отгрузит ≥1 operator-domain артефакт в следующем коммите. Чисто framework-self рефакторы НЕ имеют права пробивать пол.
        **Bypasses:** `ERADEV_HOOKS_DISABLED=1` (только P0, post-incident Hansei обязательный); operator session opener содержащий `[skip-od2]` (логируется в lessons.md). Operator-domain сессии (текущая задача нацелена на `projects/{name}/` non-eradev) auto-exempt от BLOCK — gate срабатывает на framework-self-only сессиях.
-       **BL-3 awareness:** пороги 0.10 / 0.05 эмпирические (Coherencer Tier 1 reading, не валидировано). Если gate срабатывает 2+ раза производя operator-friction без поимки реального дрифта, STOP, написать спеку, перезапустить RT-1.
+       **BL-3 awareness:** пороги 0.10 / 0.05 эмпирические (Coherent Tier 1 reading, не валидировано). Если gate срабатывает 2+ раза производя operator-friction без поимки реального дрифта, STOP, написать спеку, перезапустить RT-1.
        Печатать intent_ratio = X.XX (META discipline metric, BT-1 Phase 2.2 M-cure).
        intent_ratio = (count of META first-actions that are Agent calls or Check Agent spawns) / max(1, total META first-actions in current measurement window).
        Привязка к ε_meta canonical (CLAUDE.md "META Output Specification"): output types #1 (Agent calls) и #6 (Check Agent) идут в INTENT numerator; types #3-#5 (Synthesis/Lessons/Reports) — OUTPUT-class Edit/Write в ε_meta whitelist (НЕ считаются first-action нарушениями); type #2 (Decisions) — text emission (нейтрально).
@@ -473,16 +473,16 @@ A3 увеличивает Lambda: опыт сохраняется между с�
 ### Воронка отчётов (сжатие информации)
 
 ```
-Builder (полный артефакт) -> Validator (Структурированный вердикт) -> Coherencer (Cycle Brief) -> META
+Builder (полный артефакт) -> Validator (Структурированный вердикт) -> Coherent (Cycle Brief) -> META
 ```
 
 Каждый уровень сжимает. META читает ТОЛЬКО Cycle Brief, никогда сырой вывод.
 
-**Структурированный вердикт** (Validator -> Coherencer, макс 7 строк):
+**Структурированный вердикт** (Validator -> Coherent, макс 7 строк):
 `TASK: [id] | VERDICT: PASS/PARTIAL/FAIL | MATCH: [0-10] | DRIFT: NONE/LOW/MEDIUM/HIGH`
 `SUMMARY: [1-2 предложения] | GAPS: [пункты] | NEXT: [действие]`
 
-**Cycle Brief** (Coherencer -> META, макс 10 строк):
+**Cycle Brief** (Coherent -> META, макс 10 строк):
 `CYCLE: [id] | COMPLETED: [N] задач [ids] | PARTIAL: [N] [id+разрыв] | FAILED: [N] [id+причина]`
 `ESSENCE: ALIGNED/DRIFTING/MISALIGNED + 1 предложение | METRICS: S_session=_ B_mean=_ fix_rate=_`
 `NEXT: [макс 3 рекомендации]`
@@ -506,7 +506,7 @@ GREEN НЕ означает:
 **Путь восстановления (recovery path)** если META объявила «ready» преждевременно:
 - Оператор поймал → fix chain НЕ триггерится (authority оператора перекрывает по L-59)
 - Hansei фиксирует «ready-inflation» как наблюдение
-- Coherencer добавляет в ближайший периодический Tier-claim sweep
+- Coherent добавляет в ближайший периодический Tier-claim sweep
 
 Эта поправка закрывает находку R3 RT-9 EN-V «GREEN means ready — это дефект словаря фреймворка».
 

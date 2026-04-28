@@ -25,19 +25,19 @@
 - Where computed: meta.md §14 item 9-extended (alongside `Ω(H_hist) = min(1+α·log(1+N), 2.5)`).
 - Where reported: bootstrap §9 print line (already prints Omega; appends Ω_pruned).
 - Threshold: `Ω_pruned ≥ 1.0` over 4-session window = green; `< 1.0` = YELLOW (net inflation); `< 0.5` over 8 sessions = ANDON.
-- Auto-demote: `Φ⁻` operator triggers on `ended != null` timestamp in temporal triple — Coherencer at next §9-extended pass moves entry to `lessons_archive.md`. No manual ritual; the temporal triple is already on every lesson (lessons.md lines 36–106 sample confirms format).
+- Auto-demote: `Φ⁻` operator triggers on `ended != null` timestamp in temporal triple — Coherent at next §9-extended pass moves entry to `lessons_archive.md`. No manual ritual; the temporal triple is already on every lesson (lessons.md lines 36–106 sample confirms format).
 
 **Scheduled retirement protocol (Hansei subtype):**
-- Fires: at every 4-session boundary (Coherencer Tier-3 cadence per Inv 17), OR on operator command "retire-sweep", OR auto on `ended < today` for any active lesson.
+- Fires: at every 4-session boundary (Coherent Tier-3 cadence per Inv 17), OR on operator command "retire-sweep", OR auto on `ended < today` for any active lesson.
 - What it does: (1) grep retired ID across `hooks/`, `.githooks/`, `roles/`, `templates/` (downstream-references audit per EN report §2 P×M mitigation); (2) move to `lessons_archive.md` only if no live reference; (3) write `reports/retirement-pass-<date>.md` with delta + Ω_pruned + audit log; (4) flip `ended` in temporal triple.
-- Reviewer: Coherencer drafts; operator signs off if any cross-reference flagged.
+- Reviewer: Coherent drafts; operator signs off if any cross-reference flagged.
 
 **Extension points cited:**
 - `lessons_archive.md` (lines 1–8) — already exists as destination; format confirmed (compression pass 2026-04-25 entry).
 - Temporal triple `<!-- valid_from | ended | superseded_by | cross_project -->` (lessons.md line 3) — already on every lesson.
 - meta.md §14 item 9-extended (lines 330–350) — already includes ARCHIVE action and lessons_archive.md reference; we add Ω_pruned computation alongside existing Ω(H_hist).
 - eradev.md §II.1 v10 extension hook (line 147) — explicitly OPEN for extensions.
-- Inv 17 Tier-3 Coherencer cadence (CLAUDE.md) — already defines 4-session review cadence; we attach retirement-pass to existing cadence.
+- Inv 17 Tier-3 Coherent cadence (CLAUDE.md) — already defines 4-session review cadence; we attach retirement-pass to existing cadence.
 
 **LOC total: ~60 lines.** All EXTEND. Zero new files except the one Hansei template (data, not protocol).
 
@@ -117,7 +117,7 @@ This is EXTEND, not ADD: leverage_factor is a multiplicative refinement INSIDE �
 
 **Bilingual sync (BL-19) requirement:**
 - eradev.md and eradev_RU.md MUST update in same wave. Both 1172 lines; edits mirror at same line offsets.
-- Builder spawning D wave MUST be parallel pair: EN-edit-Builder + RU-edit-Builder, Coherencer gates terminology consistency before commit (Inv 13 default-parallel).
+- Builder spawning D wave MUST be parallel pair: EN-edit-Builder + RU-edit-Builder, Coherent gates terminology consistency before commit (Inv 13 default-parallel).
 
 **Extension points cited:**
 - B-formula `Λ` component (eradev.md line 98, Λ = Experience) — already names "experience"; we refine its computation.
@@ -165,7 +165,7 @@ This is EXTEND, not ADD: leverage_factor is a multiplicative refinement INSIDE �
 
 - **D before M:** M-cure's KILL-TEST extension references Inv 1; if Inv 1's wording amendment in M ships before D's leverage-print is in §9, the §9 line will be inconsistent across one session boundary. RU report §3 makes the stronger claim (D first to re-anchor axis); EN report §3 disagrees (P first). **Reconciliation:** D's edits are pure-formula and pure-print, no retirement and no enforcement change — D ships first as the lowest-blast-radius enabler. M then references the stable §9 print surface (which D has already shaped). EN report's "P first" rationale (P provides contraction substrate before measurement is meaningful) is preserved by sequencing D as formula-only first, then M, then P — at the moment P starts retiring, the metric (D) and the type-check gate (M) are both already live to observe the effect.
 - **M before P:** EN report §2 P×M reinforcement risk is concrete: P retires Inv/BL IDs; if M's KILL-TEST (and `enforce-delegation.sh` extension) still references retired IDs, hook fails open. M MUST land first so that (a) `intent_ratio` is being measured during P's retirement pass (D's leverage_factor + M's intent_ratio together expose whether retirement is real cure or symptom-mask); (b) downstream-references audit in P's retirement protocol has a stable target list (Inv 1 amendment in M is locked before P starts pruning).
-- **P last:** P is the load-bearing structural change (EN report §3 single-point-of-failure). It fires retirement. If P fails at Coherencer veto, D + M still ship and provide the measurement substrate to retry P later. If P ships first and fails (per EN report §3 abort rule), D + M never ship in this wave.
+- **P last:** P is the load-bearing structural change (EN report §3 single-point-of-failure). It fires retirement. If P fails at Coherent veto, D + M still ship and provide the measurement substrate to retry P later. If P ships first and fails (per EN report §3 abort rule), D + M never ship in this wave.
 
 **Recommended IMPLEMENTATION order under (a): D → M → P.**
 
@@ -184,7 +184,7 @@ The two reports' apparent disagreement is a frame-shift, not a contradiction: EN
 | P-cure | ~60 | 5 (meta.md, eradev.md, lessons.md, lessons_archive.md, retirement-pass template) | 1 (Hansei template) |
 | **TOTAL** | **~141** | **7 unique** (meta.md and lessons.md shared across cures) | **1** (Hansei template) |
 
-**Single-commit-per-phase rule (Inv 7, BL-24):** each cure ships as one commit. 3 commits total in the wave, gated sequentially (D commit → M commit → P commit). Coherencer runs bilingual sync gate (BL-19) on D commit before M starts.
+**Single-commit-per-phase rule (Inv 7, BL-24):** each cure ships as one commit. 3 commits total in the wave, gated sequentially (D commit → M commit → P commit). Coherent runs bilingual sync gate (BL-19) on D commit before M starts.
 
 ---
 
@@ -242,4 +242,4 @@ Uniform weights 0.25 (code modality, B_text v8-compat).
 4. **Recommended implementation order: D → M → P.** D is lowest-blast-radius (formula+print, no enforcement); D's §9 print shapes the surface M extends with intent_ratio; M locks Inv numbering before P retires; P last preserves abort-safety. Reconciles EN report (P first conceptually) and RU report (D first axis-anchor) by separating cure-shape primacy from build-blast-radius primacy — RT-1 may overturn this.
 5. **B = 0.430 ANDON.** σ=0.30 declared: line-count overshoot, EN/RU sequencing disagreement adjudicated under build-blast-radius bias, `enforce-delegation.sh` cited not directly read. Recommend RT-1 challenge the D→M→P vs P→M→D ordering before lock.
 
-**Recommended build sequence:** **D → M → P (interlocked, 3 commits, BL-19 sync gate after D, Coherencer review at each handoff).**
+**Recommended build sequence:** **D → M → P (interlocked, 3 commits, BL-19 sync gate after D, Coherent review at each handoff).**

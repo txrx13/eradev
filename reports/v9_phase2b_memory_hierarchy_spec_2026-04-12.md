@@ -61,7 +61,7 @@ T2 SESSION (loaded on demand, per-session relevance)
 T3 WISDOM (loaded via search, long-term archive)
   Purpose: historical lessons (ended), archived reports, cross-project patterns
   Lives in: projects/{PROJECT}/lessons_archive.md + reports/archive/ + cross-project scan results
-  Loaded by: Coherencer Lambda Audit (item 9) or explicit META decision when agent signals Lambda gap
+  Loaded by: Coherent Lambda Audit (item 9) or explicit META decision when agent signals Lambda gap
   Budget: no cap, but never auto-loaded. Pull, never push.
 ```
 
@@ -69,10 +69,10 @@ T3 WISDOM (loaded via search, long-term archive)
 
 | From | To | Trigger | Who |
 |------|-----|---------|-----|
-| T2 -> T1 | Promotion | A lesson or memory is referenced >= 5 times across sessions AND names a universal failure mode | Coherencer (at Hansei) |
+| T2 -> T1 | Promotion | A lesson or memory is referenced >= 5 times across sessions AND names a universal failure mode | Coherent (at Hansei) |
 | T1 -> T2 | Demotion | A T1 entry hasn't been referenced in 5+ sessions, OR is project-specific | META (at session start, item 11) |
-| T2 -> T3 | Archival | Lesson gets `ended` date; report loses all active references and is > 7 days old | Coherencer (at compression pass) |
-| T3 -> T2 | Recall | Agent signals Lambda gap + Coherencer finds relevant archived lesson via cross-project scan | Coherencer (at Lambda Audit) |
+| T2 -> T3 | Archival | Lesson gets `ended` date; report loses all active references and is > 7 days old | Coherent (at compression pass) |
+| T3 -> T2 | Recall | Agent signals Lambda gap + Coherent finds relevant archived lesson via cross-project scan | Coherent (at Lambda Audit) |
 
 **Constraint:** T1 promotion is rare and intentional. Most memory lives at T2. T3 is the archive, not the trash — anything in T3 can be recalled if needed.
 
@@ -86,9 +86,9 @@ Current items 2 and 9 need updating:
        Drawer files (T2) loaded JIT when task context requires them.
        T3 wisdom NOT loaded unless Lambda Audit requests it.
 ...
-[ ] 9. LAMBDA AUDIT: Coherencer reads projects/{PROJECT}/lessons.md (T2 active entries only)
+[ ] 9. LAMBDA AUDIT: Coherent reads projects/{PROJECT}/lessons.md (T2 active entries only)
        and announces 3 relevant lessons + 2 mega-patterns.
-       If Lambda gap detected: Coherencer searches T3 (lessons_archive.md, cross-project scan).
+       If Lambda gap detected: Coherent searches T3 (lessons_archive.md, cross-project scan).
        If cross_project: true entries found in other projects, load into session context.
 ```
 
@@ -180,7 +180,7 @@ source_report: null         # path to report that spawned this memory, if any
 - Hard cap: 200 lines for MEMORY.md.
 - Each index entry is 1 line (link + description).
 - At 200 lines, new entries require either (a) archiving an old entry to T3 or (b) merging two related entries into one drawer file with a combined index line.
-- Enforcement: META checks line count at session start (item 11). If > 200: spawn Coherencer to compress before proceeding.
+- Enforcement: META checks line count at session start (item 11). If > 200: spawn Coherent to compress before proceeding.
 
 ---
 
@@ -237,7 +237,7 @@ Archived [ARCHIVED]
 
 **Trigger:** When `lessons.md` exceeds 50 active entries (counting only `[ACTIVE]` entries, not superseded or archived ones).
 
-**Process (Coherencer):**
+**Process (Coherent):**
 
 1. Count active entries. If count <= 50, STOP.
 2. Identify merge candidates: pairs of lessons that (a) share the same failure mode, (b) apply to overlapping role sets, (c) were learned within the same session cluster (close `valid_from` dates).
@@ -258,7 +258,7 @@ Existing 32 lessons in `projects/eradev/lessons.md` need `valid_from` dates. Bui
 - Session 3 lessons (16-25): `valid_from: 2026-04-11` (v9 universalization per lesson headers)
 - Session 3 extension lessons (26-32): `valid_from: 2026-04-11` (Phase 2.1.S per lesson headers)
 - All EMPs: `valid_from` = date of the session that produced them
-- All existing lessons: `ended: null`, `superseded_by: null`, `cross_project: false` (default; Coherencer reviews and may promote some to `cross_project: true` in a subsequent pass)
+- All existing lessons: `ended: null`, `superseded_by: null`, `cross_project: false` (default; Coherent reviews and may promote some to `cross_project: true` in a subsequent pass)
 
 ---
 
@@ -272,7 +272,7 @@ Existing 32 lessons in `projects/eradev/lessons.md` need `valid_from` dates. Bui
 
 **Trigger:** Every 5 new BL candidates accumulated (tracked in a `BL_CANDIDATES.md` staging file at repo root).
 
-**Process (Coherencer):**
+**Process (Coherent):**
 
 1. Read `BL_CANDIDATES.md`. If fewer than 5 candidates, STOP.
 2. Read current `BOOTSTRAP_LESSONS.md` (or the split files if in split mode).
@@ -307,7 +307,7 @@ BLs tagged `[CODE-ADAPTER]` that meet ALL of these criteria are candidates for a
 - Tagged `[CODE-ADAPTER]` (universal BLs are never archived)
 
 **Archival process:**
-1. Coherencer identifies stale BL candidates at Hansei.
+1. Coherent identifies stale BL candidates at Hansei.
 2. Propose archival to operator (META does NOT auto-archive BL — BL-32 audit trail risk).
 3. If approved: move to a `## Archived` section at the bottom of `BOOTSTRAP_LESSONS_code_adapter.md`. Do NOT delete.
 4. Archived BLs do NOT count against the 30 cap.
@@ -339,7 +339,7 @@ Archived (in reports/archive/, preserved for audit trail)
 
 ### 5.3 reports/INDEX.md
 
-A table maintained by META (or Coherencer at Hansei) listing all reports:
+A table maintained by META (or Coherent at Hansei) listing all reports:
 
 ```markdown
 # Reports Index
@@ -372,7 +372,7 @@ A table maintained by META (or Coherencer at Hansei) listing all reports:
 4. Report date is > 7 days old
 
 **A `stale` report becomes `archived` when:**
-1. Coherencer runs archival pass (triggered at report count > 80 or at quarterly Hansei)
+1. Coherent runs archival pass (triggered at report count > 80 or at quarterly Hansei)
 2. Move file to `reports/archive/`
 3. Update INDEX.md status to `archived`
 
@@ -382,7 +382,7 @@ A table maintained by META (or Coherencer at Hansei) listing all reports:
 
 **Trigger:** Report count > 80 in `reports/` (excluding `archive/` subdirectory) OR quarterly Hansei.
 
-**Process (Coherencer):**
+**Process (Coherent):**
 
 1. Build reference graph: for each report, grep all `projects/*/lessons.md`, `BOOTSTRAP_LESSONS*.md`, and other `reports/*.md` for its filename.
 2. Mark reports with zero incoming references AND age > 7 days as `stale`.
@@ -415,7 +415,7 @@ A lesson earns `cross_project: true` when it names a failure mode that could rec
 
 ### 6.3 Cross-Project Scan Protocol
 
-**When:** Coherencer Lambda Audit (meta.md Section 14, item 9).
+**When:** Coherent Lambda Audit (meta.md Section 14, item 9).
 
 **Process:**
 
@@ -445,7 +445,7 @@ where:
 
 ### 6.5 v9 vs v10 Boundary
 
-**v9 (this spec):** Cross-project scan is manual (Coherencer at Lambda Audit). Simple grep-based discovery. No numerical Omega reporting yet.
+**v9 (this spec):** Cross-project scan is manual (Coherent at Lambda Audit). Simple grep-based discovery. No numerical Omega reporting yet.
 
 **v10 (deferred):**
 - Temporal decay on cross-project lessons (OQ-Omega-1 from eradev.md)
@@ -506,7 +506,7 @@ Wave 2: Temporal triples (M, 1 Builder + 1 Validator)
   2b. Add temporal metadata to all projects/odtoe-articles/lessons.md entries
   2c. Add lifecycle tags [ACTIVE] to all entries
   2d. Create empty lessons_archive.md files in all 4 projects
-  2e. Tag cross_project candidates (Coherencer review)
+  2e. Tag cross_project candidates (Coherent review)
 
 Wave 3: Reports infrastructure (S, 1 Builder)
   3a. Create reports/archive/ directory
@@ -580,7 +580,7 @@ Wave 5: Validation (S, 1 Validator)
 
 **Risk:** Temporal triples are added at migration but never updated afterward. `valid_from` dates become decorative noise. `ended` is never set because no one runs the compression pass.
 
-**Mitigation:** Compression is triggered mechanically (count > 50 active entries), not on a schedule. The trigger is embedded in the Coherencer's Lambda Audit protocol (meta.md item 9), which already fires every session. BL-16 applies: if the rule exists but never fires, it's Lambda zero.
+**Mitigation:** Compression is triggered mechanically (count > 50 active entries), not on a schedule. The trigger is embedded in the Coherent's Lambda Audit protocol (meta.md item 9), which already fires every session. BL-16 applies: if the rule exists but never fires, it's Lambda zero.
 
 **Signal to watch:** If `lessons.md` grows past 60 entries and no compression has occurred, the protocol is not firing. META should escalate.
 
@@ -620,7 +620,7 @@ With 4 projects, scanning all `lessons.md` files is trivial. At 20+ projects (v1
 Should Mega-Patterns (EMPs) have temporal triples? EMPs are generalizations that should never expire. Proposal: EMPs get `valid_from` but never `ended` (they are promoted to immortal T1-equivalent within lessons.md). Builder should implement this as the default.
 
 ### OQ-2B-4: reports/INDEX.md Auto-Maintenance
-Should INDEX.md be auto-generated (script/hook) or manually maintained by Coherencer? Auto-generation is more reliable but requires a script. Manual maintenance is simpler but risks staleness. Recommendation: start manual, add script if staleness becomes a problem.
+Should INDEX.md be auto-generated (script/hook) or manually maintained by Coherent? Auto-generation is more reliable but requires a script. Manual maintenance is simpler but risks staleness. Recommendation: start manual, add script if staleness becomes a problem.
 
 ### OQ-2B-5: Lessons Numbering Stability
 When compression merges or archives lessons, the remaining lesson numbers become sparse (L-1, L-2, L-5, L-8, ...). Should we re-number? Risk: stale references to old numbers in reports. Recommendation: do NOT re-number. Sparse numbering is acceptable. New lessons get the next highest number, never reuse old numbers.

@@ -1,6 +1,6 @@
 # Instruction Improvements Report — Cycle-7 Analysis
 
-**Method:** 5-role Round Table (Visionary, Analyst, Builder, Validator, Coherencer)
+**Method:** 5-role Round Table (Visionary, Analyst, Builder, Validator, Coherent)
 **Input:** cycle-7-reflection.md + ODTOE_eradev_multiagent_research.tex + current instructions
 **Date:** April 2026
 
@@ -23,9 +23,9 @@ S_team across 5 roles: **0.72** (high conceptual alignment, moderate structural 
 | # | Change | Target File | Type | Evidence |
 |---|--------|------------|------|----------|
 | C1 | **BL-22: PRE-FLIGHT Gate** — Analyst curl-verifies all external endpoints before RT-1. Unverified endpoint = Builder BLOCK | BOOTSTRAP_LESSONS.md + CLAUDE.md.template (Invariants) + analyst.md (new responsibility) | NEW | F=0 in 3/9 incidents (16/42 fixes) |
-| C2 | **BL-23: Yokoten Gate** — After every fix, Coherencer greps for analogous patterns. Single-site fix = incomplete | BOOTSTRAP_LESSONS.md + coherent.md (new gate) | NEW enforcement of BL-13 | Incident #8 (3 fix commits) |
+| C2 | **BL-23: Yokoten Gate** — After every fix, Coherent greps for analogous patterns. Single-site fix = incomplete | BOOTSTRAP_LESSONS.md + coherent.md (new gate) | NEW enforcement of BL-13 | Incident #8 (3 fix commits) |
 | C3 | **BL-24: Single-Responsibility Commits** — One commit = one phase. >5 files from different modules = RT-2 required | BOOTSTRAP_LESSONS.md + CLAUDE.md.template (Invariants) | NEW | Big bang commits (16 files, 14 files) |
-| C4 | **Lambda Audit at RT-1** — Coherencer reads and announces 3 relevant lessons + 2 mega-patterns before task begins | meta.md Section 14 (new item 8) + coherent.md | ENFORCEMENT of BL-4/BL-10 | Lambda=0 in 3/9 incidents |
+| C4 | **Lambda Audit at RT-1** — Coherent reads and announces 3 relevant lessons + 2 mega-patterns before task begins | meta.md Section 14 (new item 8) + coherent.md | ENFORCEMENT of BL-4/BL-10 | Lambda=0 in 3/9 incidents |
 | C5 | **Fix-to-Spec Escalation** — Fix chain >= 3 = Andon. Builder writes spec, spec passes RT, then resume | meta.md (Commit Archaeology) + coherent.md + CLAUDE.md.template | ENFORCEMENT of BL-3 | 3 chains (9+10+7 fixes = 26 wasted commits) |
 
 ### P1 — This session (after P0)

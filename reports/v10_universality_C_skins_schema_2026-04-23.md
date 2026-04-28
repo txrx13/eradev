@@ -26,7 +26,7 @@
 
 **Schema template update:**
 
-- `templates/domain_skin.md.template` — added full "Project Config Schema (relevant fields)" section with `domain.languages` field documentation + `verify.method` extensibility registry documentation + `verify.custom_methods` sub-block schema. Updated Coherencer role focus to make language sync conditional on `languages.length > 1`. Updated Verification Protocol block to reference canonical-or-custom method.
+- `templates/domain_skin.md.template` — added full "Project Config Schema (relevant fields)" section with `domain.languages` field documentation + `verify.method` extensibility registry documentation + `verify.custom_methods` sub-block schema. Updated Coherent role focus to make language sync conditional on `languages.length > 1`. Updated Verification Protocol block to reference canonical-or-custom method.
 
 **Project configs updated (4 files — add `languages` field):**
 
@@ -46,7 +46,7 @@ Note: `domain.skin:` line in `projects/odtoe-articles/config.md` was NOT modifie
 
 1. **`grep -rn "ODTOE\|pankratov\|rybakov\|odtoe-articles\|iznachalye\|plugy\|academic-lab" templates/domain_skin.{code,plan,config,book,research}*.md`** → **0 matches.** All 10 in-scope skin files are clean of project-specific name-drops.
 
-2. **`grep "domain.languages\|languages:" projects/*/config.md templates/domain_skin.md.template`** → present in all 4 project configs (eradev, odtoe-articles: `[en, ru]`; plugy, academic-lab: `[en]`) + 3 locations in `domain_skin.md.template` (schema line 37, dedicated section line 42-48, Coherencer role focus line 110).
+2. **`grep "domain.languages\|languages:" projects/*/config.md templates/domain_skin.md.template`** → present in all 4 project configs (eradev, odtoe-articles: `[en, ru]`; plugy, academic-lab: `[en]`) + 3 locations in `domain_skin.md.template` (schema line 37, dedicated section line 42-48, Coherent role focus line 110).
 
 3. **`grep "custom_methods\|extensible\|registry" eradev.md eradev_RU.md templates/domain_skin.md.template`** → 4 matches in template (lines 25, 51, 56, 117), 1 long-line match in `eradev.md` line 171, 1 long-line match in `eradev_RU.md` line 170. Extensibility is documented in all 3 required locations.
 
@@ -56,7 +56,7 @@ Note: `domain.skin:` line in `projects/odtoe-articles/config.md` was NOT modifie
 
 ### Validation (end-to-end)
 
-- **Schema coherence:** `domain.languages` field uses YAML array syntax consistent with existing list fields (`examples:`, `subdomains:`). Default value `[en]` documented in template schema AND referenced in Coherencer role focus. BL-19 sync rule now conditional on `languages.length > 1` — single-language projects have NO-OP sync gates, multi-language projects retain full mirror enforcement.
+- **Schema coherence:** `domain.languages` field uses YAML array syntax consistent with existing list fields (`examples:`, `subdomains:`). Default value `[en]` documented in template schema AND referenced in Coherent role focus. BL-19 sync rule now conditional on `languages.length > 1` — single-language projects have NO-OP sync gates, multi-language projects retain full mirror enforcement.
 - **Registry coherence:** `verify.method` extension mechanism mirrors existing `domain.B_modality` v10 extension hook pattern (open registry, project-declared extensions, core framework agnostic to names). The 4 cross-domain examples (legal/medical/culinary/accessibility) are illustrative only — not shipped, not added as enums.
 - **Backward compatibility:** projects without `languages:` field default to `[en]` (per template documentation); existing bilingual projects (eradev, odtoe-articles) explicitly declare `[en, ru]` — no regression, explicit > implicit.
 - **File readership:** all 10 skin files were read in full (or via representative offset ranges for the 3 files that exceed read-tool limits: config.md, book.md, config_RU.md). Grep used to locate every project-specific hit with context before editing.

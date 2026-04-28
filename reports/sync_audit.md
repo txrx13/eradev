@@ -329,7 +329,7 @@ No occurrences of `w_role` found anywhere. The current formula `S_adjusted = S_t
 | meta.md (EN) | NO (uses Phantom Coherence Detector qualitative, not S_adjusted formula) |
 | meta_RU.md (RU) | NO (same) |
 | BOOTSTRAP_LESSONS.md | YES (BL-4) |
-| interfaces.md | YES (coherencer_output schema has `s_adjusted` field) |
+| interfaces.md | YES (coherent_output schema has `s_adjusted` field) |
 
 ### 9.6 Non-existent `experiment_en/` directory
 
@@ -387,10 +387,10 @@ interfaces.md defines 5 handoff contracts:
 | 1. Visionary -> Analyst | Visionary, Analyst | YES |
 | 2. Analyst -> Builder | Analyst, Builder | YES |
 | 3. Builder -> Validator | Builder, Validator | YES |
-| 4. Validator -> Coherencer | Validator, Coherencer | YES |
-| 5. Coherencer -> All Roles | Coherencer, All | YES |
+| 4. Validator -> Coherent | Validator, Coherent | YES |
+| 5. Coherent -> All Roles | Coherent, All | YES |
 
-The contract names use "Coherencer" consistently (matching glossary.md canonical form). All YAML schemas reference correct role names. The `s_adjusted` field is present in the Coherencer output schema. **PASS.**
+The contract names use "Coherent" consistently (matching glossary.md canonical form). All YAML schemas reference correct role names. The `s_adjusted` field is present in the Coherent output schema. **PASS.**
 
 ---
 
@@ -414,10 +414,10 @@ Same rationale as interfaces.md -- loading protocol is operational, EN-only.
 
 ### 12.5 Glossary role name inconsistency
 
-- glossary.md uses "Coherencer" (canonical per Canonical Forms table)
+- glossary.md uses "Coherent" (canonical per Canonical Forms table)
 - glossary_EN.md uses "Coherent" (deprecated alias per glossary.md row #1)
 - coherent.md / coherent_EN.md are named with "coherent" (deprecated form in filename)
-- interfaces.md uses "Coherencer" (canonical)
+- interfaces.md uses "Coherent" (canonical)
 
 ### 12.6 meta.md vs meta_RU.md: no version header
 
@@ -443,7 +443,7 @@ Neither meta.md nor meta_RU.md contain a version number. All other core files ha
 | 12 | `README.md` | File tree missing 10+ files that exist on disk | **MEDIUM** |
 | 13 | `LOADING_PROTOCOL.md` | Footer says "v3.0" instead of v7.1 | **MEDIUM** |
 | 14 | `eradev.md`, `eradev_RU.md` | Section XVII references non-existent `roles/` and `templates/` directories | **MEDIUM** |
-| 15 | `glossary_EN.md` | Uses deprecated "Coherent" instead of canonical "Coherencer" | **LOW** |
+| 15 | `glossary_EN.md` | Uses deprecated "Coherent" instead of canonical "Coherent" | **LOW** |
 | 16 | `meta.md`, `meta_RU.md` | No version header (all other core files have one) | **LOW** |
 | 17 | `BOOTSTRAP_LESSONS.md` | No RU counterpart (may be by design per Language Policy) | **LOW** |
 | 18 | `interfaces.md` | No RU counterpart (by design per Language Policy) | **LOW** |
@@ -476,7 +476,7 @@ Neither meta.md nor meta_RU.md contain a version number. All other core files ha
 5. **[MEDIUM]** Fix `core/{role}.md` references in both glossary files to `{role}.md` / `{role}_EN.md`.
 6. **[MEDIUM]** Update `LOADING_PROTOCOL.md` footer version from v3.0 to v7.1.
 7. **[MEDIUM]** Fix Section XVII in both `eradev.md` and `eradev_RU.md`: replace `roles/` and `templates/` with actual flat file layout.
-8. **[LOW]** Standardize role name to "Coherencer" in `glossary_EN.md` and consider renaming `coherent.md` / `coherent_EN.md` files.
+8. **[LOW]** Standardize role name to "Coherent" in `glossary_EN.md` and consider renaming `coherent.md` / `coherent_EN.md` files.
 9. **[LOW]** Add version headers to `meta.md` and `meta_RU.md`.
 
 ---

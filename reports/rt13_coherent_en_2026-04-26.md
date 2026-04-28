@@ -1,7 +1,7 @@
-# RT-13 Coherencer Report (EN slot) — Implementation Composition Map for BT-1 (all-3 sequenced)
+# RT-13 Coherent Report (EN slot) — Implementation Composition Map for BT-1 (all-3 sequenced)
 
 **Date:** 2026-04-26
-**Role:** [COHERENCER] L1 (within-team) + L2 (between EN/RU)
+**Role:** [COHERENT] L1 (within-team) + L2 (between EN/RU)
 **Domain:** code (skin: `templates/domain_skin.code.md`)
 **Operator decision:** option (a) — ship all 3 (P, M, D) sequenced in single wave
 **Inputs read:** `composition-hazards-2026-04-26-bt1_EN.md` (V-EN), `composition-hazards-2026-04-26-bt1_RU.md` (V-RU). Other RT-13 reports (A/B/Val × EN/RU) not yet present at start time — they remain advisory; this map will be re-checked by the L2 synthesis pass.
@@ -56,7 +56,7 @@ D amends B-formula Λ; leverage_factor uses post-P, post-M denominator
 - D's leverage_factor denominator counts "framework-self artifacts." If D ships before P, the denominator is unbounded (P hasn't capped inflation yet) → leverage_factor reads as constant complaint (V-EN §3, line 46). D-last makes leverage_factor a **post-condition verifier** for the wave, which is what the operator-decision-matrix needs.
 - D-EN ↔ D-RU bilingual sync (`eradev.md` + `eradev_RU.md` §II.1) is the largest BL-19 cost in the wave; deferring it to the end localizes the bilingual-batch and avoids re-syncing every step.
 
-**V-RU theoretical order accepted as ΔÔ (Coherencer path-c, role file §Path-(c) ΔÔ acceptance):** V-EN operates on Ô_implementation (file-edit dependency); V-RU operates on Ô_attractor (ψ\*-stability under self-application). Both deliverables clear because B_received ≥ B_min for their respective layers — V-EN's order is correct for the build, V-RU's order would be correct if the wave were a runtime transformation of an already-deployed framework. Implementation wave = build, so V-EN wins, V-RU's framing recorded as L3 reference (potential lesson on theoretical-vs-implementation order mismatch).
+**V-RU theoretical order accepted as ΔÔ (Coherent path-c, role file §Path-(c) ΔÔ acceptance):** V-EN operates on Ô_implementation (file-edit dependency); V-RU operates on Ô_attractor (ψ\*-stability under self-application). Both deliverables clear because B_received ≥ B_min for their respective layers — V-EN's order is correct for the build, V-RU's order would be correct if the wave were a runtime transformation of an already-deployed framework. Implementation wave = build, so V-EN wins, V-RU's framing recorded as L3 reference (potential lesson on theoretical-vs-implementation order mismatch).
 
 ---
 
@@ -71,7 +71,7 @@ D amends B-formula Λ; leverage_factor uses post-P, post-M denominator
 | **D** (B-formula Λ amendment) | 1 — `eradev.md` §II.1 + `domain_skin.code.md` row | 1 — `eradev_RU.md` §II.1 mirror | EN ‖ RU | 2 |
 | **Skill mirror sweep** (final, after P+M+D) | 1 — mirrors all 3 cures into `.claude/skills/eradev/...` + zip rebuild | (same Builder handles RU mirrors — single mirror tree) | sequential after D | 1 |
 
-Sequencing: P-EN ‖ P-RU → (Coherencer gate) → M-EN ‖ M-RU → (gate) → D-EN ‖ D-RU → (gate) → Skill mirror Builder.
+Sequencing: P-EN ‖ P-RU → (Coherent gate) → M-EN ‖ M-RU → (gate) → D-EN ‖ D-RU → (gate) → Skill mirror Builder.
 
 **Validator placement:** one Validator per cure-gate (3) + one final wave Validator = 4 Validator agents, sequential after their respective Builder pair completes (Inv 11). EN/RU Validator pairing per cure if bilingual divergence suspected; otherwise single bilingual Validator.
 
@@ -98,12 +98,12 @@ Every framework file edited above has a mirror under `.claude/skills/eradev/`. S
 ## 5. Implementation-time pitfalls (with mitigation)
 
 1. **Multi-Builder same file collision** — `meta.md` §14 (3-way C) and `.claude/hooks/` (2-way C). **Mitigation:** P-Builder owns §14 entirely for the P phase, hands clean file to M-Builder (which appends, not edits-in-place); D-Builder appends last. Single-Builder-per-file-per-phase rule. NO parallel Builders on the same file within a single cure.
-2. **BL-19 bilingual sync gate** — every cure has EN+RU pair. **Mitigation:** EN/RU Builders for the same cure spawn in same META call (parallel), Coherencer L2 verifies parity at gate before next cure. RU Builder receives EN's diff as input to ensure terminology mirror.
+2. **BL-19 bilingual sync gate** — every cure has EN+RU pair. **Mitigation:** EN/RU Builders for the same cure spawn in same META call (parallel), Coherent L2 verifies parity at gate before next cure. RU Builder receives EN's diff as input to ensure terminology mirror.
 3. **Universality Gate** — no `projects/eradev/` hardcodes in framework files (`eradev.md`, `meta.md`, `CLAUDE.md`, `domain_skin.code.md`). **Mitigation:** P's `lessons.md` auto-demote field is a SCHEMA change (templated in `templates/`), not a hardcoded reference to `projects/eradev/lessons.md`. Builder spec must phrase "any project's lessons.md," and Validator greps for `projects/eradev/` in framework diffs (must be zero hits).
-4. **PN-1 hook (phantom-newness)** — any new BL/Inv ID triggers PN-1. Per V-EN and V-RU L-50 audits: **all 3 cures EXTEND existing structure**, ZERO new BL/Inv IDs. **Confirmation:** P extends BL-34/Inv 15 + temporal triple; M extends Inv 1 + KILL-TEST; D extends `eradev.md` §II.1 B-formula. Builders MUST NOT introduce new IDs — Validator checks PN-1 hook stays GREEN. If a Builder feels "I need a new BL," that's a signal to STOP and re-scope back through Coherencer (BL-3 fix-chain primer, before chain forms).
-5. **τ_cycle primacy (Inv 17)** — sequencing 3 cures × bilingual + Validator gates risks long τ_cycle if not properly batched. **Mitigation:** Per-cure EN+RU Builders parallel (Inv 13 MAX), Coherencer gate is spec-check only (no re-RT), Validators sequential per cure but within-cure both languages can verify in parallel. Target: ≤ 2 sessions per cure, total wave ≤ 6 sessions including skill mirror.
-6. **D's recursive B-scoring (V-EN 4th-leg flag, V-RU σ=0.35)** — D amends the Λ formula that scores D itself. **Mitigation:** D's own Hansei B-score uses pre-amendment formula (frozen at wave start) by Coherencer convention; post-amendment formula activates in the NEXT session's bootstrap §9. This avoids the framework-grading-itself-with-the-metric-it-revises trap. Document this convention in D-Builder spec.
-7. **Wave abort criterion (V-EN §3, single-point-of-failure)** — if P fails to ship cleanly (Coherencer veto on retire criterion, or hook reference-audit reveals broken downstream refs), M and D MUST NOT proceed. Operator decision matrix says (a) is brittle at P. **Mitigation:** Coherencer gate after P is HARD — no green = no M spawn. Roll back to (b) ship-pilot-first via Hansei.
+4. **PN-1 hook (phantom-newness)** — any new BL/Inv ID triggers PN-1. Per V-EN and V-RU L-50 audits: **all 3 cures EXTEND existing structure**, ZERO new BL/Inv IDs. **Confirmation:** P extends BL-34/Inv 15 + temporal triple; M extends Inv 1 + KILL-TEST; D extends `eradev.md` §II.1 B-formula. Builders MUST NOT introduce new IDs — Validator checks PN-1 hook stays GREEN. If a Builder feels "I need a new BL," that's a signal to STOP and re-scope back through Coherent (BL-3 fix-chain primer, before chain forms).
+5. **τ_cycle primacy (Inv 17)** — sequencing 3 cures × bilingual + Validator gates risks long τ_cycle if not properly batched. **Mitigation:** Per-cure EN+RU Builders parallel (Inv 13 MAX), Coherent gate is spec-check only (no re-RT), Validators sequential per cure but within-cure both languages can verify in parallel. Target: ≤ 2 sessions per cure, total wave ≤ 6 sessions including skill mirror.
+6. **D's recursive B-scoring (V-EN 4th-leg flag, V-RU σ=0.35)** — D amends the Λ formula that scores D itself. **Mitigation:** D's own Hansei B-score uses pre-amendment formula (frozen at wave start) by Coherent convention; post-amendment formula activates in the NEXT session's bootstrap §9. This avoids the framework-grading-itself-with-the-metric-it-revises trap. Document this convention in D-Builder spec.
+7. **Wave abort criterion (V-EN §3, single-point-of-failure)** — if P fails to ship cleanly (Coherent veto on retire criterion, or hook reference-audit reveals broken downstream refs), M and D MUST NOT proceed. Operator decision matrix says (a) is brittle at P. **Mitigation:** Coherent gate after P is HARD — no green = no M spawn. Roll back to (b) ship-pilot-first via Hansei.
 
 ---
 
@@ -144,4 +144,4 @@ V-RU's potential 5th leg ("dormant→active conversion absent" — recursive dis
 
 *Cross-references:* V-EN composition-hazards (P×M reinforce, P×D conflict, M×D independent) | V-RU composition-hazards (D→M→P theoretical, σ=0.35 declared) | role file §Path-(c) ΔÔ acceptance (used for V-EN/V-RU order reconciliation) | meta.md §14 (bootstrap §9) | CLAUDE.md Inv 1, 11, 13, 17 + KILL-TEST + Identity Persistence | L-50 extend>add | L-57 tight | BL-19 bilingual sync | BL-34 / Inv 15 composition-hazards lineage.
 
-*End of Coherencer EN composition map. No code authored; design only.*
+*End of Coherent EN composition map. No code authored; design only.*

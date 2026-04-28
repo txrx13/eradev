@@ -156,8 +156,8 @@ True North -- это не цель, а направление. Сформули�
 | Режим | Когда | Как |
 |-------|-------|-----|
 | Parallel | RT-1 (расширение) | 5 Agent calls одновременно, каждый независим |
-| Hybrid | RT-2 (конвергенция) | Builder + Validator параллельно, Coherencer после |
-| Sequential | RT-3 (фиксация) | Последовательно: Validator -> Coherencer -> META synthesis |
+| Hybrid | RT-2 (конвергенция) | Builder + Validator параллельно, Coherent после |
+| Sequential | RT-3 (фиксация) | Последовательно: Validator -> Coherent -> META synthesis |
 
 Пропорция по золотому сечению: Round Table ~38% времени, Build ~62%.
 

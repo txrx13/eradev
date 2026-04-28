@@ -22,7 +22,7 @@ Mitigation: dedicate next M-task to closing the BLOCK. Visionary owns the AC: "s
 
 **R3 — Universality drift via domain skin proliferation (MEDIUM, Blast Radius: maintainability).**
 5 domain skins now exist (article, book, plan, config, research) + code default. Each commit touching a skin (e.g., 4518ad6) risks per-skin divergence. The skin schema (templates/domain_skin.md.template) is the only firewall.
-Mitigation: Coherencer must run pairwise skin-diff every 5 skin-touching commits. Composition matrix (Invariant 15) already exists for refactors — extend the same discipline to skins.
+Mitigation: Coherent must run pairwise skin-diff every 5 skin-touching commits. Composition matrix (Invariant 15) already exists for refactors — extend the same discipline to skins.
 
 ## 3. True North Check
 Project goal: "self-improving multi-agent framework with universal domain support."
@@ -42,7 +42,7 @@ Verdict: **on-axis but introverted.** True North is intact; the practical proof 
 **NEXT (1-2 sessions out):**
 - Run one external project under v10 (R3 + True North validator).
 - BL compression pass (-20% line count target).
-- Pairwise skin-diff Coherencer run.
+- Pairwise skin-diff Coherent run.
 
 **DEFER (1-month horizon):**
 - Continuous-domain OOD (currently REJECTED in scope per CLAUDE.md). Revisit only after 3 stable sessions.

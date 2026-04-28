@@ -8,7 +8,7 @@ EraDev is a framework for multi-agent development of text-discrete artifacts (co
 - **Mathematical substrate**: KAM theorem (Kolmogorov-Arnold-Moser) grounds `R/r = φ` as the most stable toroidal orbit; Hurwitz theorem grounds `n_min = ⌈π⌉+1 = 5` as an invariant; Hofstadter's strange loop grounds L9 self-modification via `Ψ* = Φ(Ψ*)`.
 - **Multi-agent inspirations**: MetaGPT and Google's PaperOrchestra (5-role decomposition — independent convergence on the same attractor); AutoAgent (EMP7 "optimization without orientation is hill-climbing into fog"); MemPalace (memory hierarchy Wings/Rooms/Closets/Drawers -> T1/T2/T3); ECC (background instinct extraction via CronCreate); LangGraph (declarative RT schema; engine deferred to v11).
 
-A META-Orchestrator (Level 9) coordinates five specialized roles (Visionary, Analyst, Builder, Validator, Coherencer) through the Round Table protocol. The Universality Gate (v10) mechanically enforces the split: the framework stays universal, project specifics live in `projects/{PROJECT}/`.
+A META-Orchestrator (Level 9) coordinates five specialized roles (Visionary, Analyst, Builder, Validator, Coherent) through the Round Table protocol. The Universality Gate (v10) mechanically enforces the split: the framework stays universal, project specifics live in `projects/{PROJECT}/`.
 
 See [FOUNDATIONS.md](./FOUNDATIONS.md) for the full genealogy of sources, named contributors, and methodological borrows.
 
@@ -23,7 +23,7 @@ See [FOUNDATIONS.md](./FOUNDATIONS.md) for the full genealogy of sources, named 
 - **Domain skins (v9):** 6 domain types: code, article, book, config, plan, research. Each with its own B-modality and verification method.
 - **Self-loading agents (v9):** Invariant 12: agents self-load their role file, META does not embed content.
 - **v10 features:** Omega(H_hist) computation (cross-project Lambda amplification), temporal decay (freshness model), BL compression (auto-cleanup candidates), Apophatic Gate (pre-RT-1 checkpoint), /extract skill.
-- **Report Funnel:** Builder (full artifact) -> Validator (Structured Verdict, 7 lines) -> Coherencer (Cycle Brief, 10 lines) -> META. Each level compresses; META never reads raw output.
+- **Report Funnel:** Builder (full artifact) -> Validator (Structured Verdict, 7 lines) -> Coherent (Cycle Brief, 10 lines) -> META. Each level compresses; META never reads raw output.
 
 Each agent's quality is measured by `B = F * E * (1-sigma) * Lambda` -- zeroing any component zeroes the entire result.
 
@@ -81,7 +81,7 @@ eradev/
 │   ├── analyst.md / _EN.md      # Role: Analyst
 │   ├── builder.md / _EN.md      # Role: Builder
 │   ├── validator.md / _EN.md    # Role: Validator
-│   └── coherent.md / _EN.md     # Role: Coherencer
+│   └── coherent.md / _EN.md     # Role: Coherent
 ├── meta.md / meta_RU.md         # Meta-Agent: spiral memory, self-modification
 ├── CHECKLIST.md / _EN.md        # Universal verification checklist
 ├── MEMORY_TEMPLATE.md / _EN.md  # Project memory template
@@ -143,17 +143,17 @@ All five roles receive the same task simultaneously. Each agent runs the Activat
 | S | <=3 files, 1 module | 1 | 2 (Builder + Validator) |
 | M | 1 module, multiple files | 1 | 5 (full quintet) |
 | L | 2-3 modules | ceil(N_modules/3) | 5 * N_teams |
-| XL | 4+ modules | ceil(N_modules/3) | 5 * N_teams + L2/L3 Coherencers |
+| XL | 4+ modules | ceil(N_modules/3) | 5 * N_teams + L2/L3 Coherents |
 
 ### 5. RT Phase Protocols
 
 | Phase | Model | Protocol |
 |-------|-------|----------|
 | **RT-1** (understanding) | Parallel 5 | All agents receive raw task simultaneously. No agent sees another's output. META synthesizes. |
-| **RT-2** (correction) | Hybrid | Coherencer broadcasts RT-1 synthesis -> 4 roles assess in parallel -> re-synthesis. |
+| **RT-2** (correction) | Hybrid | Coherent broadcasts RT-1 synthesis -> 4 roles assess in parallel -> re-synthesis. |
 | **RT-3** (acceptance) | Parallel 5 | Independent go/no-go from each role. No groupthink. META counts verdicts. |
 | **Execution M** | Sequential pairs | Builder -> Validator -> iterate. |
-| **Execution L/XL** | Parallel + gate | N Builders parallel -> Coherencer cross-check -> Validators parallel. |
+| **Execution L/XL** | Parallel + gate | N Builders parallel -> Coherent cross-check -> Validators parallel. |
 
 ### 6. Development Cycle
 
@@ -182,7 +182,7 @@ Golden ratio proportion: Round Table ~38%, Build ~62%.
 | `roles/analyst.md` | Analyst: decomposition, File Ownership, pipeline |
 | `roles/builder.md` | Builder: implementation, Security Checklist, patterns |
 | `roles/validator.md` | Validator: verification, feedback, dissonance scale |
-| `roles/coherent.md` | Coherencer: synchronization, L1/L2/L3, Kill-Switch |
+| `roles/coherent.md` | Coherent: synchronization, L1/L2/L3, Kill-Switch |
 | `glossary.md` | Bilingual glossary (44 terms, canonical forms) |
 | `interfaces.md` | Role Interface Contracts (5 handoff schemas with YAML) |
 | `LOADING_PROTOCOL.md` | Agent loading sequence (META 6-step + role 4-step) |

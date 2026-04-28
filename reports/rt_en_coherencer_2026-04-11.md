@@ -1,7 +1,7 @@
-# RT-1 EN Coherencer Report — Universalization Proposal
+# RT-1 EN Coherent Report — Universalization Proposal
 
 > Date: 2026-04-11
-> Role: [COHERENCER] (EN stack)
+> Role: [COHERENT] (EN stack)
 > Cycle: RT-1 on "universalize EraDev beyond code"
 > Status: Coherence assessment with Lambda audit
 
@@ -160,7 +160,7 @@ This Phase 0 satisfies Lesson 4 (inline routing), Lesson 7 (no new bilingual pai
 
 2. **Silent universalization vs. Explicit universalization** — odtoe-articles and academic-lab projects already use EraDev on non-code tasks. Silent universalization happens without a framework contract; explicit universalization names it, defines the adapter interface, and allows enforcement to follow. The danger of silent universalization is that each non-code project reinvents the semantic translation and none of them contributes back to a shared non-code Lambda.
 
-3. **Harness-shape vs. Framework-shape** — EraDev's code shape comes from the Claude Code harness (Bash tool + PreToolUse hook + commit-centric workflow), not from the ODTOE axioms. Universalization requires acknowledging that the enforcement layer is harness-coupled. Non-code domains need either (a) non-Bash tool event hooks or (b) a non-runtime enforcement mechanism (e.g., RT gate enforced by Coherencer's manual review).
+3. **Harness-shape vs. Framework-shape** — EraDev's code shape comes from the Claude Code harness (Bash tool + PreToolUse hook + commit-centric workflow), not from the ODTOE axioms. Universalization requires acknowledging that the enforcement layer is harness-coupled. Non-code domains need either (a) non-Bash tool event hooks or (b) a non-runtime enforcement mechanism (e.g., RT gate enforced by Coherent's manual review).
 
 4. **Core Invariant vs. Code-Adapter Invariant** — BL-26 is core. BL-22 (curl-verify) is a code-adapter instance of the core rule "verify external boundary artifacts before RT-1 begins". Distinguishing these two levels unlocks the ability to write BL-22-research, BL-22-writing, BL-22-design without touching BL-26.
 
@@ -170,7 +170,7 @@ This Phase 0 satisfies Lesson 4 (inline routing), Lesson 7 (no new bilingual pai
 
 ## Coherence verdict (summary)
 
-**S_team estimate (this cycle, EN team, my Coherencer view only, partial):** cannot compute full S_team without all 5 EN agents' B-values. Unilateral view: the universalization proposal is **coherent with the core** and **stress-tests the peripheral** in ways that are recoverable through Phase 0.
+**S_team estimate (this cycle, EN team, my Coherent view only, partial):** cannot compute full S_team without all 5 EN agents' B-values. Unilateral view: the universalization proposal is **coherent with the core** and **stress-tests the peripheral** in ways that are recoverable through Phase 0.
 
 **My B-component reading on the proposal itself:**
 - F (focus): 0.85 — all required files read, direct quote from ODTOE paper, lesson/BL/EMP audit completed
@@ -217,7 +217,7 @@ Items unresolved 3+ cycles: escalate to Visionary. None at this cycle (Cycle 1).
 B-diagnostics (rate 0.0-1.0):
   F (Focus):       0.85 — Read coherent_EN.md, config.md, lessons.md (15+7), BOOTSTRAP (30 BL), 2 comparison reports, ODTOE paper sections. Did NOT run web searches (ODTOE origins material is already in the project corpus — ODTOE_multiagent_coherence_EN.md cites the formalism directly; web search would not add signal).
   E (Alignment):   0.80 — Role mission ("Are we all still seeing the same thing?") applied to the universalization proposal. Produced A3, Lambda audit, Coherence verdict, Crystallization — all role-specific deliverables.
-  (1-sigma):       0.70 — No contradiction with core invariants detected. Stress points on Iron Rule 2 (DRY) and Lesson 11 (enforcement) explicitly flagged. RT-1 consensus still required; my view is unilateral Coherencer.
+  (1-sigma):       0.70 — No contradiction with core invariants detected. Stress points on Iron Rule 2 (DRY) and Lesson 11 (enforcement) explicitly flagged. RT-1 consensus still required; my view is unilateral Coherent.
   Lambda (Experience): 0.75 — 3 lessons, 2 EMPs, 3 BLs applied by name. ODTOE paper read for theoretical grounding. Silent universalization history from odtoe-articles/academic-lab identified.
   B = (0.85 · 0.80 · 0.70 · 0.75)^0.25 ≈ 0.774
 S_team = not computable (5 EN agents required)
@@ -225,4 +225,4 @@ If B < 0.5 or S_team < 0.5: ANDON.
 B = 0.774 → NO ANDON → proceed.
 ```
 
-**Andon not triggered.** Report complete. Hand off to RT-1 synthesis for cross-role (Visionary/Analyst/Builder/Validator/Coherencer) consensus on Phase 0 adoption.
+**Andon not triggered.** Report complete. Hand off to RT-1 synthesis for cross-role (Visionary/Analyst/Builder/Validator/Coherent) consensus on Phase 0 adoption.

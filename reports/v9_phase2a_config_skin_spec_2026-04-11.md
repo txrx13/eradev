@@ -250,13 +250,13 @@ Each role retains its Activation Operator (A_F, A_E, A_σ, A_Λ) and Jidoka self
   - Q6: "If this config has cross-config siblings (package.json + Dockerfile + docker-compose), have I verified the same-resource values agree? (P6)"
   - Q7: "If the tool supports precedence layering, have I checked that the precedence rules are unambiguous for every key? (P5)"
 
-### 3.5 Coherencer (config focus)
+### 3.5 Coherent (config focus)
 
-- **FIRST focus anchor (A_F override):** Read the full config + any cross-config siblings in the project + the project glossary (BL-29). Coherencer cares about *this config's fit with its siblings and with the project's established conventions*, not just the config in isolation.
-- **What the role considers "the artifact":** The config + (all other configs it interacts with in the same project) = config system. Coherencer checks that the CURRENT config (a) uses the same key naming conventions as its siblings, (b) agrees with its siblings on shared-resource values (ports, versions, endpoints), (c) declares the same schema version if it's from the same tool family, and (d) uses the project's established precedence layering.
-- **Primary failure mode in config work:** "Terminology drift across configs" — one config calls a key `hostname`, another calls it `host`, another calls it `server_host`. Or: one config uses `port: 3000` (integer) while a sibling uses `port: "3000"` (string). These are silent contradictions that may not break parse (each file parses independently) but break the system when the two configs are combined. Mitigation: Coherencer runs a glossary scan across ALL related configs and flags divergence.
-- **Secondary failure mode (config-specific):** Phantom coherence — every config looks independently valid, and the schemas are honored, but the configs disagree on what the system IS. Example: `package.json` says `"version": "2.1.0"`, `pyproject.toml` says `version = "1.9.3"`, both parse, both schemas valid, but the project has two conflicting version declarations and the release pipeline picks one silently. Mitigation: Coherencer's Q4 below explicitly asks "for each shared identity (version, name, port, endpoint), do ALL configs agree?"
-- **Tertiary failure mode:** Cross-config dangling references — config A references env var `DATABASE_URL` and config B references env var `DB_URL`; neither file is wrong in isolation, but the two configs cannot be in the same deployment without also having an alias table. Mitigation: Coherencer's Q5 greps for all env var references across siblings and builds a mini-env-glossary.
+- **FIRST focus anchor (A_F override):** Read the full config + any cross-config siblings in the project + the project glossary (BL-29). Coherent cares about *this config's fit with its siblings and with the project's established conventions*, not just the config in isolation.
+- **What the role considers "the artifact":** The config + (all other configs it interacts with in the same project) = config system. Coherent checks that the CURRENT config (a) uses the same key naming conventions as its siblings, (b) agrees with its siblings on shared-resource values (ports, versions, endpoints), (c) declares the same schema version if it's from the same tool family, and (d) uses the project's established precedence layering.
+- **Primary failure mode in config work:** "Terminology drift across configs" — one config calls a key `hostname`, another calls it `host`, another calls it `server_host`. Or: one config uses `port: 3000` (integer) while a sibling uses `port: "3000"` (string). These are silent contradictions that may not break parse (each file parses independently) but break the system when the two configs are combined. Mitigation: Coherent runs a glossary scan across ALL related configs and flags divergence.
+- **Secondary failure mode (config-specific):** Phantom coherence — every config looks independently valid, and the schemas are honored, but the configs disagree on what the system IS. Example: `package.json` says `"version": "2.1.0"`, `pyproject.toml` says `version = "1.9.3"`, both parse, both schemas valid, but the project has two conflicting version declarations and the release pipeline picks one silently. Mitigation: Coherent's Q4 below explicitly asks "for each shared identity (version, name, port, endpoint), do ALL configs agree?"
+- **Tertiary failure mode:** Cross-config dangling references — config A references env var `DATABASE_URL` and config B references env var `DB_URL`; neither file is wrong in isolation, but the two configs cannot be in the same deployment without also having an alias table. Mitigation: Coherent's Q5 greps for all env var references across siblings and builds a mini-env-glossary.
 - **Jidoka self-check (config specialization):**
   - Q1: "Does every config in the project use the same key naming convention (snake_case / camelCase / kebab-case)? Mixed is a σ failure. (BL-29)"
   - Q2: "For every shared resource (port, version, endpoint, hostname), do ALL configs that reference it agree on the value AND the type? (1-σ — P6)"
@@ -264,7 +264,7 @@ Each role retains its Activation Operator (A_F, A_E, A_σ, A_Λ) and Jidoka self
   - Q4: "For each piece of the project's identity (name, version, description), do all configs that declare it agree verbatim?"
   - Q5: "Are env var references consistent across configs (same name, same expected source, same fallback)?"
   - Q6: "Independent spot-check: pick 3 keys at random from this config, grep the project for the same key name in other configs, check that values agree (when they should)."
-- **Cross-config consistency rule (BL-C4, see Section 7):** Coherencer is the ENFORCER of the cross-config consistency protocol. Commit is BLOCKED if P6 (cross-config consistency) fails for any shared resource.
+- **Cross-config consistency rule (BL-C4, see Section 7):** Coherent is the ENFORCER of the cross-config consistency protocol. Commit is BLOCKED if P6 (cross-config consistency) fails for any shared resource.
 
 ---
 
@@ -278,10 +278,10 @@ The skin file's verification section maps directly to `domain.verify.method: par
 |---|---|---|---|---|---|
 | **P1** | **Parse syntax** — the file parses cleanly in its declared format (YAML, TOML, JSON, INI, ENV, or Markdown-fenced) without the parser raising a fatal error | Indentation errors, missing commas, unclosed quotes, mixed tabs/spaces, stray commas in JSON, unescaped colons | Validator | **L1** | Mechanical — run the format's canonical parser (`yq . file.yaml`, `toml parse`, `jq . file.json`, native validator for INI/ENV); non-zero exit = FAIL |
 | **P2** | **Schema validation** — the file passes the declared schema (JSON Schema, OpenAPI, protobuf descriptor, Kubernetes API validator, or tool-specific validator like `npm install --dry-run` / `docker-compose config`) | Unknown keys, wrong types, missing required keys, deprecated keys (if validator reports them), out-of-range values | Validator | **L1** (when a formal schema exists) / **L2** (when only duck-typed — requires judgment) | Mechanical if schema exists; interpretive otherwise |
-| **P3** | **Secrets scan** — no inline credentials (passwords, API keys, private keys, tokens) appear as literal values; all credentials are references to env vars / vault paths / secret stores | Accidental `api_key: "real-key-here"`; a `.env.example` with real values; embedded JWTs; PEM blocks | Validator + Coherencer | **L1** | Mechanical — curated regex list (see 4.2); non-zero hit count = FAIL |
+| **P3** | **Secrets scan** — no inline credentials (passwords, API keys, private keys, tokens) appear as literal values; all credentials are references to env vars / vault paths / secret stores | Accidental `api_key: "real-key-here"`; a `.env.example` with real values; embedded JWTs; PEM blocks | Validator + Coherent | **L1** | Mechanical — curated regex list (see 4.2); non-zero hit count = FAIL |
 | **P4** | **Dangling reference resolution** — every `${VAR}`, `$VAR`, `<ref:key>`, `%(key)s`, or tool-specific interpolation resolves to a defined source in the target environment, OR has an explicit fallback | Typos in env var names (`DATBASE_URL` vs `DATABASE_URL`); references to secrets not present in the vault; orphan placeholders; missing fallback values | Validator | **L1** | Mechanical — grep for interpolation patterns, diff against the target env file / vault manifest |
 | **P5** | **Precedence sanity** — when multiple layers (defaults / env / project / user) define the same key, the precedence rule is unambiguous and documented; no key is set in two layers with different values without explicit override annotation | Silent overrides where the lower layer's value is shadowed by a higher layer without the operator realizing; "why isn't my setting taking effect?" confusion | Validator | **L2** | Interpretive — requires reading the precedence rules and reasoning about which layer wins for each key |
-| **P6** | **Cross-config consistency** — when 2+ configs describe the SAME resource (service port in app config == Dockerfile EXPOSE == docker-compose port mapping; package version in package.json == pyproject.toml == CHANGELOG.md), the values agree exactly | Port drift; version drift; endpoint drift; hostname drift; credential source drift | Coherencer | **L2** | Interpretive — requires enumerating shared resources per project and confirming all references agree |
+| **P6** | **Cross-config consistency** — when 2+ configs describe the SAME resource (service port in app config == Dockerfile EXPOSE == docker-compose port mapping; package version in package.json == pyproject.toml == CHANGELOG.md), the values agree exactly | Port drift; version drift; endpoint drift; hostname drift; credential source drift | Coherent | **L2** | Interpretive — requires enumerating shared resources per project and confirming all references agree |
 | **P7** | **Schema version alignment** — the schema version declared in the file matches the actual keys used; no v1 keys in a v2 file; no deprecated keys in the current version | Tool-version upgrade defects; copy-pasted older configs; "it worked on the old version" regressions | Validator | **L1** (when version declaration is machine-checkable) / **L2** (when not — requires reading the schema changelog) | Mechanical when the schema exposes version; interpretive otherwise |
 
 ### 4.2 L1 (mechanical) vs L2 (interpretive) split
@@ -312,7 +312,7 @@ The code skin's `verify.method: build` checks "does the code compile + test + li
 |---|---|---|
 | `compile` (does it typecheck?) | DR1 + DR2 (do steps make sense without gaps?) | **P1 + P2** (does the parser accept it + does the schema accept it?) |
 | `test` (do unit tests pass?) | DR3 + DR5 (are resources named + criteria measurable?) | **P3 + P4** (no inline secrets + no dangling refs?) |
-| `lint` (style violations?) | DR6 + BL-29 glossary scan (terminology consistent?) | **P7 + Coherencer BL-29 glossary scan** (schema version aligned + key names consistent?) |
+| `lint` (style violations?) | DR6 + BL-29 glossary scan (terminology consistent?) | **P7 + Coherent BL-29 glossary scan** (schema version aligned + key names consistent?) |
 | `integration tests` (modules cooperate?) | DR4 (do phases cooperate at handoffs, including failure modes?) | **P5 + P6** (precedence sane + cross-config consistent?) |
 
 This analogy is PEDAGOGICAL — a Builder coming from code should think of parse as "compile + lint + security scan + cross-file consistency check, all fused."
@@ -389,7 +389,7 @@ The Builder must produce a block matching this structure:
 # SECTION 5 — RT Phase Protocol for Configs
 
 Code projects use the canonical phase protocol from `eradev.md` Section VI:
-Visionary → Analyst → Builder → Validator → Coherencer
+Visionary → Analyst → Builder → Validator → Coherent
 
 Configs need adjustments because the work profile is different (config work is often small; schemas are the primary spec; secrets are a structural concern that can justify full RT even for tiny files). The skin file must specify:
 
@@ -398,7 +398,7 @@ Configs need adjustments because the work profile is different (config work is o
 **Three RT invocation points apply:**
 
 1. **RT-0 (Visionary solo, RECOMMENDED): purpose capture + secrets policy + schema version.** Before any RT-1. Runs when the operator proposes a new config or a major revision. Visionary alone evaluates: what tool is being configured, what environment, what is the secrets policy, what schema version. A YES from Visionary unlocks RT-1. Output is a single-paragraph decision.
-2. **RT-1 (tier-dependent: full 5-role OR RT-lite 3-role): decomposition + write + validate.** Produces the Analyst key enumeration + Builder's written config + Validator's P1–P5 pass + Coherencer's cross-config scan. Tier choice depends on config size + stakes (see 5.2 below). Builder does NOT release the config until RT-1 approves.
+2. **RT-1 (tier-dependent: full 5-role OR RT-lite 3-role): decomposition + write + validate.** Produces the Analyst key enumeration + Builder's written config + Validator's P1–P5 pass + Coherent's cross-config scan. Tier choice depends on config size + stakes (see 5.2 below). Builder does NOT release the config until RT-1 approves.
 3. **RT-2 (mandatory for production/infra configs, optional for dev-local): pre-deploy gate.** Before the config is declared ACTIVATED (deployed to the tool, loaded into production, merged to main). Runs the full 7-check parse sweep including interpretive P5–P6, BL-29 glossary scan, and secrets re-scan from a clean checkout.
 
 ### 5.2 RT-lite vs full 5-role — size and stakes decision tree
@@ -415,7 +415,7 @@ IS the config production or infrastructure?
 IS the config small (<50 lines) AND pure-data (no secrets, no precedence, no cross-config)?
   yes → RT-lite (3 roles): Visionary + Builder + Validator
         skip Analyst (Builder absorbs the schema-read duty)
-        skip Coherencer (no cross-config surface)
+        skip Coherent (no cross-config surface)
 
 IS the config medium (50–200 lines) OR has secrets OR has precedence?
   yes → FULL 5-role RT
@@ -428,7 +428,7 @@ IS the config large (>200 lines) OR touches multiple tools OR has multi-layer pr
 - Visionary RT-0 still mandatory — needed for schema version + purpose
 - Analyst skipped — Builder's own Check-First (BL-17) absorbs the schema read
 - Validator still runs all 7 P checks (parse is still the load-bearing gate)
-- Coherencer skipped — but the cross-config scan is REPLACED by a Builder self-check ("no sibling configs reference the same resource")
+- Coherent skipped — but the cross-config scan is REPLACED by a Builder self-check ("no sibling configs reference the same resource")
 - If ANY P5/P6 concerns surface during Validator's pass, RT-lite ESCALATES to full RT-1
 
 ### 5.3 Single Builder vs split
@@ -443,7 +443,7 @@ The config Builder is a SINGLE agent for S/M/L configs. Within that single Build
 - Run pre-commit parse + secrets scan (BL-C2 enforcement)
 - Commit
 
-**Exception (XL multi-tool):** For an XL config that spans multiple tools (e.g., a mono-repo config.yaml that drives both a Go service and a Python service via different sections), the Analyst may split work across two Builders by tool boundary (Builder A owns the Go section, Builder B owns the Python section). File Ownership rule from `analyst_EN.md` Responsibility 4 applies. Coherencer gate is MANDATORY between Builder completion and Validator RT-2 to catch cross-tool drift.
+**Exception (XL multi-tool):** For an XL config that spans multiple tools (e.g., a mono-repo config.yaml that drives both a Go service and a Python service via different sections), the Analyst may split work across two Builders by tool boundary (Builder A owns the Go section, Builder B owns the Python section). File Ownership rule from `analyst_EN.md` Responsibility 4 applies. Coherent gate is MANDATORY between Builder completion and Validator RT-2 to catch cross-tool drift.
 
 ### 5.4 Pipeline block for the skin file
 
@@ -454,7 +454,7 @@ Tier decision → RT-lite (S dev-local pure-data) OR full 5-role (everything els
 RT-1 (tier-dependent) → Analyst key enumeration (skip if RT-lite)
                       → Builder writes config
                       → Validator runs P1–P4 + P7 (L1 mechanical)
-                      → Coherencer runs cross-config scan (skip if RT-lite)
+                      → Coherent runs cross-config scan (skip if RT-lite)
 Pre-commit gate (BL-C2) → parser + secrets scan runs automatically
 RT-2 (mandatory for prod/infra, optional for dev-local) →
                       full 7-check parse + L2 interpretive (P5, P6)
@@ -483,7 +483,7 @@ The skin file must include 3 examples matching the template at `templates/domain
 
 - **Input:** "Create a `.env.example` file documenting the environment variables needed by the service."
 - **Scenario:** Builder wants to show developers what `OPENAI_API_KEY` looks like. Builder copies a real working key from their local `.env` into `.env.example` "just for reference", polishes the rest of the file, and declares Done. Builder intends to replace the real value with a placeholder "before committing" but forgets.
-- **What Validator finds:** Running P3 (secrets scan with curated regex list from Section 4.2), Validator hits the `sk-[A-Za-z0-9]{32,}` pattern on the `OPENAI_API_KEY` line. The value does not match the placeholder whitelist (`xxxxxxx`, `<your-api-key-here>`, `REPLACE_ME`, `${VARIABLE}`). P3 FAILS with 1 non-placeholder hit. Validator ALSO flags this for Coherencer because the file has already been committed to git history — the credential is exfiltrated and must be rotated (BL-13 Yokoten: grep git history for other leak sites).
+- **What Validator finds:** Running P3 (secrets scan with curated regex list from Section 4.2), Validator hits the `sk-[A-Za-z0-9]{32,}` pattern on the `OPENAI_API_KEY` line. The value does not match the placeholder whitelist (`xxxxxxx`, `<your-api-key-here>`, `REPLACE_ME`, `${VARIABLE}`). P3 FAILS with 1 non-placeholder hit. Validator ALSO flags this for Coherent because the file has already been committed to git history — the credential is exfiltrated and must be rotated (BL-13 Yokoten: grep git history for other leak sites).
 - **Catching role:** **Validator** (P3 is mechanical, runs at RT-1 if BL-C2 pre-commit hook is installed, otherwise at RT-2 pre-deploy).
 - **Phase:** **RT-2** pre-deploy secrets scan (when BL-C2 is not installed). If BL-C2 is installed, the pre-commit hook catches it BEFORE the commit lands, at which point the rotation step is unnecessary.
 - **Fix:**
@@ -499,10 +499,10 @@ The skin file must include 3 examples matching the template at `templates/domain
 
 - **Input:** "Set up a containerized service with `package.json` declaring the runtime port, `Dockerfile` exposing the same port, and `docker-compose.yml` mapping the port to the host."
 - **Scenario:** Builder writes the 3 files in sequence. `package.json` has `"main": "server.js"` and the `server.js` listens on port 3000 (hardcoded, but declared in package.json's `scripts.start` as `PORT=3000 node server.js`). `Dockerfile` has `EXPOSE 3001` (Builder copy-pasted from a stackoverflow example and forgot to change it). `docker-compose.yml` maps `3000:3000` (matching package.json). All 3 files parse cleanly (P1 PASS). All 3 files have no secrets (P3 PASS). Each file is individually valid.
-- **What Coherencer finds:** Running P6 (cross-config consistency), Coherencer enumerates shared resources: PORT. Looking at the 3 configs: package.json says 3000, Dockerfile says 3001, docker-compose says 3000. Drift detected. The container will expose 3001 but the app listens on 3000 — the container port mapping will fail silently and the service will be unreachable from the host. P6 FAILS.
-- **Catching role:** **Coherencer** (P6 is Coherencer-owned because it requires reading MULTIPLE configs and cross-referencing them — Validator owns single-config checks; Coherencer owns cross-config checks).
-- **Phase:** **RT-2** (P6 is L2 interpretive, runs at pre-deploy). Could also be caught at RT-1.5 for M+ configs or during Coherencer's cross-config scan at RT-1.
-- **Fix:** Unify to ONE port. Pick 3000 as the canonical value (matching package.json and docker-compose). Update Dockerfile to `EXPOSE 3000`. Re-run P6 — all 3 configs agree. Commit the Dockerfile fix + a comment in README documenting that the service runs on port 3000 (single source of truth for future edits). Coherencer records a note for future P6 scans: "when package.json / Dockerfile / docker-compose describe a port, they must ALL agree."
+- **What Coherent finds:** Running P6 (cross-config consistency), Coherent enumerates shared resources: PORT. Looking at the 3 configs: package.json says 3000, Dockerfile says 3001, docker-compose says 3000. Drift detected. The container will expose 3001 but the app listens on 3000 — the container port mapping will fail silently and the service will be unreachable from the host. P6 FAILS.
+- **Catching role:** **Coherent** (P6 is Coherent-owned because it requires reading MULTIPLE configs and cross-referencing them — Validator owns single-config checks; Coherent owns cross-config checks).
+- **Phase:** **RT-2** (P6 is L2 interpretive, runs at pre-deploy). Could also be caught at RT-1.5 for M+ configs or during Coherent's cross-config scan at RT-1.
+- **Fix:** Unify to ONE port. Pick 3000 as the canonical value (matching package.json and docker-compose). Update Dockerfile to `EXPOSE 3000`. Re-run P6 — all 3 configs agree. Commit the Dockerfile fix + a comment in README documenting that the service runs on port 3000 (single source of truth for future edits). Coherent records a note for future P6 scans: "when package.json / Dockerfile / docker-compose describe a port, they must ALL agree."
 - **Why P1 / P2 alone would miss this:** P1 (parse) runs on one file at a time — each file parses independently. P2 (schema) validates one file against its own schema — package.json against npm schema, Dockerfile against Docker schema, docker-compose against Compose schema. Each schema is honored. The failure is RELATIONAL — the three files disagree with each other. P6 is the ONLY check that looks across configs. This example is the canonical case for why `parse` must expand into multi-file consistency, not just per-file validation.
 
 ---
@@ -516,7 +516,7 @@ The config skin inherits all 22 universal BL unchanged and handles each of the 8
 | BL | Title | Applicability to config work |
 |---|---|---|
 | BL-1 | Lambda=0.5 as Cold-Start Default | Applies unchanged — a fresh config-domain project starts with Λ=0.5; accumulates as sibling configs land in the project |
-| BL-4 | S_adjusted = S_team × B_mean | Applies unchanged — Coherencer at RT-2 computes S_adjusted from the 5 role B scores |
+| BL-4 | S_adjusted = S_team × B_mean | Applies unchanged — Coherent at RT-2 computes S_adjusted from the 5 role B scores |
 | BL-5 | Phantom Coherence Detection | Applies unchanged — config-specific manifestation is "Builder and Validator both say PASS but neither actually ran the parser or secrets scan" (see P1 + P3 independence check in Section 4.4) |
 | BL-7 | EN for Practical Tasks, RU for Theoretical Depth | Applies unchanged — config authoring is practical (EN role files); config design at scale (multi-tool IaC architecture) is theoretical (RU role files) |
 | BL-9 | Interface Contracts Between Roles | Applies unchanged — Analyst→Builder contract is the key enumeration + precedence map; Builder→Validator contract is the parsed+schema-valid file + secrets-clean status |
@@ -534,7 +534,7 @@ The config skin inherits all 22 universal BL unchanged and handles each of the 8
 | BL-26 | META Always Delegates | Applies unchanged — META never edits configs directly |
 | BL-28 | Agent Prompt Must Include Explicit Context | Applies unchanged — config-task agent prompts must name the skin file path AND role file path AND schema file path (if schema exists) |
 | BL-29 | Verify Established Terminology Before Generating | **Critical for configs** — configs MUST use the tool's canonical key names (`host` not `hostname`, `port` not `port_number`); drift here breaks tooling invisibly |
-| BL-30 | Defense-In-Depth | Applies unchanged — config verification has layers: Builder Jidoka + parse + schema + secrets scan + Coherencer cross-config + Validator P1–P7 sweep |
+| BL-30 | Defense-In-Depth | Applies unchanged — config verification has layers: Builder Jidoka + parse + schema + secrets scan + Coherent cross-config + Validator P1–P7 sweep |
 | BL-31 | Constrain Output Types | Applies unchanged — Builder's output is the single saved config file, not prose explanations about the config |
 | BL-32 | Grep After BL Merge | Applies unchanged — if key naming conventions change (`timeout_ms` → `timeout`), grep all sibling configs for orphan references |
 
@@ -567,13 +567,13 @@ These 4 BL live in the config skin file ONLY. They do NOT add to the main 30-BL 
 - **Source:** Adapted from BL-6 for the config domain.
 - **Rule:** Before committing any config revision, Builder MUST (a) run the format-specific parser (yq for YAML, toml for TOML, jq for JSON, configparser for INI, per-format for ENV) and confirm exit code 0, (b) run the secrets scan (curated regex list from Section 4.2) and confirm zero non-placeholder hits, (c) run the schema validator if one exists (ajv, tool-specific validator) and confirm exit code 0. Commit is REJECTED if any of the three fails. The enforcement MUST be structural — a pre-commit hook is the canonical mechanism (BL-30 defense-in-depth).
 - **Why:** A config file that "looks right" in the editor but fails the parser is the config equivalent of unverified code. A config file with an inline secret is a credential-exfiltration incident. Both fail modes are cheap to prevent (seconds per check) and expensive to recover (hours per parse-thrash; days per credential rotation). The canonical incident is Example 2 (OpenAI API key in `.env.example`): without BL-C2 the leak is caught at RT-2; with BL-C2 it cannot commit. Installing the hook is a one-time cost per project; skipping it is a per-commit gamble.
-- **Applies to:** Builder (write hook, run checks), Validator (require proof of hook running), META (enforce gate), Coherencer (verify hook exists in new projects).
+- **Applies to:** Builder (write hook, run checks), Validator (require proof of hook running), META (enforce gate), Coherent (verify hook exists in new projects).
 
 **BL-C3: Rollback-Ready Before Activation (config adaptation of BL-14)**
 - **Source:** Adapted from BL-14 for the config domain.
 - **Rule:** Before a new config is declared ACTIVE in production or infrastructure, the author must document the rollback procedure: (a) which prior commit or config-store version is the restore target, (b) exact commands to restore (git revert + tool reload / config-store restore / IaC apply of prior version), (c) exact verification steps to confirm the restore worked (smoke test of the tool, health check, parse check of the restored file), (d) estimated time to complete the rollback (under 5 minutes for service configs, under 30 minutes for IaC). If the rollback procedure cannot be documented in 5 bullets, the config activation is NOT permitted — the ambiguity of rollback is itself a defect.
 - **Why:** Under incident pressure (production is down, stakeholders are paging), cognitive load peaks and decision quality drops. A pre-written rollback plan executes mechanically when needed. Writing it beforehand also forces Builder to verify that rollback is actually possible — sometimes it surfaces that the prior config was NEVER saved anywhere (no git commit, no config store version, no backup) and the config is forward-only without Builder realizing. Better to catch that during planning than during an incident.
-- **Applies to:** Visionary (approve rollback plan), Builder (write it), Coherencer (store in project MEMORY.md), Validator (block activation if missing).
+- **Applies to:** Visionary (approve rollback plan), Builder (write it), Coherent (store in project MEMORY.md), Validator (block activation if missing).
 
 **BL-C4: Schema + Environment PRE-FLIGHT (config adaptation of BL-22)**
 - **Source:** Adapted from BL-22 for the config domain.
@@ -775,7 +775,7 @@ B = 0.895 — GREEN (B ≥ 0.5, and min component 0.88 ≥ 0.3 — no ANDON)
 | Live reference | `reports/roadmap_v9_2026-04-11.md` (the v9 plan itself) | 4 live project configs (`projects/*/config.md`) | No collision |
 | v10 future hook | `B_plan` (eradev.md line 144) mentioned as DEFERRED | `B_config` (eradev.md line 144) mentioned as DEFERRED | Same line of eradev.md, both deferred — consistent |
 
-**Conclusion:** The config skin spec is STRUCTURALLY ALIGNED with the plan skin spec while MATERIALLY DISTINCT on every load-bearing axis (verification modality, vocabulary, failure taxonomy, BL additions, RT-lite clause). Phase 2.A closing gate Coherencer will find no σ failures between the two.
+**Conclusion:** The config skin spec is STRUCTURALLY ALIGNED with the plan skin spec while MATERIALLY DISTINCT on every load-bearing axis (verification modality, vocabulary, failure taxonomy, BL additions, RT-lite clause). Phase 2.A closing gate Coherent will find no σ failures between the two.
 
 ---
 

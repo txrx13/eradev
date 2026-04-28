@@ -73,7 +73,7 @@
 | Analyst | Read Visionary objective + prior plans + enclosing plan | 9-part structured plan document | "Perfect looking" outline with gaps; A_E=0.0 Andon if any of 9 parts missing | 5 (Q1-Q5) | PASS |
 | Builder | Read Analyst draft + live reference + project terminology | Single plan document file at canonical path | Polish-before-structure-settled | 6 (Q1-Q6) | PASS |
 | Validator | Read Analyst plan + Builder plan; run 6 DR checks | Polished plan file in final form | DR1-only trust (must run ALL 6 DR checks) | 6 (Q1-Q6) | PASS |
-| Coherencer | Read plan end-to-end twice (top-down + bottom-up) | Plan + prior plans = plan series | Terminology drift across sections | 5 (Q1-Q5) | PASS |
+| Coherent | Read plan end-to-end twice (top-down + bottom-up) | Plan + prior plans = plan series | Terminology drift across sections | 5 (Q1-Q5) | PASS |
 
 **Analyst 9-part deliverable template:** Present at lines 104-147, includes code-fenced template block with all 9 parts (Objective, Scope, Phases, DAG, Pass criteria, Resources, Contingencies, OOD, Open Questions) + B-check line. PASS.
 
@@ -90,7 +90,7 @@
 | DR3 | Resource completeness | Validator | Mechanical | L1 | Line 204 | PASS |
 | DR4 | Contingency presence | Validator | Interpretive | L2 | Line 205 | PASS |
 | DR5 | Success criterion measurability | Validator | Near-mechanical | L1 | Line 206 | PASS |
-| DR6 | Handoff clarity | Coherencer | Interpretive | L2 | Line 207 | PASS |
+| DR6 | Handoff clarity | Coherent | Interpretive | L2 | Line 207 | PASS |
 
 **L1/L2 split note:** Lines 209-214 explicitly state L1 = DR1/2/3/5 (per-commit), L2 = DR4/6 (pre-activation). PASS.
 
@@ -136,7 +136,7 @@
 |---|---|---|---|---|---|---|
 | 1: Dangling prerequisite | DR2 | Validator | RT-1 | Yes | Yes (B=0.52 YELLOW) | PASS |
 | 2: Unmeasurable criterion | DR5 | Validator | RT-2 (DEFECT — should be RT-1; see D-1) | Yes | Yes (B=0.55 YELLOW) | PASS WITH NOTES |
-| 3: Terminology drift | sigma + BL-29 | Coherencer | RT-2 | Yes | Yes (B=0.41 RED) | PASS |
+| 3: Terminology drift | sigma + BL-29 | Coherent | RT-2 | Yes | Yes (B=0.41 RED) | PASS |
 
 All 3 examples have `**Catching role:**`, `**Phase:**`, `**Fix:**` labels (3 labels x 3 examples = 9; grep confirms 9). PASS.
 
@@ -223,7 +223,7 @@ Builder added `**Domain classification:**` and `**B-check:**` lines to each exam
 
 2. **What if a new plan skin BL-P5 is needed?** The BL-P namespace is explicitly separated from the 30-BL budget (lines 450, 483-486). Future additions are accommodated. PASS.
 
-3. **What if two plans for the same objective coexist without supersession markers?** BL-P3 (lines 464-468) + Coherencer supersession enforcement (line 190) explicitly BLOCK activation. PASS.
+3. **What if two plans for the same objective coexist without supersession markers?** BL-P3 (lines 464-468) + Coherent supersession enforcement (line 190) explicitly BLOCK activation. PASS.
 
 4. **What if the plan has continuous/subjective objective?** OOD section (lines 498-509) explicitly lists 6 OOD patterns and routes to Visionary RT-0 kill-switch. PASS.
 
@@ -259,7 +259,7 @@ No fix chain. Single-pass write with one defect found.
 
 **One defect (D-1, MEDIUM):** Example 2's Phase field contradicts the L1/L2 classification within the same document. The contradiction is inherited from the spec itself (Section 4.2 vs Example 6.2 disagree on DR5 classification). The fix is a one-line edit to align Example 2 with the normative L1/L2 definition. This does NOT block activation of the skin but SHOULD be fixed before the Phase 2.A closing gate to avoid confusing downstream agents.
 
-**Recommendation:** Fix D-1 (one-line edit in Example 2), then the artifact is ready for Phase 2.A Coherencer gate. No structural re-work needed. No RT-1 re-entry needed.
+**Recommendation:** Fix D-1 (one-line edit in Example 2), then the artifact is ready for Phase 2.A Coherent gate. No structural re-work needed. No RT-1 re-entry needed.
 
 ---
 
@@ -299,7 +299,7 @@ B-diagnostics (rate 0.0-1.0):
     - Terminology is consistent throughout (dry_run, DR1-DR6,
       BL-P1..P4, RT-0/1/2)
     - Small residual: did not cross-check against the 3 parallel
-      sibling skins (book/config/research) — that is Coherencer L2
+      sibling skins (book/config/research) — that is Coherent L2
       responsibility at Phase 2.A closing gate, not Validator's scope
 
   Lambda (Experience): 0.90
@@ -373,6 +373,6 @@ B-check: F=0.93 E=0.95 (1-s)=0.92 L=0.90 => B=0.731
 
 ---
 
-*Validator complete. B=0.731 (B_text uniform weights). D-1 flagged for Builder one-line fix. Artifact ready for Phase 2.A Coherencer gate after D-1 resolution.*
+*Validator complete. B=0.731 (B_text uniform weights). D-1 flagged for Builder one-line fix. Artifact ready for Phase 2.A Coherent gate after D-1 resolution.*
 
-*Phase 2.A coherence note:* This Validator verified the plan skin in isolation. Cross-skin consistency check against the 3 parallel sibling skins (book/config/research) is a Coherencer L2 responsibility at the Phase 2.A closing gate, not Validator's scope.
+*Phase 2.A coherence note:* This Validator verified the plan skin in isolation. Cross-skin consistency check against the 3 parallel sibling skins (book/config/research) is a Coherent L2 responsibility at the Phase 2.A closing gate, not Validator's scope.

@@ -21,7 +21,7 @@ if [ $PROMPT_LEN -lt 100 ]; then
 fi
 
 # Check 2: Role identity present
-if ! echo "$PROMPT" | grep -qiE '(you are|role).*(visionary|analyst|builder|validator|coherencer)'; then
+if ! echo "$PROMPT" | grep -qiE '(you are|role).*(visionary|analyst|builder|validator|coherent)'; then
   WARNINGS="${WARNINGS}NO_ROLE "
 fi
 
@@ -47,14 +47,10 @@ fi
 
 # Check 5b: Role tag in description matches role file path in prompt
 DESCRIPTION=$(echo "$INPUT" | jq -r '.tool_input.description // empty')
-ROLE_TAG=$(echo "$DESCRIPTION" | grep -oiE '\[(visionary|analyst|builder|validator|coherencer)\]' | head -1 | tr '[:upper:]' '[:lower:]' | tr -d '[]')
+ROLE_TAG=$(echo "$DESCRIPTION" | grep -oiE '\[(visionary|analyst|builder|validator|coherent)\]' | head -1 | tr '[:upper:]' '[:lower:]' | tr -d '[]')
 
 if [ -n "$ROLE_TAG" ]; then
-  if [ "$ROLE_TAG" = "coherencer" ]; then
-    EXPECTED_FILE_STEM="coherent"
-  else
-    EXPECTED_FILE_STEM="$ROLE_TAG"
-  fi
+  EXPECTED_FILE_STEM="$ROLE_TAG"
 
   if ! echo "$PROMPT" | grep -qiE "roles/${EXPECTED_FILE_STEM}(_EN)?\.md"; then
     WARNINGS="${WARNINGS}ROLE_MISMATCH "

@@ -176,9 +176,9 @@ B-check: F=0.92 E=0.95 (1-σ)=0.93 Λ=0.90 → B ≈ 0.73 (GREEN)
 
 ## 9. Open questions (spiral gap ~2%)
 
-- **OQ-BundleB-1:** Should `doc_alignment` be formally enforced via a pre-commit hook (T2 tier) rather than a narrative gate (T3 tier)? Current build keeps it at T3 (checklist in Coherencer prompt). Upgrade to T2 (hook scanning for `reports/unified-plan-*.md` presence on M+ commits) deferred to a later bundle — empirical evidence first (did μ-check catch real gaps, or is it theoretical?).
+- **OQ-BundleB-1:** Should `doc_alignment` be formally enforced via a pre-commit hook (T2 tier) rather than a narrative gate (T3 tier)? Current build keeps it at T3 (checklist in Coherent prompt). Upgrade to T2 (hook scanning for `reports/unified-plan-*.md` presence on M+ commits) deferred to a later bundle — empirical evidence first (did μ-check catch real gaps, or is it theoretical?).
 - **OQ-BundleB-2:** B_min per layer is currently operator-judgment static. Paper §II.7 suggests 0.70-0.85 range empirically from corpus [21]. Per-modality calibration (B_text=0.70, B_creative=0.75, B_research=0.85) is an OQ in the parallel_trajectories report. Not resolved in this bundle — needs empirical accumulation from μ-check failures/passes.
-- **OQ-BundleB-3:** Should μ-check be re-run on RT-2 (mid-cycle sync) in addition to pre-Builder? Paper §VIII.8 places μ-check as between-replicas operation, which for async RT-2 could mean "Coherencer re-checks after each Builder milestone." Current build keeps μ-check as pre-Builder only (one-shot gate). RT-2 re-check deferred.
+- **OQ-BundleB-3:** Should μ-check be re-run on RT-2 (mid-cycle sync) in addition to pre-Builder? Paper §VIII.8 places μ-check as between-replicas operation, which for async RT-2 could mean "Coherent re-checks after each Builder milestone." Current build keeps μ-check as pre-Builder only (one-shot gate). RT-2 re-check deferred.
 
 ---
 

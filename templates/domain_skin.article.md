@@ -60,7 +60,7 @@ This skin overrides the abstract role-file vocabulary for article tasks. When an
 
 ## Modal B-formula (research weights)
 
-This skin pins `B_modality: research`. The article Builder/Validator/Coherencer use the research weights:
+This skin pins `B_modality: research`. The article Builder/Validator/Coherent use the research weights:
 
 | Component | Weight | Rationale |
 |---|---|---|
@@ -147,19 +147,19 @@ Each role retains its Activation Operator (A_F, A_E, A_σ, A_Λ) and Jidoka self
   - Q6 (Skin-DEF-f): "For each numbered formula in the article, can I locate the derivation (in-article), the external citation pointer (cite + page/section), the axiomatic label, or the conjecture marker? If none of the four, the formula fails C6b provenance."
   - Q7 (Skin-DEF-e): "Computed `self_cite_rate`. Verdict from ladder: PASS (0-30%) / NOTES (30-50%) / NOTES ESCALATED (50-70%) / FAIL (≥70%). If ≥50%, did I record the load-bearing justification for each self-cite?"
 
-### Coherencer (article focus)
+### Coherent (article focus)
 
-- **FIRST attention anchor (A_F override):** Read the full artifact set. Read the project glossary (if one exists — `projects/{PROJECT}/glossary.md`). Read the 3 nearest neighbour articles from the corpus. Coherencer cares about *this article's fit with the corpus*, not the article in isolation.
-- **Artifact definition:** The corpus + this article = new corpus. Coherencer checks that (old corpus) ∪ (this article) remains coherent. This is L2 Coherencer work (cross-team coherence, per `coherent_EN.md` Levels).
+- **FIRST attention anchor (A_F override):** Read the full artifact set. Read the project glossary (if one exists — `projects/{PROJECT}/glossary.md`). Read the 3 nearest neighbour articles from the corpus. Coherent cares about *this article's fit with the corpus*, not the article in isolation.
+- **Artifact definition:** The corpus + this article = new corpus. Coherent checks that (old corpus) ∪ (this article) remains coherent. This is L2 Coherent work (cross-team coherence, per `coherent_EN.md` Levels).
 - **Primary failure mode in article work:** "Glossary drift" — a term that the project glossary defines as X is used in the new article with meaning Y. Or a symbol collision. Or a formula that appears in article A with one value and in this article with a slightly different value. These are ALL (1-σ) failures at the corpus level.
-- **Secondary failure mode (if project is bilingual):** Phantom coherence between language versions. Both versions "agree" because they were generated in the same session, but actually introduce the same error in both — so cross-language check doesn't catch it. Mitigation: Coherencer must perform independent verification of a sample of formulas and citations, not just diff language A ↔ language B.
+- **Secondary failure mode (if project is bilingual):** Phantom coherence between language versions. Both versions "agree" because they were generated in the same session, but actually introduce the same error in both — so cross-language check doesn't catch it. Mitigation: Coherent must perform independent verification of a sample of formulas and citations, not just diff language A ↔ language B.
 - **Jidoka self-check (article specialization):**
   - Q1: "Does the new article use every technical term exactly as the project glossary defines it, if one exists? (BL-29)"
   - Q2: "Are there any symbol collisions with existing corpus articles?"
   - Q3: "If this article cites a formula from corpus article N, does it match article N verbatim?"
   - Q4: "If the project mandates a bilingual set, are language versions byte-equivalent in structure (same section count, same formula count, same citation count, same figure count)?"
   - Q5: "Independent spot-check: pick 3 formulas from the new article, recompute them without reading the article's computation. Do my results match?"
-- **Bilingual sync rule (BL-19) specialization:** If the project config declares `bilingual: true`, Coherencer is the ENFORCER of the language-parity rule. Commit is BLOCKED if the declared artifact set is incomplete or if language-version sizes diverge by >50% (suggests one version is incomplete).
+- **Bilingual sync rule (BL-19) specialization:** If the project config declares `bilingual: true`, Coherent is the ENFORCER of the language-parity rule. Commit is BLOCKED if the declared artifact set is incomplete or if language-version sizes diverge by >50% (suggests one version is incomplete).
 
 ---
 
@@ -175,7 +175,7 @@ This section maps directly to `domain.verify.method: cite_check` in the project 
 | **C2** | **Citation attribution** — claim X that cites source S is actually supported by S (not just mentioned by it) | Validator | **L2** (pre-submission: requires reading the cited paper) | Human + LLM assisted — best-effort |
 | **C3** | **Identifier syntactic validity** — each DOI matches the DOI regex; each arXiv ID matches the arXiv regex; each URL is well-formed; other identifier types match their specs | Validator | **L1** | Pure regex check, automated |
 | **C4** | **Internal cross-references** — `§3.2`, `\ref{thm:main}`, `\ref{fig:curve}`, `\eqref{eq:main}`, markdown anchor links, or the project's reference idiom — all resolve to real section/theorem/figure/equation inside the same source | Validator | **L1** (the compile/render step surfaces unresolved refs; Validator must READ the warnings) | Rendering/parser — automated |
-| **C5** | **Self-citation sanity** — if author cites own prior work, the citation is load-bearing (not padding); at least one sentence explains what the prior work contributes. **Quantitative ladder:** 0-30% PASS / 30-50% NOTES / 50-70% NOTES ESCALATED / ≥70% FAIL — see C5 L2 judgment block below | Validator + Coherencer | **L2** | Human judgment + Coherencer review + `self_cite_rate` threshold |
+| **C5** | **Self-citation sanity** — if author cites own prior work, the citation is load-bearing (not padding); at least one sentence explains what the prior work contributes. **Quantitative ladder:** 0-30% PASS / 30-50% NOTES / 50-70% NOTES ESCALATED / ≥70% FAIL — see C5 L2 judgment block below | Validator + Coherent | **L2** | Human judgment + Coherent review + `self_cite_rate` threshold |
 | **C6a** | **Factual consistency** — numbers reported in abstract match numbers in body; figures match tables; abstract N = body N = table N | Validator | **L2** | Cross-reference scan — requires reading all occurrences of each numeric claim |
 | **C6b** | **Formula provenance** — every numbered formula is Derived / Cited-with-pointer / Axiomatic / Conjectured with a visible marker. Asserted-without-derivation = FAIL. | Validator | **L2** | Per-formula provenance classification; mechanical aid + manual bucketing |
 
@@ -207,7 +207,7 @@ If the project declares an evidence-marker scheme, the Validator must also audit
                     C4 → fix internal reference (or remove dangling ref);
                     C5 → if >30% explain load-bearing role for each self-cite
                          and consider balancing with external cites; if ≥70%
-                         restructure or attach Coherencer co-signed justification;
+                         restructure or attach Coherent co-signed justification;
                     C6a → re-verify authoritative value and align all occurrences;
                     C6b → add in-article derivation, or add explicit pointer
                           into the cited source (page/section), or label as
@@ -254,8 +254,8 @@ grep -cE 'undefined|multiply.defined|Citation .* undefined|could not find|undefi
 
 - **0–30% → PASS.** Normal for single-author academic articles.
 - **30–50% → PASS WITH NOTES.** Elevated. Flag for editorial review — for each self-cite, ask: replaceable by a primary source or more recent external cite?
-- **50–70% → PASS WITH NOTES ESCALATED.** Substantial. Builder MUST justify: "each self-cite contributes a load-bearing result that cannot be sourced elsewhere." Validator records justification and flags for Coherencer at RT-2.
-- **≥70% → FAIL.** Echo chamber. Require restructure OR Validator justification with Coherencer co-sign at RT-2.
+- **50–70% → PASS WITH NOTES ESCALATED.** Substantial. Builder MUST justify: "each self-cite contributes a load-bearing result that cannot be sourced elsewhere." Validator records justification and flags for Coherent at RT-2.
+- **≥70% → FAIL.** Echo chamber. Require restructure OR Validator justification with Coherent co-sign at RT-2.
 
 **Basis:** Empirical norm for peer-reviewed physics ~30%; single-author research corpora can run higher by construction. Projects with intentionally higher self-cite profiles (e.g., a single-author research programme building on its own prior results) may shift these thresholds via overlay — see project overlay file if declared.
 
@@ -311,9 +311,9 @@ V-Gate = the cite_check + BL-A1..A4 set above (engineering validity: bibliograph
 
 ### PR-4 Decision-log audit
 - Each Builder default (e.g., choosing slug citation form) MUST be logged
-- Coherencer reviews log при PR-Gate; flags «buried OD» (per Inv 16 OD-discipline
+- Coherent reviews log при PR-Gate; flags «buried OD» (per Inv 16 OD-discipline
   extension to non-rework decisions)
-- Tier: T3 checklist (Coherencer responsibility)
+- Tier: T3 checklist (Coherent responsibility)
 
 ### PR-Gate verdict
 - All 4 PR-checks MUST pass before «publication ready» declaration
@@ -325,7 +325,7 @@ V-Gate = the cite_check + BL-A1..A4 set above (engineering validity: bibliograph
 ## RT Phase Protocol for articles
 
 Code projects use the canonical phase protocol from `eradev.md` Section VI:
-Visionary (direction) → Analyst (design) → Builder (implement) → Validator (test) → Coherencer (integrate).
+Visionary (direction) → Analyst (design) → Builder (implement) → Validator (test) → Coherent (integrate).
 
 Articles need adjustments because the work profile is different. **Three RT invocation points** apply:
 
@@ -353,7 +353,7 @@ Outline + draft live in the same mental model of the argument. Splitting them in
 **Pre-drafting language-purity gate (per L-40 + L-46 ODTOE):**
 Before drafting RU section content, verify META spec contains NO bare English content words in the spec body (excluding math/code/L-21 KEEP). If detected, ANDON: this is META prompt-design failure, not Builder issue. Don't paper over by translating on the fly — ANDON forces upstream fix per L-46 inheritance rule.
 
-**Exception (L/XL only):** For an XL article (>8000 words, >4 sections), the Analyst plan may split work across *two Builders* by section ownership (Builder A owns sections I-III, Builder B owns sections IV-VI). File Ownership rule from `analyst_EN.md` Responsibilities 4 applies. Coherencer gate is MANDATORY between Builder completion and Validator start.
+**Exception (L/XL only):** For an XL article (>8000 words, >4 sections), the Analyst plan may split work across *two Builders* by section ownership (Builder A owns sections I-III, Builder B owns sections IV-VI). File Ownership rule from `analyst_EN.md` Responsibilities 4 applies. Coherent gate is MANDATORY between Builder completion and Validator start.
 
 ### Pipeline block
 
@@ -365,7 +365,7 @@ Builder loop per section:
   draft primary language → (draft secondary language if bilingual) →
   compile/render declared outputs → evidence markers (if project declares) →
   next section
-Coherencer gate (after all sections drafted)
+Coherent gate (after all sections drafted)
 RT-2 (full 5-role) → 7 cite_checks + project-declared checks +
   bilingual set check (if applicable)
 Commit all declared artifacts together
@@ -432,15 +432,15 @@ stat -f %m "$SRC"  # macOS fallback  |  stat -c %Y "$SRC"  # GNU fallback
 - **Fix:** Builder must either (a) weaken the claim to match Smith2020 — "for measurable-phase-space observer states, λ_L > 0 per [Smith2020]"; or (b) find a source that actually proves the stronger claim; or (c) provide an independent derivation. This is also a "no fitting" concern: if no source exists, the claim MUST be derived from the project's theoretical framework or removed.
 - **Why cite_check alone would miss this:** C1 (bibliography completeness) would say PASS — the citation is in the bibliography. C3 (identifier syntax) would say PASS — the DOI is valid. Only C2 (reading the cited source) catches it. This is why the skin's verification protocol distinguishes L1 (mechanical) from L2 (interpretive) checks.
 
-### Example 2: Outline contradiction between sections (Coherencer σ failure)
+### Example 2: Outline contradiction between sections (Coherent σ failure)
 
 - **Input:** "Draft outline for an 8-section article 'Dualities in observer geometry.'"
 - **Scenario:** Analyst plan lists Section III as "Observer-dependent metric" with the definition "the metric is a functional of the observer's information state" and lists Section V as "Bulk metric reconstruction" with the definition "the bulk metric is objective and independent of any observer." At RT-1, both section sketches pass Builder's Jidoka (each is internally consistent).
-- **What Coherencer finds:** The two sections are mutually contradictory — Section III says metric is observer-dependent, Section V says it is observer-independent. If the article were drafted as-is, Section V would silently overwrite Section III's assertion.
-- **Catching role:** **Coherencer** (this is the canonical Coherencer failure-mode — divergent meanings of the same term across parallel work).
-- **Phase:** **RT-1** (outline review, before Builder starts drafting). Coherencer's σ (contradiction rate) spikes because Sections III and V disagree on a foundational term.
-- **Fix:** Coherencer invokes Phantom Coherence Check (`coherent_EN.md` Key Rules 2) and asks each role individually: "Is the metric observer-dependent or objective?" The divergence forces a RT-1.5 where Visionary clarifies which definition is the article's load-bearing one, and the outline is rewritten so that either (a) Section V redefines "bulk metric" as an information-theoretic construct compatible with Section III, or (b) Section V is removed entirely.
-- **How the skin's vocabulary maps this:** "observer-dependent metric" vs "observer-independent metric" = a **symbol collision** (vocabulary row 22). Vocabulary row 2 (function → claim) and row 3 (module → section) apply. Coherencer's drift detection catches this by running the "does the new article use every technical term exactly as the glossary defines it?" query.
+- **What Coherent finds:** The two sections are mutually contradictory — Section III says metric is observer-dependent, Section V says it is observer-independent. If the article were drafted as-is, Section V would silently overwrite Section III's assertion.
+- **Catching role:** **Coherent** (this is the canonical Coherent failure-mode — divergent meanings of the same term across parallel work).
+- **Phase:** **RT-1** (outline review, before Builder starts drafting). Coherent's σ (contradiction rate) spikes because Sections III and V disagree on a foundational term.
+- **Fix:** Coherent invokes Phantom Coherence Check (`coherent_EN.md` Key Rules 2) and asks each role individually: "Is the metric observer-dependent or objective?" The divergence forces a RT-1.5 where Visionary clarifies which definition is the article's load-bearing one, and the outline is rewritten so that either (a) Section V redefines "bulk metric" as an information-theoretic construct compatible with Section III, or (b) Section V is removed entirely.
+- **How the skin's vocabulary maps this:** "observer-dependent metric" vs "observer-independent metric" = a **symbol collision** (vocabulary row 22). Vocabulary row 2 (function → claim) and row 3 (module → section) apply. Coherent's drift detection catches this by running the "does the new article use every technical term exactly as the glossary defines it?" query.
 
 ### Example 3: Numerical inconsistency abstract vs table (C6a failure, cite_check blind spot)
 
@@ -463,8 +463,8 @@ The article skin inherits all 22 universal BL from `BOOTSTRAP_LESSONS_universal.
 | BL | Title | Applicability to article work |
 |---|---|---|
 | BL-1 | Lambda=0.5 as Cold-Start Default | Applies unchanged — a fresh article project starts with Λ=0.5; accumulates as articles land in the corpus |
-| BL-4 | S_adjusted = S_team × B_mean | Applies unchanged — Coherencer at RT-2 computes S_adjusted from the 5 role B scores |
-| BL-5 | Phantom Coherence Detection | Applies unchanged — bilingual-project manifestation is "both language versions contain the same formula error" (see Coherencer secondary failure mode) |
+| BL-4 | S_adjusted = S_team × B_mean | Applies unchanged — Coherent at RT-2 computes S_adjusted from the 5 role B scores |
+| BL-5 | Phantom Coherence Detection | Applies unchanged — bilingual-project manifestation is "both language versions contain the same formula error" (see Coherent secondary failure mode) |
 | BL-7 | EN for Practical Tasks, RU for Theoretical Depth | Applies unchanged — article drafting is practical (EN role files), theorem derivation is theoretical (RU role files may be used for formula derivation) |
 | BL-9 | Interface Contracts Between Roles | Applies unchanged — Analyst→Builder contract is the section-by-section claims table; Builder→Validator contract is the full artifact set + evidence markers (if project declares) |
 | BL-10 | Multiplicative B Structure | Applies unchanged — weights are `research` profile (F=0.30, E=0.20, (1-σ)=0.35, Λ=0.15) |
@@ -481,7 +481,7 @@ The article skin inherits all 22 universal BL from `BOOTSTRAP_LESSONS_universal.
 | BL-26 | META Always Delegates | Applies unchanged — META never drafts article prose directly |
 | BL-28 | Agent Prompt Must Include Explicit Context | Applies unchanged — article-task agent prompts must name the skin file path AND role file path; if project has an overlay, name that too |
 | BL-29 | Verify Established Terminology Before Generating | **Critical for articles** — article Builder must scan corpus for terminology before drafting (the project glossary, if one exists) |
-| BL-30 | Defense-In-Depth | Applies unchanged — article validation has layers: Builder Jidoka + Coherencer gate + Validator project checks |
+| BL-30 | Defense-In-Depth | Applies unchanged — article validation has layers: Builder Jidoka + Coherent gate + Validator project checks |
 | BL-31 | Constrain Output Types | Applies unchanged — Builder's output is the declared artifact set, not prose explanations |
 | BL-32 | Grep After BL Merge | Applies unchanged — if article glossary terms are renamed, grep the whole corpus for orphan references |
 
@@ -520,7 +520,7 @@ These 5 BL live in this skin file ONLY. They do NOT add to the main 30-BL budget
 - **Source:** Adapted from BL-14 for the article domain. (Note: BL-14 merged into BL-8 in main `BOOTSTRAP_LESSONS.md` 2026-04-20 as part of deployment-event checklist; BL-A3 retains code_adapter provenance since `BOOTSTRAP_LESSONS_code_adapter.md` still defines BL-14.)
 - **Rule:** Before an article is submitted to a journal or uploaded as a preprint, Builder MUST document the retraction procedure: who to contact, what the retraction notice would say, and what the corpus-level rollback looks like (e.g., "remove from corpus, mark as retracted in index, note in changelog"). If you cannot describe how to undo a submission, you do not have permission to submit.
 - **Why:** Post-submission pressure (editor deadlines, reviewer hostility, public visibility) is when cognitive load peaks. A pre-written retraction plan executes mechanically when needed.
-- **Applies to:** Visionary (approve retraction plan), Builder (write it), Coherencer (store in MEMORY).
+- **Applies to:** Visionary (approve retraction plan), Builder (write it), Coherent (store in MEMORY).
 
 **BL-A4: Bibliography PRE-FLIGHT (article adaptation of BL-22)**
 - **Source:** Adapted from BL-22 for the article domain.
@@ -530,9 +530,9 @@ These 5 BL live in this skin file ONLY. They do NOT add to the main 30-BL budget
 
 **BL-A5: Publication Readiness Gate (V-Gate ≠ PR-Gate sequencing rule, extension of Inv 17 publication-layer)**
 - **Source:** Post-CONSOLIDATION lift, RT-9 ODTOE Hansei (errors F1 ASCII dashes in PDF, F2 slug-citations in abstract, F4 BL-A2 GREEN-blind, F6 missing naive-reader persona). Per L-50 (extend>add) — extension of Inv 17 publication-layer, not a new framework BL.
-- **Rule:** Engineering validity (cite_check + BL-A1..A4 = "V-Gate") and publication readiness ("PR-Gate") are SEPARATE gates. After V-Gate GREEN, before declaring the artifact "ready", the article MUST pass PR-Gate: PR-1 visual artifact inspection (rendered PDF, typography, slug-citations not literal), PR-2 naive-reader test (abstract decodable without project glossary), PR-3 stylistic parity (RU/EN dash type, citation style, paragraph structure if `domain.bilingual: true`), PR-4 decision-log audit (Builder defaults logged, Coherencer flags "buried OD" per Inv 16 OD-discipline extension). Full PR-Gate spec: see "PR-Gate (Publication Readiness)" section above.
+- **Rule:** Engineering validity (cite_check + BL-A1..A4 = "V-Gate") and publication readiness ("PR-Gate") are SEPARATE gates. After V-Gate GREEN, before declaring the artifact "ready", the article MUST pass PR-Gate: PR-1 visual artifact inspection (rendered PDF, typography, slug-citations not literal), PR-2 naive-reader test (abstract decodable without project glossary), PR-3 stylistic parity (RU/EN dash type, citation style, paragraph structure if `domain.bilingual: true`), PR-4 decision-log audit (Builder defaults logged, Coherent flags "buried OD" per Inv 16 OD-discipline extension). Full PR-Gate spec: see "PR-Gate (Publication Readiness)" section above.
 - **Why:** v9 framework caught engineering validity (BL-A1..A4) but NOT publication readiness — Hansei error F1 (ASCII dashes shipped to PDF), F2 (slug-citations in abstract), F4 (BL-A2 GREEN-blind to typography), F6 (no naive-reader persona). PR-Gate makes the publication surface a first-class gate; META MUST not declare "ready" on V-Gate alone (GREEN ≢ ready per meta.md amendment).
-- **Applies to:** Validator (PR-1 rendered PDF inspection + PR-2 naive-reader simulation, PR-3 parity check), Builder (typography correctness, decision-log entries for PR-4), Coherencer (PR-3 cross-language parity + PR-4 OD-audit), META (PR-Gate PASS gate before "ready" declaration).
+- **Applies to:** Validator (PR-1 rendered PDF inspection + PR-2 naive-reader simulation, PR-3 parity check), Builder (typography correctness, decision-log entries for PR-4), Coherent (PR-3 cross-language parity + PR-4 OD-audit), META (PR-Gate PASS gate before "ready" declaration).
 
 ### BL budget summary
 
@@ -553,13 +553,13 @@ These 5 BL live in this skin file ONLY. They do NOT add to the main 30-BL budget
 
 **Validator one-line routine:** Read `projects/{PROJECT}/lessons.md` → extract project-specific rule list → apply temporal exception per rule → supplement the 7 cite_check sub-checks + project-declared checks with project rules. Post-mtime violation = temporal N/A; pre-mtime violation = real defect.
 
-**Applies to:** Validator (RT-2 primary reader), Coherencer (cross-corpus propagation), Builder (pre-commit), Analyst (RT-1 Check-First preamble).
+**Applies to:** Validator (RT-2 primary reader), Coherent (cross-corpus propagation), Builder (pre-commit), Analyst (RT-1 Check-First preamble).
 
 ---
 
 ## Project-specific glossary pointer
 
-This skin does NOT bake in a concrete glossary. If the project maintains one (a canonical term set the article Builder must align with), it lives at `projects/{PROJECT}/glossary.md` and is read by Analyst during Check-First item 6 (CONSISTENCY), by Builder during A_σ, by Validator at RT-2, and by Coherencer at the corpus-integration gate.
+This skin does NOT bake in a concrete glossary. If the project maintains one (a canonical term set the article Builder must align with), it lives at `projects/{PROJECT}/glossary.md` and is read by Analyst during Check-First item 6 (CONSISTENCY), by Builder during A_σ, by Validator at RT-2, and by Coherent at the corpus-integration gate.
 
 ### Generic article-writing terms (universal — not project-specific)
 
@@ -597,7 +597,7 @@ Tasks that LOOK like article work but FAIL v9's text-discrete AND-gate. Agents m
 ## Footer
 
 *Last updated: 2026-04-26*
-*Upstream roles: roles/{role}_EN.md (all 5 roles — Visionary, Analyst, Builder, Validator, Coherencer)*
+*Upstream roles: roles/{role}_EN.md (all 5 roles — Visionary, Analyst, Builder, Validator, Coherent)*
 *Upstream math: eradev.md Section II.1 (B_research weights)*
 *Upstream BL: BOOTSTRAP_LESSONS_universal.md (22 universal BL inherited)*
 *Overlay contract: see `templates/domain_skin.md.template` — projects with corpus-specific rules (filename convention, preamble, glossary, bilingual mandate, citation idiom) add `domain.overlay: <path>` to their `config.md`*

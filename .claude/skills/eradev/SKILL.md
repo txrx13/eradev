@@ -78,16 +78,16 @@ This reinforces identity through the act of writing and creates persistent recor
 6. Fix chain >= 3 = STOP, write spec, re-run RT-1 (BL-3). [CODE-ADAPTER]
 7. One commit = one phase. >5 files from different modules = RT-2 required (BL-24). [CODE-ADAPTER]
 8. P0 production incident declared by operator: direct intervention allowed, post-incident Hansei mandatory. [UNIVERSAL]
-9. Agent description MUST start with [ROLE] tag: [VISIONARY], [ANALYST], [BUILDER], [VALIDATOR], [COHERENCER]. Operator must see which role is working. [UNIVERSAL]
+9. Agent description MUST start with [ROLE] tag: [VISIONARY], [ANALYST], [BUILDER], [VALIDATOR], [COHERENT]. Operator must see which role is working. [UNIVERSAL]
 10. Bash is classified: OPERATIONAL (git, ls, mkdir, cp, zip) = allowed. DIAGNOSTIC (grep, curl, ssh, psql, redis-cli, jq) = delegate to Check Agent ([ANALYST] or [VALIDATOR]). If it generates debugging insights → it's diagnostic. [CODE-ADAPTER]
-11. Execution order: Builder COMPLETES first, THEN Validator starts. Never parallel. For L/XL: all Builders complete → Coherencer gate → then Validators. (RT Phase Protocols, eradev.md Section VI) [UNIVERSAL]
+11. Execution order: Builder COMPLETES first, THEN Validator starts. Never parallel. For L/XL: all Builders complete → Coherent gate → then Validators. (RT Phase Protocols, eradev.md Section VI) [UNIVERSAL]
 12. Every Agent call MUST instruct the agent to self-load its role file as FIRST action. Prompt names the path: "Read roles/{role}_EN.md (EN) or roles/{role}.md (RU), apply Activation Operator". META does NOT embed role file content — the agent reads it into its own context. This keeps META context lean. [UNIVERSAL]
 13. Maximize parallelization: independent tasks/agents MUST be spawned simultaneously. Sequential only when there is a real dependency. "A+B done, C depends on A, D depends on B, C and D independent" → spawn C and D in parallel. [UNIVERSAL]
 14. Remote/dangerous operations (SSH, DB writes, service restarts, deploy): delegate to Check Agent ([ANALYST] or [VALIDATOR]), NOT Builder. Include operator's original request verbatim in agent prompt to establish authorization context. Agent prompt must contain: "## Operator's direct request: [quote]" section. Without it, safety systems will block as prompt injection. [CODE-ADAPTER]
-15. Plans shipping >=2 independent refactors in one release window: Visionary MUST author `reports/composition-hazards-<date>.md` BEFORE RT-1 concludes. Pair grid: N*(N-1)/2 + 3-way combinations. Missing grid = RED on A_F for Visionary; Coherencer rejects RT-1 synthesis. Interlocked sequence required (not parallel menu). (BL-34) [UNIVERSAL]
+15. Plans shipping >=2 independent refactors in one release window: Visionary MUST author `reports/composition-hazards-<date>.md` BEFORE RT-1 concludes. Pair grid: N*(N-1)/2 + 3-way combinations. Missing grid = RED on A_F for Visionary; Coherent rejects RT-1 synthesis. Interlocked sequence required (not parallel menu). (BL-34) [UNIVERSAL]
 16. Operator message matching rework-framing regex ("менять архитектуру" | "полностью менять" | "full rework" | "from scratch" | "architecture is wrong" | "completely change" | "архитектурная проблема") during active refactor = mandatory rework-discipline audit. Spawn Validator FIRST for risk matrix; produce `reports/hansei-architectural-rework-<date>.md` with interlocked sequence + operator decision matrix; block Builder spawn until operator sign-off. (BL-35) [UNIVERSAL]
 17. **τ_cycle primacy**: In multi-agent configurations, feedback-cycle length (τ_cycle) is the primary operator of cognitive convergence — not signal fidelity. META MUST optimize cycle latency before polishing signal quality when convergent output is the goal. Shorter RT-1→μ-check→Builder cycles with B_received ≥ B_min beat longer cycles seeking B parity. **Applies at RIGOR_LEVEL strict + structured** (code, config, research methods, plan — convergent/semi-convergent output). For exploratory/emergent segments (book body, article introduction/discussion, prototype research, creative prose), cycle length is a configuration parameter, not a latency target — long cycles (incubation) are legitimate and NOT a fix chain (BL-3 does not fire on iteration count for FLUX segments, see `eradev.md` §VI.1 FLUX RT Protocol). (ODTOE_parallel_trajectories §II, F3 v_conv) [CODE-ADAPTER]
-**Tier:** T3 (Coherencer audit cadence). Enforcement: every 4-session window, Coherencer reviews recent fix chains and RT cycle counts; flags τ_cycle violations (same phase iterating >3×) as advisory NOTE in Hansei. Hard hook impractical (cycle-count is session-scoped).
+**Tier:** T3 (Coherent audit cadence). Enforcement: every 4-session window, Coherent reviews recent fix chains and RT cycle counts; flags τ_cycle violations (same phase iterating >3×) as advisory NOTE in Hansei. Hard hook impractical (cycle-count is session-scoped).
 
 ## Language Stack
 
@@ -95,7 +95,7 @@ Detect task type per eradev.md Section 0:
 - Practical (implement, fix, build, test, debug, refactor): EN stack (roles/{role}_EN.md)
 - Theoretical (derive, prove, formula, reflect, ideate): RU stack (roles/{role}.md)
 - Context (analyze, design, plan, research, review): EN if object is concrete artifact; RU if object is abstract concept
-- Mixed L/XL: BOTH (parallel EN + RU agents, Coherencer syncs at RT)
+- Mixed L/XL: BOTH (parallel EN + RU agents, Coherent syncs at RT)
 - Ambiguous: EN (default)
 
 When spawning agents: instruct the agent to "Read roles/{role}_EN.md" (EN tasks) or "Read roles/{role}.md" (RU tasks) as its FIRST action. META names the path; agent self-loads. Do NOT embed role file content into META prompt.

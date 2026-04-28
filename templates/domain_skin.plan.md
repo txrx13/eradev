@@ -62,7 +62,7 @@ The live reference plan artifact is `reports/roadmap_v9_2026-04-11.md` (v9's own
 
 ## Modal B-formula (text weights, uniform 0.25×4)
 
-This skin pins `B_modality: text`. The plan Builder / Validator / Coherencer use the text (uniform) weights:
+This skin pins `B_modality: text`. The plan Builder / Validator / Coherent use the text (uniform) weights:
 
 | Component | Weight | Rationale |
 |---|---|---|
@@ -175,19 +175,19 @@ Each role retains its Activation Operator (A_F, A_E, A_σ, A_Λ) and Jidoka self
   - Q5: "Do the phase durations sum to the plan's stated total duration? (internal consistency check)"
   - Q6: "If I were on the execution team day 1, could I start phase 0 step 1 without asking the author a question? If I have to ask even one question → FAIL DR1."
 
-### Coherencer (plan focus)
+### Coherent (plan focus)
 
-- **FIRST focus anchor (A_F override):** Read the full plan end-to-end, twice — once top-down (objective → phases → steps) and once bottom-up (steps → phases → objective). Read the project's `lessons.md` for any rules this plan must honor (BL-29 glossary). Coherencer cares about *the plan's internal consistency AND its fit with the project's prior plans*, not just the plan in isolation.
-- **What the role considers "the artifact":** The plan + (all prior plans for the same or adjacent objective) = plan series. Coherencer checks that the CURRENT plan does not contradict or duplicate prior plans, and that the current plan's phase terminology matches the project glossary.
-- **Primary failure mode in plan work:** "Terminology drift across sections" — early phases call something a "sprint", later phases call it an "iteration", or the pass-criterion for Phase 0 uses "GREEN/YELLOW/RED" labels while Phase 1 uses "PASS/FAIL/WARN". These are ALL (1-σ) failures at the plan level. Mitigation: Coherencer runs a glossary scan across ALL phase sections + builds a mini-glossary of the terms the plan actually uses + flags divergence.
-- **Secondary failure mode (plan-specific):** Phantom coherence — every phase's pass criterion "looks rigorous" but they all defer to the SAME underlying subjective judgment ("when it feels done"). The plan appears verifiable because each phase has a criterion, but the criteria collapse into one vague vibe. Mitigation: Coherencer asks "if I replace every phase's pass criterion with ITSELF (independent of every other phase's criterion), does the plan still work?"
+- **FIRST focus anchor (A_F override):** Read the full plan end-to-end, twice — once top-down (objective → phases → steps) and once bottom-up (steps → phases → objective). Read the project's `lessons.md` for any rules this plan must honor (BL-29 glossary). Coherent cares about *the plan's internal consistency AND its fit with the project's prior plans*, not just the plan in isolation.
+- **What the role considers "the artifact":** The plan + (all prior plans for the same or adjacent objective) = plan series. Coherent checks that the CURRENT plan does not contradict or duplicate prior plans, and that the current plan's phase terminology matches the project glossary.
+- **Primary failure mode in plan work:** "Terminology drift across sections" — early phases call something a "sprint", later phases call it an "iteration", or the pass-criterion for Phase 0 uses "GREEN/YELLOW/RED" labels while Phase 1 uses "PASS/FAIL/WARN". These are ALL (1-σ) failures at the plan level. Mitigation: Coherent runs a glossary scan across ALL phase sections + builds a mini-glossary of the terms the plan actually uses + flags divergence.
+- **Secondary failure mode (plan-specific):** Phantom coherence — every phase's pass criterion "looks rigorous" but they all defer to the SAME underlying subjective judgment ("when it feels done"). The plan appears verifiable because each phase has a criterion, but the criteria collapse into one vague vibe. Mitigation: Coherent asks "if I replace every phase's pass criterion with ITSELF (independent of every other phase's criterion), does the plan still work?"
 - **Jidoka self-check (plan specialization):**
   - Q1: "Does the plan use every technical term consistently across phases, or does it drift (sprint vs iteration vs cycle)? (1-σ, BL-29)"
   - Q2: "Do the phase durations ADD UP to the plan's total duration, end-to-end? (basic arithmetic consistency)"
   - Q3: "Are pass criteria ACTUALLY independent across phases, or do they all collapse to one vibe? (phantom coherence check, BL-5 applied to plans)"
   - Q4: "Does this plan contradict or duplicate a prior plan for the same objective? If yes, is the supersession acknowledged (BL-P3)?"
   - Q5: "Independent spot-check: pick 3 steps at random — does each step name an owner, have prerequisites met by prior steps, and produce a named deliverable? If any fails, flag."
-- **Supersession rule (BL-P3):** Coherencer is the ENFORCER of the supersession protocol. Commit is BLOCKED if a prior plan for the same objective is not archived with a "superseded by vX" marker.
+- **Supersession rule (BL-P3):** Coherent is the ENFORCER of the supersession protocol. Commit is BLOCKED if a prior plan for the same objective is not archived with a "superseded by vX" marker.
 
 ---
 
@@ -204,7 +204,7 @@ This section maps directly to `config.md` `domain.verify.method: dry_run`. Unlik
 | **DR3** | **Resource completeness** — every actor (role, person, team), tool (software, hardware, credential), budget (money, person-hours, compute), and deadline is named | Anonymous owners, missing tools, un-budgeted work, un-dated deadlines | Validator | Mechanical — grep for anonymous-owner patterns ("we", "the team", "TBD", "someone") + scan for un-dated phases + scan for un-budgeted tools |
 | **DR4** | **Contingency presence** — for each phase, what happens if that phase fails? (rollback / escalate / cut scope / extend deadline) | Plans that only cover the happy path; plans with no failure-mode thinking; plans that assume everything will succeed | Validator | Interpretive — requires reading each phase's contingency section and asking "is the contingency realistic, or is it 'try harder'?" |
 | **DR5** | **Success criterion measurability** — every phase's "done" state is quantifiable (numeric threshold, binary gate, named-artifact-exists), not subjective | Plans with vibes-based success criteria ("when it feels done", "good enough", "clean") | Validator | Near-mechanical — scan each pass-criterion block for numeric / binary / named-artifact keywords; flag any criterion that lacks them |
-| **DR6** | **Handoff clarity** — each phase transition has an explicit ownership change OR an explicit "same owner continues" note | Implicit handoffs ("the team will take it from there"); unclear who owns the transition | Coherencer | Interpretive — scan each phase boundary and ask "who owns the next step, and did the prior phase produce what that owner needs?" |
+| **DR6** | **Handoff clarity** — each phase transition has an explicit ownership change OR an explicit "same owner continues" note | Implicit handoffs ("the team will take it from there"); unclear who owns the transition | Coherent | Interpretive — scan each phase boundary and ask "who owns the next step, and did the prior phase produce what that owner needs?" |
 
 ### L1 (mechanical) vs L2 (interpretive) split
 
@@ -268,7 +268,7 @@ independence check: Validator runs dry_run WITHOUT having been in the authoring
 ## RT Phase Protocol Adjustments
 
 Code projects use the canonical RT protocol from `eradev.md` Section VI:
-Visionary (direction) → Analyst (design) → Builder (implement) → Validator (test) → Coherencer (integrate)
+Visionary (direction) → Analyst (design) → Builder (implement) → Validator (test) → Coherent (integrate)
 
 Plans need adjustments because the work profile is different (no build/test feedback loop; the "artifact" is the plan document itself; dry_run requires a second-reader pass).
 
@@ -277,7 +277,7 @@ Plans need adjustments because the work profile is different (no build/test feed
 Three RT invocation points for plans:
 
 1. **RT-0 (Visionary solo, RECOMMENDED): objective capture + OOD check.** Runs before any RT-1 when the operator proposes a new objective or when an existing plan needs replacement. Visionary alone evaluates: is the objective measurable, bounded, falsifiable in a discrete way (not continuous/subjective), and does it supersede any existing plan? A YES from Visionary unlocks RT-1. RT-0 is nearly mandatory for plans that supersede a prior plan.
-2. **RT-1 (mandatory, full 5-role): decomposition + validation.** Produces the Analyst deliverable template (9 required parts) + Builder's polished plan file + Validator's first DR1–DR5 pass + Coherencer's terminology check. Builder does NOT release the plan until RT-1 approves.
+2. **RT-1 (mandatory, full 5-role): decomposition + validation.** Produces the Analyst deliverable template (9 required parts) + Builder's polished plan file + Validator's first DR1–DR5 pass + Coherent's terminology check. Builder does NOT release the plan until RT-1 approves.
 3. **RT-2 (mandatory, pre-activation): full dry_run + terminology unification.** Before the plan is declared ACTIVE (handed to the execution team, pinned as the project's active plan of record), runs all 6 DR checks + BL-29 glossary scan + supersession check (BL-P3).
 
 No RT between RT-1 and RT-2 for single-phase plans. For multi-phase plans (>3 phases), an intermediate RT-1.5 MAY be run after each phase is drafted, but this is OPTIONAL. **Exception:** for XL plans (>10 phases OR total duration >2 weeks), RT-1.5 is MANDATORY after each major phase group.
@@ -295,7 +295,7 @@ The plan Builder is a SINGLE agent for S/M/L plans. Within that single Builder s
 
 This is a LINEAR polish pass, not an iterative loop. One Builder agent, one session.
 
-**Exception (XL only):** For an XL plan (>10 phases OR >2 weeks duration OR >3 named owners across phases), the Analyst MAY split work across *two Builders* by phase ownership (Builder A polishes phases 0-3, Builder B polishes phases 4-7). File Ownership rule from `analyst_EN.md` Responsibilities 4 applies. Coherencer gate is MANDATORY between Builder completion and Validator RT-2.
+**Exception (XL only):** For an XL plan (>10 phases OR >2 weeks duration OR >3 named owners across phases), the Analyst MAY split work across *two Builders* by phase ownership (Builder A polishes phases 0-3, Builder B polishes phases 4-7). File Ownership rule from `analyst_EN.md` Responsibilities 4 applies. Coherent gate is MANDATORY between Builder completion and Validator RT-2.
 
 **Rationale for NOT splitting outliner + polisher (even on XL):** Outline + polish live in the same mental model of the plan. Splitting them causes the polisher to lose the context the outliner had — increasing |B_outliner − B_polisher| and decreasing S_team. Keeping them unified is consistent with the v9 principle that *role is a focus, not a specialization*.
 
@@ -312,9 +312,9 @@ RT-0 produces a single-paragraph decision:
 ```
 RT-0 (Visionary solo, RECOMMENDED) → objective capture + OOD + supersession check
 RT-1 (full 5-role) → 9-part Analyst draft + Builder polish + Validator DR1–DR5
-                     + Coherencer glossary
+                     + Coherent glossary
     [optional RT-1.5 after each major phase group for XL plans]
-Coherencer gate (after Builder polish completes)
+Coherent gate (after Builder polish completes)
 RT-2 (full 5-role) → 6 DR checks + BL-29 glossary scan + BL-P3 supersession check
 Commit plan file + archive any superseded prior plan with "superseded by vX" note
 Plan becomes ACTIVE → handed to execution team → outside RT scope (execution-time work)
@@ -385,16 +385,16 @@ Plan becomes ACTIVE → handed to execution team → outside RT scope (execution
 - **Why DR1 alone would miss this:** DR1 is a mechanical walkthrough — "can I execute step 1?" — and each phase's steps ARE individually executable. The gap is in the PASS CRITERIA, not the steps. DR5 is designed to catch exactly this kind of plan-shaped vibe that walks but does not verify. This is also a BL-17 violation applied to plans — pre-generation verification should have caught the ambiguity at the objective-statement level.
 - **B-check:** F=0.85 (read all 4 phases + audited each criterion), E=0.95 (DR5 is exact intent), 1-σ=0.80 (vibes-based criteria implicitly collapse to one metric), Λ=0.85 (BL-5 phantom coherence + BL-17 pre-gen verification applied) → B ≈ 0.55 YELLOW (Andon: DR5 FAIL; plan re-enters RT-1 via Visionary)
 
-### Example 3: Terminology drift across phases (Coherencer σ failure)
+### Example 3: Terminology drift across phases (Coherent σ failure)
 
 - **Input:** "Draft a plan for the 2026 Q2 release cycle, including sprint planning, iteration reviews, retrospectives, and ship date."
 - **Domain classification:** type=plan, modality=text, verify=dry_run, blast_radius=MEDIUM (process plan, multi-team)
 - **Scenario:** Analyst drafts a 6-week plan. Phases 0-2 use "sprint" consistently: "Sprint 1 planning", "Sprint 1 review", "Sprint 1 retro." Phases 3-5 drift to "iteration": "Iteration 4 planning", "Iteration 4 review", "Iteration 4 retro." Phase 6 (final ship) mixes both: "Final sprint iteration review." Builder polishes. Validator runs DR1 through DR5 and everything looks mechanical: steps execute, prerequisites are met, criteria are measurable. PASS.
-- **What Coherencer finds:** Running the BL-29 glossary scan + DR6 (handoff clarity), Coherencer builds a mini-glossary of term uses: "sprint" appears 14 times, "iteration" appears 11 times, "sprint iteration" appears once. The project's `lessons.md` glossary says "sprint" is the canonical term. Phases 3-5 have drifted. Phase 6 is a hybrid. The plan is internally self-consistent in that each phase works IN ISOLATION, but the team reading phase 3 will interpret "iteration" as a DIFFERENT thing than a "sprint" (they are trained to think sprint = 2-week unit, iteration = a single dev cycle within a sprint). Silent contradiction.
-- **Catching role:** **Coherencer** (canonical σ failure — divergent meanings of the same concept across phases; BL-29 applied to plans).
-- **Phase:** **RT-2** (final glossary scan is a Coherencer RT-2 activity). Could also be caught at RT-1.5 if the plan is XL.
-- **Fix:** Coherencer invokes Phantom Coherence Check (`coherent_EN.md` Key Rules 2) and runs a grep-based unification: replace "iteration" with "sprint" throughout phases 3-5, resolve phase 6 to "Final sprint review" (drop the hybrid), and log a mini-glossary block in the plan's header ("This plan uses 'sprint' = 2-week unit throughout; no other term is used"). Builder re-polishes the affected phases. Validator re-runs DR6 on the affected phase boundaries. Plan re-enters RT-2 gate.
-- **How the skin's vocabulary maps this:** "sprint" vs "iteration" = a SYMBOL COLLISION (vocabulary row 20 + BL-29). Coherencer's Q1 ("Does the plan use every technical term consistently across phases?") catches this directly. This is the plan-skin analog of the article-skin `\Lambda` symbol collision from `analyst_EN.md` Ex.2 — a single concept with two labels silently contradicting itself.
+- **What Coherent finds:** Running the BL-29 glossary scan + DR6 (handoff clarity), Coherent builds a mini-glossary of term uses: "sprint" appears 14 times, "iteration" appears 11 times, "sprint iteration" appears once. The project's `lessons.md` glossary says "sprint" is the canonical term. Phases 3-5 have drifted. Phase 6 is a hybrid. The plan is internally self-consistent in that each phase works IN ISOLATION, but the team reading phase 3 will interpret "iteration" as a DIFFERENT thing than a "sprint" (they are trained to think sprint = 2-week unit, iteration = a single dev cycle within a sprint). Silent contradiction.
+- **Catching role:** **Coherent** (canonical σ failure — divergent meanings of the same concept across phases; BL-29 applied to plans).
+- **Phase:** **RT-2** (final glossary scan is a Coherent RT-2 activity). Could also be caught at RT-1.5 if the plan is XL.
+- **Fix:** Coherent invokes Phantom Coherence Check (`coherent_EN.md` Key Rules 2) and runs a grep-based unification: replace "iteration" with "sprint" throughout phases 3-5, resolve phase 6 to "Final sprint review" (drop the hybrid), and log a mini-glossary block in the plan's header ("This plan uses 'sprint' = 2-week unit throughout; no other term is used"). Builder re-polishes the affected phases. Validator re-runs DR6 on the affected phase boundaries. Plan re-enters RT-2 gate.
+- **How the skin's vocabulary maps this:** "sprint" vs "iteration" = a SYMBOL COLLISION (vocabulary row 20 + BL-29). Coherent's Q1 ("Does the plan use every technical term consistently across phases?") catches this directly. This is the plan-skin analog of the article-skin `\Lambda` symbol collision from `analyst_EN.md` Ex.2 — a single concept with two labels silently contradicting itself.
 - **B-check:** F=0.85 (read all 6 phases + built glossary), E=0.80 (DR6 + BL-29 are the correct checks), 1-σ=0.70 (drift across 2 terms × 11+ hits = MEDIUM σ), Λ=0.85 (BL-29 + BL-5 + BL-32 applied) → B ≈ 0.41 RED (Andon: σ FAIL; plan re-enters Builder polish with glossary unification)
 
 ---
@@ -408,8 +408,8 @@ The plan skin inherits all 22 universal BL unchanged from `BOOTSTRAP_LESSONS_uni
 | BL | Title | Applicability to plan work |
 |---|---|---|
 | BL-1 | Lambda=0.5 as Cold-Start Default | Applies unchanged — a fresh plan-domain project starts with Λ=0.5; accumulates as prior plans land in the archive |
-| BL-4 | S_adjusted = S_team × B_mean | Applies unchanged — Coherencer at RT-2 computes S_adjusted from the 5 role B scores |
-| BL-5 | Phantom Coherence Detection | Applies unchanged — plan-specific manifestation is "every phase has a pass criterion but all criteria collapse to 'when it feels done'" (see Coherencer primary failure) |
+| BL-4 | S_adjusted = S_team × B_mean | Applies unchanged — Coherent at RT-2 computes S_adjusted from the 5 role B scores |
+| BL-5 | Phantom Coherence Detection | Applies unchanged — plan-specific manifestation is "every phase has a pass criterion but all criteria collapse to 'when it feels done'" (see Coherent primary failure) |
 | BL-7 | EN for Practical Tasks, RU for Theoretical Depth | Applies unchanged — plan drafting is practical (EN role files); high-level strategy / vision work is theoretical (RU role files may be used for objective derivation) |
 | BL-9 | Interface Contracts Between Roles | Applies unchanged — Analyst→Builder contract is the 9-part draft template; Builder→Validator contract is the polished plan file with all 9 parts filled |
 | BL-10 | Multiplicative B Structure | Applies unchanged — weights are `text` profile (F=0.25, E=0.25, (1-σ)=0.25, Λ=0.25) per Section "Modal B-formula" |
@@ -425,8 +425,8 @@ The plan skin inherits all 22 universal BL unchanged from `BOOTSTRAP_LESSONS_uni
 | BL-21 | Format Specifications Are Inputs | MERGED into BL-17 in main `BOOTSTRAP_LESSONS.md` 2026-04-20; still listed in `BOOTSTRAP_LESSONS_universal.md` for backward compat. **Critical for plans** — the live reference plan artifact format must be read BEFORE drafting a new plan; do not invent a new plan format per project |
 | BL-26 | META Always Delegates | Applies unchanged — META never drafts plan prose directly |
 | BL-28 | Agent Prompt Must Include Explicit Context | Applies unchanged — plan-task agent prompts must name the skin file path AND role file path |
-| BL-29 | Verify Established Terminology Before Generating | **Critical for plans** — plans MUST use the project's established phase / gate / role terminology; drift (sprint vs iteration in Example 3) is the canonical Coherencer σ failure |
-| BL-30 | Defense-In-Depth | Applies unchanged — plan validation has layers: Builder Jidoka + Coherencer glossary scan + Validator 6 DR checks |
+| BL-29 | Verify Established Terminology Before Generating | **Critical for plans** — plans MUST use the project's established phase / gate / role terminology; drift (sprint vs iteration in Example 3) is the canonical Coherent σ failure |
+| BL-30 | Defense-In-Depth | Applies unchanged — plan validation has layers: Builder Jidoka + Coherent glossary scan + Validator 6 DR checks |
 | BL-31 | Constrain Output Types | Applies unchanged — Builder's output is the polished plan file, not prose explanations about the plan |
 | BL-32 | Grep After BL Merge | Applies unchanged — if plan terminology changes (e.g., "sprint" → "cycle"), grep the plan archive for orphan references |
 
@@ -465,7 +465,7 @@ These 4 BL live in the plan skin file ONLY. They do NOT add to the main 30-BL bu
 - **Source:** Adapted from BL-14 for the plan domain. (Note: BL-14 merged into BL-8 in main `BOOTSTRAP_LESSONS.md` 2026-04-20 as part of deployment-event checklist; BL-P3 retains code_adapter provenance since `BOOTSTRAP_LESSONS_code_adapter.md` still defines BL-14.)
 - **Rule:** Before a new plan is declared ACTIVE, author must check whether a prior plan exists for the same or adjacent objective. If yes: (a) document the supersession in the new plan's header ("supersedes plan vX dated YYYY-MM-DD"), (b) archive the prior plan with a "superseded by vX on YYYY-MM-DD" marker at the top (do NOT delete), (c) document what carries over from the prior plan's lessons / completed phases / OOD decisions. If no rollback / supersession is documented, the new plan is NOT permitted to activate.
 - **Why:** Post-activation pressure (execution team needs clarity, stakeholders want commitment) is when cognitive load peaks. A pre-written supersession plan executes mechanically when needed. Without supersession markers, plan archaeology becomes impossible — next quarter's author has no way to know which plan was active when. This is the plan-domain analog of "if you cannot describe how to undo a deploy, you don't have permission to deploy."
-- **Applies to:** Visionary (approve supersession), Builder (write it), Coherencer (gate at RT-2 — block activation if missing).
+- **Applies to:** Visionary (approve supersession), Builder (write it), Coherent (gate at RT-2 — block activation if missing).
 
 **BL-P4: External Dependency PRE-FLIGHT (plan adaptation of BL-22)**
 - **Source:** Adapted from BL-22 for the plan domain.
@@ -491,7 +491,7 @@ These 4 BL live in the plan skin file ONLY. They do NOT add to the main 30-BL bu
 
 **Validator one-line routine:** Read `projects/{PROJECT}/lessons.md` → extract project-specific rule list → supplement the 6 dry_run sub-checks with project-specific rules (e.g., canonical vocabulary, mandatory section order, forbidden phrases).
 
-**Applies to:** Validator (RT-2 primary reader), Coherencer (cross-plan propagation via BL-32), Builder (pre-commit BL-P2 gate), Analyst (RT-1 Check-First preamble).
+**Applies to:** Validator (RT-2 primary reader), Coherent (cross-plan propagation via BL-32), Builder (pre-commit BL-P2 gate), Analyst (RT-1 Check-First preamble).
 
 ---
 
@@ -530,7 +530,7 @@ Projects MAY override these weights in their own `config.md` `## B-weight Overri
 ## Footer
 
 *Last updated: 2026-04-11 (v9 Phase 2.A)*
-*Upstream roles: `roles/{role}_EN.md` (all 5 roles — Visionary, Analyst, Builder, Validator, Coherencer)*
+*Upstream roles: `roles/{role}_EN.md` (all 5 roles — Visionary, Analyst, Builder, Validator, Coherent)*
 *Upstream math: `eradev.md` Section II.1 (B_text weights) + Section II.2 (v9 OOD scope)*
 *Upstream BL: `BOOTSTRAP_LESSONS_universal.md` (22 universal BL inherited)*
 *Does NOT inherit `BOOTSTRAP_LESSONS_code_adapter.md` — 2 transferred (BL-3, BL-24), 4 adapted to BL-P1..P4, 1 lifted into DR4, 1 N/A*

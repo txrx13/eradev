@@ -23,7 +23,7 @@
 
 ## Inverted IFR (past tense, measurable)
 
-> "The `templates/domain_skin.research.md` file was written by a single Builder in ~40 minutes using this spec. The file is ~300-400 lines (smaller than article skin because it inherits rather than duplicates). It has YAML frontmatter matching article skin's header pattern except for three pinned fields (`Type: research`, `verify.method: recompute`, `Sibling: templates/domain_skin.article.md`). The vocabulary table has 22 rows, 18 inherited from article skin and 4 specialized for standalone-derivation work (proof_step, axiom_set, derivation_chain, provenance_tag). Per-role focus overrides exist for all 5 roles with recompute-first language replacing cite-first language. The verification protocol defines 8 RC (recompute) checks RC1..RC8, where RC1..RC5 are derivation-integrity, RC6 is notation consistency, RC7 is formula provenance (promoted from C6b), and RC8 is contradiction detection. Three examples demonstrate Validator finding a missing proof step (RC1/RC2), a circular reasoning failure (RC4), and a notation collision (RC6 / Coherencer). The BL inheritance section carries all 22 universal BL unchanged, handles the 8 code-adapter BL with 4 research equivalents (BL-R1..R4) and 2 N/A, and adds 0 new research-specific BL (the 4 BL-R entries are the equivalents themselves, reusing the article skin's BL-A pattern). Acceptance criteria include an explicit co-existence clause: article skin and research skin are sibling modalities; a project using either can also use the other on a per-task basis."
+> "The `templates/domain_skin.research.md` file was written by a single Builder in ~40 minutes using this spec. The file is ~300-400 lines (smaller than article skin because it inherits rather than duplicates). It has YAML frontmatter matching article skin's header pattern except for three pinned fields (`Type: research`, `verify.method: recompute`, `Sibling: templates/domain_skin.article.md`). The vocabulary table has 22 rows, 18 inherited from article skin and 4 specialized for standalone-derivation work (proof_step, axiom_set, derivation_chain, provenance_tag). Per-role focus overrides exist for all 5 roles with recompute-first language replacing cite-first language. The verification protocol defines 8 RC (recompute) checks RC1..RC8, where RC1..RC5 are derivation-integrity, RC6 is notation consistency, RC7 is formula provenance (promoted from C6b), and RC8 is contradiction detection. Three examples demonstrate Validator finding a missing proof step (RC1/RC2), a circular reasoning failure (RC4), and a notation collision (RC6 / Coherent). The BL inheritance section carries all 22 universal BL unchanged, handles the 8 code-adapter BL with 4 research equivalents (BL-R1..R4) and 2 N/A, and adds 0 new research-specific BL (the 4 BL-R entries are the equivalents themselves, reusing the article skin's BL-A pattern). Acceptance criteria include an explicit co-existence clause: article skin and research skin are sibling modalities; a project using either can also use the other on a per-task basis."
 
 ## Acceptance Criteria
 
@@ -242,13 +242,13 @@ Each role retains its Activation Operator and Jidoka from `roles/{role}_EN.md` u
   - Q8: "Does every numbered formula have a visible provenance_tag that I can verify? (RC7 — formula provenance)"
   - Q9: "Are there any two statements in the document that are formally inconsistent? (RC8 — contradiction detection)"
 
-### 4.5 Coherencer (research focus)
+### 4.5 Coherent (research focus)
 
-- **FIRST focus anchor (A_F override):** Read the research artifact + the adjacent corpus artifacts (notation tables of neighboring proofs, axiom sets of related theorems). Coherencer cares about *this proof's fit with the neighboring corpus*.
-- **Artifact definition:** The corpus's notation table + axiom set + this proof = new corpus. Coherencer checks that (old corpus) ∪ (this proof) remains coherent. If two proofs in the same notebook use `α` for different things, Coherencer intervenes.
+- **FIRST focus anchor (A_F override):** Read the research artifact + the adjacent corpus artifacts (notation tables of neighboring proofs, axiom sets of related theorems). Coherent cares about *this proof's fit with the neighboring corpus*.
+- **Artifact definition:** The corpus's notation table + axiom set + this proof = new corpus. Coherent checks that (old corpus) ∪ (this proof) remains coherent. If two proofs in the same notebook use `α` for different things, Coherent intervenes.
 - **Primary failure mode:** Notation collision across proofs in the same research artifact — the classic `α` example. Different proofs in the same notebook redefining `α` silently means the reader sees `α` in §3 and carries its meaning to §5 where `α` has a different meaning.
 - **Secondary failure mode:** Axiom set drift — proof A uses "Axiom X = choice" and proof B in the same artifact uses "Axiom X = replacement" without declaring that they're not the same X.
-- **Tertiary failure mode (research-specific):** Cross-proof dependency silently broken. Proof B cites Lemma 4.2, but Lemma 4.2 is in proof A with a slightly different formulation — so the citation technically resolves but semantically fails. Coherencer must check that cross-proof references match verbatim.
+- **Tertiary failure mode (research-specific):** Cross-proof dependency silently broken. Proof B cites Lemma 4.2, but Lemma 4.2 is in proof A with a slightly different formulation — so the citation technically resolves but semantically fails. Coherent must check that cross-proof references match verbatim.
 - **Jidoka self-check (research specialization):**
   - Q1: "Does the new artifact use every symbol consistently with the corpus notation table?"
   - Q2: "Are there any axiom collisions with adjacent artifacts — same axiom name, different statement?"
@@ -271,9 +271,9 @@ The research skin's `verify.method: recompute`. The skin expands `recompute` int
 | **RC3** | **Independent recomputation** — Validator walks the proof from axiom_set to claim WITHOUT the author's narrative. | Validator | **L2** (requires fresh walk-through) | Manual; Validator re-derives on scratch paper |
 | **RC4** | **No circular reasoning** — build a dependency graph of lemmas used; proof of A does NOT implicitly depend on A. | Validator | **L2** (requires graph construction) | Manual graph build + cycle check |
 | **RC5** | **Axiom set minimality** — every axiom listed in the axiom_set is actually used in the proof; unused axioms are removed or justified. | Validator | **L2** (requires full proof scan) | Manual audit |
-| **RC6** | **Notation consistency** — same symbol means the same thing throughout the document. | Coherencer + Validator | **L1** (mechanical grep for symbol re-use, manual inspection) | grep-based pre-filter; manual collision check |
+| **RC6** | **Notation consistency** — same symbol means the same thing throughout the document. | Coherent + Validator | **L1** (mechanical grep for symbol re-use, manual inspection) | grep-based pre-filter; manual collision check |
 | **RC7** | **Formula provenance** — every numbered formula has a visible provenance_tag: **Derived** (in-artifact derivation) / **Cited** (external source with concrete pointer) / **Axiomatic** (explicit postulate label) / **Conjectured** (explicit conjecture label). No asserted-without-derivation. | Validator | **L2** (per-formula classification) | `grep -B3 -A1 '\\tag{'` pre-filter; manual bucketing |
-| **RC8** | **Contradiction detection** — no two statements in the document are formally inconsistent. Consequence of (1-σ) = 0 tolerance: a single contradiction = ANDON. | Validator + Coherencer | **L2** (requires logical scan) | Manual; Coherencer checks across the corpus |
+| **RC8** | **Contradiction detection** — no two statements in the document are formally inconsistent. Consequence of (1-σ) = 0 tolerance: a single contradiction = ANDON. | Validator + Coherent | **L2** (requires logical scan) | Manual; Coherent checks across the corpus |
 
 **L1 vs L2 split:** Research skin is HEAVIER on L2 than article skin because derivation integrity cannot be reduced to grep. Only RC6 is reliably L1 (symbol re-use is mechanically detectable). RC1, RC2, RC3, RC4, RC5, RC7, RC8 all require reading the proof. This is **by design** — research artifacts are derivation-first, so the gate is interpretive.
 
@@ -344,18 +344,18 @@ Research artifacts adjust the canonical RT protocol because the work profile is 
    - OR "APPROVED (CONJECTURE): labelled as Conjecture C; no proof obligation; documented as open question."
    - OR "OUT-OF-SCOPE: claim is not falsifiable / axiom set is undefined; defer."
 
-2. **RT-1 (mandatory, full 5-role): proof outline + strategy + plan.** Before any proof-step drafting. **Sequential role execution within the round** (Analyst → Builder → Validator → Coherencer), not parallel. Rationale: a proof step depends on the previous step, so agents cannot work in parallel without creating inconsistency. Analyst produces the proof outline (strategy + lemma hierarchy + axiom dependencies); Builder drafts the first proof step; Validator verifies the step; Coherencer checks notation. Then next step. This is a **sequential-within-round** pattern and is stricter than the canonical RT.
+2. **RT-1 (mandatory, full 5-role): proof outline + strategy + plan.** Before any proof-step drafting. **Sequential role execution within the round** (Analyst → Builder → Validator → Coherent), not parallel. Rationale: a proof step depends on the previous step, so agents cannot work in parallel without creating inconsistency. Analyst produces the proof outline (strategy + lemma hierarchy + axiom dependencies); Builder drafts the first proof step; Validator verifies the step; Coherent checks notation. Then next step. This is a **sequential-within-round** pattern and is stricter than the canonical RT.
 
 3. **RT-2 (mandatory, pre-submission): full gate.** Before the research artifact is committed as "final" or shared externally. Runs:
    - Validator L2 **full re-derivation** of the entire proof (not a sample) — small proofs (≤5 steps) recompute everything; larger proofs follow the sample-size contract in 5.3.
-   - Coherencer **axiom minimality check** (RC5) across the full artifact.
-   - Coherencer **cross-proof notation audit** (RC6) across neighboring artifacts in the corpus.
+   - Coherent **axiom minimality check** (RC5) across the full artifact.
+   - Coherent **cross-proof notation audit** (RC6) across neighboring artifacts in the corpus.
 
 ### 6.2 Single Builder with sequential rhythm
 
 The research Builder is a **SINGLE agent** writing the proof sequentially. No parallel splits. Unlike article skin which allows "single Builder, section-by-section bilingual rhythm," research skin requires Builder to draft proof steps **in dependency order** — a step cannot be drafted before the step it depends on.
 
-**Exception (L/XL only):** For a multi-proof research notebook (>3 independent proofs), two Builders may own different proofs in parallel — Builder A owns proof 1 & 2, Builder B owns proof 3. Coherencer gate between Builder completion and Validator is MANDATORY to check for notation collisions across the parallel proofs.
+**Exception (L/XL only):** For a multi-proof research notebook (>3 independent proofs), two Builders may own different proofs in parallel — Builder A owns proof 1 & 2, Builder B owns proof 3. Coherent gate between Builder completion and Validator is MANDATORY to check for notation collisions across the parallel proofs.
 
 ### 6.3 Pipeline block
 
@@ -364,7 +364,7 @@ Research pipeline (FIXED):
 RT-0 (Visionary solo) → claim + scope + axiom_set approval
 RT-1 (full 5-role, sequential within round) → proof outline + strategy + first draft
   For each proof step i:
-    Analyst (next-step plan) → Builder (draft step i) → Validator (RC check step i) → Coherencer (notation check)
+    Analyst (next-step plan) → Builder (draft step i) → Validator (RC check step i) → Coherent (notation check)
   Until derivation_chain reaches the claim
 RT-2 (full 5-role) → RC1..RC8 full audit + (if citations present) C1..C6
   + independent full re-derivation (small proofs) or sample-size re-derivation (large proofs)
@@ -437,17 +437,17 @@ Run AFTER Builder completes the derivation_chain and BEFORE Validator starts RT-
 - **Fix:** Builder restructures. Option A: prove Theorem 5.2 directly from BL-5 (phantom coherence detection) and the B-formula, without relying on Corollary 3.7. Option B: prove Corollary 3.7 directly from the B-formula (not from Theorem 5.2), then use it in Theorem 5.2 without cycles. Either breaks the cycle.
 - **Why article skin's cite_check would miss this:** No bibliography citations involved — this is intra-document cross-reference. C4 (internal cross-refs) checks that `\ref{}` resolves, not that the dependency chain is acyclic. Only RC4 explicitly catches circular reasoning. Research skin promotes this to a first-class check because it's a common failure mode in research notebooks where lemmas are written in draft order, not dependency order.
 
-### 8.3 Example 3: Notation collision (RC6 / Coherencer failure)
+### 8.3 Example 3: Notation collision (RC6 / Coherent failure)
 
 - **Input:** "Draft a research notebook with 6 proofs of ODTOE-related lemmas."
 - **Scenario:** Builder drafts the notebook. In §3 (proof of Lemma 3.1 on phase dynamics), `α` is introduced as "the scaling coefficient for time evolution, α ∈ (0, 1)." In §5 (proof of Lemma 5.1 on observer geometry), `α` is used as "the phase angle of the observer's orientation quaternion, α ∈ [0, 2π)." Builder never notices the collision — §3 and §5 were drafted in different sessions and the notation table was not updated.
-- **What Coherencer finds:** During RC6 (notation consistency), Coherencer greps for symbol reuse across the artifact:
+- **What Coherent finds:** During RC6 (notation consistency), Coherent greps for symbol reuse across the artifact:
   - `grep -n '\\alpha' research_notebook.tex` returns ~40 occurrences.
   - Inspection reveals `α` carries two incompatible meanings.
   - The notation table at the top of the notebook only defines the §3 meaning.
   - §5 uses `α` without declaring the new meaning.
-- **Catching role:** **Coherencer** (RC6 is Coherencer-primary, Validator-secondary). This is the canonical Coherencer failure-mode — divergent meanings of the same symbol across parallel work.
-- **Phase:** **RT-2** pre-submission OR Builder's own Jidoka Q5 (notation collision check) at **RT-1**. Coherencer is the enforcer but Builder should catch their own collision first.
+- **Catching role:** **Coherent** (RC6 is Coherent-primary, Validator-secondary). This is the canonical Coherent failure-mode — divergent meanings of the same symbol across parallel work.
+- **Phase:** **RT-2** pre-submission OR Builder's own Jidoka Q5 (notation collision check) at **RT-1**. Coherent is the enforcer but Builder should catch their own collision first.
 - **Fix:** Rename one of the colliding symbols. In §5, replace `α` with `β` everywhere the phase-angle meaning is used. Update the notation table to include both `α` (§3 meaning) and `β` (§5 meaning). Re-compile and verify no remaining conflicts.
 - **Parallel with article skin Example 2:** The `\Lambda` collision in article skin Example 2 is the same pattern — a symbol used with different meanings in different sections. Research skin inherits the pattern and makes it RC6, first-class.
 
@@ -508,7 +508,7 @@ These 4 BL live in the research skin file ONLY. They do NOT add to the main 30-B
 - **Source:** Adapted from BL-14 for research.
 - **Rule:** Before a research result is submitted to any external audience (preprint, reviewer, journal), Builder MUST document the retraction procedure: who to contact, what the retraction notice would say, what the corpus-level rollback looks like (e.g., "remove from corpus, mark as withdrawn, note in changelog, inform dependent proofs"). If Builder cannot describe how to undo a submission, Builder does not have permission to submit.
 - **Why:** Post-submission pressure is when cognitive load peaks. A pre-written retraction plan executes mechanically.
-- **Applies to:** Visionary (approve retraction plan), Builder (write it), Coherencer (store in MEMORY).
+- **Applies to:** Visionary (approve retraction plan), Builder (write it), Coherent (store in MEMORY).
 
 **BL-R4: Axiom & Lemma PRE-FLIGHT (research adaptation of BL-22)**
 - **Source:** Adapted from BL-22 for research.
@@ -532,7 +532,7 @@ This matches article skin's count — intentional parallel. Both article and res
 
 Same rule as article skin: the skin inherits 22 universal BL and defers to `projects/{PROJECT}/lessons.md` for project-specific rules. On conflict, the project lessons.md takes precedence. Temporal exception applies (rules introduced AFTER the artifact's file mtime are LEGACY INFO, not FAIL).
 
-**Applies to:** Validator (RT-2 primary reader), Coherencer, Builder (pre-commit), Analyst (RT-1 Check-First).
+**Applies to:** Validator (RT-2 primary reader), Coherent, Builder (pre-commit), Analyst (RT-1 Check-First).
 
 ---
 

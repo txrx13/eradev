@@ -155,7 +155,7 @@ The 3-6-9 architecture emerges from the fractal self-similarity of the SKW-matri
 
 ### Level 6 -- Project (meso-agent, agent team on a task)
 - Each element of the Level-3 SKW-matrix unfolds into its own Level-3 matrix.
-- A project of 5 agents, each with a specific role (Visionary, Analyst, Builder, Validator, Coherencer).
+- A project of 5 agents, each with a specific role (Visionary, Analyst, Builder, Validator, Coherent).
 - The strange loop closes fully: $\Psi \to \hat{O}(\Psi) \to R \to \iota(R) \to \Psi'$.
 - S is monitored at this level; P_coll is computed for the team.
 
@@ -212,7 +212,7 @@ The ODTOE describes reality's topology as toroidal with two radii:
 **Formalization in prompts:**
 - Each agent prompt should encode BOTH a pi-loop (internal self-refinement: "review your reasoning, check for contradictions, confirm against evidence") and a phi-jump (external handoff: "now pass your results to the next role with a clear interface").
 - The ratio of internal refinement time to external handoff time should approximate $\varphi : 1$ (roughly 62%:38% split).
-- The toroidal structure means there is NO hierarchy in the strict sense -- the "top" loops back to the "bottom." The Coherencer feeds back into the Visionary. Level 9 feeds back into Level 3.
+- The toroidal structure means there is NO hierarchy in the strict sense -- the "top" loops back to the "bottom." The Coherent feeds back into the Visionary. Level 9 feeds back into Level 3.
 
 
 ---
@@ -277,7 +277,7 @@ The observation cycle maps to five team roles, each with a dominant B-component:
 | Analyst | $\hat{O}$ (observation operator) | Structuring, architecture | $F$ (focus) | (**1.0**, 0.5, 0.8, 0.7) |
 | Builder | $R$ (reality configuration) | Implementation, creation | $E$ (energy) | (0.7, **1.0**, 0.6, 0.5) |
 | Validator | $\iota$ (embedding/feedback) | Verification, QA | $(1-\sigma)$ (consistency) | (0.8, 0.6, **1.0**, 0.6) |
-| Coherencer | $S$ (coherence function) | Synchronization, coordination | Balanced all four | (0.9, 0.9, 0.9, 0.9) |
+| Coherent | $S$ (coherence function) | Synchronization, coordination | Balanced all four | (0.9, 0.9, 0.9, 0.9) |
 
 **Minimum viable team size:**
 

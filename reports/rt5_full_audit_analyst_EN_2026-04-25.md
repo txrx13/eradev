@@ -70,13 +70,13 @@ Count drift fully closed in non-archival surfaces (matches v10_parallel_trajecto
 
 ## §5 — lessons.md Trigger per meta.md §14 item 9
 
-`meta.md:336`: *"If lessons.md active count > 50: trigger compression pass (Coherencer, see spec)."*
+`meta.md:336`: *"If lessons.md active count > 50: trigger compression pass (Coherent, see spec)."*
 
 - `### L-` headers = 51, `### EMP` = 17, `[ACTIVE]` count on those headers = **68**
 - Threshold = 50 → **TRIGGER FIRED** (active > 50)
 - Last 10 commits added 7 entries (L-46..L-51 + EMP16/17) since threshold crossed; no compression pass logged.
 
-**MED (pending operator):** spawn [COHERENCER] compression pass at next session bootstrap, or apply L-50 (extend > add) and ARCHIVE oldest L-1..L-15.
+**MED (pending operator):** spawn [COHERENT] compression pass at next session bootstrap, or apply L-50 (extend > add) and ARCHIVE oldest L-1..L-15.
 
 ## §6 — Adjacent verifications
 §X.1/§X.2 at `eradev.md:942, :967`. meta.md 5b/5c at `:16, :21, :287, :292`. BL gaps (14,20,21,23,27) historical per `hansei-meta-plugy-framework-improvements-2026-04-20.md:138`. Domain skins: 12 files (6 EN + 6 RU).
@@ -94,7 +94,7 @@ Count drift fully closed in non-archival surfaces (matches v10_parallel_trajecto
 1. **P0 sync** `cp README{,_EN}.md .claude/skills/eradev/reference/`; re-zip `eradev-skill.zip`.
 2. **Patch SKILL.md 14→17:** append invariants 15/16/17 verbatim from `CLAUDE.md:84-86`; re-zip.
 3. **v9→v10 footer sweep:** `LOADING_PROTOCOL.md:103`, `templates/cross_harness_requirements.md:12` + both mirror twins. Skip BL-split provenance lines.
-4. **Lessons compression:** spawn [COHERENCER] §14 item 9 protocol; target active ≤ 50 (apply L-50).
+4. **Lessons compression:** spawn [COHERENT] §14 item 9 protocol; target active ≤ 50 (apply L-50).
 
 ## B-check (B_text uniform)
 F=0.85 · E=0.90 · (1-σ)=1.0 · Λ=0.80 → **B = 0.612** ≥ 0.5 PASS, no Andon.

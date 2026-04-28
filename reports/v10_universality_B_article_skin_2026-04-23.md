@@ -171,4 +171,4 @@ Final B = 0.90 × 0.95 × 0.90 × 0.80 = **0.616**. PASS (above 0.5 floor; no co
 *Report authored by [BUILDER] under META's direct request.*
 *Artifacts modified: 4 files total (2 refactored, 1 new, 1 edit).*
 *Verification: all 5 gates PASS (0 ODTOE/Pankratov/Rybakov leaks in universal skin; overlay file exists; no line-number citations in universal; line counts within peer-skin range; config.md references overlay).*
-*Next phase: Validator runs domain-appropriate checks on these artifacts (cite_check and schema validation for config.md edit), then Coherencer verifies skin + overlay layer together are semantically equivalent to the old monolithic skin for ODTOE agents.*
+*Next phase: Validator runs domain-appropriate checks on these artifacts (cite_check and schema validation for config.md edit), then Coherent verifies skin + overlay layer together are semantically equivalent to the old monolithic skin for ODTOE agents.*

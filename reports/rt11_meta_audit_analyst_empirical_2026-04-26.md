@@ -112,7 +112,7 @@ This audit report itself: contains the operator path token (`/Users/antonpankrat
 
 Three days, 14 commits:
 
-- Core framework documents: `eradev.md` **+30.9%** lines / **+62.2%** bytes; `meta.md` +17.4% / +27.8%; FOUNDATIONS.md +19.6%; Analyst/Coherencer role files +32-38%.
+- Core framework documents: `eradev.md` **+30.9%** lines / **+62.2%** bytes; `meta.md` +17.4% / +27.8%; FOUNDATIONS.md +19.6%; Analyst/Coherent role files +32-38%.
 - Net repo delta: **+11,783 lines**, insertion/deletion ratio **81:1** (near-zero compaction in window).
 - Sections in eradev.md+meta.md: +10 (+13.7%); **13 new operational entities**; **3 new formulas** (F3, F6, F7).
 - New concept tokens in core docs (RIGOR_LEVEL+FLUX+μ-check+BIM+Cross-Layer+User Flow+GREEN+PR-Gate cluster): **5 → 107** (×21).
@@ -123,7 +123,7 @@ Three days, 14 commits:
 Single defensible scalar:
 **Core docs +30-60% by size. Active blocking hooks ×2. New top-level concepts: 0 → 13 in 3 days. Insertion/deletion 81:1.**
 
-Whether this constitutes "deterioration" vs "consolidation work" is interpretive (Visionary / Coherencer scope). The empirical pattern is monotonic additive growth across every dimension sampled.
+Whether this constitutes "deterioration" vs "consolidation work" is interpretive (Visionary / Coherent scope). The empirical pattern is monotonic additive growth across every dimension sampled.
 
 ## B-check (B_text)
 F=0.80 (all 6 core files line-counted; some byte counts skipped) · E=0.90 (tables, final scalar, no interpretation) · (1-σ)=0.85 (cross-counts reconciled: invariant 16→17, BL 30→30 content-changed) · Λ=0.75 (referenced L-50, BL-3/19/29/34; did not load full lessons.md) · **B = 0.459** → ANDON-borderline. F and Λ floors; would need second pass for full closure.

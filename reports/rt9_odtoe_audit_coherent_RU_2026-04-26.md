@@ -1,6 +1,6 @@
-# RT-9 ODTOE Audit — Coherencer RU (Genealogy + Cross-Cutting)
+# RT-9 ODTOE Audit — Coherent RU (Genealogy + Cross-Cutting)
 
-**Дата**: 2026-04-26 | **Роль**: [COHERENCER] RU theoretical | **Объём**: ≤80 строк
+**Дата**: 2026-04-26 | **Роль**: [COHERENT] RU theoretical | **Объём**: ≤80 строк
 **Источники**: Hansei `odtoe/reports/hansei-rt3-publication-readiness-2026-04-26.md`; lessons L-1..L-57 + EMP1..EMP19; lessons_archive.md; BL 30 актив + 5 retired; roadmap.md.
 **Линза**: какие версии framework rules коллидируют в фейле; путь-(c) ΔÔ для L2-предсказания.
 
@@ -27,7 +27,7 @@
 |---|---|---|
 | BL-A2 «engineering validity» | да (cite_check, recompute, AI markers) | OPERATIONAL |
 | BL-19 bilingual sync | частично (RU+EN parity, без visual cross-check) | OPERATIONAL (limited) |
-| Invariant 11 (Builder→Coh→Validator) | да (Coherencer #1, #2 запускались) | OPERATIONAL |
+| Invariant 11 (Builder→Coh→Validator) | да (Coherent #1, #2 запускались) | OPERATIONAL |
 | L-A5 visual PDF audit | НЕ существовал до Hansei | NEW (создан в этом цикле) |
 | «5-role consensus optimizes external readiness» | implicit assumption | **DECORATION** (Layer 4 Hansei) |
 | RIGOR_LEVEL=strict ⇒ B_min=0.70 hard threshold | задекларирован (eradev.md §III.3) | **DECORATION** для article-publish (B_research weights не align с external reader) |
@@ -40,7 +40,7 @@
 
 ## 3. HANSEI A3 alignment check (RV-RU-01 v11 deferral)
 
-`reports/HANSEI_TEMPLATE.md` существует; meta.md §14 (Session Entry, 13 items) ссылается на Hansei через §15 (recommendations placement, EMP17). Текущий Hansei использует A3 структуру неявно (5-Why §5; What/What actually §1-2; Crystallization §8 = «Now/Was»). **Mismatch**: HANSEI_TEMPLATE.md секции не перечислены в meta.md §14 item-9 (Lambda Audit) как обязательная ссылка для article-domain post-mortem. RT-3 Coherencer триаж рекомендаций (per role file lines 58-65) применён правильно (Hansei §6 разделяет project-local L-A5..L-A10 vs framework BL-A5 vs roadmap action items). **RV-RU-01 закрывать пока преждевременно** — alignment gap в meta.md §14 остаётся в v11 deferrals.
+`reports/HANSEI_TEMPLATE.md` существует; meta.md §14 (Session Entry, 13 items) ссылается на Hansei через §15 (recommendations placement, EMP17). Текущий Hansei использует A3 структуру неявно (5-Why §5; What/What actually §1-2; Crystallization §8 = «Now/Was»). **Mismatch**: HANSEI_TEMPLATE.md секции не перечислены в meta.md §14 item-9 (Lambda Audit) как обязательная ссылка для article-domain post-mortem. RT-3 Coherent триаж рекомендаций (per role file lines 58-65) применён правильно (Hansei §6 разделяет project-local L-A5..L-A10 vs framework BL-A5 vs roadmap action items). **RV-RU-01 закрывать пока преждевременно** — alignment gap в meta.md §14 остаётся в v11 deferrals.
 
 ## 4. v11 deferrals — что текущий Hansei trigger'ит
 
@@ -81,10 +81,10 @@
 **Где path-(c) ΔÔ legitimate** (predict DIVERGENT, ΔÔ ≠ 0 принять):
 - **Builder agents EN vs RU**: EN-Builder фокус на T2 hooks (`.claude/hooks/visual_pdf_audit.sh` skeleton), RU-Builder — на формализме (B_publication modality formula derivation). Оба правильны в своём frame; не форсировать unified output (per L-53 default cross-stack).
 - **Validator EN vs RU**: EN-Val проверит mechanical (counts, file paths); RU-Val проверит semantic (Ô coherence, F7 sufficiency). Disjoint observation stacks → ΔÔ accept.
-- **Visionary EN R1 (B-formula calibration) vs RU-V (likely framing as ψ*-gap re-opening)**: EN говорит «don't change B; change feeders»; RU вероятно скажет «B_publication как новая модальность необходима». Это **substantive disagreement** — Coherencer L2 должен НЕ форсировать; B_received per layer достаточен (F7).
+- **Visionary EN R1 (B-formula calibration) vs RU-V (likely framing as ψ*-gap re-opening)**: EN говорит «don't change B; change feeders»; RU вероятно скажет «B_publication как новая модальность необходима». Это **substantive disagreement** — Coherent L2 должен НЕ форсировать; B_received per layer достаточен (F7).
 - **Analyst EN (empirical defect counts) vs Analyst RU (theoretical category derivation)**: classic disjoint stack. Path-(c) default per L-53.
 
-**Phantom-coherence риск**: если L2 Coherencer попытается унифицировать «engineering validity» терминологию RU и EN буквально, S_team ↑ но B_mean ↓ (BL-5). Mitigation: явно задокументировать ΔÔ_RU = «формализм публикуемости» и ΔÔ_EN = «механика hook'ов»; обе пропускать.
+**Phantom-coherence риск**: если L2 Coherent попытается унифицировать «engineering validity» терминологию RU и EN буквально, S_team ↑ но B_mean ↓ (BL-5). Mitigation: явно задокументировать ΔÔ_RU = «формализм публикуемости» и ΔÔ_EN = «механика hook'ов»; обе пропускать.
 
 **Phantom-decoherence риск**: если RU agents формализуют B_publication, а EN agents строят hooks без формального grounding, S_team ↓ B_mean ↑ — терминологический дрейф. Mitigation: одна итерация унификации глоссария на L2 (term «publication-readiness» = single canonical), затем path-(c) для остального.
 
@@ -120,4 +120,4 @@
 
 **Caveat per Inv 18 (proposed)**: та же B-formula в Hansei §10 declared GREEN-in-error на 13 циклах. Эта самооценка структурно скептична: ценность аудита в **content of genealogy** и **L2 predictive synthesis**, не в B-score.
 
-**Status**: RU Coherencer audit complete. Ожидается: остальные 8 агентов (EN-A/B/Val/Coh + RU-V/A/B/Val) → L2 synthesis pass с явной path-(c) акцептацией там, где прогноз §6 указывает.
+**Status**: RU Coherent audit complete. Ожидается: остальные 8 агентов (EN-A/B/Val/Coh + RU-V/A/B/Val) → L2 synthesis pass с явной path-(c) акцептацией там, где прогноз §6 указывает.

@@ -59,15 +59,15 @@ All 5 role sub-sections present at `###` level:
 - **Analyst** (lines 102-138): FIRST attention anchor, artifact definition, primary failure mode (skipping dependency graph), secondary failure mode (underestimating glossary), Jidoka Q1-Q5, deliverable template with full structure. PASS.
 - **Builder** (lines 140-155): FIRST attention anchor, artifact definition, primary failure mode (backwards-consistency), secondary (outline drift), third (length-budget drift), fourth (glossary drift within session), Jidoka Q1-Q6. Four failure modes = 2 book-specific not in base role file. PASS.
 - **Validator** (lines 156-170): FIRST attention anchor, artifact definition, primary failure mode (missing cross-chapter continuity), secondary (trusting compiled PDF), tertiary (missing length-budget violations), Jidoka Q1-Q7. Three failure modes = 1 book-specific not in base role file. PASS.
-- **Coherencer** (lines 172-187): FIRST attention anchor, artifact definition, primary failure mode (glossary drift), secondary (cross-chapter reference invalidation), tertiary (phantom coherence within manuscript), Jidoka Q1-Q5, Yokoten rule, bilingual sync rule (BL-19 conditional). Three failure modes = 1 book-specific not in base role file. PASS.
+- **Coherent** (lines 172-187): FIRST attention anchor, artifact definition, primary failure mode (glossary drift), secondary (cross-chapter reference invalidation), tertiary (phantom coherence within manuscript), Jidoka Q1-Q5, Yokoten rule, bilingual sync rule (BL-19 conditional). Three failure modes = 1 book-specific not in base role file. PASS.
 - Verdict: **PASS**
 
 ### Check 5: R1-R6 verification protocol + length ledger
 
 - R-check table: 6 rows (grep `^\| \*\*R[1-6]\*\*` = 6). All present at lines 197-203.
 - R1 (Readability/Flesch-Kincaid) -- Validator, L1+L2 -- MATCH spec
-- R2 (Structural continuity) -- Coherencer+Validator, L2 only -- MATCH spec
-- R3 (Glossary consistency) -- Coherencer, L2 -- MATCH spec
+- R2 (Structural continuity) -- Coherent+Validator, L2 only -- MATCH spec
+- R3 (Glossary consistency) -- Coherent, L2 -- MATCH spec
 - R4 (Outline-to-draft fidelity + length budget) -- Validator, L1+L2 -- MATCH spec
 - R5 (Citation density) -- CONDITIONAL, Validator, L1+L2 -- MATCH spec. CONDITIONAL marker present at line 202 and in the relationship section at line 207.
 - R6 (Target reader coverage) -- Visionary+Validator, L2 -- MATCH spec
@@ -84,7 +84,7 @@ Lines 277-347 document:
 3. RT-per-chapter-cluster (mandatory L/XL, optional M) -- R1+R2+R3+R4 sentinel -- MATCH spec Section 5.1 point 3
 4. RT-2 (mandatory, pre-submission) -- all 6 R-checks on full manuscript -- MATCH spec Section 5.1 point 4
 
-Builder configuration section (lines 292-315): Single Builder for M-scale, split for XL, chapter-by-chapter rhythm with 10-step loop, Coherencer gate between split Builders, outline-first RT-1 exception. All match spec Section 5.2.
+Builder configuration section (lines 292-315): Single Builder for M-scale, split for XL, chapter-by-chapter rhythm with 10-step loop, Coherent gate between split Builders, outline-first RT-1 exception. All match spec Section 5.2.
 
 Pipeline block (lines 327-347): Three variants (default M mono-lingual, XL, bilingual) -- MATCH spec Section 5.4 verbatim.
 
@@ -93,7 +93,7 @@ RT-0 justification (lines 316-323): 4 bullet points -- MATCH spec Section 5.3.
 
 ### Check 7: 3 examples with catching role + phase + fix
 
-- Example 1 (lines 383-391): Glossary drift across chapters. Catching role: **Coherencer**. Phase: **RT-2**. Fix: glossary unification pass (two options). MATCH spec Section 6 Example 1. Includes "Why per-chapter checks alone would miss this" paragraph. PASS.
+- Example 1 (lines 383-391): Glossary drift across chapters. Catching role: **Coherent**. Phase: **RT-2**. Fix: glossary unification pass (two options). MATCH spec Section 6 Example 1. Includes "Why per-chapter checks alone would miss this" paragraph. PASS.
 - Example 2 (lines 393-403): Outline-to-draft divergence. Catching role: **Validator**. Phase: **RT-per-cluster**. Fix: two options with Visionary arbitration (redraft or update outline with BL-11 review). MATCH spec Section 6 Example 2. Includes "Why this is a book-specific failure" paragraph. PASS.
 - Example 3 (lines 405-416): Flesch grade drift between chapters. Catching role: **Validator**. Phase: **RT-2**. Fix: three options (simplify, re-target, split). MATCH spec Section 6 Example 3. Includes "Why per-chapter R1 alone is insufficient" paragraph. PASS.
 - All 3 examples have explicit `**Catching role:**`, `**Phase:**`, `**Fix:**` labels. Confirmed via grep (3 catching role, 3 phase, 3 fix labels found).
@@ -155,7 +155,7 @@ The artifact is a markdown skin file consumed by downstream agents. "Readability
 
 1. **Section navigation:** 11 `##` headers + 22 `###` sub-headers. All match the 10-section template structure + footer. PASS.
 2. **Table completeness:** All tables have matching column counts and no incomplete rows. Vocabulary table (24 rows x 4 columns), R-check table (6 rows x 5 columns), Universal BL table (22 rows x 3 columns), Code-adapter BL table (8 rows x 4 columns). PASS.
-3. **Internal cross-references:** "See Example 1 in Section 6" at lines 176, 446 -- resolves to line 383. "See BL-B1 below" at line 455 -- resolves to line 470. "See Coherencer tertiary failure mode" at line 430 -- resolves to line 178. Spot-checked 5 cross-references, all resolve. PASS.
+3. **Internal cross-references:** "See Example 1 in Section 6" at lines 176, 446 -- resolves to line 383. "See BL-B1 below" at line 455 -- resolves to line 470. "See Coherent tertiary failure mode" at line 430 -- resolves to line 178. Spot-checked 5 cross-references, all resolve. PASS.
 4. **No placeholder text:** Searched for "TODO", "TBD", "placeholder", "FIXME" -- zero results. PASS.
 
 ---

@@ -106,7 +106,7 @@ The harness MUST maintain context across conversation turns within a session.
 - META can reference earlier RT-1 outputs when making synthesis decisions
 - Agent outputs from earlier turns are available for later agents to reference (via files)
 
-**Why non-negotiable:** RT protocol spans multiple turns (RT-1 -> synthesis -> execution -> RT-3). META must remember the unified plan; Coherencer needs prior outputs for S_team. Cross-session persistence (MEMORY.md, Omega) is L6+, not required for L5.
+**Why non-negotiable:** RT protocol spans multiple turns (RT-1 -> synthesis -> execution -> RT-3). META must remember the unified plan; Coherent needs prior outputs for S_team. Cross-session persistence (MEMORY.md, Omega) is L6+, not required for L5.
 
 ---
 

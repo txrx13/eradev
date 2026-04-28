@@ -87,13 +87,13 @@ All 4 Activation Operator steps GREEN.
 **Actions:**
 1. Created `BL_CANDIDATES.md` at repo root with:
    - Staging header + compression trigger (count >= 5)
-   - Process documentation (5-step Coherencer compression)
+   - Process documentation (5-step Coherent compression)
    - Format template (CAND-N schema)
    - Current count: 0 (empty staging)
 2. Updated `meta.md` Section 14:
    - Item 2: expanded to show tiered loading (T1 auto, T2 JIT, T3 not loaded unless Lambda Audit)
    - Item 9: expanded Lambda Audit with cross-project scan protocol, T3 search, compression trigger (count > 50)
-   - Item 11: added MEMORY BUDGET check (> 200 lines = spawn Coherencer)
+   - Item 11: added MEMORY BUDGET check (> 200 lines = spawn Coherent)
 3. Did NOT modify CLAUDE.md (per task scope discipline: META territory, auto-bootstrap)
 
 ---

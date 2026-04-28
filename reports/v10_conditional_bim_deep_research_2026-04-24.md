@@ -173,7 +173,7 @@ Visionary at RT-1 produces IFR. The IFR implies rigor:
 - If IFR has experiential AC ("the chapter opens with a hook that makes the reader finish the page") → exploratory.
 - If IFR is directional ("we find out whether this approach has legs") → emergent.
 
-Visionary's IFR carries the RIGOR_LEVEL signal. Analyst reads it and encodes it. Coherencer at μ-check verifies the mapping is coherent with what Visionary said.
+Visionary's IFR carries the RIGOR_LEVEL signal. Analyst reads it and encodes it. Coherent at μ-check verifies the mapping is coherent with what Visionary said.
 
 ### 2.4 Builder reads rigor_map and shifts behavior
 
@@ -191,16 +191,16 @@ Per-segment, Builder:
 - **exploratory:** Validator is ADVISORY. Runs verification and emits findings. Operator and Visionary decide whether to act. Does not block commit unilaterally.
 - **emergent:** Validator is SPOT-CHECK only. Independent recomputation of 1-3 claims the output makes. Does not validate "completeness" (there's no baseline to be complete against). Does not block commit.
 
-### 2.6 Coherencer role at each RIGOR_LEVEL
+### 2.6 Coherent role at each RIGOR_LEVEL
 
-- **strict:** Full μ-check, full `doc_alignment`, full S_team computation. Coherencer GATES Builder spawn.
-- **structured:** μ-check runs but emits [μ-check ADVISORY]. Coherencer reports, does not block.
-- **exploratory:** Coherencer checks for genuine incoherence (terms contradicting across sections, numerical drift) but ALLOWS legitimate divergence (new voice in a chapter, mid-draft reframing). Catches phantom coherence (BL-5) and phantom decoherence (BL-29). Does NOT require spec conformance.
-- **emergent:** Coherencer is POST-HOC. Documents what was produced, identifies threads worth consolidating, may suggest a subsequent strict/structured pass to formalize emergent findings.
+- **strict:** Full μ-check, full `doc_alignment`, full S_team computation. Coherent GATES Builder spawn.
+- **structured:** μ-check runs but emits [μ-check ADVISORY]. Coherent reports, does not block.
+- **exploratory:** Coherent checks for genuine incoherence (terms contradicting across sections, numerical drift) but ALLOWS legitimate divergence (new voice in a chapter, mid-draft reframing). Catches phantom coherence (BL-5) and phantom decoherence (BL-29). Does NOT require spec conformance.
+- **emergent:** Coherent is POST-HOC. Documents what was produced, identifies threads worth consolidating, may suggest a subsequent strict/structured pass to formalize emergent findings.
 
 ### 2.7 Summary of Part 2
 
-**A `rigor_map` field in project config + Unified Plan provides per-segment RIGOR_LEVEL declaration.** Analyst encodes it during RT-1 based on Visionary's IFR. Builder reads it and shifts behavior per segment. Validator adjusts verification intensity. Coherencer's gate function becomes conditional. The mechanism is ADDITIVE (reuses existing config schema), not structural change to the RT protocol.
+**A `rigor_map` field in project config + Unified Plan provides per-segment RIGOR_LEVEL declaration.** Analyst encodes it during RT-1 based on Visionary's IFR. Builder reads it and shifts behavior per segment. Validator adjusts verification intensity. Coherent's gate function becomes conditional. The mechanism is ADDITIVE (reuses existing config schema), not structural change to the RT protocol.
 
 ---
 
@@ -252,20 +252,20 @@ Named for Free-flowing, Long-cycle, Unit-of-voice, eXploratory. Bundle-B-style p
 **U — Unit-of-voice protection.**
 - FLUX segments can have a SINGLE agent operating as the voice-keeper (typically Builder).
 - Λ_role = 0 is PERMITTED when voice coherence is load-bearing — the paper's F2' allows Λ_role = 0 as a degenerate case; FLUX explicitly permits it.
-- Coherencer enforces voice consistency ACROSS segments (cross-chapter), not WITHIN a segment.
+- Coherent enforces voice consistency ACROSS segments (cross-chapter), not WITHIN a segment.
 - Multi-Builder parallel work on a single voice-unit is FORBIDDEN under FLUX (opposite of structured where it's encouraged).
 
 **X — eXploratory deliverable.**
 - Builder's exit criterion for an exploratory segment is "the artifact is GOOD ENOUGH to iterate on." Not "contracts-complete." Not "all AC satisfied." Not "F7 B_min crossed for all consumers."
 - Validator's role is ADVISORY: produces findings, does not block commit.
-- Coherencer catches genuine incoherence (voice drift, glossary contradictions, narrative contradictions); allows legitimate divergence (new theme, unforeseen argument structure).
+- Coherent catches genuine incoherence (voice drift, glossary contradictions, narrative contradictions); allows legitimate divergence (new theme, unforeseen argument structure).
 
 #### FLUX RT protocol (vs BIM RT protocol)
 
 | Phase | BIM (strict) | FLUX (exploratory/emergent) |
 |---|---|---|
 | RT-0 Visionary solo | Produces IFR past-tense with measurable AC | Produces IFR as DIRECTION with experiential criteria |
-| RT-1 parallel 5-agent | All 5 roles, full Output Formats | Visionary + Analyst (voice guide + glossary seed) + Builder assignment. Validator + Coherencer delayed to post-draft. |
+| RT-1 parallel 5-agent | All 5 roles, full Output Formats | Visionary + Analyst (voice guide + glossary seed) + Builder assignment. Validator + Coherent delayed to post-draft. |
 | μ-check | BLOCKING via `doc_alignment` | **N/A** — replaced by emit `[FLUX segment entered: {scope}, expected duration: {range}, exit criterion: good-enough-to-iterate]` |
 | Build | Short cycles, Jidoka during | Single agent, free-flow, Jidoka AFTER |
 | Validate | Full verification, gate | ADVISORY findings, no gate |
@@ -291,7 +291,7 @@ Concrete:
   - Whether the segment should CONTINUE in FLUX mode or TRANSITION to structured/strict mode.
 - Does NOT block commit.
 
-#### FLUX Coherencer role
+#### FLUX Coherent role
 
 - Reads the FLUX output against the full corpus (prior chapters, sibling sections).
 - Checks for GENUINE incoherence: terms contradicting, numerical drift across segments, narrative contradictions across drafted chapters.
@@ -304,17 +304,17 @@ A task or segment can transition from FLUX to BIM (structured/strict). Transitio
 
 - Visionary sees enough structure in the FLUX output to specify AC. Visionary declares transition.
 - Operator requests: "This section is stable now — lock it." Explicit declaration.
-- A meta-meta check: after N FLUX iterations (N project-configurable, default 3), Coherencer asks: "Is this still emergent, or are we circling without progress?" If circling, propose transition to structured.
+- A meta-meta check: after N FLUX iterations (N project-configurable, default 3), Coherent asks: "Is this still emergent, or are we circling without progress?" If circling, propose transition to structured.
 
 Reverse transition (BIM → FLUX) is rare but possible:
-- BIM strict segment in a creative work that isn't converging — Coherencer proposes: "The spec is preventing solution. Drop to exploratory for one iteration, re-spec after."
+- BIM strict segment in a creative work that isn't converging — Coherent proposes: "The spec is preventing solution. Drop to exploratory for one iteration, re-spec after."
 
 Transitions are DOCUMENTED in the Unified Plan (or its FLUX equivalent, the Voice Guide).
 
 ### 3.5 How FLUX relates to existing mechanisms
 
 - **EMP7 (orientation loop > optimization loop):** FLUX implements EMP7's direction — orientation is primary in exploratory work, optimization secondary. Strict/structured reverses this.
-- **Book skin R-checks:** R1 (readability), R2 (continuity), R3 (glossary) fit FLUX's Coherencer role (cross-chapter coherence). R4 (outline fidelity) is RELAXED in FLUX — outline may intentionally evolve.
+- **Book skin R-checks:** R1 (readability), R2 (continuity), R3 (glossary) fit FLUX's Coherent role (cross-chapter coherence). R4 (outline fidelity) is RELAXED in FLUX — outline may intentionally evolve.
 - **Paper §X.5 Four Working Habits:** FLUX KEEPS habits #2 (explicit Ô declaration — essential for voice-keeping), #3 (B_received ≥ B_min — as SOFT guidance), #4 (path-(c) tolerance — essential for voice coherence). FLUX REPHRASES habit #1 ("short cycles over polished signals") as "appropriately-cadenced cycles; polish is not Muda when voice-dependent."
 - **Paper §VII.4 configuration ensemble:** FLUX is the C-for-exploratory configuration in the ensemble; BIM is the C-for-strict configuration. Both are legitimate configurations; different phases use different ones.
 - **Paper §VIII.8 micro-check:** FLUX AT SEGMENT BOUNDARIES includes a micro-check ("how did you hear this draft?") but not WITHIN a segment (flow protection).
@@ -357,7 +357,7 @@ Classification key:
 | B | μ-check gate | meta.md §μ-check | Universal, blocks Builder | **MAKE CONDITIONAL** — blocking at strict, ADVISORY at structured, **N/A at exploratory/emergent** | Template-conformance gate. At strict it's the right gate. At exploratory it penalizes legitimate under-specification. Add modality branch: `if rigor_map[segment] ∈ {exploratory, emergent}: μ-check → [μ-check ADVISORY]`. |
 | B | Cross-Layer Contract Table | roles/analyst_EN.md §Cross-Layer | Conditional: triggers on multi-layer tasks | **KEEP as-is (already conditional)** | Already conditional on `≥2 layers`. Add second escape: "N/A — exploratory segment, contracts emerge during drafting." |
 | B | User Flow section | roles/analyst_EN.md §User Flow | Conditional: triggers on UI/consumer-facing | **KEEP as-is (already conditional) with refinement** | Already conditional. For books at structured level, user flow = reader journey and IS appropriate. For books at emergent level (novel opening), MAY be N/A because the reader journey emerges. Add escape: "N/A — reader journey intentionally emergent (not a defect; document intent in Voice Guide)." |
-| B | Path-(c) ΔÔ acceptance | roles/coherent_EN.md | Conditional: triggers when convergence fails | **KEEP as-is (already conditional) EXTEND** | Already conditional. Extend to say: "Path-(c) is also invoked in exploratory/emergent RIGOR_LEVEL segments as the DEFAULT stance — Coherencer does not attempt convergence across divergent-but-legitimate Ô within a FLUX task." |
+| B | Path-(c) ΔÔ acceptance | roles/coherent_EN.md | Conditional: triggers when convergence fails | **KEEP as-is (already conditional) EXTEND** | Already conditional. Extend to say: "Path-(c) is also invoked in exploratory/emergent RIGOR_LEVEL segments as the DEFAULT stance — Coherent does not attempt convergence across divergent-but-legitimate Ô within a FLUX task." |
 | B | Unified Plan template | templates/unified_plan.md.template | Universal (all M/L/XL) | **MAKE CONDITIONAL** — full form at strict, DEGRADED form at structured, REPLACED BY VOICE GUIDE at exploratory/emergent | Strict uses full template. Structured uses template with N/A allowed in Cross-Layer + User Flow. Exploratory uses a NEW template `templates/voice_guide.md.template` with Voice + Glossary-Seed + Direction sections. Emergent uses minimal Voice Guide or none. |
 | B | doc_alignment verify method | templates/domain_skin.md.template | Canonical v10+ | **MAKE CONDITIONAL** | doc_alignment applies to strict and structured. For exploratory/emergent, verify method becomes `voice_check` or domain-specific (readability for book, compile-runs for prototype code). Add `voice_check` to the canonical registry. |
 | C | Invariant #17 τ_cycle primacy | CLAUDE.md | `[UNIVERSAL]` | **MAKE CONDITIONAL — change tag to [CODE-ADAPTER] + ADD clarifier** | Universal tag is the load-bearing creativity problem. Change to `[CODE-ADAPTER-plus-strict-structured]`. Add clarifier: "Applies at strict + structured RIGOR_LEVEL. For exploratory/emergent segments, cycle length is a CONFIGURATION parameter (long cycles permitted; incubation is not a fix chain). See §IV Four Working Habits opening note for mode-specific reading." |
@@ -541,7 +541,7 @@ Existing articles under BIM will see article.default = structured → NOT strict
 
 **M3. Add μ-check modality branch to `meta.md` §μ-check.**
 - File:line: `meta.md:337-358` (μ-check subsection).
-- Edit: add bullet: "For rigor_map.effective ∈ {exploratory, emergent}: μ-check emits `[μ-check ADVISORY: {notes}]` instead of blocking. Coherencer records findings but Builder is cleared." Add a note: "Strict/structured segments retain blocking behavior."
+- Edit: add bullet: "For rigor_map.effective ∈ {exploratory, emergent}: μ-check emits `[μ-check ADVISORY: {notes}]` instead of blocking. Coherent records findings but Builder is cleared." Add a note: "Strict/structured segments retain blocking behavior."
 - Size: S.
 - Dependencies: M2 (rigor_map field exists).
 - Conflict with Bundle B: refines Bundle B's μ-check from universal blocking to rigor-conditional.
@@ -555,7 +555,7 @@ Existing articles under BIM will see article.default = structured → NOT strict
 
 **M5. Extend F7 documentation in `eradev.md` §III.2.5 with per-RIGOR_LEVEL calibration.**
 - File:line: `eradev.md` §III.2.5 (end of subsection).
-- Edit: add paragraph: "Per-RIGOR_LEVEL B_min interpretation: at strict, B_min is a HARD threshold (Validator blocks below it). At structured, B_min is a COMMIT target (Builder aims for it; Coherencer flags below-threshold). At exploratory, B_min is SOFT GUIDANCE (sufficient-for-iterate, not sufficient-for-ship). At emergent, B_min is POST-HOC (determined after iteration, not during). Numeric calibration per modality remains OQ-PT-3 (v11 target)."
+- Edit: add paragraph: "Per-RIGOR_LEVEL B_min interpretation: at strict, B_min is a HARD threshold (Validator blocks below it). At structured, B_min is a COMMIT target (Builder aims for it; Coherent flags below-threshold). At exploratory, B_min is SOFT GUIDANCE (sufficient-for-iterate, not sufficient-for-ship). At emergent, B_min is POST-HOC (determined after iteration, not during). Numeric calibration per modality remains OQ-PT-3 (v11 target)."
 - Size: S.
 - Dependencies: M1 + M2.
 - Conflict with Bundle A: additive to Bundle A's F7; no math change.
@@ -599,8 +599,8 @@ Existing articles under BIM will see article.default = structured → NOT strict
 
 ### 7.3 COULD-DO (nice-to-have)
 
-**C1. Add rigor_map enforcement to Coherencer at RT-1 μ-check.**
-- Coherencer checks that segment RIGOR_LEVELs are coherent: no strict segment depending on an emergent segment; transitions are documented.
+**C1. Add rigor_map enforcement to Coherent at RT-1 μ-check.**
+- Coherent checks that segment RIGOR_LEVELs are coherent: no strict segment depending on an emergent segment; transitions are documented.
 - Size: M.
 - Value: LOW — defensive; typical use won't need this.
 
@@ -687,7 +687,7 @@ Net: **this task IS structured, and it survived BIM gates fine because (a) the d
 
 - **OQ-CR-2:** Incubation-time budget per RIGOR_LEVEL. Paper's F8 (B_persist decay τ_decay ≈ 2-7 days for solo work) gives an upper bound on useful incubation for a single-agent creative segment. Should rigor_map carry `incubation_budget: {max_hours: N}` to prevent stalling? Or leave to operator judgment? **Target resolution:** v11 Phase 2, observe book-project behavior under FLUX first.
 
-- **OQ-CR-3:** Empirical threshold for mode transition. At what point does an exploratory segment becoming "mature enough" trigger a transition to structured? Proposed heuristic: "after 3 FLUX iterations Coherencer asks Is this still emergent?" — but 3 is arbitrary. **Target resolution:** v11 Phase 2 calibration.
+- **OQ-CR-3:** Empirical threshold for mode transition. At what point does an exploratory segment becoming "mature enough" trigger a transition to structured? Proposed heuristic: "after 3 FLUX iterations Coherent asks Is this still emergent?" — but 3 is arbitrary. **Target resolution:** v11 Phase 2 calibration.
 
 - **OQ-CR-4:** Does RIGOR_LEVEL interact with task size (S/M/L/XL)? Hypothesis: small tasks are usually strict (quick implements), XL tasks usually span multiple RIGOR_LEVELs (requiring per-segment declaration). Is the size × RIGOR_LEVEL cross-table stable, or are there problem cases? **Target resolution:** v11 observation phase.
 

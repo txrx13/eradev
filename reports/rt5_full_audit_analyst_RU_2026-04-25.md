@@ -89,6 +89,6 @@ A_F: `eradev.md:87-510, :698-708`, `CLAUDE.md:84-86`, `FOUNDATIONS.md` Part II. 
 
 w_F=0.30, E=0.20, (1-σ)=0.35, Λ=0.15. F=0.85 · E=0.85 · (1-σ)=0.90 · Λ=0.80 → B = 0.85^0.30·0.85^0.20·0.90^0.35·0.80^0.15 = 0.952·0.967·0.964·0.967 = **0.857** ≥ 0.5 PASS, no Andon.
 
-## Hand-off Coherencer
+## Hand-off Coherent
 
 **2 HIGH** (σ-aggregation undefined, σ_ops→σ_scalar mapping) — структурные gaps, **не противоречия v9→v10**. Существовали implicitly в v8/v9, paper v2 §IV.5 их раскрыл, v10 не вводил/не закрывал. RT-2 решение: либо `σ_scalar=max_i` в `:105` (1 commit, S-task), либо OQ-σ-1 deferred к v11.

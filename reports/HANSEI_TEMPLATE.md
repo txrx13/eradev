@@ -16,10 +16,10 @@
 
 ### Hansei Metrics (MultiAgentBench-inspired)
 
-For each completed RT cycle, Coherencer reports:
+For each completed RT cycle, Coherent reports:
 - **task_completion_rate**: N tasks PASS first-try (no fix chain) / N total. Target: >=0.7
 - **collaboration_efficiency**: actual_parallel_agents / max_parallel_possible (per Inv 13). Target: >=0.8
-- **role_specialization_score**: Coherencer rating of whether Builder/Analyst/Validator/Visionary stayed in their role lane (0.0-1.0). Target: >=0.85
+- **role_specialization_score**: Coherent rating of whether Builder/Analyst/Validator/Visionary stayed in their role lane (0.0-1.0). Target: >=0.85
 
 Trend across last 5 cycles flagged in Hansei summary. Source: MultiAgentBench arxiv 2503.01935 (RT-5 research wave, 2026-04-25).
 

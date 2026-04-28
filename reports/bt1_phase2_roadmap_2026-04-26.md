@@ -33,7 +33,7 @@ Phase 2 = **D → M → P sequenced implementation** (locked, no re-debate).
 **BLOCK semantics:** `check-leverage.sh` exit 3 pre-commit; blocks 3 consecutive framework commits with LF<0.10; `[retire-pass]` tag exemption.
 
 **Then sequentially:**
-- [COHERENCER] D-gate L1 — verify EN/RU byte-identical formula, no §II.1 collisions, BL-19 sync OK
+- [COHERENT] D-gate L1 — verify EN/RU byte-identical formula, no §II.1 collisions, BL-19 sync OK
 - [VALIDATOR] D-regression — 5 scenarios from `rt13_validator_en_2026-04-26.md` (existing B-scores still in [0,1], LF=0.012 → ANDON correctly, LF=0.70 → GREEN, etc.)
 - META: commit `BT-1 Phase 2.1: D-cure (axis re-anchor, β-additive formula)`
 
@@ -48,7 +48,7 @@ Phase 2 = **D → M → P sequenced implementation** (locked, no re-debate).
 - **[BUILDER] M-RU** — meta_RU.md §14 KILL-TEST mirror (RU translation of intent-action separator)
 
 **Then:**
-- [COHERENCER] M-gate L1 — verify ε_meta anchor cited from M-cure + future D-cure denominator (single-source-of-truth)
+- [COHERENT] M-gate L1 — verify ε_meta anchor cited from M-cure + future D-cure denominator (single-source-of-truth)
 - [VALIDATOR] M-regression — 5 scenarios from `rt13_validator_en_2026-04-26.md` (legitimate META outputs still pass, direct framework Edit blocks, INTENT bypass works)
 - META: commit `BT-1 Phase 2.2: M-cure (META discipline, intent-vs-action separator)`
 
@@ -64,7 +64,7 @@ Phase 2 = **D → M → P sequenced implementation** (locked, no re-debate).
 - **[BUILDER] skill-mirror sweep** — `.claude/skills/eradev/...` byte-equality with all D+M+P canonical edits + zip rebuild
 
 **Then:**
-- [COHERENCER] P-gate L1 — verify §14 collision-resolution (D first, M appended, P appended; line counts match per phase)
+- [COHERENT] P-gate L1 — verify §14 collision-resolution (D first, M appended, P appended; line counts match per phase)
 - [VALIDATOR] P-regression — 5 scenarios (retire-pass on real BL doesn't break dependents, Ω_pruned computes correctly on RT-12 commit, load-bearing BL canary refuses Inv 1 retirement)
 - META: commit `BT-1 Phase 2.3: P-cure (retirement organ + skill-mirror sweep)`
 
@@ -75,7 +75,7 @@ Phase 2 = **D → M → P sequenced implementation** (locked, no re-debate).
 ## Phase 3 — Integrated wave finalization
 
 - [VALIDATOR] integrated — composition matrix across D+M+P; 3 cross-leg scenarios from Validator EN report (bootstrap §9 collision, hook ordering, D's denominator dependency on P)
-- [COHERENCER] L2 final synthesis — write `reports/bt1_l2_final_synthesis_<date>.md` documenting Σ_pre→Σ_post delta, post-cure B-projection vs actual, dormancy audit schedule (C5 trigger date)
+- [COHERENT] L2 final synthesis — write `reports/bt1_l2_final_synthesis_<date>.md` documenting Σ_pre→Σ_post delta, post-cure B-projection vs actual, dormancy audit schedule (C5 trigger date)
 - META: write `git tag beta-post-ship`
 - META: commit `BT-1 final: integrated Validator + skill zip + post-ship dormancy schedule`
 - META: bundle commit + push
@@ -115,7 +115,7 @@ Phase 2 = **D → M → P sequenced implementation** (locked, no re-debate).
 3. [ ] Operator confirms β still chosen (vs pivot to γ pilot)
 4. [ ] Write Σ_pre snapshot + tag `beta-pre-ship`
 5. [ ] Spawn Phase 2.1 D-cure parallel Builders
-6. [ ] Sequential gates: Coherencer → Validator → commit
+6. [ ] Sequential gates: Coherent → Validator → commit
 7. [ ] Repeat for M then P
 8. [ ] Phase 3 integrated wave + tag `beta-post-ship`
 9. [ ] Schedule C5 dormancy audit at session+4 boundary

@@ -1,8 +1,8 @@
-# RT-13 Coherencer RU — Формальная согласованность композиции 3-cure (P × M × D)
+# RT-13 Coherent RU — Формальная согласованность композиции 3-cure (P × M × D)
 
 **Дата:** 2026-04-26
-**Роль:** [COHERENCER] (5-role topology, RU sync layer, теоретическая coherence)
-**Mandate:** Operator выбрал option (a) ship-all-3-sequenced. Coherencer RU обеспечивает формальную композиционную coherence cure-3 ДО Builder-wave.
+**Роль:** [COHERENT] (5-role topology, RU sync layer, теоретическая coherence)
+**Mandate:** Operator выбрал option (a) ship-all-3-sequenced. Coherent RU обеспечивает формальную композиционную coherence cure-3 ДО Builder-wave.
 **Domain:** code (skin: `templates/domain_skin.code.md`); B-modality = text (uniform 0.25 weights); RIGOR_LEVEL = strict.
 **Источники:** `composition-hazards-2026-04-26-bt1_EN.md` (EN-V) | `composition-hazards-2026-04-26-bt1_RU.md` (RU-V) | RT-13 параллельные отчёты ещё не появились на момент старта.
 
@@ -89,7 +89,7 @@
    - **EN-V single-point-of-failure analysis** (§3) более concrete: "if P fails → abort wave". RU-V interlock argument (D first или drift во время install) корректен теоретически, но operationally untestable до ship.
 3. **RU-V Ô preserved as evaluation lens** — после P ships, D-leverage measurement (RU-V's central concern) применяется для post-condition verification, не для sequencing.
 
-**Альтернатива:** если operator explicit overrides → D→M→P. Coherencer не насилует.
+**Альтернатива:** если operator explicit overrides → D→M→P. Coherent не насилует.
 
 **Вердикт §3:** PATH_C_ACCEPTED. ΔÔ принят явно; default sequencing P→M→D под operational primacy. Tie-breaker rule: operational lens governs ship-sequence at strict RIGOR; theoretical lens preserved for evaluation.
 
@@ -153,7 +153,7 @@
 - **F (Focus) = 0.85** — оба hazards прочитаны полностью; lessons.md L-50/L-52/L-53/L-57/L-58/L-61/L-62/L-63 + EMP18 + 17 Inv + 30 BL прочитаны; RT-13 параллельные ещё не появились (gap, но NOT load-bearing для теоретической coherence — теоретический анализ не зависит от RT-13 implementation map от EN-Coh).
 - **E (Alignment) = 0.85** — все 5 запрошенных секций present (композиционная coherence / аксиоматическая / path-(c) / RIGOR / self-application); operator's "(all-3 sequenced) option a" как контекст honored; theoretical-not-implementation discipline.
 - **(1-σ) = 0.65** — **σ = 0.35 объявляю явно:**
-  1. EN-V и RU-V sequence disagreement RESOLVED через path-(c) acceptance + tie-breaker default к EN-V — но это decision Coherencer-level, не unanimous synthesis. Если operator overrides D→M→P, тие-breaker неактивен.
+  1. EN-V и RU-V sequence disagreement RESOLVED через path-(c) acceptance + tie-breaker default к EN-V — но это decision Coherent-level, не unanimous synthesis. Если operator overrides D→M→P, тие-breaker неактивен.
   2. EMP18 framing-tension (cure-3 = activation vs new) — resolution depends on framing discipline в Builder prompts (L-50 extend>add). Если Builder framing dril't → EMP18 fires → cure-3 freeze. Risk не нулевой.
   3. Self-application D → leverage_factor для cure-3 ниже floor — формально legitimate, но visually выглядит как cure-3 саму себя fail'ит D-test. Operator может read это как cure-3 invalidation.
 - **Λ (Experience) = 0.85** — applied L-50 (extend>add audit на cure-3), L-52 (Tier для D leverage_factor flag), L-53 (path-(c) ΔÔ default rule), L-58 (no new IDs proposed), L-59 (operator authority), L-60 (this artifact = explicit synthesis), L-61 (label hygiene), EMP6 (recursive Lambda check), EMP18 (gap-trigger), Inv 17 (RIGOR_LEVEL composition rule), BL-26 (self-application protection mechanism).
@@ -195,4 +195,4 @@ ANDON reading: Honest σ=0.35 declared. Это НЕ defect артефакта �
 
 *Cross-references:* L-50 (extend>add) | L-52 (Tier-falsification) | L-53 (path-(c) ΔÔ default) | L-58 (phantom-newness) | L-59 (operator authority) | L-60 (explicit synthesis) | L-61 (label hygiene) | L-63 (re-frame discipline) | EMP6 (recursive Lambda) | EMP18 (ψ\*-gap freeze) | Inv 1, 11, 13, 15, 17 | BL-26, BL-34, BL-35 | composition-hazards-2026-04-26-bt1_EN.md / _RU.md.
 
-*End of Coherencer RU formal-coherence report. Implementation map = Coherencer EN scope; this artifact = formal substrate.*
+*End of Coherent RU formal-coherence report. Implementation map = Coherent EN scope; this artifact = formal substrate.*

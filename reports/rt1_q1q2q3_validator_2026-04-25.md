@@ -13,7 +13,7 @@
 | AC-1: 0 deletions §I-III main | PASS (additive only at §X 942-975) |
 | BL-19 parity ±5 | PASS (1135/1135 Δ=0; FORBIDDEN/ЗАПРЕЩ 2/2) |
 
-### Q2 — meta.md §15 + Coherencer triage
+### Q2 — meta.md §15 + Coherent triage
 | Check | Result |
 |---|---|
 | `Post-task Recommendations Placement` meta.md | PASS (456) |

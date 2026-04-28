@@ -17,7 +17,7 @@
 
 **4. The sync audit (16 desynchronization issues found) was correctly scoped as a Validator task and produced actionable output with severity rankings.** The audit caught version drift (v3.0 references in 4 files), missing sections in eradev_RU.md, stale path references (core/ directory that does not exist), and glossary_EN.md being 14 terms behind. Without this audit, the bilingual architecture would have launched on a cracked foundation.
 
-**5. The Section 0.5 placement decision used a 5-role vote and converged on Option C (merge into meta.md Section 14).** This is the correct process for structural decisions: present options, let each role argue from its domain, vote, implement. The Coherencer correctly identified that a standalone Section 0.5 would fragment the loading protocol, and the merger preserved the intent while reducing file count.
+**5. The Section 0.5 placement decision used a 5-role vote and converged on Option C (merge into meta.md Section 14).** This is the correct process for structural decisions: present options, let each role argue from its domain, vote, implement. The Coherent correctly identified that a standalone Section 0.5 would fragment the loading protocol, and the merger preserved the intent while reducing file count.
 
 **6. The language analysis report (5-role RT) was thorough and self-consistent.** It correctly identified the recursive contradiction: a framework that defines Mura as "terminological mixing of RU/EN" was itself the primary source of that Mura. The report quantified the problem (Delta_S of 0.05-0.10, which is 2.5-5x the admissible spiral gap) and proposed a layered solution (invariant math layer, proper-noun TPS terms, operational EN layer) that respects both languages without mixing them.
 
@@ -61,7 +61,7 @@
 | File mutations | 10-20 files | 40+ files created or modified | +2x |
 | Architectural changes | 0 (maintenance) | 3 (bilingual arch, bootstrap protocol, Section 0 placement) | Unforeseen |
 
-**Key insight:** The session exhibited organic scope expansion where each completed task revealed the next task. Article formatting revealed LaTeX bugs, which revealed the need for systematic conversion tooling, which revealed the need for quality standards, which revealed the need to rebuild the framework that governs those standards. This is the spiral in action -- each cycle's ~2% residual became the next cycle's ~100% focus. The process was correct in structure but the scope growth was not formally acknowledged through reclassification. At no point did the meta-orchestrator formally reclassify the session from M to XL and spawn additional Coherencer capacity accordingly.
+**Key insight:** The session exhibited organic scope expansion where each completed task revealed the next task. Article formatting revealed LaTeX bugs, which revealed the need for systematic conversion tooling, which revealed the need for quality standards, which revealed the need to rebuild the framework that governs those standards. This is the spiral in action -- each cycle's ~2% residual became the next cycle's ~100% focus. The process was correct in structure but the scope growth was not formally acknowledged through reclassification. At no point did the meta-orchestrator formally reclassify the session from M to XL and spawn additional Coherent capacity accordingly.
 
 ---
 
@@ -75,13 +75,13 @@ Justification: The session proved that post-generation checking leads to rework 
 
 **Proposal 2: Add a SESSION RECLASSIFICATION trigger.**
 
-When the cumulative scope of a session exceeds 2x the initial classification, the meta-orchestrator must formally reclassify (S->M, M->L, L->XL) and adjust team capacity. This session went from M to XL without formal reclassification, which means the Coherencer hierarchy (L1/L2/L3) was never properly activated for the multi-team work that was actually happening.
+When the cumulative scope of a session exceeds 2x the initial classification, the meta-orchestrator must formally reclassify (S->M, M->L, L->XL) and adjust team capacity. This session went from M to XL without formal reclassification, which means the Coherent hierarchy (L1/L2/L3) was never properly activated for the multi-team work that was actually happening.
 
 Justification: The current Task Classification (Section X) applies to individual tasks but not to sessions that accumulate multiple tasks. Sessions need their own size tracking.
 
 **Proposal 3: Add a SYNC PROTOCOL for bilingual file pairs.**
 
-When any file in a bilingual pair is modified, the modification log must include a flag: SYNC_REQUIRED for the counterpart. The Coherencer at RT-3 must check that all flagged files have been synced before declaring GO. Currently, the sync audit is a manual process run ad hoc. It should be a continuous obligation.
+When any file in a bilingual pair is modified, the modification log must include a flag: SYNC_REQUIRED for the counterpart. The Coherent at RT-3 must check that all flagged files have been synced before declaring GO. Currently, the sync audit is a manual process run ad hoc. It should be a continuous obligation.
 
 Justification: The session created bilingual pairs that were immediately stale. The sync audit found 16 issues in files that were created in the same session. Without a sync protocol, every bilingual file creation is also a technical debt creation.
 
@@ -93,7 +93,7 @@ Justification: Bootstrap prompts are the highest-leverage artifacts in the frame
 
 **Proposal 5: Add SCOPE CREEP detection to RT-2.**
 
-At RT-2, the Coherencer should compare the current task list against the RT-1 plan and compute a scope delta. If the scope has grown by more than 30%, this triggers a formal decision: (a) accept the expanded scope with additional agents, (b) split into two tasks, or (c) defer the expansion to the next cycle. Currently, scope expansion is organic and untracked, which violates BL-11 (Scope Creep Is Muda).
+At RT-2, the Coherent should compare the current task list against the RT-1 plan and compute a scope delta. If the scope has grown by more than 30%, this triggers a formal decision: (a) accept the expanded scope with additional agents, (b) split into two tasks, or (c) defer the expansion to the next cycle. Currently, scope expansion is organic and untracked, which violates BL-11 (Scope Creep Is Muda).
 
 Justification: This session's scope expanded approximately 8x from initial prediction without any formal acknowledgment or resource adjustment.
 
@@ -150,16 +150,16 @@ Maintain a CONSTANTS_REGISTRY.md file that lists every formula, constant, and de
 ### BL-18: Session Scope Must Be Formally Reclassified When It Exceeds 2x Initial Estimate
 
 **Source:** This session -- predicted M, actual XL, no formal reclassification occurred
-**Rule:** When the cumulative scope of a session reaches 2x the initial classification (e.g., 2 tasks become 6, M becomes L), the meta-orchestrator must formally reclassify, announce the new size, and adjust team capacity (spawn additional Coherencer capacity, activate L2 if multi-team).
-**Why:** Organic scope expansion without reclassification means the Coherencer hierarchy is under-provisioned. This session ran 80+ agents across 11 task blocks with effectively L1-only coherence. The multi-team coordination mechanisms (L2, L3) were never activated despite the scope clearly requiring them. Formal reclassification is the trigger for capacity adjustment.
-**Applies to:** META-Orchestrator, Coherencer
+**Rule:** When the cumulative scope of a session reaches 2x the initial classification (e.g., 2 tasks become 6, M becomes L), the meta-orchestrator must formally reclassify, announce the new size, and adjust team capacity (spawn additional Coherent capacity, activate L2 if multi-team).
+**Why:** Organic scope expansion without reclassification means the Coherent hierarchy is under-provisioned. This session ran 80+ agents across 11 task blocks with effectively L1-only coherence. The multi-team coordination mechanisms (L2, L3) were never activated despite the scope clearly requiring them. Formal reclassification is the trigger for capacity adjustment.
+**Applies to:** META-Orchestrator, Coherent
 
 ### BL-19: Bilingual File Creation Without Simultaneous Sync Is Technical Debt Creation
 
 **Source:** Session observation -- bilingual pairs created, immediately stale (eradev_RU.md v7.0 vs eradev.md v7.1)
 **Rule:** When creating a bilingual file pair (X.md + X_EN.md or X.md + X_RU.md), both files must be brought to identical content state BEFORE the task is marked as complete. Creating one file now and "syncing later" is explicitly forbidden -- "later" becomes "never" and the sync audit becomes the permanent maintenance burden.
 **Why:** The sync audit found 16 issues in files that were created during recent sessions. Every desynchronized pair is a (1-sigma) failure waiting to happen: an agent loading the stale file gets different instructions than an agent loading the current file, producing hidden |Bi-Bj| divergence that masquerades as genuine disagreement.
-**Applies to:** Builder (creates files), Validator (verifies sync), Coherencer (enforces at RT-3)
+**Applies to:** Builder (creates files), Validator (verifies sync), Coherent (enforces at RT-3)
 
 ### BL-20: Adversarial Test Bootstrap Prompts Before Deployment
 

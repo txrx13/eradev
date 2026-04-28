@@ -28,7 +28,7 @@
 ## Edge cases probed
 - Insertion-point semantics (B1 PR-Gate sequencing, B3 GREEN amendment §15 flow) — both correct.
 - Mid-edit linter race (B3 caught + recovered): re-verified `diff -q` for skill mirror byte-identity post-Validator window — clean.
-- BL-A namespace preamble «These 4 BL» typo (B1 self-noted, non-blocking, Coherencer cleanup candidate) — confirmed non-load-bearing (table+summary lines authoritative).
+- BL-A namespace preamble «These 4 BL» typo (B1 self-noted, non-blocking, Coherent cleanup candidate) — confirmed non-load-bearing (table+summary lines authoritative).
 - Override-path completeness (B2): all 3 paths trigger early-exit before hook body (`exit 0` lines 20–21, 27).
 - 6 NEXT-* preservation (B4) — confirmed CLOSED markers intact, no accidental tier-claim regression.
 

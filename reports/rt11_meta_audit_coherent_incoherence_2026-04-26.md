@@ -1,6 +1,6 @@
 # RT-11 Meta-Audit: Cross-Cutting Coherent Incoherence
 
-**Role:** [COHERENCER] L2 cross-cutting | **Date:** 2026-04-26 | **Window:** past 3 days (b1486ed → 758143c)
+**Role:** [COHERENT] L2 cross-cutting | **Date:** 2026-04-26 | **Window:** past 3 days (b1486ed → 758143c)
 **Lens:** framework-on-framework — accumulated rules outpacing coherence checks
 **Scope:** structural only (no empirics, no hook tests)
 
@@ -25,9 +25,9 @@
 |---------|-----------|------------------|---------------------------|
 | PC-1 **"Plan completeness"** | RT-1 close + μ-check + Composition-Hazards-Gate + Cross-Layer Contracts + User Flow | Each can REJECT a plan. Operator hears 4 different fail modes; framework presents 4 different artifacts. | RT-1 = role-output coverage; μ-check = doc_alignment; CHG = ≥2-refactor sequencing; CLC/UF = layer-crossing artifacts. Distinctions REAL but vocabulary fragmented. |
 | PC-2 **"Sufficiency"** | F7 B_received≥B_min + blind continuation test + Validator V-Gate + μ-check checks 4-5 + S_team≥0.5 | All claim "is the handoff sufficient?". | F7 = pairwise per-edge; V-Gate = artifact-vs-AC; blind-continuation = receiver-agency; S_team = team-level scalar. Distinctions real but **redundant scoring** in practice. |
-| PC-3 **"Tier discipline"** | BL-33 Tier ladder + Tier honesty cleanup (RT-8) + tier-claim sweep (Coherencer periodic) + bl-tier-check.sh hook | All audit Tier accuracy. | BL-33 = AUTHOR-TIME declaration; Tier honesty = REVIEW-TIME audit; sweep = SCHEDULED audit; hook = COMMIT-TIME enforce. Defense-in-depth, but unclear whose miss is whose fault. |
+| PC-3 **"Tier discipline"** | BL-33 Tier ladder + Tier honesty cleanup (RT-8) + tier-claim sweep (Coherent periodic) + bl-tier-check.sh hook | All audit Tier accuracy. | BL-33 = AUTHOR-TIME declaration; Tier honesty = REVIEW-TIME audit; sweep = SCHEDULED audit; hook = COMMIT-TIME enforce. Defense-in-depth, but unclear whose miss is whose fault. |
 | PC-4 **"Ready"** | Validator GREEN + μ-check OK + PR-Gate PASS + post-deploy-verify + recompute+provenance + structural V-Gate PASS | Six tokens for partial overlapping facets of "ship-able". | RT-9 amendment (2026-04-26) tried to disambiguate but **introduced more vocabulary** rather than collapsing it. |
-| PC-5 **"Phantom-X check"** | Phantom coherence (S high, B low) + Phantom decoherence (S low, B high) + Phantom newness (L-58, BL-id collision) + Path-(c) ΔÔ acceptance | Coherencer must remember 4 phantom-X protocols. | All are legitimate, but consolidating under single "Phantom Audit Protocol" with 4 sub-checks would reduce mental load. |
+| PC-5 **"Phantom-X check"** | Phantom coherence (S high, B low) + Phantom decoherence (S low, B high) + Phantom newness (L-58, BL-id collision) + Path-(c) ΔÔ acceptance | Coherent must remember 4 phantom-X protocols. | All are legitimate, but consolidating under single "Phantom Audit Protocol" with 4 sub-checks would reduce mental load. |
 
 ---
 
@@ -81,8 +81,8 @@ D. **"τ_cycle"** — measured in commits (code) | hours (FLUX) | turns (interac
 ## 7. L2 Prediction for cross-team synthesis
 
 When this audit synthesizes with parallel RT-11 outputs (Visionary L2 / Analyst empirical / Validator hook tests), expect:
-1. **High convergence on §3 (phantom decoherence on vocabulary)** — Validator and Analyst likely identify the same gate-name + "ready"-token confusion empirically. Coherencer L2 should propose a **single Gates Registry** + **Readiness Token Taxonomy** as the unifying artifact.
-2. **Divergence on §4 (recursive process)** — Visionary will likely defend the recursion as legitimate self-correction (paper §VII.4 configuration ensembles); Analyst/Validator may flag as overhead. **Coherencer L2 verdict: accept divergence (path-c ΔÔ); ship measurement protocol (count Hansei → BL conversion rate over next 3 sessions) rather than forcing now.**
+1. **High convergence on §3 (phantom decoherence on vocabulary)** — Validator and Analyst likely identify the same gate-name + "ready"-token confusion empirically. Coherent L2 should propose a **single Gates Registry** + **Readiness Token Taxonomy** as the unifying artifact.
+2. **Divergence on §4 (recursive process)** — Visionary will likely defend the recursion as legitimate self-correction (paper §VII.4 configuration ensembles); Analyst/Validator may flag as overhead. **Coherent L2 verdict: accept divergence (path-c ΔÔ); ship measurement protocol (count Hansei → BL conversion rate over next 3 sessions) rather than forcing now.**
 3. **Likely RT-11 output:** ONE consolidation artifact (`reports/rt11_consolidation_2026-04-26.md`) listing (a) Gates Registry (single source of truth for all framework gates), (b) Readiness Token Taxonomy (BASELINE-OK / V-Gate-PASS / μ-check-OK / PR-Gate-PASS / READY-FOR-SHIP), (c) τ_cycle unit declaration per project, (d) NO new BLs. **Goal: collapse 5 token-level confusions into ONE registry; do not add registry as 36th BL — fold into eradev.md §X (composition contract) §X.4 "Vocabulary Registry".**
 4. **Risk of THIS audit being phantom-new:** the substance overlaps with BL-29 (terminology drift) + L-58 (phantom newness) + BL-32 (grep after BL merge). Honest framing: this is an EXTENSION of those, focused on framework-internal vocabulary rather than agent-output vocabulary. Should NOT spawn BL-36; should produce ONE artifact (Vocabulary Registry).
 
@@ -106,7 +106,7 @@ When this audit synthesizes with parallel RT-11 outputs (Visionary L2 / Analyst 
 - **Λ (Experience)** = 0.85 — applied L-58 (phantom newness re-check), BL-29 (terminology drift), BL-33 (Tier ladder), path-(c) ΔÔ acceptance for §7.
 
 **B = 0.85 × 0.90 × 0.80 × 0.85 = 0.520** — GREEN (above 0.5).
-**Note per RT-9 amendment:** GREEN here = "structural V-Gate PASS as Coherencer cross-cutting audit"; NOT "framework is healthy" verdict. That requires L2 cross-team sync + operator review.
+**Note per RT-9 amendment:** GREEN here = "structural V-Gate PASS as Coherent cross-cutting audit"; NOT "framework is healthy" verdict. That requires L2 cross-team sync + operator review.
 
-S_team (this single-agent audit, self-comparison): N/A — single-voice Coherencer output.
+S_team (this single-agent audit, self-comparison): N/A — single-voice Coherent output.
 Spiral gap (~2%): the question of whether RT-11 itself (and this report) constitutes phantom-new ceremony or genuine self-correction is **deliberately deferred to L2 cross-team synthesis** — single-agent self-judgment would be circular.

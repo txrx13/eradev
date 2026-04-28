@@ -29,7 +29,7 @@
 ## Top 3 healthy hooks
 
 1. **`enforce-delegation.sh`** — clean META whitelist (`reports/`, `lessons.md`, `memory/`, `MEMORY.md`, `BL_CANDIDATES.md`); subagent bypass via `agent_id`; operational-vs-diagnostic Bash classification correct. No FPs found in tested scenarios.
-2. **`agent-role-tag.sh`** — single-job hook; deterministic regex match on `^[VISIONARY|ANALYST|BUILDER|VALIDATOR|COHERENCER]`; trivially correct. Closes Inv 9 cleanly.
+2. **`agent-role-tag.sh`** — single-job hook; deterministic regex match on `^[VISIONARY|ANALYST|BUILDER|VALIDATOR|COHERENT]`; trivially correct. Closes Inv 9 cleanly.
 3. **`bl19-bilingual-sync.sh`** — symmetric (EN→RU and RU→EN both fire); schema file (`domain_skin.md.template`) correctly excluded; 10/10 test scenarios passed in original RT-7 NEXT-B1 commit; pairs explicit + glob-driven, no hardcoded project names. Strong universality.
 
 ## Tier-claim re-check (L-52 sweep verification)

@@ -60,7 +60,7 @@
 
 | | |
 |---|---|
-| Failure | P fix сам станет defensive-механизмом. Retire = Validator-sweep + Coherencer-gate + Hansei = ещё больше audit-cycles. Pruning-organ defensive-template УВЕЛИЧИВАЕТ overhead. |
+| Failure | P fix сам станет defensive-механизмом. Retire = Validator-sweep + Coherent-gate + Hansei = ещё больше audit-cycles. Pruning-organ defensive-template УВЕЛИЧИВАЕТ overhead. |
 | Сценарий | "Quarterly retire-sweep" = новый ritual = budget съеден self-application. Net add: hooks +2, BL +2, reports +N. P "fix" defensive-стиля = D углубление. |
 | Связь | P fix должен быть LEVERAGE (auto-lifecycle: BL валидно K дней, auto-demote по timestamp), не DEFENSIVE (manual audit с RT cycles). |
 | Mitigation hint | TIME/USAGE-DRIVEN, не RITUAL-DRIVEN. Temporal triple `valid_from+ended` уже есть; нужно только auto-trigger по `ended`. Это leverage. |

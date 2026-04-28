@@ -251,8 +251,8 @@ B = F × E × (1−σ) × Λ работает для кода (тест + лог
 Структура таблицы «Role | Task | Checks Owned» переносится 1-в-1 на код, книги, AGI. Это **шаблон делегирования**: каждая роль знает, какие проверки её.
 **Impact**: высокий (организует делегирование без переопределения ролей).
 
-### 8.5. Report Funnel (Builder→Validator→Coherencer→META) → сохраняет контекст META
-Описан в odtoe/AGENTS.md: Builder производит полный артефакт, Validator — Structured Verdict, Coherencer — Cycle Brief, META читает ТОЛЬКО Brief. Тот же принцип работает для кода (diff → test report → commit msg → roadmap update), книги (draft → continuity report → chapter brief → book state) и AGI (raw run → metrics → experiment brief → research state).
+### 8.5. Report Funnel (Builder→Validator→Coherent→META) → сохраняет контекст META
+Описан в odtoe/AGENTS.md: Builder производит полный артефакт, Validator — Structured Verdict, Coherent — Cycle Brief, META читает ТОЛЬКО Brief. Тот же принцип работает для кода (diff → test report → commit msg → roadmap update), книги (draft → continuity report → chapter brief → book state) и AGI (raw run → metrics → experiment brief → research state).
 **Impact**: критический (масштабирует META на XL-проекты).
 
 **Ключевая находка**: все 5 резонансных точек — **НЕ новые изобретения**, а **обобщения УЖЕ работающих механизмов** в odtoe-articles / academic-lab. Универсальный EraDev = **выделить общий слой**, а не «изобретать».
@@ -297,7 +297,7 @@ B = F × E × (1−σ) × Λ работает для кода (тест + лог
 **Критерий успеха:** B≥0.6 для каждого артефакта, S_team между 4 Builders ≥0.85 (показывает, что универсализация не ломает когерентность).
 
 ### Этап 5: Документация (S-задача, ~30 мин)
-**Coherencer:** обновить `projects/README.md` с диаграммой Abstract↔Concrete, bilingual RU/EN.
+**Coherent:** обновить `projects/README.md` с диаграммой Abstract↔Concrete, bilingual RU/EN.
 
 **Общий объём Этапов 1–5**: ~8 часов работы в режиме RT. По классификации задач — L (4 новых проекта, пересмотр ядра, adversarial test).
 

@@ -46,7 +46,7 @@ EraDev operates as a **bilingual system** based on A/B experiment findings:
 | Mixed L/XL with both theory + practice | **BOTH** | parallel groups | EN + RU agents |
 | Ambiguous | **EN** (default) | `eradev.md` | `roles/{role}_EN.md` |
 
-One agent = one stack. No mixing. BOTH mode = parallel agents, Coherencer syncs at RT.
+One agent = one stack. No mixing. BOTH mode = parallel agents, Coherent syncs at RT.
 
 **Bilingual Sync Rule (BL-19):**
 When creating or updating ANY file that has a bilingual counterpart (RU/EN), ALWAYS update BOTH versions in the same operation. Never create or update one without the other. Files without their counterpart are INCOMPLETE. This applies to: role files, eradev.md/eradev_RU.md, meta.md/meta_RU.md, glossary, checklists, README, articles, and all project outputs.
@@ -197,7 +197,7 @@ A task producing a definite artifact with NO objective verification (e.g., "is t
 
 **v9 IN-SCOPE domains (text-discrete artifacts):** code, configs, structured data, articles, books, research papers, theorems and proofs, plans and roadmaps, reference lists, reports, schemas. Each has a corresponding `domain.type` enum value and a corresponding `verify.method`.
 
-**`verify.method` is an EXTENSIBLE REGISTRY.** The framework ships 6 canonical methods: `build` (code), `cite_check` (article), `readability` (book), `parse` (config), `dry_run` (plan), `recompute` (research). These cover the default v9/v10 domains. Projects with specialized verification needs MAY extend the registry by declaring a custom method — examples (not shipped): `statute_check` (legal drafts validated against a jurisdiction's current statute set), `contraindication_scan` (medical protocols scanned against a drug-interaction database), `ingredient_check` (culinary recipes validated against allergen lists), `accessibility_audit` (UI configs validated against WCAG/ARIA rules). Mechanism: set `verify.method: <custom_name>` in the project's `domain:` block AND add a `verify.custom_methods.<custom_name>:` sub-block with `command`, `success_criteria`, `failure_modes`, and `independence_check`. Core framework is agnostic to the method name — Validator, Builder, and Coherencer read `verify.method` from config and act on the declared method regardless of whether it is canonical or custom. See `templates/domain_skin.md.template` for the schema.
+**`verify.method` is an EXTENSIBLE REGISTRY.** The framework ships 6 canonical methods: `build` (code), `cite_check` (article), `readability` (book), `parse` (config), `dry_run` (plan), `recompute` (research). These cover the default v9/v10 domains. Projects with specialized verification needs MAY extend the registry by declaring a custom method — examples (not shipped): `statute_check` (legal drafts validated against a jurisdiction's current statute set), `contraindication_scan` (medical protocols scanned against a drug-interaction database), `ingredient_check` (culinary recipes validated against allergen lists), `accessibility_audit` (UI configs validated against WCAG/ARIA rules). Mechanism: set `verify.method: <custom_name>` in the project's `domain:` block AND add a `verify.custom_methods.<custom_name>:` sub-block with `command`, `success_criteria`, `failure_modes`, and `independence_check`. Core framework is agnostic to the method name — Validator, Builder, and Coherent read `verify.method` from config and act on the declared method regardless of whether it is canonical or custom. See `templates/domain_skin.md.template` for the schema.
 
 **v9 OUT-OF-SCOPE domains (continuous / flow / subjective):** the following are explicitly excluded from v9's coherence math. They are valid domains; they just do not fit v9's calibration.
 
@@ -308,7 +308,7 @@ When team coherence differs from unit coherence, read the gap:
 |:--:|:--:|:--:|---|---|
 | High (≥0.85) | High (≥0.7) | High (≥0.6) | Genuine convergence | Proceed, log as healthy RT |
 | High (≥0.85) | Low (<0.5) | Low (<0.45) | **Phantom coherence** — team agrees in words, quality is weak | STOP, Phantom Coherence Check (BL-5), re-RT with independence enforcement |
-| Low (<0.5) | High (≥0.7) | Low (<0.35) | **Phantom decoherence** — team appears to disagree, but terminology drift hides shared understanding | Coherencer glossary unification (see BL-29 extension), then re-score |
+| Low (<0.5) | High (≥0.7) | Low (<0.35) | **Phantom decoherence** — team appears to disagree, but terminology drift hides shared understanding | Coherent glossary unification (see BL-29 extension), then re-score |
 | Low (<0.5) | Low (<0.5) | Low (<0.25) | Genuine disagreement OR immaturity | RT-2 with escalation to Visionary for scope re-derivation |
 
 **Kill-Switch trigger:** S_adjusted < 0.25 for 2 consecutive rounds → stop current track, invoke meta.md §Kill-Switch.
@@ -373,7 +373,7 @@ where:
 
 **Shape:** monotonic, concave, asymptotic. First lessons give the biggest boost; returns diminish logarithmically. `Ω(0) = 1` exactly (v8 parity). `Ω(15) ≈ 1.42` (EraDev at 15 lessons is ~42% more coherent than at session 1, not 10x). `Ω(250)` clips at the hard ceiling.
 
-**Relevant lesson predicate (Coherencer computes at RT-1, Lambda Audit gate).** A lesson L is relevant to task T iff at least one of the following structural matches holds — semantic keyword echoes do NOT count (phantom-coherence defense):
+**Relevant lesson predicate (Coherent computes at RT-1, Lambda Audit gate).** A lesson L is relevant to task T iff at least one of the following structural matches holds — semantic keyword echoes do NOT count (phantom-coherence defense):
 1. **Same role invoked** — T spawns the same agent role as the agent that generated L
 2. **Same task modality** — T and L share `domain.type` (or T's modality inherits from L's)
 3. **Same artifact type** — T produces the same artifact class as L (e.g., both `.tex`, both YAML config)
@@ -396,7 +396,7 @@ S_total:      0.685  (healthy with memory reinforcement)
 **Thresholds:**
 - `S_adjusted > 0.5` remains the healthy threshold (unchanged from v8).
 - `S_total > 0.7` is the NEW target for v9+ with memory reinforcement active.
-- `S_adjusted` passes but `S_total` fails → team is strong but memory is under-leveraged → Coherencer Lambda Audit escalation.
+- `S_adjusted` passes but `S_total` fails → team is strong but memory is under-leveraged → Coherent Lambda Audit escalation.
 - `Ω > 2.0` → YELLOW warning: "memory dominance detected, consider Kill-Switch Level 3 (cross-domain jump) to force fresh thinking."
 
 **Ceiling justification:** `Ω > 2.5` means past sessions contribute more than 2.5x the current team's own coherence. Past that point the agent is pattern-matching on memory, not reasoning — a dogmatic-collapse signature (Section II, `B → 1` absorbing state). The ceiling is a hard stop against runaway feedback from very large lesson corpora in v10+.
@@ -487,9 +487,9 @@ replaces the classical equality requirement `B_received = B_intended`. `B_min` i
 
 **Per-modality B_min calibration — DEFERRED to v11 (OQ-PT-3).** Intuitively, code (B_text) tolerates lower B_min than research (B_research) because code has objective verification (compile/test) catching residual ΔÔ, while research lacks such fast ground truth. Tentative starting values, NOT yet calibrated: B_min(B_text) ≈ 0.70, B_min(B_creative) ≈ 0.75, B_min(B_research) ≈ 0.85. v10 ships the formula and reporting convention; numeric calibration waits on v11 cross-project RT-3 data.
 
-**Operational shift.** Previously, the implicit Validator target was `B_received ≈ B_intended` (equality). Under F7, the target becomes `B_received ≥ B_min` (threshold). This is a REAL behavioral change: a Validator that rejects a Builder output because the reception deviates from intention — even when the reception is ABOVE B_min — is over-validating and inflating τ_cycle. The Coherencer and Validator roles carry the operational consequence of F7; the math lives here.
+**Operational shift.** Previously, the implicit Validator target was `B_received ≈ B_intended` (equality). Under F7, the target becomes `B_received ≥ B_min` (threshold). This is a REAL behavioral change: a Validator that rejects a Builder output because the reception deviates from intention — even when the reception is ABOVE B_min — is over-validating and inflating τ_cycle. The Coherent and Validator roles carry the operational consequence of F7; the math lives here.
 
-**Per-RIGOR_LEVEL B_min calibration (v10 Bundle D).** Per-modality B_min is RIGOR_LEVEL-dependent, not a fixed constant per domain. Strict work uses tight B_min (hard threshold Validator enforces; tentative B_text=0.70). Structured work uses B_min as a COMMIT target (Builder aims for it; Coherencer flags below-threshold). Exploratory work may use a HIGHER B_min (voice/narrative-quality target) OR advisory B_min (sufficient-for-iterate, not sufficient-for-ship). Emergent work determines B_min POST-HOC — sufficiency is discovered at session end, not pre-gated. OQ-PT-3 (per-modality numeric calibration) + OQ-CR-1 (per-RIGOR_LEVEL numeric calibration) are both deferred to v11 empirical work; v10 Bundle D ships the interpretive layer only.
+**Per-RIGOR_LEVEL B_min calibration (v10 Bundle D).** Per-modality B_min is RIGOR_LEVEL-dependent, not a fixed constant per domain. Strict work uses tight B_min (hard threshold Validator enforces; tentative B_text=0.70). Structured work uses B_min as a COMMIT target (Builder aims for it; Coherent flags below-threshold). Exploratory work may use a HIGHER B_min (voice/narrative-quality target) OR advisory B_min (sufficient-for-iterate, not sufficient-for-ship). Emergent work determines B_min POST-HOC — sufficiency is discovered at session end, not pre-gated. OQ-PT-3 (per-modality numeric calibration) + OQ-CR-1 (per-RIGOR_LEVEL numeric calibration) are both deferred to v11 empirical work; v10 Bundle D ships the interpretive layer only.
 
 #### III.2.6 F10 — Practical value (inverted-U bell curve)
 
@@ -609,7 +609,7 @@ Each step yields a status. The agent proceeds based on the WORST status across a
 
 **Rules:**
 - All 4 steps GREEN -> generate output normally.
-- Any step YELLOW -> generate output but PREFIX it with `[YELLOW: <step> -- <gap description>]`. Coherencer reviews at next RT.
+- Any step YELLOW -> generate output but PREFIX it with `[YELLOW: <step> -- <gap description>]`. Coherent reviews at next RT.
 - Any step RED -> full Andon stop. No output. Report which step and why.
 - Two or more YELLOW steps -> treat as RED (cumulative uncertainty too high).
 
@@ -618,7 +618,7 @@ This replaces the previous binary pass/fail: instead of "stop or go", agents now
 ### Enforcement Gates (Cycle-7)
 
 - **PRE-FLIGHT:** For tasks with external API, Analyst verifies endpoints before RT-1. Unverified = RED on A_F (BL-22).
-- **LAMBDA AUDIT:** At RT-1, Coherencer announces 3 lessons + 2 patterns. Builder cannot name one = Lambda=0, ANDON.
+- **LAMBDA AUDIT:** At RT-1, Coherent announces 3 lessons + 2 patterns. Builder cannot name one = Lambda=0, ANDON.
 - **FIX-TO-SPEC:** Fix chain >= 3 = ANDON. Builder writes specification. Spec passes RT before implementation resumes (BL-3).
 - **BUILD-VERIFY:** Builder MUST run build/compile/lint for every artifact before commit. Unverified artifact = RED on A_sigma. Commit REJECTED until build output attached (BL-6).
 
@@ -629,7 +629,7 @@ If an Enforcement Gate is violated (detected at any point during the cycle):
 | Violation | Immediate Action | Session Impact |
 |-----------|-----------------|----------------|
 | PRE-FLIGHT skipped (BL-22) | Re-verify all endpoints. Work done without verification gets fix_rate penalty. | All unverified commits counted as fixes. |
-| LAMBDA AUDIT failed | Builder output REJECTED. Coherencer re-announces lessons. Builder regenerates. | No commit until audit passes. |
+| LAMBDA AUDIT failed | Builder output REJECTED. Coherent re-announces lessons. Builder regenerates. | No commit until audit passes. |
 | FIX-TO-SPEC triggered (3+ fixes) | Current work FROZEN. Spec-first: write specification, pass RT, then resume. | chain_ratio resets only after spec passes RT. |
 | BUILD-VERIFY skipped (BL-6) | Commit REJECTED. Builder re-runs build, attaches output. | Unverified commit counted as fix in fix_rate. |
 
@@ -661,14 +661,14 @@ Before RT-1 proceeds, Visionary MUST answer the Apophatic question:
 
 If YES -> proceed to RT-1.
 If NO -> task is OUT OF DOMAIN. Apply Section II.2 OOD protocol.
-If UNCERTAIN -> Coherencer runs a probe: attempt task decomposition with 3 independent approaches. If >=2 fail to decompose -> declare OOD.
+If UNCERTAIN -> Coherent runs a probe: attempt task decomposition with 3 independent approaches. If >=2 fail to decompose -> declare OOD.
 
 The Apophatic Gate is NOT a role -- it is a pre-RT-1 enforcement checkpoint.
 It preserves n_min = 5 (the R/r = phi torus ratio is unchanged).
 It operationalizes the OOD boundary that Section II.2 defines theoretically.
 
 **Gate location in RT protocol:** after RT-0 (Visionary solo) and before RT-1.
-**Gate owner:** Visionary (primary) + Coherencer (tie-breaker probe).
+**Gate owner:** Visionary (primary) + Coherent (tie-breaker probe).
 **Gate output:** PROCEED / OOD-REJECT / PROBE-NEEDED.
 
 **What the Apophatic Gate catches that existing gates do not:**
@@ -679,9 +679,9 @@ It operationalizes the OOD boundary that Section II.2 defines theoretically.
 **Apophatic Gate is NOT:**
 - A 6th role (n remains 5, torus topology preserved, R/r = phi unchanged).
 - A replacement for Validator verification (Apophatic screens BEFORE work; Validator verifies AFTER work).
-- A replacement for Coherencer flow protection at RT-2 (Apophatic is pre-RT-1 only; Coherencer monitors mid-cycle).
+- A replacement for Coherent flow protection at RT-2 (Apophatic is pre-RT-1 only; Coherent monitors mid-cycle).
 
-**Evaluation criterion:** if the gate fires on >20% of real tasks, reconsider role promotion in v11. If <5%, the dual-role approach (Visionary scope + Coherencer flow) is sufficient and the gate may be retired.
+**Evaluation criterion:** if the gate fires on >20% of real tasks, reconsider role promotion in v11. If <5%, the dual-role approach (Visionary scope + Coherent flow) is sufficient and the gate may be retired.
 
 ### Universality Gate (v10)
 
@@ -734,7 +734,7 @@ Emergent practices from τ_cycle primacy (Invariant 17, F3 v_conv):
 
 3. **B_min sufficiency, not equality**: target B_received ≥ B_min per F7. Stop polishing when threshold crossed. Excess refinement is Muda (overprocessing). **Qualifier (Bundle D):** For creative modalities / exploratory RIGOR_LEVEL, B_min may intentionally be set higher (voice quality, narrative coherence target); sufficiency means "reaches the target bar for THIS work", not "minimum permissible for any task". At emergent level, B_min is POST-HOC (determined after iteration, not during). Per-RIGOR_LEVEL calibration deferred to v11 (see OQ-CR-1 in §III.2.8).
 
-4. **Path-(c) tolerance**: structural Ô divergence is sometimes legitimate. Coherencer accepts ΔÔ ≠ 0 when convergence attempts fail after one pass (see coherent role file path-(c) subsection). [UNIVERSAL — even more essential in FLUX where legitimate voice-divergence is the feature, not the bug.]
+4. **Path-(c) tolerance**: structural Ô divergence is sometimes legitimate. Coherent accepts ΔÔ ≠ 0 when convergence attempts fail after one pass (see coherent role file path-(c) subsection). [UNIVERSAL — even more essential in FLUX where legitimate voice-divergence is the feature, not the bug.]
 
 These four habits compound: (1)×(2)×(3)×(4) = reduced fix chains, fewer RT-2 reopens, measurable token savings — subject to the mode-sensitive reading above.
 
@@ -751,11 +751,11 @@ Loss of any one role degrades the team but does not kill it.
 | **Analyst** | O_hat (observation) | How exactly? | F (focus) |
 | **Builder** | R (result) | What is done? | E (energy) |
 | **Validator** | iota (feedback) | Does it match? | (1-sigma) |
-| **Coherencer** | S (coherence) | Do we all see the same? | Balanced |
+| **Coherent** | S (coherence) | Do we all see the same? | Balanced |
 
 **Data flow** (torus topology):
 - Inner ring (fast): Analyst <-> Builder <-> Validator -- technical iteration.
-- Outer ring (slow): Visionary <-> Coherencer <-> Analyst -- strategy, sync.
+- Outer ring (slow): Visionary <-> Coherent <-> Analyst -- strategy, sync.
 - R/r = phi (golden ratio) -- maximum stability per KAM theorem.
 
 ---
@@ -771,7 +771,7 @@ All 5 agents answer from their role (5-10 sentences each):
 - Analyst: How? Which files? Dependencies?
 - Builder: What is simplest now? Technical difficulties?
 - Validator: How to test? Edge cases?
-- Coherencer: Connection to previous? Lessons from MEMORY?
+- Coherent: Connection to previous? Lessons from MEMORY?
 
 Coordinator synthesizes into Unified Plan.
 
@@ -780,7 +780,7 @@ Coordinator synthesizes into Unified Plan.
 (Glossary canonical term: **"cross-phase coupling risk"** — see glossary.md #47. "Composition hazard" is the project-local alias; both refer to the same entity.)
 
 When the task plan lists >=2 independent refactors in one release window, Visionary MUST
-author a composition-hazards grid BEFORE Coherencer synthesizes Unified Plan. Grid format:
+author a composition-hazards grid BEFORE Coherent synthesizes Unified Plan. Grid format:
 
 | Pair/Triple | Impact | Precondition | Mitigation | Sequencing constraint |
 |-------------|--------|--------------|------------|-----------------------|
@@ -788,7 +788,7 @@ author a composition-hazards grid BEFORE Coherencer synthesizes Unified Plan. Gr
 
 Minimum pairs: N*(N-1)/2. For N >= 3: add all 3-way combinations.
 Output: `reports/composition-hazards-<date>.md` (template: `templates/composition_hazards.template.md`).
-Coherencer REJECTS RT-1 synthesis without it.
+Coherent REJECTS RT-1 synthesis without it.
 
 A 2026-04-20 multi-refactor Hansei (see `reports/` for provenance) documented 6 pairwise hazards (H1-H6) for 10 proposed refactors that
 would have collapsed into 3 production incidents if shipped as a parallel menu.
@@ -818,16 +818,16 @@ Ratio follows golden section: phi/(1+phi) = 0.618 expansion, 1/(1+phi) = 0.382 c
 | Phase | Model | Protocol |
 |-------|-------|----------|
 | **RT-1** (understanding) | Parallel 5 | All agents receive raw task simultaneously. No agent sees another's output. META synthesizes. |
-| **RT-2** (correction) | Hybrid | Coherencer broadcasts RT-1 synthesis -> 4 roles assess in parallel -> Coherencer re-synthesizes. |
+| **RT-2** (correction) | Hybrid | Coherent broadcasts RT-1 synthesis -> 4 roles assess in parallel -> Coherent re-synthesizes. |
 | **RT-3** (acceptance) | Parallel 5 | Independent go/no-go from each role. No groupthink. META counts verdicts. |
 | **Execution M** | Sequential pairs | Builder -> Validator -> iterate. Inner ring of torus. |
 | **Execution S** | Sequential pair | Builder fixes -> Validator verifies. No RT cycle. Validator MUST run even for trivial fixes. |
-| **Execution L/XL** | Parallel + gate | N Builders parallel -> Coherencer cross-check gate (terminology, interfaces) -> Validators parallel. |
+| **Execution L/XL** | Parallel + gate | N Builders parallel -> Coherent cross-check gate (terminology, interfaces) -> Validators parallel. |
 
 Why parallel for RT-1/RT-3: independent perspectives prevent confirmation bias (evidence: S_team=0.97 but S_adjusted=0.33 under sequential anchoring).
 Why hybrid for RT-2: shared frame exists from RT-1; assessment itself is parallel.
 Why sequential for M execution: fast Builder-Validator feedback on inner torus ring.
-Why parallel+gate for L/XL: speed of parallel + Coherencer sync gate (BL-29 terminology, BL-28 context).
+Why parallel+gate for L/XL: speed of parallel + Coherent sync gate (BL-29 terminology, BL-28 context).
 
 ### VI.1 FLUX RT Protocol (exploratory / emergent RIGOR_LEVEL, v10 Bundle D)
 
@@ -840,17 +840,17 @@ Why parallel+gate for L/XL: speed of parallel + Coherencer sync gate (BL-29 term
 - τ_cycle is NOT the primary optimization target in FLUX segments. Invariant #17 [CODE-ADAPTER] explicitly exempts exploratory/emergent segments; a 24-48 hour incubation gap between drafts is PERMITTED — it is NOT a fix chain (BL-3 does NOT trigger on iteration count for FLUX), it is NOT a τ_cycle violation. Paper's F3 (v_conv) formula still describes dynamics but α is lower and the practical implication inverts: reformulation return is not immediate for incubation-bearing work.
 
 **U — Unit-of-voice protection.**
-- FLUX segments can have a SINGLE agent as voice-keeper (typically Builder). `Λ_role = 0` is PERMITTED when voice coherence is load-bearing — paper's F2' allows Λ_role=0 as a degenerate case; FLUX explicitly admits it. Coherencer enforces voice consistency ACROSS segments (cross-chapter, cross-section), not WITHIN a segment. Multi-Builder parallel work on a single voice-unit is FORBIDDEN under FLUX (opposite of structured/strict where parallelism is encouraged).
+- FLUX segments can have a SINGLE agent as voice-keeper (typically Builder). `Λ_role = 0` is PERMITTED when voice coherence is load-bearing — paper's F2' allows Λ_role=0 as a degenerate case; FLUX explicitly admits it. Coherent enforces voice consistency ACROSS segments (cross-chapter, cross-section), not WITHIN a segment. Multi-Builder parallel work on a single voice-unit is FORBIDDEN under FLUX (opposite of structured/strict where parallelism is encouraged).
 
 **X — eXploratory deliverable.**
-- Builder's exit criterion is "the artifact is GOOD ENOUGH to iterate on" — not "contracts-complete," not "all AC satisfied," not "F7 B_min crossed for all consumers." Validator's role is ADVISORY: emits `[FLUX ADVISORY: findings]`, does not block commit. Coherencer catches GENUINE incoherence (voice drift, glossary contradictions, narrative contradictions across segments) but ALLOWS legitimate divergence (new theme, unforeseen argument structure, mid-draft reframing).
+- Builder's exit criterion is "the artifact is GOOD ENOUGH to iterate on" — not "contracts-complete," not "all AC satisfied," not "F7 B_min crossed for all consumers." Validator's role is ADVISORY: emits `[FLUX ADVISORY: findings]`, does not block commit. Coherent catches GENUINE incoherence (voice drift, glossary contradictions, narrative contradictions across segments) but ALLOWS legitimate divergence (new theme, unforeseen argument structure, mid-draft reframing).
 
 **FLUX vs BIM RT protocol at a glance:**
 
 | Phase | BIM (strict/structured) | FLUX (exploratory/emergent) |
 |---|---|---|
 | RT-0 Visionary solo | IFR past-tense with measurable AC | IFR as DIRECTION with experiential criteria |
-| RT-1 parallel 5-agent | All 5 roles, full Output Formats | Visionary + Analyst (voice guide + glossary seed) + Builder assignment; Validator + Coherencer delayed to post-draft |
+| RT-1 parallel 5-agent | All 5 roles, full Output Formats | Visionary + Analyst (voice guide + glossary seed) + Builder assignment; Validator + Coherent delayed to post-draft |
 | μ-check | BLOCKING via `doc_alignment` | ADVISORY via `flux_check`; emit `[FLUX segment entered: {scope}, exit criterion: good-enough-to-iterate]` |
 | Build | Short cycles, Jidoka during | Single agent, free-flow, Jidoka AFTER |
 | Validate | Full verification, gate | ADVISORY findings, no gate |
@@ -858,8 +858,8 @@ Why parallel+gate for L/XL: speed of parallel + Coherencer sync gate (BL-29 term
 | RT-3 | A3 + S_session + prediction delta | A3 + consolidation of emergent findings for future strict/structured work |
 
 **Mode transitions (FLUX ↔ BIM).** Transition triggers:
-- **FLUX → BIM:** Visionary sees enough structure in FLUX output to specify AC; operator requests "this section is stable now — lock it"; or after N FLUX iterations (default 3, project-configurable) Coherencer asks "Is this still emergent, or are we circling?" If circling, propose transition to structured.
-- **BIM → FLUX:** Strict segment failing to converge — Coherencer proposes: "the spec is preventing solution; drop to exploratory for one iteration, re-spec after."
+- **FLUX → BIM:** Visionary sees enough structure in FLUX output to specify AC; operator requests "this section is stable now — lock it"; or after N FLUX iterations (default 3, project-configurable) Coherent asks "Is this still emergent, or are we circling?" If circling, propose transition to structured.
+- **BIM → FLUX:** Strict segment failing to converge — Coherent proposes: "the spec is preventing solution; drop to exploratory for one iteration, re-spec after."
 - Transitions DOCUMENTED in the Unified Plan (§Rigor Map) or its FLUX equivalent, the Voice Guide.
 
 **FLUX exit criterion:** operator / Visionary says "this is alive; ship" — artifact is good-enough-to-iterate, voice is coherent, B_received ≥ B_min for target-not-perfection, Ô declared.
@@ -867,7 +867,7 @@ Why parallel+gate for L/XL: speed of parallel + Coherencer sync gate (BL-29 term
 **Relation to existing mechanisms:**
 - **EMP7 orientation loop > optimization loop:** FLUX implements EMP7 directly — orientation primary in exploratory work, optimization secondary.
 - **Paper §VII.4 configuration ensemble:** FLUX is the C-for-exploratory configuration; BIM is the C-for-strict configuration. Both are legitimate; different phases use different ones.
-- **Book skin R-checks:** R1 (readability), R2 (continuity), R3 (glossary) map to FLUX Coherencer's cross-chapter coherence role. R4 (outline fidelity) is RELAXED in FLUX (outline may intentionally evolve).
+- **Book skin R-checks:** R1 (readability), R2 (continuity), R3 (glossary) map to FLUX Coherent's cross-chapter coherence role. R4 (outline fidelity) is RELAXED in FLUX (outline may intentionally evolve).
 - **Paper §X.5 Four Working Habits:** FLUX keeps habits #2 (Ô declaration) + #4 (path-(c) tolerance) universal; rephrases habit #1 (cycles appropriate to incubation needs, polish is not Muda when voice-dependent) and habit #3 (B_min as soft guidance, not hard gate). See §IV Four Working Habits "Mode-sensitive reading" note.
 - **Paper §VIII.8 micro-check:** FLUX runs micro-check AT SEGMENT BOUNDARIES ("how did you hear this draft?"), not WITHIN a segment (flow protection).
 
@@ -905,7 +905,7 @@ L9 (self-modifying framework) applied to itself produces L10 when:
 1. Lessons tagged `cross_project: true` in project A's lessons.md
    are automatically discoverable by agents working on project B
 2. The discovery is not manual (operator copying) but mechanical
-   (Coherencer cross-project scan at session start, per meta.md item 9)
+   (Coherent cross-project scan at session start, per meta.md item 9)
 3. The discovered lessons actually IMPROVE project B's B-score
    (measured via Omega multiplier on Lambda)
 
@@ -970,7 +970,7 @@ Scaling formula: N_teams = ceil(N_modules / 3).
 
 ### X.1 Per-role agent counts (composition contract)
 
-| Task | Visionary | Analyst | Builder | Validator | Coherencer |
+| Task | Visionary | Analyst | Builder | Validator | Coherent |
 |------|:--:|:--:|:--:|:--:|:--:|
 | S | 0-1 | 0-1 | 1 | 1 | 0 |
 | M | 1 | 1 | 1 | 1 | 1 |
@@ -979,9 +979,9 @@ Scaling formula: N_teams = ceil(N_modules / 3).
 
 **Floor, not ceiling**: above are minimum spawn contracts. Invariant 13 authorizes additional parallel agents when scopes are demonstrably independent and File Ownership Protocol holds. Domain skins MAY override per project-specific needs (e.g., article skin's 2-Builder XL trigger).
 
-**RIGOR_LEVEL override** (FLUX, see §VI.1): exploratory/emergent segments may collapse to Visionary-solo + advisory Validator; Builder/Analyst/Coherencer participation per Visionary judgment.
+**RIGOR_LEVEL override** (FLUX, see §VI.1): exploratory/emergent segments may collapse to Visionary-solo + advisory Validator; Builder/Analyst/Coherent participation per Visionary judgment.
 
-### Coherencer Hierarchy (for multi-team)
+### Coherent Hierarchy (for multi-team)
 - **L1**: Within team. Always present. Syncs 4 roles.
 - **L2**: Between teams. Activated at 2+ teams. Resolves conflicts.
 - **L3**: Global. Activated at 5+ teams or phase-level. ROADMAP, architecture.
@@ -996,10 +996,10 @@ When 2+ Builders work in parallel, Analyst MUST assign files:
 ### X.2 Parallel per-role spawn patterns
 
 - **Visionary**: SINGLETON across RT cycle. Multiple Visionaries violate IFR uniqueness (one True North per task). Visionary-parallel FORBIDDEN.
-- **Analyst**: parallel ALLOWED when scopes are disjoint axes (e.g., one for design, one for empirical audit, one for risk pre-mortem). Coherencer reconciles.
+- **Analyst**: parallel ALLOWED when scopes are disjoint axes (e.g., one for design, one for empirical audit, one for risk pre-mortem). Coherent reconciles.
 - **Builder**: parallel ALLOWED when File Ownership Protocol assigns disjoint file regions. BL-29 phantom-decoherence guard applies on shared terminology.
 - **Validator**: 1:1 with Builders by default (each Builder gets dedicated Validator). May SHARE Validator across multiple Builders only when blast radius is LOW and verify.method is identical. Invariant 11 mandates Builder COMPLETES first.
-- **Coherencer**: hierarchy-only spawning. One L1 per RT cycle. **L2 mandatory when N_Builders >= 2.** L3 mandatory for XL or cross-project tasks.
+- **Coherent**: hierarchy-only spawning. One L1 per RT cycle. **L2 mandatory when N_Builders >= 2.** L3 mandatory for XL or cross-project tasks.
 
 Authorization composite: Invariant 13 (parallelize independent) + File Ownership (disjoint regions) + N_teams = ceil(N_modules/3) (capacity).
 
@@ -1007,11 +1007,11 @@ Authorization composite: Invariant 13 (parallelize independent) + File Ownership
 
 §X.1 floor counts and §X.2 parallel patterns are operational invariants but cannot be hook-enforced (PreToolUse on Agent tool doesn't have access to overall task classification — only per-call prompt/description).
 
-**Tier**: T3 (Coherencer audit + agent-role-tag.sh advisory). Enforcement protocol:
+**Tier**: T3 (Coherent audit + agent-role-tag.sh advisory). Enforcement protocol:
 - agent-role-tag.sh hook (T2): blocks Agent calls without [ROLE] tag — partial cover
 - rt1-composition-gate.sh hook (T2): blocks RT-1 missing Composition Hazards Grid for ≥2 refactors (BL-34) — partial cover
-- Coherencer Hansei sweep (T3): every 4 sessions, audit last 50 commits for agent-count-vs-task-classification matches; flag deviations
-- Operator can request explicit audit anytime via Coherencer Check Agent
+- Coherent Hansei sweep (T3): every 4 sessions, audit last 50 commits for agent-count-vs-task-classification matches; flag deviations
+- Operator can request explicit audit anytime via Coherent Check Agent
 
 This is an HONEST T3 declaration (audit cadence + 2 partial T2 hooks) rather than fake T2 promise. Per L-52 + EMP19.
 
@@ -1056,7 +1056,7 @@ Adding a new term requires checking this registry first (anti-phantom-decoherenc
   2. Analyst: "What is the CURRENT state? What gap?"
   3. Builder: "What OBSTACLES? What is technically hard?"
   4. Validator: "How to VERIFY the step worked?"
-  5. Coherencer: "What ALREADY happened? Which lessons apply?"
+  5. Coherent: "What ALREADY happened? Which lessons apply?"
 
 ### Liveness Prerequisite (v10, BL-47 promoted)
 
@@ -1163,7 +1163,7 @@ Max 500 words. Concise. Structured.
 | Configuration inertia I(C) | Resistance to reconfiguration | Blast radius of task (LOW/MED/HIGH/CRIT) |
 | Adaptive attractor | Configuration with maximum stability | True North |
 | Coherence cluster | Co-observers with S > threshold | Team (five-person unit) |
-| Cluster hierarchy | Atom -> Molecule -> ... -> Universe | L1 -> L2 -> L3 Coherencers |
+| Cluster hierarchy | Atom -> Molecule -> ... -> Universe | L1 -> L2 -> L3 Coherents |
 | Damper capacity | Buffer for smoothing fluctuations | MEMORY.md, A3 as inter-session memory |
 | Config lifetime T(C) | T0 / (1-S)^n | Stability of deployment |
 | Noise dispersion D(eta) | D0 * (1-S) | Error rate at given team coherence |

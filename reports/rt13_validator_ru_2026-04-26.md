@@ -103,7 +103,7 @@
 **Proof sketch:**
 1. Composition of non-expansive maps in Banach space is non-expansive: `k_cure ≤ k_P · k_M · k_D ≤ 1`.
 2. For fixed-point existence (Banach), need **strict contraction** `k_cure < 1` at least asymptotically. Получается ТОЛЬКО когда `k_P < 1` fires — т.е. retire-events происходят с positive frequency.
-3. Если retire-cadence = 0 (P spec'ed но never fires — например Coherencer veto на каждый retire), `k_cure = 1` → non-expansive но не contraction → fixed point may not exist (just bounded orbit).
+3. Если retire-cadence = 0 (P spec'ed но never fires — например Coherent veto на каждый retire), `k_cure = 1` → non-expansive но не contraction → fixed point may not exist (just bounded orbit).
 
 **Critical condition C1:** `Φ_cure` contractive **iff retire-frequency > 0 in steady state.** P не просто installed — он МУСТ fire с min cadence (e.g., ≥1 retire per 4 sessions). Без этого triple ничего не contracts.
 

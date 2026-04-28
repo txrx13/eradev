@@ -279,7 +279,7 @@ From skin Section "Role Focus Overrides > Validator > Jidoka self-check (article
 | **BL-17** (Check-First — pre-generate verification) | No visible Check-First log inside article. | N/A for Validator (Analyst evidence). |
 | **BL-19** (Bilingual 8-file set simultaneous) | **7 of 8 files at root.** Files present at `/Users/antonpankratov/Downloads/odtoe/`: `.tex` RU+EN, `.pdf` RU+EN, `.docx` RU+EN, `.md` RU only. **MISSING at root: `ODTOE_phi_fractality_EN.md`**. The 2 `.md` files (RU+EN) exist in `для сайта/` subdirectory with mtimes Apr 8 10:52 — 3 weeks AFTER the other 7 files (Mar 19). Per config.md line 70 ("`.md` files are placed NEXT TO `.tex`/`.pdf`/`.docx` in the odtoe root directory, NOT in a separate folder"), this is a direct violation. | **FAIL — DEF-6** |
 | **BL-24** (One commit = one section's bilingual 8-file update) | The 2 `.md` files are 3 weeks out-of-sync with the source. Same BL-24 violation pattern as first smoke test. | **FAIL as a historical note** |
-| **BL-29** (Verify established terminology before generating) | Glossary.md not in Validator session scope. | N/A; flag for Coherencer |
+| **BL-29** (Verify established terminology before generating) | Glossary.md not in Validator session scope. | N/A; flag for Coherent |
 | **BL-32** (Grep after BL merge / corpus-level symbol check) | Within-article symbol check: PASS. `φ`, `ψ`, `π`, `Φ`, `Ψ`, `\hat{O}`, `\iota` used consistently. Cross-corpus out of scope. | PASS within-article |
 
 ### L2 lessons.md enforcement (from pre-flight + this session)
@@ -369,7 +369,7 @@ The first smoke test was on a quantitative/empirical article — the vocabulary 
 - **"Section / subsection"** (vocab row 3) applied unmodified — 13 sections, 14 subsections, all verified by structural count.
 - **"Bibliography entry"** (vocab row 13) and **"claim attribution"** (implicit in C2) were the frame I used for C1 and C2.
 - **"Render"** (vocab row 4) — I verified the existing .log file and .pdf artifact as evidence of prior successful render. The first smoke test also relied on this; I'm extending that pattern.
-- **"Corpus collision"** (Visionary vocab, implicit Coherencer failure mode) — I specifically avoided flagging the `φ` symbol as colliding with anything else in the corpus because this is the canonical ODTOE notation, not a collision.
+- **"Corpus collision"** (Visionary vocab, implicit Coherent failure mode) — I specifically avoided flagging the `φ` symbol as colliding with anything else in the corpus because this is the canonical ODTOE notation, not a collision.
 
 The one place the vocabulary did NOT cover: the `S(ρ_d) ∝ φ^(-|d-d_0|)` formula is an EXTERNAL derivation (attributed to `[3]`), not an in-article one. There is no skin term for "claim derived externally, quoted verbatim" — the Rybakov markers (`[FACT: source]` vs `[DERIVATION: axiom]`) would handle this, but only if the article had them. **This is a content-type the skin under-serves.** See Q3 skin observation 3 below.
 
@@ -377,7 +377,7 @@ The one place the vocabulary did NOT cover: the `S(ρ_d) ∝ φ^(-|d-d_0|)` form
 
 I observed 3 skin issues specific to this article type (purely theoretical, no empirical content), plus I RE-CONFIRM the 4 observations from the first smoke test (skin-DEF-a through skin-DEF-d). Since those 4 are being addressed by a parallel Builder, I focus here on NEW observations:
 
-**Skin-DEF-e (low): C5 threshold not defined.** The skin's C5 ("self-citation sanity") section says Validator + Coherencer judge this at L2 with "human judgment + Coherencer review." This article has a **55.6% in-text self-cite rate** — is that a PASS, PASS WITH NOTES, or FAIL? The skin gives no quantitative threshold. The first smoke test target had 27% and I called it PASS WITH NOTES; this one has 56% and I also called it PASS WITH NOTES (DEF-4) — but I could have justified calling 56% a BLOCK. The skin should provide guidance: either a numeric threshold (e.g., "> 40% in-text self-cite = BLOCK for external submission, PASS for internal corpus extension") or explicit "Validator judgment — document the rate and let Coherencer decide at RT-2."
+**Skin-DEF-e (low): C5 threshold not defined.** The skin's C5 ("self-citation sanity") section says Validator + Coherent judge this at L2 with "human judgment + Coherent review." This article has a **55.6% in-text self-cite rate** — is that a PASS, PASS WITH NOTES, or FAIL? The skin gives no quantitative threshold. The first smoke test target had 27% and I called it PASS WITH NOTES; this one has 56% and I also called it PASS WITH NOTES (DEF-4) — but I could have justified calling 56% a BLOCK. The skin should provide guidance: either a numeric threshold (e.g., "> 40% in-text self-cite = BLOCK for external submission, PASS for internal corpus extension") or explicit "Validator judgment — document the rate and let Coherent decide at RT-2."
 
 **Skin-DEF-f (low): C6 is "abstract vs. body consistency" — not "asserted formula vs. derived formula".** The article's central new claim is `S(ρ_d) ∝ φ^(-|d-d_0|)`, attributed to a Pankratov preprint `[3]`. The formula is ASSERTED in Section III.2, USED in Section VI.2, and RE-ASSERTED in conclusion. The article never derives it. C6 (factual consistency) cannot catch this because C6 is "do numbers agree across occurrences" — and the formula is consistent with itself everywhere. Check 4 (no fitting) doesn't catch it either because it isn't fitted. **The gap is that there is no skin check for "central claims that are quoted from external sources need visible derivation or explicit `[DERIVATION: external]` tagging."** Consider adding a C7 or a C6b: "asserted formula integrity — every load-bearing formula must either be derived within the article OR explicitly marked as an external cite with page/section pointer to the derivation."
 
@@ -452,7 +452,7 @@ Rationale: The skin's C1-C6 protocol found defects on this target via **differen
 - DEF-2 (Hofstadter weak attribution) — skin C2 best-effort spot-check
 - DEF-3 (unverifiable self-cite for central formula) — skin C2 L2 discipline
 - DEF-5 (asserted-without-derivation flag) — skin's Check 8 / Check 4 awareness pushed me to notice this even though the article pre-dates Check 8
-- DEF-6 (BL-19 EN.md placement) — skin's BL-19 + Coherencer section explicit rule
+- DEF-6 (BL-19 EN.md placement) — skin's BL-19 + Coherent section explicit rule
 
 **What the second smoke test additionally surfaced (not in first smoke test):**
 - Skin-DEF-e: C5 threshold is undefined — a 55.6% self-cite rate fell into my judgment gap

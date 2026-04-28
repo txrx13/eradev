@@ -59,7 +59,7 @@ When team coherence differs from unit coherence, read the gap:
 |:--:|:--:|:--:|---|---|
 | High (≥0.85) | High (≥0.7) | High (≥0.6) | Genuine convergence | Proceed, log as healthy RT |
 | High (≥0.85) | Low (<0.5) | Low (<0.45) | **Phantom coherence** — team agrees in words, quality is weak | STOP, Phantom Coherence Check (BL-5), re-RT with independence enforcement |
-| Low (<0.5) | High (≥0.7) | Low (<0.35) | **Phantom decoherence** — team appears to disagree, but terminology drift hides shared understanding | Coherencer glossary unification (see BL-29 extension), then re-score |
+| Low (<0.5) | High (≥0.7) | Low (<0.35) | **Phantom decoherence** — team appears to disagree, but terminology drift hides shared understanding | Coherent glossary unification (see BL-29 extension), then re-score |
 | Low (<0.5) | Low (<0.5) | Low (<0.25) | Genuine disagreement OR immaturity | RT-2 with escalation to Visionary for scope re-derivation |
 
 **Kill-Switch trigger:** S_adjusted < 0.25 for 2 consecutive rounds → stop current track, invoke meta.md §Kill-Switch.
@@ -92,7 +92,7 @@ Cross-reference: BL-5 (Phantom Coherence Check) for high-S low-B case; BL-29 (ve
 **Source:** Hansei — gravity session (April 2026), terminology drift across parallel Builder outputs
 **Rule:** Before generating any artifact for an existing project, grep/read the project's existing outputs to identify established terminology, naming conventions, and notation patterns. Use them exactly. Do not invent new terms, transliterations, or abbreviations when the project already has established ones.
 **Why:** Three Builders working in parallel each chose different transliterations and notation styles, creating inconsistencies that required manual cleanup. The cost of reading existing conventions first is seconds; the cost of harmonizing divergent terminology after generation is hours. This generalizes beyond articles to code (variable naming, API conventions), docs (glossary terms), and configs (key naming patterns).
-**Applies to:** Builder (pre-generation check), Validator (terminology consistency audit), Coherencer (cross-Builder sync)
+**Applies to:** Builder (pre-generation check), Validator (terminology consistency audit), Coherent (cross-Builder sync)
 
 ### BL-30: Defense-In-Depth for Enforcement [UNIVERSAL]
 ```
@@ -104,13 +104,13 @@ Cross-reference: BL-5 (Phantom Coherence Check) for high-S low-B case; BL-29 (ve
 **Source:** Hansei — gravity session (April 2026), terminology drift across parallel Builder outputs
 **Rule:** Before generating any artifact for an existing project, grep/read the project's existing outputs to identify established terminology, naming conventions, and notation patterns. Use them exactly. Do not invent new terms, transliterations, or abbreviations when the project already has established ones.
 **Why:** Three Builders working in parallel each chose different transliterations and notation styles, creating inconsistencies that required manual cleanup. The cost of reading existing conventions first is seconds; the cost of harmonizing divergent terminology after generation is hours. This generalizes beyond articles to code (variable naming, API conventions), docs (glossary terms), and configs (key naming patterns).
-**Applies to:** Builder (pre-generation check), Validator (terminology consistency audit), Coherencer (cross-Builder sync)
+**Applies to:** Builder (pre-generation check), Validator (terminology consistency audit), Coherent (cross-Builder sync)
 
 **Phantom DECOHERENCE (v9 Wave 9 extension, symmetric to BL-5 phantom coherence):**
-When S_team is low but B_mean is high, the team may not be disagreeing on substance — they may be using different terminology for the same concept. This is the symmetric failure of phantom coherence. Coherencer MUST:
+When S_team is low but B_mean is high, the team may not be disagreeing on substance — they may be using different terminology for the same concept. This is the symmetric failure of phantom coherence. Coherent MUST:
 
 1. Before declaring "team disagrees", run a glossary unification pass: extract key terms each role uses, check for synonyms, translate across terminology systems (code vs paper vs mathematical formalism).
-2. If synonym analysis reduces the disagreement surface by ≥40%, re-score S_team on the unified terminology. Report both original S_team and unified S_team in the Coherencer output.
+2. If synonym analysis reduces the disagreement surface by ≥40%, re-score S_team on the unified terminology. Report both original S_team and unified S_team in the Coherent output.
 3. If disagreement persists after glossary unification, it's genuine divergence — escalate to Visionary for scope re-derivation.
 
 **Symptom of phantom decoherence:** S_team < 0.5 AND B_mean ≥ 0.7 AND pair-wise role outputs share entities but disagree on predicates.
@@ -291,7 +291,7 @@ $ wc -l eradev.md eradev_RU.md
 
 - **OQ-W9-3 (structural pre-existing drift, NOT introduced by Wave 9):** `eradev.md` §0 has a terse one-line `**Bilingual Sync Rule:** see BL-19...` while `eradev_RU.md` §0 has a longer two-line `**Bilingual Sync Rule (BL-19):**` block (with a full-sentence explanation in Russian). This is pre-existing drift, not caused by Wave 9. Line parity between EN and RU is maintained because the RU §0 has 2 lines of Bilingual Sync text vs EN's 1 line, and some other place in §0 has 1 line less in RU to compensate. Did NOT attempt to fix this in Wave 9 (out of scope). Flagging for future L1 (process canonical) drift audit.
 
-- **OQ-W9-4:** REC-1's new phantom-decoherence row (Low S_team / High B_mean / Low S_adjusted < 0.35) introduces a 4th diagnostic scenario to eradev.md §III that was previously absent. The Kill-Switch section (§XIII, not touched) does NOT currently enumerate what action to take for phantom decoherence — only phantom coherence. The new matrix delegates the phantom-decoherence action to "Coherencer glossary unification (see BL-29 extension)" — which is correctly in scope via BL-29's new REC-2 block. But §XIII Kill-Switch itself doesn't yet mention phantom decoherence. This is intentional — Wave 9 is additive content only, not §XIII restructuring — but future Validator or META may want to add a one-line cross-reference to §XIII pointing at §III.1 and BL-29 extension. Logged for future waves.
+- **OQ-W9-4:** REC-1's new phantom-decoherence row (Low S_team / High B_mean / Low S_adjusted < 0.35) introduces a 4th diagnostic scenario to eradev.md §III that was previously absent. The Kill-Switch section (§XIII, not touched) does NOT currently enumerate what action to take for phantom decoherence — only phantom coherence. The new matrix delegates the phantom-decoherence action to "Coherent glossary unification (see BL-29 extension)" — which is correctly in scope via BL-29's new REC-2 block. But §XIII Kill-Switch itself doesn't yet mention phantom decoherence. This is intentional — Wave 9 is additive content only, not §XIII restructuring — but future Validator or META may want to add a one-line cross-reference to §XIII pointing at §III.1 and BL-29 extension. Logged for future waves.
 
 - **OQ-W9-5 (nothing to add, just explicit confirmation):** Wave 9 did NOT close DEFER-1 through DEFER-4 from the mining report. φ-weighted S_team, phase-adaptive weights, toroidal topology, and CONSTANTS_REGISTRY.md are all still correctly deferred to v10+. Wave 9's scope was exactly REC-1/2/3 and no more.
 
@@ -304,7 +304,7 @@ Framework canonical text (eradev.md / eradev_RU.md / BL files):
 - [x] No leaked private information; no attributable personal data (all references are to public wave reports and the mining report, which is part of this repo).
 - [x] All claims cross-reference a real source (BL-5, BL-29, ODTOE paper §III.8, Wave 5 DEF-2, Wave 7 W7a, mining report REC-1/2/3).
 - [x] No libel, no unverified quotation, no misattribution. The REC-2 block explicitly attributes the phantom-decoherence concept to `ODTOE_multiagent_coherence.md` §III.8 via the mining report.
-- [x] No accidental spoilers across sections: §III.1 references BL-29 extension (REC-2) and §XIII Kill-Switch (unchanged); BL-29 extension references BL-5 (unchanged) and the Coherencer role (unchanged).
+- [x] No accidental spoilers across sections: §III.1 references BL-29 extension (REC-2) and §XIII Kill-Switch (unchanged); BL-29 extension references BL-5 (unchanged) and the Coherent role (unchanged).
 - [x] No secrets in plaintext; no real credentials committed.
 - [x] Backwards compatibility with v8 and pre-Wave-9 v9: BL-29's core Rule is unchanged (only appended); eradev.md §III bullet text is unchanged (only a new subsection added BELOW them); §0 Language Policy + Rules + Task Routing + Bilingual Sync Rule are unchanged (only a new subsection added below them). Any agent reading the pre-Wave-9 parts of these files sees identical content. The additions are cleanly additive.
 

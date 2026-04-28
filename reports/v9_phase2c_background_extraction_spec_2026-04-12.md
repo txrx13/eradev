@@ -32,7 +32,7 @@
   - BL-11 (scope creep is Muda): the extraction agent must be tightly constrained. No sub-agent spawning, no Bash, no framework file modification.
   - BL-31 (constrain output types to constrain behavior): the extraction agent produces EXACTLY one output type: BL_CANDIDATES.md entries.
   - EMP6 (enforcement without mechanism is Lambda zero, recursively): the extraction mechanism IS the enforcement -- it catches patterns that should become rules before they evaporate.
-  - Lesson 14 (BL budget requires active merge, not just append): extraction is append-only TO THE STAGING FILE. Compression is Phase 2.B's Coherencer responsibility, triggered at count >= 5.
+  - Lesson 14 (BL budget requires active merge, not just append): extraction is append-only TO THE STAGING FILE. Compression is Phase 2.B's Coherent responsibility, triggered at count >= 5.
   - EMP4 (enforcement must live where it fires): the extraction fires where work happens (during the session), not after (during Hansei).
 
 All 4 Activation Operator steps GREEN. Proceeding with specification.
@@ -82,7 +82,7 @@ Three gaps exist between work execution and institutional memory:
     BL_CANDIDATES.md (Phase 2.B staging file)
            |
            v (when count >= 5)
-    Coherencer compression pass (Phase 2.B)
+    Coherent compression pass (Phase 2.B)
            |
            v
     BOOTSTRAP_LESSONS.md (promoted) or DISCARD
@@ -94,9 +94,9 @@ Three gaps exist between work execution and institutional memory:
 |----------|--------|-----------|
 | **Trigger mechanism** | CronCreate (session-scoped prompt scheduler) | Only mechanism in Claude Code that can enqueue prompts. Hooks run shell scripts and cannot invoke agents. |
 | **Extraction agent** | Current model (same as session) via CronCreate prompt | CronCreate does not support model selection. The prompt runs in the current session's model. No Haiku/Sonnet choice available. |
-| **Output destination** | `BL_CANDIDATES.md` at repo root | Phase 2.B defines this as the staging area. Extraction is one producer; Coherencer compression is the consumer. |
+| **Output destination** | `BL_CANDIDATES.md` at repo root | Phase 2.B defines this as the staging area. Extraction is one producer; Coherent compression is the consumer. |
 | **Extraction frequency** | Every 30 minutes while REPL is idle | Balance between coverage (catching patterns) and cost (token usage). See Section 5 for cost model. |
-| **Session scope** | Session-scoped only (CronCreate dies with session) | This is correct: extraction captures session-specific patterns. Cross-session persistence is Phase 2.B's Coherencer responsibility. |
+| **Session scope** | Session-scoped only (CronCreate dies with session) | This is correct: extraction captures session-specific patterns. Cross-session persistence is Phase 2.B's Coherent responsibility. |
 | **Extraction depth** | Shallow: read BL_CANDIDATES.md + lessons.md + last few tool results | Deep context reading is expensive and slow. Shallow extraction with frequent triggers catches more than deep extraction with rare triggers. |
 
 ### 1.4 What the Roadmap Proposed vs What Is Feasible
@@ -142,7 +142,7 @@ Operator invokes `/extract` when they observe a pattern worth capturing, or at s
 
 **Tertiary: Scheduled task for BL_CANDIDATES.md review (cross-session)**
 
-A scheduled task runs daily to check if BL_CANDIDATES.md has accumulated >= 5 candidates. If so, it notifies the operator that a Coherencer compression pass is due. This does NOT do extraction -- it is a reminder to run Phase 2.B compression. This is the only cross-session component.
+A scheduled task runs daily to check if BL_CANDIDATES.md has accumulated >= 5 candidates. If so, it notifies the operator that a Coherent compression pass is due. This does NOT do extraction -- it is a reminder to run Phase 2.B compression. This is the only cross-session component.
 
 ### 2.3 What We Explicitly Do NOT Recommend
 
@@ -246,7 +246,7 @@ Phase 2.C adds one field to candidates it produces:
 **Extraction type:** DRIFT | NOVEL
 ```
 
-The `Extraction type` field distinguishes candidates that reveal enforcement gaps in existing BL (DRIFT) from entirely new patterns (NOVEL). This helps the Coherencer during compression: DRIFT candidates are more likely to merge into existing BL as amendments; NOVEL candidates are more likely to become new BL entries (requiring a merge to free a slot per the 30-cap budget).
+The `Extraction type` field distinguishes candidates that reveal enforcement gaps in existing BL (DRIFT) from entirely new patterns (NOVEL). This helps the Coherent during compression: DRIFT candidates are more likely to merge into existing BL as amendments; NOVEL candidates are more likely to become new BL entries (requiring a merge to free a slot per the 30-cap budget).
 
 ### 4.2 Temporal Metadata
 
@@ -256,7 +256,7 @@ The `Extraction type` field distinguishes candidates that reveal enforcement gap
 ### 4.3 Cross-Project Tagging
 
 - Extraction candidates are auto-tagged with the current project name (read from `projects/{PROJECT}/config.md` or from the session's project context).
-- Cross-project relevance (`cross_project: true/false`) is NOT auto-determined by extraction. The Coherencer makes this judgment during compression, per Phase 2.B Section 6.2 criteria.
+- Cross-project relevance (`cross_project: true/false`) is NOT auto-determined by extraction. The Coherent makes this judgment during compression, per Phase 2.B Section 6.2 criteria.
 
 ### 4.4 Compression Trigger
 
@@ -265,7 +265,7 @@ Phase 2.B specifies: compression triggers when `BL_CANDIDATES.md` count >= 5.
 Phase 2.C's contribution:
 - After each successful extraction (CAND written), the extraction agent updates the "Current count" header.
 - The daily scheduled task (Section 2.2 tertiary trigger) checks if count >= 5 and notifies the operator.
-- Actual compression is Phase 2.B's Coherencer responsibility. Phase 2.C does NOT compress.
+- Actual compression is Phase 2.B's Coherent responsibility. Phase 2.C does NOT compress.
 
 ---
 
@@ -360,14 +360,14 @@ Extraction results are CANDIDATES, not auto-promoted entries. The promotion path
 BL_CANDIDATES.md (extraction writes here)
        |
        v  (count >= 5)
-Coherencer compression pass (Phase 2.B)
+Coherent compression pass (Phase 2.B)
        |
        ├──> Merge into existing BL (DRIFT candidates)
        ├──> New BL entry (NOVEL candidates, requires merge to free slot)
        └──> DISCARD (noise, duplicates, contradictions)
 ```
 
-No extraction candidate is auto-promoted to BOOTSTRAP_LESSONS.md or lessons.md. Human/META review via Coherencer compression is the gate.
+No extraction candidate is auto-promoted to BOOTSTRAP_LESSONS.md or lessons.md. Human/META review via Coherent compression is the gate.
 
 ---
 
@@ -379,7 +379,7 @@ No extraction candidate is auto-promoted to BOOTSTRAP_LESSONS.md or lessons.md. 
 
 **Detection:** Overlap check in the CAND format asks "Does BL-{N} already cover this?" A candidate that says "Y, but proposes a different rule" is a contradiction signal.
 
-**Mitigation:** The Coherencer compression pass must cross-check each CAND against all 30 BL. Contradictory CANDs are DISCARDED with a note: "Contradicts BL-N, discarded at compression." If the contradiction reveals a genuine tension, it becomes an Open Question, not a BL amendment.
+**Mitigation:** The Coherent compression pass must cross-check each CAND against all 30 BL. Contradictory CANDs are DISCARDED with a note: "Contradicts BL-N, discarded at compression." If the contradiction reveals a genuine tension, it becomes an Open Question, not a BL amendment.
 
 **Severity:** LOW. The staging area (BL_CANDIDATES.md) is inert. A bad candidate sitting in staging harms nothing until promoted.
 
@@ -387,11 +387,11 @@ No extraction candidate is auto-promoted to BOOTSTRAP_LESSONS.md or lessons.md. 
 
 **Description:** Extraction produces trivial observations on every sweep. Example: "Builder read the file before editing" (this is just BL-6 being followed, not an insight).
 
-**Detection:** Extraction prompt explicitly instructs: "do not write reinforcement." If the agent follows this, noise is filtered at source. If it does not, the Coherencer discards trivial CANDs during compression.
+**Detection:** Extraction prompt explicitly instructs: "do not write reinforcement." If the agent follows this, noise is filtered at source. If it does not, the Coherent discards trivial CANDs during compression.
 
 **Mitigation:** If noise rate exceeds 80% (4+ trivial CANDs out of 5 at compression trigger), increase the extraction interval from 30 to 60 minutes and add a stronger prompt instruction: "A candidate must describe a FAILURE MODE, not a success observation."
 
-**Severity:** LOW. Noisy candidates waste Coherencer time during compression but do not corrupt the BL.
+**Severity:** LOW. Noisy candidates waste Coherent time during compression but do not corrupt the BL.
 
 ### FM-3: Cost Runaway
 
@@ -409,7 +409,7 @@ No extraction candidate is auto-promoted to BOOTSTRAP_LESSONS.md or lessons.md. 
 
 **Detection:** Extraction prompt focuses on PROCESS patterns ("failure modes, enforcement gaps, process improvements"), not CONTENT details. The instruction "NOT content-specific details" is the primary filter.
 
-**Mitigation:** The extraction prompt explicitly says: "Focus on: failure modes, enforcement gaps, process improvements -- NOT content-specific details." If a CAND contains what appears to be a secret (API key pattern, password, token), the Coherencer MUST redact it before promotion. BL_CANDIDATES.md is version-controlled in the repo -- any secret written there is permanently in git history.
+**Mitigation:** The extraction prompt explicitly says: "Focus on: failure modes, enforcement gaps, process improvements -- NOT content-specific details." If a CAND contains what appears to be a secret (API key pattern, password, token), the Coherent MUST redact it before promotion. BL_CANDIDATES.md is version-controlled in the repo -- any secret written there is permanently in git history.
 
 **Severity:** HIGH for code projects with secrets. LOW for framework projects like eradev. For code projects, the extraction prompt should include: "NEVER include API keys, passwords, tokens, or file content in candidate entries. Describe the PATTERN, not the DATA."
 

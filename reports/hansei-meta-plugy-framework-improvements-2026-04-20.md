@@ -29,13 +29,13 @@ Five RU-stack role agents, parallel background execution per Invariant 13:
 | [ANALYST] | 0.585 | **6/6 PLUGY bug classes have form-1 (docs) rules, 0/6 have form-3 (hook/CI) — super-bottleneck**; TOC/TRIZ/SMD per class |
 | [BUILDER] | 0.585 | Concrete SPEC at file:line precision; MERGE/RETIRE plan; 3 enforcement hooks |
 | [VALIDATOR] | 0.585 | 7-Q overfit filter; 14 framework-level NO-GO items; phantom-coherence model `S_framework = 1 - 0.04·ln(1+N_rules)` → threshold N=35 |
-| [COHERENCER] | 0.678 | Cross-project Λ scan: **Ω = 1.385–1.458** healthy; 7/10 PLUGY lessons have cross-project echo; glossary unification |
+| [COHERENT] | 0.678 | Cross-project Λ scan: **Ω = 1.385–1.458** healthy; 7/10 PLUGY lessons have cross-project echo; glossary unification |
 
 `S_team = 0.88` (high convergence after resolving Analyst BL-33/34/35 vs Builder BL-33/34/35 nomenclature collision). `S_adjusted = 0.88 · 0.610 = 0.537` (healthy). `Ω(H_hist) = 1.36` (N_relevant = 10 applied BLs). **`S_total = 0.537 · 1.36 = 0.730`** — ABOVE v10 target of 0.7.
 
 ---
 
-## 2. Super-bottleneck identified (Analyst + Coherencer consensus)
+## 2. Super-bottleneck identified (Analyst + Coherent consensus)
 
 **All 6 PLUGY bug classes (A/B/C/D/E/F) have documentation-level rules (form 1 per meta.md §13). ZERO have automated enforcement (form 3).** This is the meta-gap that produced the 19-bug burst:
 
@@ -62,7 +62,7 @@ Five RU-stack role agents, parallel background execution per Invariant 13:
 
 ---
 
-## 4. Five framework blind spots (Coherencer)
+## 4. Five framework blind spots (Coherent)
 
 1. **No "type-level enforcement" tier in §13.** PLUGY EMP6 proves need for 4-tier ladder.
 2. **Rework-discipline gap (BL-49 class).** Operator saying "полностью менять архитектуру" during active pivots had no universal rule.
@@ -72,7 +72,7 @@ Five RU-stack role agents, parallel background execution per Invariant 13:
 
 ---
 
-## 5. Cross-project Λ: 7/10 PLUGY lessons have cross-project echo (Coherencer)
+## 5. Cross-project Λ: 7/10 PLUGY lessons have cross-project echo (Coherent)
 
 | PLUGY lesson | Found in | L10 predicate |
 |---|---|---|
@@ -181,7 +181,7 @@ Per BL-8 (feature flag = deployment event) applied to framework itself:
 
 **OQ-FW-1:** Should Kill-Switch Level 0 ("Λ-audit at RT-1 start: does any rule being enforced have form 3?") be added? [Analyst proposed, others did not oppose]
 
-**OQ-FW-2:** BL-51 (agent-hours vs wall-clock) — extend §9 table with 2 columns OR separate §9b section? [Coherencer default: extend]
+**OQ-FW-2:** BL-51 (agent-hours vs wall-clock) — extend §9 table with 2 columns OR separate §9b section? [Coherent default: extend]
 
 **OQ-FW-3:** Cross-project Ω alpha = 0.15 universal or per-modality? [OQ-Omega-3 deferred to v11 per eradev.md §III.Ω]
 
@@ -211,4 +211,4 @@ After Phase 1 lands:
 
 - `/Users/antonpankratov/Downloads/plugy/reports/hansei-architectural-rework-2026-04-20.md` — source incident
 - `projects/plugy/lessons.md` Session 5 — BL-49 + BL-50 PLUGY-local (this synthesis promotes the abstract patterns)
-- RT-1 role agent outputs archived in session transcript (agent IDs: Visionary `a8395a1354f6d5f71`, Analyst `a475350f7618d3bfd`, Builder `a0373a2e0f0049184`, Validator `af734dfb7012eef3a`, Coherencer `add04f9f44a2113e4`)
+- RT-1 role agent outputs archived in session transcript (agent IDs: Visionary `a8395a1354f6d5f71`, Analyst `a475350f7618d3bfd`, Builder `a0373a2e0f0049184`, Validator `af734dfb7012eef3a`, Coherent `add04f9f44a2113e4`)

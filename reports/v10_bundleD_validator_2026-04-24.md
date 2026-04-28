@@ -29,7 +29,7 @@ All 4 gates GREEN. Proceeding.
 | 2 | μ-check modality branch (EN + RU) | strict=BLOCKING, structured=BLOCKING with N/A-tolerance, exploratory=ADVISORY, emergent=N/A | `meta.md:355-361` full 4-level branch + short-form rule; `meta_RU.md:316-322` RU parity; `flux_check` verify method switched for exploratory/emergent | **PASS** |
 | 3 | Four Working Habits qualified | Habit #1 qualifier strict/structured; Habit #3 qualifier creative; #2 and #4 universal | `eradev.md:696` (Habit #1 qualifier: "Applies to RIGOR_LEVEL in {strict, structured}. Exploratory/emergent work … may require LONG cycles … Habit #1 does NOT override that"); `eradev.md:700` (Habit #3 qualifier: "For creative modalities / exploratory RIGOR_LEVEL … At emergent level, B_min is POST-HOC"); `eradev.md:698,702` explicit `[UNIVERSAL across all RIGOR_LEVELs]` for #2 and #4. RU mirror `eradev_RU.md:696,698,700,702` parity verified | **PASS** |
 | 4 | F7 per-RIGOR_LEVEL note | strict tight B_min vs creative higher/advisory | `eradev.md:459` — "Per-RIGOR_LEVEL B_min calibration (v10 Bundle D)": strict tight; structured COMMIT target; exploratory HIGHER or advisory; emergent POST-HOC. Cross-refs OQ-PT-3 + OQ-CR-1 both DEFERRED v11 | **PASS** |
-| 5 | unified_plan.md.template Rigor Map section | Mandatory-for-multi-segment, per-segment RIGOR_LEVEL | `templates/unified_plan.md.template:18-36` — `## Rigor Map (per-segment RIGOR_LEVEL declaration, v10 Bundle D)` with resolution order (rigor_map → rigor_default → domain default); FLUX trigger rule; Coherencer flux_check instruction. Doc Alignment checklist item 130 added | **PASS** |
+| 5 | unified_plan.md.template Rigor Map section | Mandatory-for-multi-segment, per-segment RIGOR_LEVEL | `templates/unified_plan.md.template:18-36` — `## Rigor Map (per-segment RIGOR_LEVEL declaration, v10 Bundle D)` with resolution order (rigor_map → rigor_default → domain default); FLUX trigger rule; Coherent flux_check instruction. Doc Alignment checklist item 130 added | **PASS** |
 | 6 | doc_alignment conditional + flux_check added | doc_alignment scoped strict/structured; flux_check 8th canonical method | `templates/domain_skin.md.template:110` — "`doc_alignment` applies ONLY to RIGOR_LEVEL ∈ {strict, structured}"; line 113-128 full `flux_check` canonical method spec with 7 advisory checks, independence, RIGOR_LEVEL applicability, rationale | **PASS** |
 
 Group 1 verdict: **6/6 PASS**.
@@ -229,10 +229,10 @@ All render/verify checks PASS.
 |---|---|---|
 | Empty rigor_map | Project with no rigor_default field → what happens? | Backward-compat clause at `templates/domain_skin.md.template:69-70`: inherits domain-derived default (code=strict, book=exploratory, etc.). Verified clause exists. SAFE. |
 | Rigor mismatch at runtime | Operator declares `strict` but AC can't be specified | Agent warning layer 4: "Builder or Validator detecting a rigor mismatch emits `[RIGOR WARNING: <reason>]` at Jidoka" (eradev.md:534). Escalation to operator for reclassification. HANDLED. |
-| FLUX segment never exits | What if good-enough-to-iterate is never declared? | FLUX → BIM trigger (eradev.md:826): "after N FLUX iterations (default 3, project-configurable) Coherencer asks 'Is this still emergent, or are we circling?' If circling, propose transition to structured". Default bound present. HANDLED. |
+| FLUX segment never exits | What if good-enough-to-iterate is never declared? | FLUX → BIM trigger (eradev.md:826): "after N FLUX iterations (default 3, project-configurable) Coherent asks 'Is this still emergent, or are we circling?' If circling, propose transition to structured". Default bound present. HANDLED. |
 | Single-voice Ô with Λ_role=0 | Math paper F2' allows Λ_role=0 — consistent here? | Line 808: "`Λ_role = 0` is PERMITTED when voice coherence is load-bearing — paper's F2' allows Λ_role=0 as a degenerate case; FLUX explicitly admits it." Math-consistent. HANDLED. |
 | BIM-mode team encountering emergent sub-segment | Does the framework require re-declaring rigor for sub-segments? | Analyst segment override at RT-1 layer 3 (eradev.md:533). Segment-level declaration supported by rigor_map array schema. HANDLED. |
-| Cross-chapter voice coherence in FLUX | Coherencer role under FLUX's "no within-segment check" constraint | Line 808: "Coherencer enforces voice consistency ACROSS segments (cross-chapter, cross-section), not WITHIN a segment." Explicit scope. HANDLED. |
+| Cross-chapter voice coherence in FLUX | Coherent role under FLUX's "no within-segment check" constraint | Line 808: "Coherent enforces voice consistency ACROSS segments (cross-chapter, cross-section), not WITHIN a segment." Explicit scope. HANDLED. |
 
 Edge cases all handled by spec; no gaps in the Bundle D integration.
 
@@ -276,7 +276,7 @@ B >= 0.5 AND min >= 0.3: NO ANDON. PROCEED.
 
 - **Verified:** Bundle D unified integration (conditional BIM + creativity preservation + RIGOR_LEVEL axis + FLUX protocol) against the 20-check task spec + 2 coherence tests + operator's integrated-coherence intent.
 - **Render / Verify / Validate:** Universality Gate PASS; skill-mirror 14-file-pair zero-diff PASS; zip header + v8-absence + Bundle D content PASS; AC-1 Iron Rule (0 deletions) PASS; bilingual parity of Bundle D content 23/23 PASS.
-- **Edge cases probed:** 6 edge scenarios (empty rigor_map / rigor mismatch / FLUX no-exit / Λ_role=0 / sub-segment override / cross-chapter Coherencer) — all handled by spec.
+- **Edge cases probed:** 6 edge scenarios (empty rigor_map / rigor mismatch / FLUX no-exit / Λ_role=0 / sub-segment override / cross-chapter Coherent) — all handled by spec.
 - **Defects:** ZERO blocking. 4 non-blocking notes (zip size rounding, meta.md inherited delta, project rigor_default justified deviations, skill-mirror CLAUDE.md merged into SKILL.md).
 - **Fix chain:** 1 (first Validator pass on this bundle; no prior Bundle D Validator iterations). Below BL-3 threshold of 3.
 - **Verdict:** **PASS WITH NOTES**.
@@ -293,7 +293,7 @@ B >= 0.5 AND min >= 0.3: NO ANDON. PROCEED.
 ```
 Verified: Bundle D unified integration (RIGOR_LEVEL axis + FLUX protocol + conditional filter applied to prior Bundle A/B/C) vs Builder's 13-check verification battery + task spec 20-check battery + operator's integrated-coherence intent + AC-1 Iron Rule
 Render / verify: Universality Gate OK; skill-mirror 14 pairs zero-diff; zip header "# EraDev v10"; 0 v8 vocab; 23/23 EN/RU RIGOR_LEVEL parity; 146 additions / 0 deletions in eradev.md
-Edge cases: empty rigor_map backward-compat; rigor mismatch agent warning; FLUX no-exit trigger (N=3 default); Λ_role=0 math consistency; sub-segment override path; cross-chapter Coherencer scope
+Edge cases: empty rigor_map backward-compat; rigor mismatch agent warning; FLUX no-exit trigger (N=3 default); Λ_role=0 math consistency; sub-segment override path; cross-chapter Coherent scope
 Defects: NONE (blocking). 4 non-blocking notes documented (§7 defect ledger).
 Fix chain: 1 (first pass on Bundle D Validator)
 Verdict: PASS WITH NOTES

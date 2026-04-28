@@ -83,7 +83,7 @@ Researched 10+ multi-agent frameworks. EraDev has **unique strengths** (ODTOE co
 - Analyst: Read, Glob, Grep (no Write)
 - Builder: Read, Write, Edit, Bash
 - Validator: Read, Glob, Grep, Bash (read-only)
-- Coherencer: Read, Write, Edit (for lessons/MEMORY)
+- Coherent: Read, Write, Edit (for lessons/MEMORY)
 
 **Aligns with:** BL-26 (META always delegates), Bash classification.
 **Why not earlier:** EraDev role files lack frontmatter contract.
@@ -97,7 +97,7 @@ Researched 10+ multi-agent frameworks. EraDev has **unique strengths** (ODTOE co
 - Analyst: opus (deep decomposition)
 - Builder: sonnet (mechanical execution)
 - Validator: sonnet (verification, often pattern matching)
-- Coherencer: opus (synthesis)
+- Coherent: opus (synthesis)
 - Check Agents: haiku (yes/no questions)
 
 **Aligns with:** EraDev's existing "minimum viable" principle.
@@ -168,7 +168,7 @@ ECC_HOOK_PROFILE=strict    # Production mode (block on warnings)
 - Architect ↔ Analyst
 - Engineer ↔ Builder
 - QA Engineer ↔ Validator
-- Project Manager ↔ Coherencer
+- Project Manager ↔ Coherent
 
 **Different teams, same conclusion.** This is empirical evidence that 5-role decomposition is a stable attractor for software work, not an arbitrary choice. Validates n_min = ceil(π) + 1 = 5.
 

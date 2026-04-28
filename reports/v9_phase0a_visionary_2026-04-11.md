@@ -214,7 +214,7 @@ A lesson L is **relevant** to a current task T if AND ONLY IF at least one of th
 
 **Anti-phantom rule:** A lesson that merely mentions similar keywords does NOT count. Relevance requires a structural match (role / modality / artifact / failure), not a semantic echo. This is a direct defense against phantom coherence (Lesson 2 echo: agents agreeing because of shared sources, not independent reasoning).
 
-**Who computes it:** Coherencer at RT-1. Coherencer announces: "N_relevant = __ because lessons {L3, L7, L12} match on {role, modality, failure}." This is the LAMBDA AUDIT extension (eradev.md Section IV). Builder cannot name them → Lambda = 0 → ANDON (existing enforcement gate).
+**Who computes it:** Coherent at RT-1. Coherent announces: "N_relevant = __ because lessons {L3, L7, L12} match on {role, modality, failure}." This is the LAMBDA AUDIT extension (eradev.md Section IV). Builder cannot name them → Lambda = 0 → ANDON (existing enforcement gate).
 
 ## 2.4 Range and Bounds
 
@@ -227,7 +227,7 @@ A lesson L is **relevant** to a current task T if AND ONLY IF at least one of th
 
 **Ceiling justification:** Ω > 2.5 means past sessions are contributing more than 2.5x the current team's coherence. Past that point, the agent is no longer reasoning — it is pattern-matching on memory. This is a dogmatic-collapse signature (B → 1 absorbing state, eradev.md Section II). The ceiling prevents runaway feedback from very large lesson corpora in v10+.
 
-**Enforcement:** `Ω_computed = min(Ω_max, 1 + α·log(1+N_relevant))`. If `Ω_computed > 2.0`, log a YELLOW warning and trigger Coherencer review at next RT-2: "Memory dominance detected, consider Kill-Switch Level 3 (cross-domain jump) to force fresh thinking."
+**Enforcement:** `Ω_computed = min(Ω_max, 1 + α·log(1+N_relevant))`. If `Ω_computed > 2.0`, log a YELLOW warning and trigger Coherent review at next RT-2: "Memory dominance detected, consider Kill-Switch Level 3 (cross-domain jump) to force fresh thinking."
 
 ## 2.5 META Application at RT-3
 
@@ -237,7 +237,7 @@ B_mean = (1/n) · Σ Bi                      [unchanged]
 S_adjusted = S_team · B_mean               [unchanged]
 
 NEW in v9:
-N_relevant = |{L in project_lessons : relevant(L, task)}|   [Coherencer computes]
+N_relevant = |{L in project_lessons : relevant(L, task)}|   [Coherent computes]
 Ω = min(Ω_max, 1 + α · log(1 + N_relevant))                 [META computes]
 
 S_total = S_adjusted · Ω                                    [reported at RT-3]
@@ -257,7 +257,7 @@ S_total:      0.685  (healthy with memory reinforcement)
 **Threshold update:**
 - S_adjusted > 0.5 remains the healthy threshold (unchanged)
 - S_total > 0.7 is the NEW target for v9+ (with memory reinforcement active)
-- If S_adjusted passes but S_total fails → team is strong but memory is under-leveraged → Coherencer LAMBDA AUDIT check
+- If S_adjusted passes but S_total fails → team is strong but memory is under-leveraged → Coherent LAMBDA AUDIT check
 
 **Non-coercive:** Ω is a REPORT, not a gate. A session with Ω=1 (no relevant lessons) is not penalized — it is a new domain and the team must prove itself without memory crutches. Ω > 1 is a bonus for leveraging existing Λ, not a stick for ignoring it.
 
@@ -393,7 +393,7 @@ Three mechanisms prevent scope creep during v9 implementation:
 
 1. **AND-gate at classification** — META cannot admit a task that fails EITHER discreteness OR verification. No "just this once."
 2. **Registry as written record** — rejections are logged with reason. If the same domain gets rejected 5+ times, that's Phase 1 data for v10 prioritization.
-3. **Coherencer veto at RT-1** — Coherencer reads the task first and can invoke Kill-Switch Level 2 ("What if this task is not needed in v9 at all?") to force explicit scope confirmation before the team commits.
+3. **Coherent veto at RT-1** — Coherent reads the task first and can invoke Kill-Switch Level 2 ("What if this task is not needed in v9 at all?") to force explicit scope confirmation before the team commits.
 
 ---
 

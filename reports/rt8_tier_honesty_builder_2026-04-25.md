@@ -4,7 +4,7 @@
 
 ## Modified artifacts
 
-### Fix 1: Inv 17 τ_cycle primacy → T3 (Coherencer audit cadence)
+### Fix 1: Inv 17 τ_cycle primacy → T3 (Coherent audit cadence)
 - `/Users/antonpankratov/Downloads/eradev/CLAUDE.md` (line 87 → +1 line Tier annotation)
 - `/Users/antonpankratov/Downloads/eradev/templates/CLAUDE.md.template`
 - `/Users/antonpankratov/Downloads/eradev/templates/CLAUDE.md.universal` (compact form)
@@ -12,7 +12,7 @@
 - `/Users/antonpankratov/Downloads/eradev/.claude/skills/eradev/templates/CLAUDE.md.template`
 - `/Users/antonpankratov/Downloads/eradev/.claude/skills/eradev/templates/CLAUDE.md.universal` (compact)
 
-Annotation: "T3 (Coherencer audit cadence). Every 4-session window, Coherencer reviews recent fix chains and RT cycle counts; flags τ_cycle violations (same phase iterating >3×) as advisory NOTE in Hansei. Hard hook impractical (cycle-count is session-scoped)."
+Annotation: "T3 (Coherent audit cadence). Every 4-session window, Coherent reviews recent fix chains and RT cycle counts; flags τ_cycle violations (same phase iterating >3×) as advisory NOTE in Hansei. Hard hook impractical (cycle-count is session-scoped)."
 
 ### Fix 2: §X.3 NEW subsection (composition contract enforcement → T3)
 - `/Users/antonpankratov/Downloads/eradev/eradev.md` line 979 (§X.3 Tier honesty)
@@ -38,7 +38,7 @@ Honest declaration: T3 audit + 2 partial T2 hooks (agent-role-tag.sh + rt1-compo
 
 - A_F: read role file, CLAUDE.md, eradev.md §X (lines 933-987), eradev_RU.md §X (lines 933-987), all 5 Inv 17 sites
 - A_E: intent = honest T3 declaration > fake T2; both fixes follow EMP19 epistemic-integrity directive
-- A_σ: terminology aligned ("Coherencer audit cadence" / "аудит Когерента"); cross-ref to L-52 + EMP19 + BL-34 + agent-role-tag.sh consistent
+- A_σ: terminology aligned ("Coherent audit cadence" / "аудит Когерента"); cross-ref to L-52 + EMP19 + BL-34 + agent-role-tag.sh consistent
 - A_Λ: BL-19/BL-35 closures (RT-7 NEXT-B1/B2) reused as pattern; same approach -- T3 with documented rationale
 
 ## Security & integrity checklist
@@ -54,5 +54,5 @@ Honest declaration: T3 audit + 2 partial T2 hooks (agent-role-tag.sh + rt1-compo
 
 ## Out of scope (per Builder prompt)
 - New hooks (impractical for τ_cycle / overall task classification)
-- Coherencer role file changes (not requested)
+- Coherent role file changes (not requested)
 - New BL/Invariants (CONSOLIDATION freeze active)

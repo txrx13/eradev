@@ -86,7 +86,7 @@ Skin's Section 5 opening sentence (line 78): *"Each role retains its Activation 
 | Analyst | YES — Check-First gate, deliverable template, `\Lambda` collision detection | YES (base Jidoka preserved; Q1 "Has Check-First been completed? If NO → A_F=0.0 → Andon" is an ADDITIONAL trigger for the existing A_F andon rule, not a replacement) | NO | PASS |
 | Builder | YES — read ODTOE_article.tex preamble, 3 neighbors, bilingual per-section rhythm, evidence markers | YES (base Jidoka preserved; Q1-Q5 feed into F/E/(1-σ)/Λ) | NO | PASS |
 | Validator | YES — all 8 checks not just cite_check, audit evidence markers, numerical consistency | YES (base Jidoka preserved; Q1-Q5 supplementary) | NO | PASS |
-| Coherencer | YES — glossary drift, symbol collision, RU/EN phantom coherence, 8-file enforcement | YES (base Jidoka preserved; Q1-Q5 supplementary) | NO | PASS |
+| Coherent | YES — glossary drift, symbol collision, RU/EN phantom coherence, 8-file enforcement | YES (base Jidoka preserved; Q1-Q5 supplementary) | NO | PASS |
 
 **Cross-check:** The skin also contains the disclaimer on line 55: *"If any agent detects a contradiction between this skin's Role Focus Overrides (Section below) and [config.md's EraDev Role Mapping table], **the config.md table WINS** and the agent must escalate to META before proceeding."* This is a legitimate subordination clause, not a contradiction. It defines a tiebreaker, keeping the skin additive even in conflict.
 
@@ -170,7 +170,7 @@ All other skin occurrences of the check count (lines 37, 137, 140, 177, 198, 240
 | Example | Uses which skin vocabulary / method? | Self-consistent? |
 |---|---|---|
 | **Example 1** — Unsupported claim (Λ_L > 0 claim cited to Smith2020 that supports only a sub-case) | References **C2** (citation attribution, L2); correctly states C1 and C3 would PASS while C2 catches it; also invokes Check 4 (no fitting) as an alternative fix path | **PASS** — uses C1/C2/C3 exactly as defined in skin Section 4; correctly pins catching role to Validator at RT-2 |
-| **Example 2** — Outline contradiction between Section III and Section V of "Dualities in ODTOE observer geometry" (observer-dependent vs observer-independent metric) | References vocabulary rows 2 (function → claim), 3 (module → section), 22 (symbol collision), Coherencer drift detection Q1-Q2, invokes Phantom Coherence Check (`coherent_EN.md` Key Rules 2) | **PASS** — uses vocabulary mappings exactly as numbered in skin Section 2; correctly pins catching role to Coherencer at RT-1 (not RT-2) because outline review is pre-drafting |
+| **Example 2** — Outline contradiction between Section III and Section V of "Dualities in ODTOE observer geometry" (observer-dependent vs observer-independent metric) | References vocabulary rows 2 (function → claim), 3 (module → section), 22 (symbol collision), Coherent drift detection Q1-Q2, invokes Phantom Coherence Check (`coherent_EN.md` Key Rules 2) | **PASS** — uses vocabulary mappings exactly as numbered in skin Section 2; correctly pins catching role to Coherent at RT-1 (not RT-2) because outline review is pre-drafting |
 | **Example 3** — Numerical inconsistency (abstract/body/figure say N=120, Table 2 says N=118) | References **C6** (factual consistency); correctly states C1-C5 are insufficient for this case; catching role Validator at RT-2 | **PASS** — uses C6 exactly as defined; didactic case for why the skin expands cite_check into 6 sub-checks rather than treating it as monolithic |
 
 **Verdict:** All 3 examples are self-consistent with the skin's Section 2 (vocabulary), Section 4 (cite_check C1-C6), Section 5 (role focus), Section 7 (RT phase protocol — Example 2 invokes RT-1, Example 3 invokes RT-2 correctly). No example references a method, concept, or vocabulary term that isn't defined elsewhere in the skin.
@@ -243,11 +243,11 @@ Per-role focus override additivity:
   Analyst → PASS (additive)
   Builder → PASS (additive)
   Validator → PASS (additive)
-  Coherencer → PASS (additive)
+  Coherent → PASS (additive)
 BL inheritance (22 universal + 8 adapter): PASS (universal count = 22 confirmed; adapter count = 8 confirmed; BL-A1..A4 all have Source/Rule/Why/Applies-to fields populated; 2 transfer unchanged, 2 N/A, 4 have article equivalents — total an article agent carries = 28 as skin claims)
 Vocabulary mapping grounding: 22/22 mappings confirmed grounded (2 minor line-number drifts DEF-D, DEF-E)
 8-check config parity: PASS with notes (8 checks in config.md confirmed; C5↔Check6 ambiguity DEF-C; 7-vs-8 count drift DEF-B inherited from pre-existing config.md stale heading)
-Examples self-consistency: PASS (all 3 examples use vocabulary/methods defined in the skin; Example 1 references C1/C2/C3, Example 2 references vocabulary rows 2/3/22 and Coherencer detection, Example 3 references C6)
+Examples self-consistency: PASS (all 3 examples use vocabulary/methods defined in the skin; Example 1 references C1/C2/C3, Example 2 references vocabulary rows 2/3/22 and Coherent detection, Example 3 references C6)
 Validator simulation: WOULD SUCCEED — all 14 steps executable end-to-end; nowhere does the agent get stuck; output standard format producible
 
 Defects: DEF-A (YELLOW, framework orphan ref, non-blocking)

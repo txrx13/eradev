@@ -191,7 +191,7 @@ Both outputs are ready for Phase 1.C/D Builders to consume without re-classifica
 - **OQ-T2:** Should BL-2 (Canary) be similarly generalized to "Canary Before Any High-Blast-Radius Change" (chapter preview, preprint, new style guide rollout)?
 - **OQ-T3:** BL-19 (bilingual sync) does not currently require BOOTSTRAP_LESSONS.md to have an RU counterpart. If Phase 1.D proceeds with the BL split, should both universal and code-adapter files receive bilingual mirrors, or is BL-19 relaxed for cold-start Lambda files?
 - **OQ-T4:** Gaps BL-23 and BL-27 — are these permanently retired, or placeholder slots for future BLs? BL-32's "Grep After BL Merge" rule suggests they were merged out; Phase 1 should confirm this is documented somewhere other than the BOOTSTRAP_LESSONS budget header.
-- **OQ-T5:** The 22+8 split exactly matches the target. Phantom check: was the target back-calculated from these same rules, or independently derived? If independently derived, this is a positive coherence signal. If back-calculated, the match is tautological. Logged for Coherencer review.
+- **OQ-T5:** The 22+8 split exactly matches the target. Phantom check: was the target back-calculated from these same rules, or independently derived? If independently derived, this is a positive coherence signal. If back-calculated, the match is tautological. Logged for Coherent review.
 
 ---
 
@@ -261,4 +261,4 @@ F=0.92 E=0.93 (1-s)=0.88 L=0.87 => B=0.899
 
 ---
 
-*Phase 0.B [BUILDER] tagging complete. Ready for [VALIDATOR] 0.B adversarial T6 test (non-code domain task with current EraDev) and Coherencer gate for Phase 1 entry.*
+*Phase 0.B [BUILDER] tagging complete. Ready for [VALIDATOR] 0.B adversarial T6 test (non-code domain task with current EraDev) and Coherent gate for Phase 1 entry.*

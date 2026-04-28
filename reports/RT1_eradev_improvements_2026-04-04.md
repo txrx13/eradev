@@ -75,7 +75,7 @@ If an Enforcement Gate is violated (detected at any point during the cycle):
 | Violation | Immediate Action | Session Impact |
 |-----------|-----------------|----------------|
 | PRE-FLIGHT skipped (BL-22) | Discard all work done without verified endpoints. Re-start from A_F. | fix_rate penalty: count all discarded commits as fixes. |
-| LAMBDA AUDIT failed | Builder output is REJECTED. Coherencer re-announces lessons. Builder regenerates. | No commit until audit passes. |
+| LAMBDA AUDIT failed | Builder output is REJECTED. Coherent re-announces lessons. Builder regenerates. | No commit until audit passes. |
 | FIX-TO-SPEC triggered (3+ fixes) | Current branch is FROZEN. New branch from last known-good commit. Spec-first in new branch. | chain_ratio resets only after spec passes RT. |
 | BUILD-VERIFY skipped | Commit REJECTED. Builder re-runs build command, attaches output. | Unverified commit counted as fix in fix_rate. |
 
@@ -103,7 +103,7 @@ If an Enforcement Gate is violated (detected at any point during the cycle):
 **Source:** META Hansei — cycle with S_session=0.586
 **Rule:** If at RT-3 S_session < 0.5, the NEXT task MUST begin with 5-agent RT-1 regardless of task size.
 **Why:** Low S_session means more fixes than features. Forcing full RT breaks the fix-chain cycle.
-**Applies to:** META-Orchestrator (enforce), Coherencer (monitor)
+**Applies to:** META-Orchestrator (enforce), Coherent (monitor)
 ```
 
 **Технические сложности:**
@@ -153,7 +153,7 @@ If an Enforcement Gate is violated (detected at any point during the cycle):
 
 ---
 
-## COHERENCER — Синтез
+## COHERENT — Синтез
 
 **3 релевантных урока:**
 1. BL-16: Reading ≠ Applying — прямой прецедент L-016 (подтверждён дважды)
@@ -205,9 +205,9 @@ If an Enforcement Gate is violated (detected at any point during the cycle):
 
 **ДА с оговорками:**
 - Enforcement Failure Escalation table (Builder: да; Validator: "discard all work" непрактичен → re-verify + penalty)
-- BL budget cap (Validator: 30 max; Coherencer: согласен; Visionary: нужна компрессия)
+- BL budget cap (Validator: 30 max; Coherent: согласен; Visionary: нужна компрессия)
 
-**НЕТ (Coherencer + Validator):**
+**НЕТ (Coherent + Validator):**
 - L-019/L-020 НЕ в BOOTSTRAP_LESSONS (проектные, не универсальные)
 - Новые BL для L-016 и L-021 (= дубли BL-16 и BL-18, только cross-ref)
 

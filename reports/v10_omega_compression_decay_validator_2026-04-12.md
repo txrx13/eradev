@@ -30,7 +30,7 @@
 
 **Omega computation (Item 1):** Lines 286-292. Contains: 4-predicate reference, freshness exclusion from N_relevant, formula with ceiling 2.500, Lambda_effective equation, report format, YELLOW at Omega > 2.0, backward compat note. PASS.
 
-**BL compression (Item 2):** Lines 293-296. Contains: count >= 5 trigger, Coherencer spawn, PROMOTE/MERGE/DISCARD/DEFER classification, BL-3 guard (3 iterations, escalate to META). PASS.
+**BL compression (Item 2):** Lines 293-296. Contains: count >= 5 trigger, Coherent spawn, PROMOTE/MERGE/DISCARD/DEFER classification, BL-3 guard (3 iterations, escalate to META). PASS.
 
 **Execution order:** freshness (278) -> cross-project scan (284) -> Omega (286) -> BL compression (293) -> active count compression (297). Matches spec Section 4 dependency chain. PASS.
 
@@ -85,7 +85,7 @@ All 7 deletions are v9 caveat text being replaced by v10 activation content. No 
 | AC-2 | Omega output format matches eradev.md | PASS (report format references eradev.md Section III.Omega) |
 | AC-3 | Freshness check protocol in meta.md | PASS (lines 278-283: half_life 180/360, EMP immortal, threshold 0.3) |
 | AC-4 | Freshness filters N_relevant | PASS (line 288: "Stale lessons freshness < 0.3 excluded from N_relevant") |
-| AC-5 | BL compression trigger in meta.md | PASS (lines 293-296: count >= 5, Coherencer spawn, BL-3 guard) |
+| AC-5 | BL compression trigger in meta.md | PASS (lines 293-296: count >= 5, Coherent spawn, BL-3 guard) |
 | AC-6 | BL classification taxonomy in BL_CANDIDATES.md | PASS (line 17: PROMOTE/MERGE/DISCARD/DEFER) |
 | AC-7 | v9 caveat removed from eradev.md | PASS (replaced with v10 activation statement) |
 | AC-8 | OQ-Omega-1 and OQ-Omega-2 closed | PASS (lines 331-332: CLOSED, OQ-3 OPEN) |
@@ -103,7 +103,7 @@ All 7 deletions are v9 caveat text being replaced by v10 activation content. No 
 
 2. **All lessons stale (freshness < 0.3):** N_relevant = 0 after filtering, Omega = 1.000. The decay review would flag all lessons for REVALIDATE/SUPERSEDE/ARCHIVE. SAFE.
 
-3. **BL_CANDIDATES.md count = 0:** Compression check reads count, finds < 5, does not spawn Coherencer. Existing behavior preserved. SAFE.
+3. **BL_CANDIDATES.md count = 0:** Compression check reads count, finds < 5, does not spawn Coherent. Existing behavior preserved. SAFE.
 
 4. **EMP lesson age > 180 days:** EMPs are immortal (line 280: "EMPs are immortal -- skip"). Freshness check skips them. SAFE.
 

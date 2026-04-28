@@ -65,7 +65,7 @@ Content verified: proper table format with Report/Date/Status/Summary/Source col
 ### AC-6: BL_CANDIDATES.md exists
 **PASS** (849 bytes)
 
-Content verified: staging header with compression trigger (count >= 5), 5-step Coherencer compression process, CAND-N format template, current count = 0 (empty staging). Schema matches spec Section 4.2.
+Content verified: staging header with compression trigger (count >= 5), 5-step Coherent compression process, CAND-N format template, current count = 0 (empty staging). Schema matches spec Section 4.2.
 
 ### AC-7: BL count stays <= 30
 **PASS** (actual: 30)

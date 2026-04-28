@@ -31,10 +31,10 @@
 **Notes (non-blocking):**
 
 1. **CAND field name deviation:** Builder uses `**Type:** DRIFT | NOVEL` instead of spec's `**Extraction type:** DRIFT | NOVEL`. Functionally identical, cosmetically different from spec Section 4.1.
-2. **CAND schema additive fields:** Builder adds `Evidence` and `Session project` fields not in spec's Section 4.1 CAND schema. These are useful additions that provide richer context for the Coherencer. No conflict.
+2. **CAND schema additive fields:** Builder adds `Evidence` and `Session project` fields not in spec's Section 4.1 CAND schema. These are useful additions that provide richer context for the Coherent. No conflict.
 3. **CAND schema missing fields:** Builder's CAND template omits `Overlap check` and `Source` fields from spec's Section 4.1. The overlap check IS performed procedurally (step 6a) but not recorded in the CAND entry. The `Source` field ("Background extraction, session {date}") is replaced by `Extraction timestamp` + `Session project`, which is equivalent information in a different shape.
 
-**Assessment:** Deviations are cosmetic/additive. The extraction prompt achieves the spec's intent. The Coherencer consuming these CANDs will find all necessary information. No functional gap.
+**Assessment:** Deviations are cosmetic/additive. The extraction prompt achieves the spec's intent. The Coherent consuming these CANDs will find all necessary information. No functional gap.
 
 ### meta.md CronCreate docs: PASS
 
@@ -71,7 +71,7 @@
 
 2. **Extraction prompt escape paths:** The prompt has 4 early-exit conditions: (a) staging full (count >= 10), (b) idle session (no tools used), (c) reinforcement only (no candidate written), (d) nothing noteworthy. This provides good coverage against unnecessary writes.
 
-3. **CAND format compatibility with Phase 2.B Coherencer:** The Builder's CAND format deviates from the spec's Phase 2.B schema in field names but contains equivalent or richer information. The Coherencer reads CAND entries structurally -- as long as each CAND has a title, a proposed rule, and a type classification, the Coherencer can process it. Verified: all three are present.
+3. **CAND format compatibility with Phase 2.B Coherent:** The Builder's CAND format deviates from the spec's Phase 2.B schema in field names but contains equivalent or richer information. The Coherent reads CAND entries structurally -- as long as each CAND has a title, a proposed rule, and a type classification, the Coherent can process it. Verified: all three are present.
 
 ---
 

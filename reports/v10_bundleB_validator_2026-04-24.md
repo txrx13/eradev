@@ -40,7 +40,7 @@ All 4 steps GREEN. Proceeded.
 | C4.2 | RU equivalent in analyst.md | exists + semantic parity | 4 matches in analyst.md (header line 88 "User Flow (обязательно, если задача имеет UI / потребительскую поверхность)" + rules lines 97-99 with matching semantics) | PASS |
 | C4.3 | Mandatory-when-UI trigger clearly documented | explicit "required when UI" | EN line 96 "required when task has a UI or consumer-facing surface"; RU line 88 "обязательно, если задача имеет UI / потребительскую поверхность" | PASS |
 | C5.1 | `grep "μ-check\|mu-check" meta.md meta_RU.md` → ≥2 each | ≥2 in each file | meta.md: 5; meta_RU.md: 5 | PASS (exceeds threshold with margin) |
-| C5.2 | Gate between RT-1 close and Builder spawn | explicit placement | meta.md line 342 "Between RT-1 close and Builder spawn, Coherencer runs μ-check (mu-check) as a pre-Builder gate"; meta_RU.md line 303 mirror | PASS |
+| C5.2 | Gate between RT-1 close and Builder spawn | explicit placement | meta.md line 342 "Between RT-1 close and Builder spawn, Coherent runs μ-check (mu-check) as a pre-Builder gate"; meta_RU.md line 303 mirror | PASS |
 | C5.3 | References F7 B_received ≥ B_min (not equality) | explicit F7 ref + sufficiency not equality | meta.md line 347 "Every role's output reaches `B_received ≥ B_min` — sufficiency threshold, not equality (per paper §II.7 F7)"; meta_RU.md line 308 mirror "Вывод каждой роли достигает `B_received ≥ B_min` — порог достаточности, не равенства (по paper §II.7 F7)" | PASS |
 | C5.4 | RU mirror present | structural + semantic parity | meta_RU.md subsection 301-320 is structurally identical (same 6 checks + same 2 verdicts + same verify.method + same rationale + BL-19 parity note) to meta.md 340-359 | PASS |
 | C6.1 | BL-19 parity — all EN edits mirrored in RU | all 4 files have sibling-reference parenthetical | roles/analyst_EN.md:109 "BL-19 parity: same rules exist in `roles/analyst.md` for RU stack" + roles/analyst.md:101 mirror + meta.md:359 "BL-19 parity: same specification in `meta_RU.md`" + meta_RU.md:320 mirror | PASS |
@@ -55,7 +55,7 @@ All 4 steps GREEN. Proceeded.
 ### P1 — `templates/unified_plan.md.template`
 
 Read line-by-line. Structural quality:
-- **Front-matter (lines 1-7):** authoring role (Coherencer), trigger (every M/L/XL at RT-1 close), verify method (doc_alignment), purpose, instantiation path pattern — all correctly anchored to EraDev semantics.
+- **Front-matter (lines 1-7):** authoring role (Coherent), trigger (every M/L/XL at RT-1 close), verify method (doc_alignment), purpose, instantiation path pattern — all correctly anchored to EraDev semantics.
 - **Context (lines 9-18):** 6 required fields (Task, Size, Domain, B-modality, OOD scope, IFR), each with inline comment explaining format/common failure mode. IFR past-tense guidance (line 18) explicit: "We will deploy X = violation; feature deployed, 0 errors = correct".
 - **Composition Grid (20-28):** BL-34 conditional with "N/A — single-refactor task" opt-out; 5-column pair table (Change A / Change B / Interaction / Risk / Mitigation); N-choose-3 triples note for 3+ refactors.
 - **Cross-Layer Contracts (30-40):** multi-layer conditional; 4-column schema matching analyst_EN.md; 3 example rows (BE-API↔FE-client, DB↔BE-API, FE-form↔BE-endpoint).
@@ -76,7 +76,7 @@ Read lines 21, 24, 53, 64-80 + surrounding context:
 - Line 24 comment: "Optional: define a custom verify.method not in the 7 canonical" — correctly uses "7" (not "6") after the addition.
 - Line 53 canonical list prose: "the first 6 cover … the 7th, doc_alignment, is the v10 plan-class verify method". Wording is precise — distinguishes doc_alignment as a 7th canonical (shipped) rather than a project-custom.
 - Lines 64-80 subsection: all 7 spec-required fields present (Definition, Triggers, Checks 1-7, Success, Failure modes, Independence check, Calibration, Rationale). Check 7 explicitly cites F7: "`B_received ≥ B_min` (not equality). B_min per layer currently set by operator judgment; v11 target = empirical calibration from task corpus" — exactly matches spec requirement.
-- Independence check (line 78) is temporal (post-synthesis audit) — aligns with Coherencer-owned placement.
+- Independence check (line 78) is temporal (post-synthesis audit) — aligns with Coherent-owned placement.
 
 Content quality: definition is crisp (tests PLAN as document, distinguished from build/cite_check/etc.). Failure-modes list identifies concrete anti-patterns ("plan reads polished but misses layer", "F10 over-polished anti-pattern"). Backward-compat to the 6 pre-existing canonicals preserved. **PASS.**
 
@@ -203,7 +203,7 @@ These are NOT blocking and NOT defects; they are spiral-gap items (~2%) surfaced
 
 - **Obs-1 (spiral-gap):** μ-check subsection in meta.md / meta_RU.md does not cite BL-3 (fix-chain detector) explicitly. If Analyst/Visionary fixes trigger ≥3 consecutive μ-check FAIL→re-run cycles, BL-3 applies transitively via role files, but an explicit cross-reference in the μ-check rationale would make the escape-hatch more discoverable. Not a spec violation; out of Bundle B scope per the spec's "P1-P4+C20 only" boundary.
 - **Obs-2 (template tolerance):** `templates/unified_plan.md.template` is 125 lines, 5 over the spec's 60-120 soft band. Justified by 10-section meta-template requiring inline comments; Builder explicitly acknowledged the tolerance in report §2. Spec range in this Validator's contract was 60-150, which IS met. Zero defect.
-- **Obs-3 (reference redundancy):** Bundle B Builder added `Doc Alignment Verdict` as a 10th section inside `unified_plan.md.template` (beyond the 9 spec-listed sections), which duplicates μ-check's 6 checks from meta.md. This is additive (closes the loop inside the template artifact itself), not contradictory. Could be viewed as pleasantly redundant — the checklist inside the plan instance lets Coherencer mark checkboxes before Builder spawn, and meta.md specifies the gate-level protocol. Both consistent; no defect.
+- **Obs-3 (reference redundancy):** Bundle B Builder added `Doc Alignment Verdict` as a 10th section inside `unified_plan.md.template` (beyond the 9 spec-listed sections), which duplicates μ-check's 6 checks from meta.md. This is additive (closes the loop inside the template artifact itself), not contradictory. Could be viewed as pleasantly redundant — the checklist inside the plan instance lets Coherent mark checkboxes before Builder spawn, and meta.md specifies the gate-level protocol. Both consistent; no defect.
 
 ---
 

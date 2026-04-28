@@ -172,9 +172,9 @@ Key parity verification: `grep -c "RIGOR_LEVEL\|RIGOR LEVEL" eradev.md eradev_RU
 A reader coming to EraDev v10 post-Bundle-D sees a **single integrated framework** with two RT protocols (BIM + FLUX) that are selected per-segment by RIGOR_LEVEL:
 
 1. **At session start** (meta.md §14 Session Entry): operator / Visionary sees `rigor_default` in project config; if multi-segment task, Analyst at RT-1 fills per-segment `rigor_map` block in the Unified Plan.
-2. **At μ-check** (meta.md §μ-check): Coherencer reads `rigor_map.effective` per segment → BLOCKING (strict/structured) or ADVISORY (exploratory/emergent). For exploratory/emergent, verify method auto-switches to `flux_check` instead of `doc_alignment`.
+2. **At μ-check** (meta.md §μ-check): Coherent reads `rigor_map.effective` per segment → BLOCKING (strict/structured) or ADVISORY (exploratory/emergent). For exploratory/emergent, verify method auto-switches to `flux_check` instead of `doc_alignment`.
 3. **During Build** (eradev.md §VI.1 FLUX): exploratory/emergent segments run FLUX (free-flowing generation, long cycles permitted, single-voice Ô with Λ_role=0 allowed, exit criterion = good-enough-to-iterate); strict/structured run BIM (Bundles A+B+C as shipped).
-4. **At RT-2/RT-3**: FLUX segments produce path-(c) ΔÔ-tolerant outputs; Coherencer allows legitimate divergence; BIM segments retain phantom-coherence checks.
+4. **At RT-2/RT-3**: FLUX segments produce path-(c) ΔÔ-tolerant outputs; Coherent allows legitimate divergence; BIM segments retain phantom-coherence checks.
 5. **At Jidoka / Validator**: FLUX outputs get advisory findings (not blocking); BIM outputs retain full verification gate.
 
 **What is the same:** All Bundle A math (F3/F4/F6/F7/F10/F11) holds across RIGOR_LEVELs. All 17 Invariants remain (#17 tag flipped but number preserved). All role files (`roles/*_EN.md`, `roles/*.md`) unchanged — domain skin + rigor_map override behavior via agent reading, not role-file editing. BL-19 bilingual-sync discipline retained. Universality Gate retained (with allowlist entry for eradev.md formula attributions).

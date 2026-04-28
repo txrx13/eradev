@@ -8,17 +8,17 @@
 - **A_F**: read `roles/builder_EN.md`, audit `reports/v10_team_composition_rules_audit_2026-04-24.md`, `reports/rt1_visionary_2026-04-24.md`, `reports/rt1_coherent_2026-04-24.md`, `eradev.md` §X (lines 931-953), `eradev_RU.md` §X mirror.
 - **A_E**: intent = ship Tier-A G1+G2+L2 fix as additive `### X.1` and `### X.2` subsections without disturbing existing tables.
 - **A_σ**: cross-checked new rule "L2 mandatory when N_Builders >= 2" against existing "L2: Activated at 2+ teams" — additive strengthening per Visionary Tier-A3 (audit Gap M2 latent rule promoted to explicit). No contradiction.
-- **A_Λ**: BL-29 (terminology drift) — adopted Coherencer's canonical term `composition_matrix`; avoided Visionary/Analyst/Builder synonyms ("registry", "table"). BL-19 (RU mirror parity) applied.
+- **A_Λ**: BL-29 (terminology drift) — adopted Coherent's canonical term `composition_matrix`; avoided Visionary/Analyst/Builder synonyms ("registry", "table"). BL-19 (RU mirror parity) applied.
 
 ## Modified artifacts
-1. `eradev.md` §X — added `### X.1 Per-role agent counts (composition contract)` (between scaling formula and Coherencer Hierarchy) + `### X.2 Parallel per-role spawn patterns` (between File Ownership Protocol and `---` separator). +23 lines, 0 deletions.
+1. `eradev.md` §X — added `### X.1 Per-role agent counts (composition contract)` (between scaling formula and Coherent Hierarchy) + `### X.2 Parallel per-role spawn patterns` (between File Ownership Protocol and `---` separator). +23 lines, 0 deletions.
 2. `eradev_RU.md` §X — bilingual mirror at same anchors. +23 lines, 0 deletions. Translated prose; preserved table cell structure verbatim (numbers, formulas, role sequence).
 
 ## Verification (all GREEN)
 - `wc -l`: eradev.md = eradev_RU.md = 1135 (delta=0, well within ±5 budget).
 - `grep -c "Per-role agent counts|композиция агентов"` → 1 each (≥1 each).
 - `grep -c "Parallel per-role spawn|Параллельные паттерны"` → 1 each (≥1 each).
-- `grep "L2 mandatory.*N_Builders|L2 обязател"` → 2 each (X.1 caveat + X.2 Coherencer bullet).
+- `grep "L2 mandatory.*N_Builders|L2 обязател"` → 2 each (X.1 caveat + X.2 Coherent bullet).
 - `grep "FORBIDDEN|ЗАПРЕЩЁН"` → 2 each in eradev*.md (Visionary-parallel rule). RU uses ё form (ЗАПРЕЩЁН) per orthography.
 - `git diff --numstat`: 23/0 each — pure additive, AC-1 (0 deletions) satisfied globally, not just §I-III.
 - Visual inspection: §X.1 sits at lines 942-953, §X.2 at lines 967-975, no orphan separators or broken table syntax.
@@ -29,8 +29,8 @@
 - Invariant 11 cross-reference: explicit in X.2 Validator bullet ("Builder COMPLETES first").
 - Domain skin compatibility: caption explicitly says "Domain skins MAY override per project-specific needs" — preserves article/config/plan/research 2-Builder triggers per audit §2.2.
 
-## Coherencer phantom-decoherence guard (BL-29)
-Adopted Coherencer's canonical term `composition_matrix` in commentary. Within the file body, used "Per-role agent counts (composition contract)" as heading + "matrix" terminology nowhere else, avoiding "table/registry" drift flagged in `rt1_coherent_2026-04-24.md` §3.2.
+## Coherent phantom-decoherence guard (BL-29)
+Adopted Coherent's canonical term `composition_matrix` in commentary. Within the file body, used "Per-role agent counts (composition contract)" as heading + "matrix" terminology nowhere else, avoiding "table/registry" drift flagged in `rt1_coherent_2026-04-24.md` §3.2.
 
 ## Out of scope (per spec)
 NOT TOUCHED: meta.md (Q2 territory — recommendations.md log), CLAUDE.md (Q3 territory — Invariant 17/KILL-TEST), BL files, role files, templates, `.claude/skills/eradev/core/eradev*.md` mirror (Integration phase post-RT-3).

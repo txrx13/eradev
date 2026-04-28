@@ -62,9 +62,9 @@ Status: 4 GREEN.
 **Mitigation:** M+ only (exempt S); block must have concrete content rule (e.g., ≥1 specific file path OR ≥1 BL_CANDIDATE diff OR SKIP with one-line justification). Empty recommendations block = ANDON.
 
 ### Risk R3 — Session-practice drift normalised before matrix lands (cross-Q)
-**Trigger:** Operator continues running 4B+4V+4A pattern for next 10+ sessions without explicit L2 Coherencer spawn (§8.3 weakness from audit) → semantic-drift bug from BL-29 recurs; matrix ships AFTER a failure.
+**Trigger:** Operator continues running 4B+4V+4A pattern for next 10+ sessions without explicit L2 Coherent spawn (§8.3 weakness from audit) → semantic-drift bug from BL-29 recurs; matrix ships AFTER a failure.
 **Blast radius:** HIGH. We WROTE the rule on gravity-session drift (BL-29, `meta.md:210`) — repeating the failure means Lambda = zero for that lesson. Operator trust in the framework erodes.
-**Mitigation:** Gap G1 is MUST-DO on same release window as Gap G2 (parallel-role enumeration); explicit L2 Coherencer spawn becomes blocking before the matrix ships, not after.
+**Mitigation:** Gap G1 is MUST-DO on same release window as Gap G2 (parallel-role enumeration); explicit L2 Coherent spawn becomes blocking before the matrix ships, not after.
 
 ---
 
@@ -73,7 +73,7 @@ Status: 4 GREEN.
 ### Tier A — NOW (this release window, pre-session-closure)
 - **A1. Gap G1 (per-role-per-size matrix)** — MUST. Operator asked exact question; audit confirms; answers Q1 IFR's AC-1/AC-2.
 - **A2. Gap G2 (parallel-role enumeration, esp. "Visionary-parallel = FORBIDDEN")** — MUST. Without it, matrix is incomplete; AC-3.
-- **A3. Explicit L2 Coherencer spawn rule for N_Builders ≥ 2** — MUST. Closes §8.3 practice gap; prevents BL-29 recurrence.
+- **A3. Explicit L2 Coherent spawn rule for N_Builders ≥ 2** — MUST. Closes §8.3 practice gap; prevents BL-29 recurrence.
 
 ### Tier B — NEXT (v10 tech-debt sweep)
 - **B1. Q2 recommendations.md append-only log + bootstrap item 9.5** — SHOULD. Institutional memory glue; AC-7/AC-8.
@@ -83,7 +83,7 @@ Status: 4 GREEN.
 ### Tier C — SOON (v10.1 or v11 opening)
 - **C1. T2 hook validating spawn-count vs matrix floor** — COULD. AC-5; adds enforcement tier but only valuable AFTER A1 lands.
 - **C2. Gap G5 (L row "5-8" endpoint disambiguation)** — COULD. Polish, subsumed by A1 matrix.
-- **C3. Gap G7 (L3 Coherencer upper-bound ceiling)** — COULD. Edge case (5+ teams rare).
+- **C3. Gap G7 (L3 Coherent upper-bound ceiling)** — COULD. Edge case (5+ teams rare).
 
 ### Tier D — DEFER (v11 or later)
 - **D1. Gap G6 (domain-skin 2-Builder exceptions to summary table)** — DEFER. Skins are DOMAIN-LOCAL by design; summarising risks flattening legitimate domain divergence.
@@ -99,12 +99,12 @@ Status: 4 GREEN.
 
 ### Q1 over/under-specification
 - **Over-specify (rigid matrix, no Invariant-13 escape):** kills parallel-Analyst and multi-proof-research patterns. Framework becomes brittle on edge cases. Damage: adaptive headroom lost, operator over-provisions OR under-provisions depending on which side of the rigid line the task falls.
-- **Under-specify (current state):** operator bleeds tokens reconstructing the matrix every L/XL session (audit §9.2 shows ~5min of reasoning per session), semantic drift at 3+ Builders (BL-29 evidence), implicit L2 Coherencer skipped (§8.3). Damage: per-session friction ~5min × N operators × M sessions = real tokens + real risk.
+- **Under-specify (current state):** operator bleeds tokens reconstructing the matrix every L/XL session (audit §9.2 shows ~5min of reasoning per session), semantic drift at 3+ Builders (BL-29 evidence), implicit L2 Coherent skipped (§8.3). Damage: per-session friction ~5min × N operators × M sessions = real tokens + real risk.
 
 **Balance:** A1 matrix + A2 parallel-enumeration + "floor not ceiling" caption. Both failure modes addressed.
 
 ### Q1 blast radius — wrong composition on L/XL
-- Under-provisioned L/XL (5 agents on 4-module XL): no L2 Coherencer → semantic drift across Builders (BL-29 gravity formula 6π⁵ error recurs); HIGH blast.
+- Under-provisioned L/XL (5 agents on 4-module XL): no L2 Coherent → semantic drift across Builders (BL-29 gravity formula 6π⁵ error recurs); HIGH blast.
 - Over-provisioned M (spawning 10 agents when 5 suffice): token cost + coordination overhead + agent idle time; MEDIUM blast (wasteful but safe).
 - Wrong role (2 Visionaries instead of 1 V + 1 A): strategic direction gets diluted; framework's Ô-uniqueness (eradev.md Section IV.1) violated; HIGH blast.
 

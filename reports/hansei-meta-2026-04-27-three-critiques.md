@@ -36,7 +36,7 @@ The critiques map to three defect classes:
 
 - **task_completion_rate**: 0/1 = **0.00** (target ≥0.70). First-try-PASS failed because operator review is the real gate.
 - **collaboration_efficiency**: actual_parallel_agents / max_parallel_possible. Diagnostic phase: 4/4 = 1.00 ✅ (Inv 13 honoured). RT-2 phase: 1/1 (only one Validator) — could have spawned RU + EN Validators in parallel for cross-check; this was a missed parallelization.
-- **role_specialization_score**: 0.40 — Validator drifted into "checklist signer" role instead of "gate-executor"; Coherencer didn't catch the Validator drift. The Builder→Validator→ship pipeline produced a syntactically complete artefact with semantic-gate failure.
+- **role_specialization_score**: 0.40 — Validator drifted into "checklist signer" role instead of "gate-executor"; Coherent didn't catch the Validator drift. The Builder→Validator→ship pipeline produced a syntactically complete artefact with semantic-gate failure.
 
 ### Defect counts (from 3 of 4 diagnostic agents — the 4th hung but not blocking)
 

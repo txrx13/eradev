@@ -11,11 +11,11 @@
 
 ## Activation Operator (Validator, executed BEFORE verification)
 
-- **A_F (Focus):** Read in full — roles/validator_EN.md (my own role), CLAUDE.md (v9 with Domain Awareness section), meta.md (full, especially Section 14 item 5b), BOOTSTRAP_LESSONS.md (combined, tagged), BOOTSTRAP_LESSONS_universal.md (22 BL), BOOTSTRAP_LESSONS_code_adapter.md (8 BL), templates/domain_skin.md.template, all 4 project configs (eradev, odtoe-articles, academic-lab, plugy), roles/builder_EN.md, roles/visionary_EN.md (for probe 3 cross-check), v9_phase0a_visionary_2026-04-11.md, v9_phase0a_analyst_2026-04-11.md, v9_phase0b_t6_2026-04-11.md, v9_phase1c_builder_2026-04-11.md, v9_phase1d_coherencer_2026-04-11.md, reports/roadmap_v9_2026-04-11.md.
+- **A_F (Focus):** Read in full — roles/validator_EN.md (my own role), CLAUDE.md (v9 with Domain Awareness section), meta.md (full, especially Section 14 item 5b), BOOTSTRAP_LESSONS.md (combined, tagged), BOOTSTRAP_LESSONS_universal.md (22 BL), BOOTSTRAP_LESSONS_code_adapter.md (8 BL), templates/domain_skin.md.template, all 4 project configs (eradev, odtoe-articles, academic-lab, plugy), roles/builder_EN.md, roles/visionary_EN.md (for probe 3 cross-check), v9_phase0a_visionary_2026-04-11.md, v9_phase0a_analyst_2026-04-11.md, v9_phase0b_t6_2026-04-11.md, v9_phase1c_builder_2026-04-11.md, v9_phase1d_coherent_2026-04-11.md, reports/roadmap_v9_2026-04-11.md.
 
 - **A_E (Alignment):** Intent is NOT "re-run T6" and NOT "audit style." Intent is: verify that v9 Phase 1 artifacts ACTUALLY deliver the ROADMAP's 8 ACs and that cross-reference drift between specs and implementation is zero. A BLOCK would mean v9 is not releasable. A PASS would authorize v9 release. PASS WITH NOTES would authorize release with follow-up tasks.
 
-- **A_σ (Consistency):** The dangerous failure mode here is phantom coherence of type "everything looks right because every sub-agent read the same source documents and paraphrased them the same way." The antidote is INDEPENDENT re-derivation: I MUST cross-check each claim against the underlying file state myself, not just trust the Builder/Coherencer reports. That's why I ran grep on the actual files rather than accepting the Phase 0.B Builder's self-reported counts.
+- **A_σ (Consistency):** The dangerous failure mode here is phantom coherence of type "everything looks right because every sub-agent read the same source documents and paraphrased them the same way." The antidote is INDEPENDENT re-derivation: I MUST cross-check each claim against the underlying file state myself, not just trust the Builder/Coherent reports. That's why I ran grep on the actual files rather than accepting the Phase 0.B Builder's self-reported counts.
 
 - **A_Λ (Experience):** BL-5 (Phantom Coherence: S > 0.8 + B < 0.4 = BLOCK), BL-16 (knowledge without enforcement = Lambda zero — this IS that check), BL-19 (bilingual sync — verified for role files), BL-20 (adversarially test bootstrap), BL-29 (verify established terminology — verified Phase 0.A field names are re-used verbatim), BL-30 (defense-in-depth — v9 has 3 layers: CLAUDE.md Domain Awareness + meta.md §14 item 5b + project config domain block), T6 report BUG-04 (Lambda=0 for non-code tasks — resolved by Phase 1.D BL split), META Section 12 Phantom Coherence Detector protocol.
 
@@ -34,7 +34,7 @@ All 4 Activation Operator steps passed. Proceeding with Check 1-5.
 | **AC-5** | T6 adversarial test PASS on non-code task (B_mean ≥ 0.6) | T6 report: B_creative ≈ 0.75 (Phase 1.A alone, conservative Lambda), B_text ≈ 0.74; both exceed 0.6 target with ≥ 0.14 buffer; even pessimistic Lambda=0.50 gives B ≈ 0.71. | Read v9_phase0b_t6 report | **PASS** |
 | **AC-6** | Phantom Coherence Check L2 passed | **THIS REPORT.** See Checks 1-5 findings. | My independent verification below | **PASS** (self-verdict below) |
 | **AC-7** | BL split deployed, 22 universal + 8 code-adapter, both load | Bash grep counted 22 in universal file, 8 in code-adapter, 30 in combined (legacy). IDs verified disjoint; union = combined minus {23,27} | Bash `grep -c '^### BL-'` + ID extraction | **PASS** |
-| **AC-8** | ≥ 5 new Open Questions recorded | Visionary (9 OQs: AC-7 + OQ-Ω-1..3 + OQ-OOD-1 + OQ-D1.1 + OQ-D1.2 + OQ-D2.1 + OQ-D2.2 + OQ-D3.1) + Analyst (9 OQs: OQ-A1..A5 + 4 more) + T6 (3 OQs: OQ-T6.1..3) + Phase 1.C Builder (5 OQs: OQ-1C-1..5) + Phase 1.D Coherencer (5 spiral gaps: SG-D1..D5). **Total: 31 OQs across 5 phases.** | Bash grep -cE for OQ pattern | **PASS** (exceeds by 6×) |
+| **AC-8** | ≥ 5 new Open Questions recorded | Visionary (9 OQs: AC-7 + OQ-Ω-1..3 + OQ-OOD-1 + OQ-D1.1 + OQ-D1.2 + OQ-D2.1 + OQ-D2.2 + OQ-D3.1) + Analyst (9 OQs: OQ-A1..A5 + 4 more) + T6 (3 OQs: OQ-T6.1..3) + Phase 1.C Builder (5 OQs: OQ-1C-1..5) + Phase 1.D Coherent (5 spiral gaps: SG-D1..D5). **Total: 31 OQs across 5 phases.** | Bash grep -cE for OQ pattern | **PASS** (exceeds by 6×) |
 
 ### AC Verification — Evidence Detail
 
@@ -146,7 +146,7 @@ All 4 project configs (eradev, odtoe-articles, academic-lab, plugy) contain `dom
 6. **Builder sees Example 3** (book chapter): "draft the opening chapter of a memoir. Flow — A_F: read voice_guide.md, scene_list.md, any prior chapter samples; A_E: intent = pull the reader forward, not lecture; A_sigma: cross-check metaphors against the prologue so we do not re-use the cold open's image; A_Lambda: last draft collapsed into summary at scene 3 — plan a hand-off hook between scenes." Verification = read-aloud pass + voice check + word count within target. Blast Radius: MEDIUM.
 7. **Builder executes A_F/A_E/A_σ/A_Λ** with book-specific scopes (character sheet, world bible, voice guide — whatever the project has). Produces chapter_01.md.
 8. **Validator spawns** with validator_EN.md → sees Example 3 (book chapter, read-aloud completes without stumble, voice guide check, word count, edge cases = reader skipping prologue, out-of-order reader, beta reader with no context). Runs the checks.
-9. **Coherencer syncs** terminology register against prior chapters (if any), BL-19 book=single-language or bilingual (project-specific).
+9. **Coherent syncs** terminology register against prior chapters (if any), BL-19 book=single-language or bilingual (project-specific).
 
 **Adversarial probe verdict table:**
 
@@ -183,7 +183,7 @@ All 4 project configs (eradev, odtoe-articles, academic-lab, plugy) contain `dom
 - B-formula uniform weights → mathematically identical to v8 → agent computation unchanged
 - Role file activation path unchanged → agent sees code/service examples first (which are still present in all 5 role files)
 
-**BL backward compat:** Phase 1.D Coherencer preserved BOOTSTRAP_LESSONS.md as combined file (unchanged). Any legacy loader path still works; split loading is recommended but not mandatory.
+**BL backward compat:** Phase 1.D Coherent preserved BOOTSTRAP_LESSONS.md as combined file (unchanged). Any legacy loader path still works; split loading is recommended but not mandatory.
 
 **Backward compat verdict: PASS.** Defense is 3-layer (CLAUDE.md explicit + meta.md §14 item 5b explicit + Phase 0.A Visionary math invariant), matching BL-30 (defense-in-depth).
 
@@ -213,7 +213,7 @@ All 5 role file pairs (RU + EN) exist:
 
 - **CLAUDE.md**: no `CLAUDE_RU.md` file convention — CLAUDE.md is a Claude Code harness file, not a bilingual artifact. Phase 1.C Builder explicitly logged this as "out of BL-19 scope." Consistent with Phase 0.B Builder decision.
 - **meta.md**: has a `meta_RU.md` counterpart. Phase 1.C Builder added item 5b to meta.md. **OPEN CONCERN:** meta_RU.md was NOT updated in Phase 1.C (out of scope per Phase 1.C Builder report §"What Phase 1.C did NOT do"). If meta_RU.md lacks a corresponding item 5b entry, BL-19 is violated for this file. Logged as follow-up (see §"Notes" below).
-- **BOOTSTRAP_LESSONS**: No RU counterpart exists (Phase 1.D Coherencer §SG-D1: "no RU counterpart of BOOTSTRAP_LESSONS currently exists. BL-19 mandates bilingual sync for files that HAVE a counterpart — it does not mandate creation of one.") Consistent with the spiral-gap discipline — leave it as fuel, not artificial forced symmetry.
+- **BOOTSTRAP_LESSONS**: No RU counterpart exists (Phase 1.D Coherent §SG-D1: "no RU counterpart of BOOTSTRAP_LESSONS currently exists. BL-19 mandates bilingual sync for files that HAVE a counterpart — it does not mandate creation of one.") Consistent with the spiral-gap discipline — leave it as fuel, not artificial forced symmetry.
 
 ### 5.3 Bilingual sync verdict: **PASS WITH ONE NOTE**
 
@@ -250,7 +250,7 @@ Phase 1.C Builder OQ-1C-4 noted: "templates/CLAUDE.md.template still uses v8-era
 
 ### Finding 4 — Phase 1.D BL split is a mechanical partition, not a re-tagging
 
-Phase 1.D Coherencer did not make any tagging decisions — the 22+8 split was inherited from Phase 0.B Builder's tagging report. Phase 1.D's job was file creation + gap maps + loading strategy documentation. This means there is zero new phantom surface in Phase 1.D: everything Phase 1.D states about the split is traceable to Phase 0.B.
+Phase 1.D Coherent did not make any tagging decisions — the 22+8 split was inherited from Phase 0.B Builder's tagging report. Phase 1.D's job was file creation + gap maps + loading strategy documentation. This means there is zero new phantom surface in Phase 1.D: everything Phase 1.D states about the split is traceable to Phase 0.B.
 
 **Implication:** If Phase 0.B tagging was sound, Phase 1.D is sound. Phase 0.B tagging was in turn gated by the Phase 0.B T6 adversarial test (which passed at B ≈ 0.75).
 
@@ -284,7 +284,7 @@ CLAUDE.md Domain Awareness references "per eradev.md Section II.1" (line 31). Bu
 | 0.A Analyst | "Design the `domain:` block schema and the skin template so Phase 1.B can add configs and Phase 1.C can make META domain-aware." | ✓ |
 | 0.B T6 Validator | "Verify that Phase 1.A role-file refactor actually universalizes behavior on a non-code task (B_mean ≥ 0.6)." | ✓ |
 | 1.C Builder | "Make CLAUDE.md, templates, and meta.md §14 domain-aware so META reads `domain:` on session bootstrap without breaking v8 projects." | ✓ |
-| 1.D Coherencer | "Split BOOTSTRAP_LESSONS into universal (22) + code-adapter (8) so non-code projects don't cold-start with inapplicable lessons." | ✓ |
+| 1.D Coherent | "Split BOOTSTRAP_LESSONS into universal (22) + code-adapter (8) so non-code projects don't cold-start with inapplicable lessons." | ✓ |
 
 **All 5 answers converge on the same v9 goal:** universalize EraDev for text-discrete artifact tasks (code, article, book, config, plan, research) via (a) modal B-formula, (b) domain schema + skin layer, (c) vocabulary-clean role files, (d) BL split by load scope, (e) explicit domain check in session bootstrap.
 
@@ -305,7 +305,7 @@ B-diagnostics (rate 0.0-1.0):
                           templates/domain_skin.md.template, 4 project configs,
                           builder_EN.md (for book-example probe), Phase 0.A Visionary,
                           Phase 0.A Analyst, Phase 0.B T6, Phase 1.C Builder,
-                          Phase 1.D Coherencer, roadmap_v9. Also ran independent
+                          Phase 1.D Coherent, roadmap_v9. Also ran independent
                           bash checks: git log on eradev.md, grep -c on role files,
                           grep -oE for BL IDs in both split files, file listing for
                           skill mirror. Did NOT re-read v8 originals (trusted the
@@ -375,7 +375,7 @@ Render / verify / validate:
 Edge cases probed:
   - Fresh META agent handed "write chapter 1 sci-fi book" → path flows via
     CLAUDE.md Domain Awareness → meta.md §14 item 5b → project config domain.type=book
-    → B_creative → Builder Example 3 book chapter → Validator Example 3 → Coherencer
+    → B_creative → Builder Example 3 book chapter → Validator Example 3 → Coherent
   - Hypothetical 5th project WITHOUT domain block → implicit default flows through
     3-layer enforcement → v8-identical behavior
   - BL union/intersection math on split files (no loss, no duplication)

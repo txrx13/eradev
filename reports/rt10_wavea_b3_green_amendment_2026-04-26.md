@@ -28,7 +28,7 @@ After EN edit landed, system-reminder reported linter touched meta.md. First `cp
 - [x] Existing META consumers unaffected (no protocol verb renamed, no gate semantics changed)
 
 ## Blast Radius
-**LOW.** Documentation/vocabulary amendment within §15 (Report Funnel). No agent prompts, role files, or invariants modified. T4 documentation tier (interpretation guidance per L-50 extend>add directive). No automation enforces «ready» word, so the amendment relies on operator vigilance + future Tier-claim sweeps (Coherencer recurring task).
+**LOW.** Documentation/vocabulary amendment within §15 (Report Funnel). No agent prompts, role files, or invariants modified. T4 documentation tier (interpretation guidance per L-50 extend>add directive). No automation enforces «ready» word, so the amendment relies on operator vigilance + future Tier-claim sweeps (Coherent recurring task).
 
 ## B-check
 F=0.95 (read meta.md + meta_RU.md + builder_EN.md + 6 cross-ref grep targets in full)

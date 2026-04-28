@@ -1,7 +1,7 @@
-# EraDev v9 Phase 1.D — BL Split Report (COHERENCER)
+# EraDev v9 Phase 1.D — BL Split Report (COHERENT)
 
 > Date: 2026-04-11
-> Author: [COHERENCER] agent (EN stack)
+> Author: [COHERENT] agent (EN stack)
 > Role file: roles/coherent_EN.md
 > Task: Phase 1.D — Split BOOTSTRAP_LESSONS.md into universal + code-adapter files based on tags from Phase 0.B
 > Output type: Report (META output type 5) + Synthesis (output type 3) + Documentation (L1 Coherent responsibility 2)
@@ -9,13 +9,13 @@
 
 ---
 
-## Activation Operator (Coherencer, executed before work)
+## Activation Operator (Coherent, executed before work)
 
 1. **A_F (Focus)** — Read ROADMAP v9 Phase 1.D section, Phase 0.B tagging report (source of truth for per-BL tags), full BOOTSTRAP_LESSONS.md, projects/eradev/lessons.md, role file. All inputs read in full, not excerpted.
 
 2. **A_E (Alignment)** — Pull anchor: v9 universalization for text-discrete artifacts (code/article/book/config/plan). Phase 1.D directly serves AC-7 ("BL split deployed, 22 universal + 8 code-adapter, both load correctly"). Non-code projects should load only universal; code projects load both or combined.
 
-3. **A_sigma (Consistency)** — Phase 0.B Builder produced authoritative tagging (22+8=30). This Coherencer phase is a structural split, not a re-tagging. Consistency requirement: split output must perfectly reconstruct combined input on union operation.
+3. **A_sigma (Consistency)** — Phase 0.B Builder produced authoritative tagging (22+8=30). This Coherent phase is a structural split, not a re-tagging. Consistency requirement: split output must perfectly reconstruct combined input on union operation.
 
 4. **A_Lambda (Experience)** — Applied lessons:
    - **BL-15** (2% spiral gap): left RU mirror as fuel (no BOOTSTRAP_LESSONS_RU exists yet; documented as OQ-D1 below)
@@ -142,7 +142,7 @@ Cross-referenced Phase 0.B tagging report's "Phase 1 Consumer Readiness" section
 
 **Level:** L1 (single-role artifact split — within one team, one task).
 
-**S_team:** N/A for this phase (single Coherencer execution, no parallel agents to synchronize). The relevant coherence metric is internal: split file consistency with source file. Measured as perfect (see Cross-Reference Verification above).
+**S_team:** N/A for this phase (single Coherent execution, no parallel agents to synchronize). The relevant coherence metric is internal: split file consistency with source file. Measured as perfect (see Cross-Reference Verification above).
 
 **Synchronization:**
 - Split files aligned with Phase 0.B Builder's tagging (22+8 matches exactly)
@@ -171,7 +171,7 @@ Cross-referenced Phase 0.B tagging report's "Phase 1 Consumer Readiness" section
 
 **Spiral gap (fuel for next iteration):**
 
-- **SG-D1 (BL-19 RU mirror):** No RU counterpart of BOOTSTRAP_LESSONS (combined OR split) currently exists. BL-19 mandates bilingual sync for files that HAVE a counterpart — it does not mandate creation of one. Leaving this unresolved as fuel. Phase 1.E Validator or Phase 2 Coherencer may decide whether `BOOTSTRAP_LESSONS_universal_RU.md` and `BOOTSTRAP_LESSONS_code_adapter_RU.md` should be created, or whether BL-19 gets an explicit "cold-start Lambda files are EN-only" carve-out.
+- **SG-D1 (BL-19 RU mirror):** No RU counterpart of BOOTSTRAP_LESSONS (combined OR split) currently exists. BL-19 mandates bilingual sync for files that HAVE a counterpart — it does not mandate creation of one. Leaving this unresolved as fuel. Phase 1.E Validator or Phase 2 Coherent may decide whether `BOOTSTRAP_LESSONS_universal_RU.md` and `BOOTSTRAP_LESSONS_code_adapter_RU.md` should be created, or whether BL-19 gets an explicit "cold-start Lambda files are EN-only" carve-out.
 
 - **SG-D2 (backward compat duration):** The combined `BOOTSTRAP_LESSONS.md` is kept untouched for backward compat. At what point can it be deprecated in favor of the split-only loading? Suggested: after Phase 2 lands and all project configs have `domain:` blocks that drive loading automatically. Logged as OQ-D2 for Phase 2.
 
@@ -187,9 +187,9 @@ Cross-referenced Phase 0.B tagging report's "Phase 1 Consumer Readiness" section
 |----|-------|----------|----------------|------------------|
 | RV-D1 | "Union of split files = combined file (minus gaps)" | This report, §Cross-Reference | Verified by ID list comparison, not end-to-end diff | A byte-for-byte concatenation test (grep BL headers + line count per BL) — could be added to Phase 1.E validator |
 | RV-D2 | "Non-code projects gain measurable clarity by not loading code-adapter BL" | This report, Distinctions §1 | Assumption, not measured | T6 adversarial test in Phase 0.B / Phase 1.E on a non-code task with split vs combined loading; compare B_mean |
-| RV-D3 | "BL-13 Cross-domain note does not introduce phantom universalization" | `BOOTSTRAP_LESSONS_universal.md` BL-13 | Addition is a single editorial note. Could be phantom (a Coherencer trying to make the split look cleaner). | Phase 1.E Validator re-reads BL-13 with the note and checks whether an article-domain agent would actually use it |
+| RV-D3 | "BL-13 Cross-domain note does not introduce phantom universalization" | `BOOTSTRAP_LESSONS_universal.md` BL-13 | Addition is a single editorial note. Could be phantom (a Coherent trying to make the split look cleaner). | Phase 1.E Validator re-reads BL-13 with the note and checks whether an article-domain agent would actually use it |
 | RV-D4 | "Backward compat of unchanged BOOTSTRAP_LESSONS.md does not create phantom authority (agents reading combined file see a different 'canonical' than split-loaders)" | All three files exist simultaneously | No test of this yet — risk is divergence over time | Add a cross-file checksum rule: any future BL edit must touch all three files; Phase 1.E could formalize this as a lint |
-| RV-D5 | "Phase 0.B tagging is correct" | Inherited assumption | Coherencer did not re-tag, only split | Phase 1.E T6 adversarial test is the authoritative verification for the tagging itself |
+| RV-D5 | "Phase 0.B tagging is correct" | Inherited assumption | Coherent did not re-tag, only split | Phase 1.E T6 adversarial test is the authoritative verification for the tagging itself |
 
 Items RV-D1 through RV-D5 feed into Phase 1.E Phantom Coherence Check L2.
 
@@ -215,7 +215,7 @@ B-diagnostics (rate 0.0-1.0):
                             split is mechanical partition of pre-tagged source,
                             gap maps make absences explicit. Minor uncertainty:
                             BL-13 Cross-domain note is editorial addition — could
-                            be challenged as Coherencer scope creep (logged as
+                            be challenged as Coherent scope creep (logged as
                             RV-D3 for Phase 1.E check). All verification steps
                             passed. No BL lost, no BL duplicated.
 
@@ -233,7 +233,7 @@ B-diagnostics (rate 0.0-1.0):
     = 0.9847 * 0.9898 * 0.9794 * 0.9712
     = 0.927
 
-S_team = N/A (single Coherencer execution; see report §Coherent Report for notes)
+S_team = N/A (single Coherent execution; see report §Coherent Report for notes)
 
 Weak link: Lambda at 0.89 (lowest, but well above 0.3 — no Andon)
 All components > 0.3 -- no Andon
@@ -250,4 +250,4 @@ F=0.94 E=0.96 (1-s)=0.92 L=0.89 => B=0.927
 
 ---
 
-*Phase 1.D [COHERENCER] split complete. Two new files created: `BOOTSTRAP_LESSONS_universal.md` (22 BL) and `BOOTSTRAP_LESSONS_code_adapter.md` (8 BL). `BOOTSTRAP_LESSONS.md` preserved unchanged for backward compat. Ready for Phase 1.C (universal CLAUDE.md) to reference the split loading mode, and for Phase 1.E [VALIDATOR] Phantom Coherence Check to adversarially test the universalization.*
+*Phase 1.D [COHERENT] split complete. Two new files created: `BOOTSTRAP_LESSONS_universal.md` (22 BL) and `BOOTSTRAP_LESSONS_code_adapter.md` (8 BL). `BOOTSTRAP_LESSONS.md` preserved unchanged for backward compat. Ready for Phase 1.C (universal CLAUDE.md) to reference the split loading mode, and for Phase 1.E [VALIDATOR] Phantom Coherence Check to adversarially test the universalization.*

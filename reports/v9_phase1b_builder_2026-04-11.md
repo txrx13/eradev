@@ -216,7 +216,7 @@ B-diagnostics (rate 0.0-1.0):
 - **OQ-B2**: Concrete skin files (`domain_skin.code.md`, `domain_skin.article.md`, `domain_skin.book.md`) are Phase 2.A deliverables. All 4 configs reference `skin: templates/domain_skin.code.md` or `domain_skin.article.md` — these paths will dangle until Phase 2.A. Not a blocker for v9 Phase 1.
 - **OQ-B3**: The 3 open questions from Analyst (OQ-A1 bilingual schema, OQ-A2 verify method list, OQ-A4 artifact.primary enum) remain unresolved. None blocked this Phase 1.B work. Phase 1 trial data will inform their resolution.
 - **Handoff to [VALIDATOR]**: independent schema parse via yq (when available), absence of L0 changes check (git diff on eradev.md Sections I-III, V, IX should show 0 lines), grep for `domain:` in all 4 configs, visual diff review against Analyst Examples 3.1/3.2 and derived values.
-- **Handoff to [COHERENCER]**: BL-19 bilingual parity check (none needed — configs are EN-only by project convention), cross-project terminology scan (`source_file`, `build`, `strict`, `text-discrete` should be consistent across all 4 configs — confirmed in this report's schema table).
+- **Handoff to [COHERENT]**: BL-19 bilingual parity check (none needed — configs are EN-only by project convention), cross-project terminology scan (`source_file`, `build`, `strict`, `text-discrete` should be consistent across all 4 configs — confirmed in this report's schema table).
 - **Handoff to META**: Phase 1.B complete. Phase 1.C (Universal CLAUDE.md with domain-aware Session Bootstrap) is next unblocked work. Phase 1.E Phantom Coherence Check can run after Phase 1.C.
 
 ---
@@ -243,4 +243,4 @@ B-diagnostics (rate 0.0-1.0):
 
 ---
 
-*Builder report complete. Phase 1.B ready for Validator and Coherencer gates.*
+*Builder report complete. Phase 1.B ready for Validator and Coherent gates.*

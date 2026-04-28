@@ -87,14 +87,14 @@ All 5 roles present with correct subsection headers (lines 88, 97, 121, 130, 139
 - Analyst: FIRST anchor = proof strategy + axiom_set. Primary failure = skipping axiom declaration. Jidoka Q1-Q5 + deliverable template present.
 - Builder: FIRST anchor = axiom_set + outline + notation table. Primary failure = hand-waving justifications (RC1). Jidoka Q1-Q5 present.
 - Validator: FIRST anchor = independent walk. Primary failure = reading with author's context. Jidoka Q1-Q9 (all 8 RC checks mapped to Q items). RC1-RC8 individually mapped.
-- Coherencer: FIRST anchor = notation tables + axiom_sets of neighbors. Primary failure = notation collision. BL-19 OPTIONAL explicitly stated (line 147).
+- Coherent: FIRST anchor = notation tables + axiom_sets of neighbors. Primary failure = notation collision. BL-19 OPTIONAL explicitly stated (line 147).
 
 Derivation-first language confirmed:
 - Line 86: "derivation-first language (not bibliography-first)"
 - Line 19: "recompute (derivation-first)"
 - Line 168: "research artifacts are derivation-first"
 
-BL-19 OPTIONAL for research: Confirmed at line 147 (Coherencer section) and line 337 (BL table). Research skin explicitly states commit NOT blocked on missing RU/EN pair unless project declares `bilingual: required`.
+BL-19 OPTIONAL for research: Confirmed at line 147 (Coherent section) and line 337 (BL table). Research skin explicitly states commit NOT blocked on missing RU/EN pair unless project declares `bilingual: required`.
 
 - **VERDICT: PASS** -- all 5 roles have derivation-first overrides; BL-19 OPTIONAL is explicit.
 
@@ -120,12 +120,12 @@ C5 DEMOTION: Confirmed at line 183 `C5 DEMOTES to a footnote.`
 ### CHECK 7: RT sequential-within-round (stricter than article)
 
 - RT-0 (Visionary solo, RECOMMENDED): line 223 -- claim + scope declaration.
-- RT-1 (mandatory, full 5-role): line 228 -- sequential role execution within the round (Analyst -> Builder -> Validator -> Coherencer). Explicit statement: "not parallel."
+- RT-1 (mandatory, full 5-role): line 228 -- sequential role execution within the round (Analyst -> Builder -> Validator -> Coherent). Explicit statement: "not parallel."
 - RT-2 (mandatory, pre-submission): line 230 -- full gate.
 - Single Builder with sequential rhythm: line 235 -- "SINGLE agent" drafting in dependency order, "no parallel splits."
 - Pipeline block: lines 243-256 -- fixed pipeline diagram.
 - "Sequential-within-round" pattern confirmed at lines 247, 298.
-- L/XL exception (>3 independent proofs, 2 builders, Coherencer gate MANDATORY): line 239.
+- L/XL exception (>3 independent proofs, 2 builders, Coherent gate MANDATORY): line 239.
 
 - **VERDICT: PASS** -- RT protocol is sequential-within-round, stricter than both canonical RT and article skin.
 
@@ -133,7 +133,7 @@ C5 DEMOTION: Confirmed at line 183 `C5 DEMOTES to a footnote.`
 
 - Example 1: lines 292-301 -- "Missing proof step (RC1 / RC2 failure)". Catching role: Validator. Phase: RT-1 or RT-2. Fix: insert missing B-formula substitution step. Didactic case for recompute-first. MATCHES spec AC-5 requirement.
 - Example 2: lines 302-311 -- "Circular reasoning (RC4 failure)". Catching role: Validator. Phase: RT-2. Fix: break the cycle. MATCHES spec AC-5 requirement.
-- Example 3: lines 312-321 -- "Notation collision (RC6 / Coherencer failure)". Catching role: Coherencer. Phase: RT-2 or Builder Jidoka Q5. Fix: rename symbol. Parallel with article skin Example 2 noted. MATCHES spec AC-5 requirement.
+- Example 3: lines 312-321 -- "Notation collision (RC6 / Coherent failure)". Catching role: Coherent. Phase: RT-2 or Builder Jidoka Q5. Fix: rename symbol. Parallel with article skin Example 2 noted. MATCHES spec AC-5 requirement.
 
 Each example names: catching role, phase, and fix. All 3 required example types present.
 

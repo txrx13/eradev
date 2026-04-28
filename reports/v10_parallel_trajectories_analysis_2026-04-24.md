@@ -120,7 +120,7 @@ Status keys: **ALREADY** / **PARTIAL** / **NEW** / **REJECTED** / **IRRELEVANT**
 | C19 | Path (c) "accept ΔÔ ≠ 0" as working strategy | **NEW** | NOT IN EraDev. Phantom Coherence (BL-5) concerns false convergence; Phantom Decoherence (BL-29 ext) concerns hidden convergence. F7 + path (c) concern STRUCTURAL non-convergence that is accepted as normal. Gap: EraDev invariant #9 ("No compromise, no 'just this once'") could be misread as demanding B_intended = B_received; path (c) says this demand is excessive in general | HIGH | M | YES (nuanced — resolves via formalization, not rejection) | save | **ADOPT** (add path-(c) discipline to `roles/coherent_EN.md` + Validator Output Format: distinguish "sufficient reception" from "identical reception") |
 | C20 | Micro-check operation (§VIII.8, Schön reflection-in-action) | **NEW** | EraDev has Validator DOCS DRIFT CHECK (role file, rule 9) + BL-29 verify-established-terminology. Both are retrospective on ARTIFACTS, not receiver-feedback operations. Micro-check is prospective: "after transmission, ask 'how did you hear?'" — a between-agents operation not currently in RT protocol | HIGH | S | NO | save | **ADOPT** (add "μ-check" step to RT-2 protocol; `eradev.md` §VI RT-2 addition: each Builder output closes with a one-line "how did Validator hear this?" prompt) |
 | C21 | §VII No-Free-Lunch (method-vs-configuration, Wolpert–Macready analogy) | **NEW (meta-insight)** | NOT IN EraDev, but directly relevant. EraDev has domain skins (code/article/book/config/plan/research) as per-project adapters. Paper §VII formalizes: no single (method, configuration) pair dominates all tasks. Directly supports EraDev's adapter architecture; adds theoretical backing | MED | S | NO | — | **ADOPT** (add attribution to `FOUNDATIONS.md` §III; cite as 13th theoretical foundation anchoring the skin system) |
-| C22 | §VII.4 ensemble of configurations (C_1, C_2, …, C_M for different phases of a task) | **NEW** | EraDev has Multi-team scaling (`eradev.md` §X: N_teams = ceil(N_modules/3)) + Coherencer Hierarchy L1/L2/L3. Paper §VII.4 says DIFFERENT configurations for different PHASES of one task, selected by feedback not by priors. Complementary | MED | M | NO | neutral | **DEFER-v11** (requires mechanism for configuration-switching; currently Coherencer Hierarchy is team-count-driven, not phase-driven) |
+| C22 | §VII.4 ensemble of configurations (C_1, C_2, …, C_M for different phases of a task) | **NEW** | EraDev has Multi-team scaling (`eradev.md` §X: N_teams = ceil(N_modules/3)) + Coherent Hierarchy L1/L2/L3. Paper §VII.4 says DIFFERENT configurations for different PHASES of one task, selected by feedback not by priors. Complementary | MED | M | NO | neutral | **DEFER-v11** (requires mechanism for configuration-switching; currently Coherent Hierarchy is team-count-driven, not phase-driven) |
 | C23 | §X.4 two-scale boundary: atomic n=5 + Miller 7±2 + Dunbar 150 as nested not competing | ALREADY (partial) | EraDev has n_min = 5 (atomic). Miller 7±2 + Dunbar 150 NOT explicit. Multi-team scaling handles >5 implicitly | LOW | S | NO | neutral | **DEFER-v11** (document in FOUNDATIONS.md if tested; low urgency) |
 | C24 | §X.5 four working habits | ALREADY (scattered) | (1) Rough first = L-26 real-use + BL-11 Minimum Viable Scope; (2) Transmit method not text = BL-19 bilingual sync + role-file discipline; (3) Check receipt = C20 micro-check (NEW); (4) Accept "their way" = C19 path (c) (NEW) | MED | S | — | — | **ADAPT** (document the four habits as a consolidated "operational discipline block" in `meta.md`; habits 1,2 point to existing, habits 3,4 require C19+C20 adoption first) |
 | C25 | Publication base — paper cites [21] (~190 transcripts) as empirical anchor; RV-04 = preprint publication of [21] open | IRRELEVANT to EraDev framework | — | — | — | — | — | — |
@@ -180,7 +180,7 @@ Ranking formula (simplified): `score = (value × urgency) / (effort × risk)`. V
 | **5** | **C11 — F4 frame-projector in §II + link to BL-17** | Paper §IV.2 | MED | S | 4.0 | **SHIP NOW** |
 | **6** | **P3 — Cross-Layer Contract Table in Analyst Output** | BIM | MED-HIGH | S | 4.0–6.0 | **SHIP NOW** |
 | **7** | **C14 — F7 sufficiency threshold B_received ≥ B_min** | Paper §VIII.5 | HIGH | M | 3.0 | **SHIP NOW** (stretch) |
-| **8** | **C19 — Path (c) "accept ΔÔ" discipline in Coherencer + Validator** | Paper §VIII.4 | HIGH | M | 3.0 | **SHIP NOW** (stretch) |
+| **8** | **C19 — Path (c) "accept ΔÔ" discipline in Coherent + Validator** | Paper §VIII.4 | HIGH | M | 3.0 | **SHIP NOW** (stretch) |
 | **9** | **C21 — No-Free-Lunch theorem attribution in FOUNDATIONS.md** | Paper §VII | MED | S | 4.0 | **SHIP NOW** (bundled w/ C26 citations) |
 | **10** | **P2 — `verify.method: doc_alignment` with F7 calibration** | BIM + Paper | HIGH | M | 3.0 | **SHIP NOW** |
 | **11** | **C26 — Add missing 13 citation attributions to FOUNDATIONS.md** | Paper references | MED | S | 4.0 | **SHIP NOW** (S-task) |
@@ -204,7 +204,7 @@ Ranking formula (simplified): `score = (value × urgency) / (effort × risk)`. V
 
 | Order | Item | Touch |
 |:-:|---|---|
-| 1 | P1 unified-plan template + Coherencer mandate | `templates/unified_plan.template.md` NEW; `roles/coherent_EN.md` §Output Format edit |
+| 1 | P1 unified-plan template + Coherent mandate | `templates/unified_plan.template.md` NEW; `roles/coherent_EN.md` §Output Format edit |
 | 2 | C20 μ-check at RT-2 | `eradev.md` §VI RT-2 protocol edit; `roles/builder_EN.md` + `roles/validator_EN.md` |
 | 3 | C7 τ_cycle primacy → Invariant #17 | `CLAUDE.md` invariants list +1; `eradev.md` §VI.5 (new subsection) |
 | 4 | C13 F6 Π_meta at RT-3 | `eradev.md` §III (formula #11 next to S_session); `meta.md` RT-3 reporting |
@@ -256,7 +256,7 @@ C9, C10, C12, C15, C16, C22, C23, P5, P7 — deferred because: (a) await empiric
 
 **Conclusion:** Paper and v10 are LAYERED, not conflicting. Paper extends ODTOE theoretical basis (F1–F11 on top of B, S, P_coll, Ω, n_min); v10 extends EraDev operational layer (invariants, gates, domain awareness, modal weights). The two layers compose cleanly: v10 implements the paper's axioms operationally (Ĥ = activation operator = v10's 4-step A_F/A_E/A_σ/A_Λ; n_min=5 = v10's role count; ι = v10's Validator role + RT-2 feedback). Adopting C7/C8/C13/C14 upgrades v10 to reflect the paper's newer theoretical layer; no re-work of existing v10 operational layer needed.
 
-**One drift caveat:** The paper's §VII "ensemble of configurations" (C22 in map, DEFER) implies phase-driven configuration switching. Current v10 Coherencer Hierarchy (L1/L2/L3) is team-count-driven, not phase-driven. This is a structural gap ONLY in XL/L2-Coherencer territory, well outside mainstream work. Deferred correctly.
+**One drift caveat:** The paper's §VII "ensemble of configurations" (C22 in map, DEFER) implies phase-driven configuration switching. Current v10 Coherent Hierarchy (L1/L2/L3) is team-count-driven, not phase-driven. This is a structural gap ONLY in XL/L2-Coherent territory, well outside mainstream work. Deferred correctly.
 
 ---
 

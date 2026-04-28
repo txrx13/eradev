@@ -1,7 +1,7 @@
 # BT-1 Phase 2 Completion Snapshot
 
 **Date:** 2026-04-26
-**Status:** ACCEPTED (Validator + L2 Coherencer dual-verdict)
+**Status:** ACCEPTED (Validator + L2 Coherent dual-verdict)
 
 ## Commits
 - `c10146a` — Phase 2.1 D-cure: axis re-anchor (D2-additive)
@@ -20,7 +20,7 @@
 S_adjusted (M+P avg): 0.674
 Phantom risk: LOW (BL-5/BL-29 thresholds clear)
 
-I:D ratios verified against git: D=309/0, M=48/10, P=200/2 (matches L2 Coherencer report).
+I:D ratios verified against git: D=309/0, M=48/10, P=200/2 (matches L2 Coherent report).
 
 ## Files added/modified
 - `eradev.md` + `eradev_RU.md` §II.1 (D-cure formula)
@@ -41,7 +41,7 @@ I:D ratios verified against git: D=309/0, M=48/10, P=200/2 (matches L2 Coherence
 - `bash -n .claude/hooks/check-leverage.sh` → OK
 - `bash -n .githooks/phantom-newness-check.sh` → OK
 - `git log c10146a^..HEAD` → 3 commits visible, ordering preserved (D → M → P)
-- I:D ratios match Coherencer report exactly
+- I:D ratios match Coherent report exactly
 
 ## DOCS DRIFT (Validator Rule 9)
 Grep across `docs/`, `README.md`, `README_EN.md`, `setup-claude.md`, `setup-codex.md`, `setup-cursor.md`, `setup-windsurf.md` for symbols `leverage_factor | intent_ratio | Ω_pruned | ε_meta | retire-pass | hansei_dormancy`: **0 matches**.
@@ -53,7 +53,7 @@ Recommendation (advisory, non-blocking): if a future "Operator Quickstart" secti
 ## Open Questions (Spiral Gap ~2%)
 1. Empirical baseline: LF log empty, intent_ratio counter not yet implemented
 2. Composition hazard: framework-self LF will trend down before OD-2/OD-3 deploy operator-domain ratio
-3. Hansei dormancy template Tier line: implicit (Coherencer-authored) — could add explicit "Tier: T3" header
+3. Hansei dormancy template Tier line: implicit (Coherent-authored) — could add explicit "Tier: T3" header
 4. intent_ratio measurement vehicle: who increments? manual self-report or session log derived?
 5. 4-session window definition: needs sentinel for session boundary
 

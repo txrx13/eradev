@@ -129,7 +129,7 @@ All three CLAUDE files are structurally parallel. The project-root CLAUDE.md is 
 
 ## What Phase 1.C did NOT do (logged for downstream phases)
 
-1. **No RU mirror of CLAUDE.md / templates** — There is no `CLAUDE_RU.md` convention; CLAUDE.md is a Claude Code harness file, not a bilingual EraDev artifact. BL-19 applies to role files and internal framework docs, not to harness entry points. This is consistent with how v8 handled it. Logged for Phase 1.D COHERENCER review if needed.
+1. **No RU mirror of CLAUDE.md / templates** — There is no `CLAUDE_RU.md` convention; CLAUDE.md is a Claude Code harness file, not a bilingual EraDev artifact. BL-19 applies to role files and internal framework docs, not to harness entry points. This is consistent with how v8 handled it. Logged for Phase 1.D COHERENT review if needed.
 2. **No tagging of invariants in templates/CLAUDE.md.template** — Phase 0.B only tagged the project-root CLAUDE.md. Template tagging is a separate sync task. Logged for Phase 1.D BL split work.
 3. **No loader implementation** — CLAUDE.md DESCRIBES the domain detection; actual YAML parsing of `domain:` block is a runtime concern handled by META's session bootstrap, which is natural-language instructions to the LLM (not code). No separate loader module exists or is needed.
 4. **No changes to eradev.md Section II.1** — The modal B-formula Section II.1 is Phase 0.A Visionary's output and lives in eradev.md. Phase 1.C references it but does NOT modify it. L0 iron rule holds (roadmap_v9 Section "v9 Universalization — 4 Layers").
@@ -206,7 +206,7 @@ The biggest residual risk is Phase 1.C describing modal B-formula weights in CLA
 
 **Next actors per roadmap_v9:**
 - **[VALIDATOR]** Phase 1.C — schema parse check on all 3 CLAUDE files + meta.md §14; assert Backward Compat contract holds on at least 1 legacy project config
-- **[COHERENCER]** Phase 1.D — BL split into universal + code-adapter files + tag templates/CLAUDE.md.template invariants + sync skill mirror if required
+- **[COHERENT]** Phase 1.D — BL split into universal + code-adapter files + tag templates/CLAUDE.md.template invariants + sync skill mirror if required
 - **[VALIDATOR]** Phase 1.E — Phantom Coherence Check (fresh-agent independence test on the universalization as a whole)
 - **[BUILDER]** future — fold Phase 0.A Visionary deliverables (modal B-formula, Ω formalization, OOD scope) into eradev.md as new Section II.1 / extension of Section III / new Section on OOD. This is NOT Phase 1.C work — Phase 1.C only REFERENCES these outputs.
 

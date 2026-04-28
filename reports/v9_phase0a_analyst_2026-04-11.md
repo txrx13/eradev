@@ -192,7 +192,7 @@ Each role retains its Activation Operator and Jidoka protocol from `roles/{role}
 - Failure handling: {what Validator does on FAIL — rollback, patch, escalate}
 - Independence rule: {e.g., "recompute formulas independently, don't trust prior results"}
 
-### Coherencer
+### Coherent
 - Cross-artifact consistency: {what must match across files — glossary, formula IDs, version numbers}
 - Bilingual sync (BL-19): {how RU/EN sync applies in this domain}
 - Drift detection: {what signals phantom coherence specific to this domain}
@@ -427,18 +427,18 @@ Task inertia: **M** (touches 4 existing configs + creates 1 template + no code r
 - Builder C → `projects/plugy/config.md`
 - Builder D → `projects/academic-lab/config.md`
 
-All Builders MUST wait for Coherencer gate before Validator starts (Invariant 11: sequential Builder→Validator, parallel within phase).
+All Builders MUST wait for Coherent gate before Validator starts (Invariant 11: sequential Builder→Validator, parallel within phase).
 
 ### Pipeline
 ```
 1. [ANALYST] (this report)
-    -> 2. [COHERENCER] cross-check schema against L0 invariants
+    -> 2. [COHERENT] cross-check schema against L0 invariants
         -> 3a. [BUILDER A] templates/domain_skin.md.template
         -> 3b. [BUILDER B] eradev config (example 3.1 inline)
         -> 3c. [BUILDER C] odtoe-articles config (example 3.2 inline)
         -> 3d. [BUILDER D] plugy config (derived)
         -> 3e. [BUILDER E] academic-lab config (derived)
-            -> 4. [COHERENCER] BL-19 + schema validation gate
+            -> 4. [COHERENT] BL-19 + schema validation gate
                 -> 5. [VALIDATOR] all files parse, all schemas valid, no L0 changes
                     -> 6. git commit (single commit, per Invariant 7)
 ```
@@ -495,7 +495,7 @@ B-diagnostics (rate 0.0-1.0):
 ## Handoff Summary
 
 Next actors:
-- **[COHERENCER]** — review schema for L0 safety + BL-19 compatibility BEFORE Builder work begins
+- **[COHERENT]** — review schema for L0 safety + BL-19 compatibility BEFORE Builder work begins
 - **[BUILDER]** (5 parallel) — implement files per Implementation Plan
 - **[VALIDATOR]** — schema parse + absence of L0 changes
 - **META-Orchestrator** — coordinate Phase 0.B tagging work in parallel with this schema work (per roadmap)
@@ -504,4 +504,4 @@ This deliverable is READY for Phase 1.B consumption. Phase 0.A schema portion co
 
 ---
 
-*Analyst report complete. B=0.617. Handoff to Coherencer + Builder chain.*
+*Analyst report complete. B=0.617. Handoff to Coherent + Builder chain.*

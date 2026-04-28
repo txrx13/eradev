@@ -59,10 +59,10 @@ Before verdict, Validator executes 5 steps:
 
 ---
 
-## Proposal 3: REQUIRES_VERIFICATION Register in Coherencer
+## Proposal 3: REQUIRES_VERIFICATION Register in Coherent
 
 **File:** `coherent.md` → Crystallization of Distinctions block
-**Current state:** Coherencer produces A3 template with "Open Questions (~2%)" field. No structured register of what specifically remains unverified.
+**Current state:** Coherent produces A3 template with "Open Questions (~2%)" field. No structured register of what specifically remains unverified.
 **Proposed addition:** Mandatory companion artifact at RT-3:
 
 ### REQUIRES_VERIFICATION Register (max 10 items)

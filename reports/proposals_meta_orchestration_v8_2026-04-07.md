@@ -87,10 +87,10 @@ META does NOT produce: code, file edits, bash commands (except git), test runs, 
 | Phase | Model | Protocol |
 |-------|-------|----------|
 | **RT-1** (understanding) | Parallel 5 | All 5 agents receive raw task simultaneously. No agent sees another's output. META synthesizes. |
-| **RT-2** (correction) | Hybrid | Coherencer broadcasts RT-1 synthesis → 4 roles assess in parallel → Coherencer re-synthesizes |
+| **RT-2** (correction) | Hybrid | Coherent broadcasts RT-1 synthesis → 4 roles assess in parallel → Coherent re-synthesizes |
 | **RT-3** (acceptance) | Parallel 5 | All 5 agents independently produce go/no-go. No groupthink. META counts verdicts. |
 | **Execution M** | Sequential pairs | Builder builds chunk → Validator checks → iterate. Inner ring of torus. |
-| **Execution L/XL** | Parallel + cross-check | N Builders parallel → Coherencer cross-check gate (terminology, interfaces) → continue or sync → Validators parallel |
+| **Execution L/XL** | Parallel + cross-check | N Builders parallel → Coherent cross-check gate (terminology, interfaces) → continue or sync → Validators parallel |
 
 **Why Parallel for RT-1/RT-3:** Independent perspectives prevent confirmation bias. Evidence: EraDev rebuild — Validator found formula errors that would have been masked if it had seen Visionary's positive assessment first. Parallel produces genuine S_team; sequential produces phantom coherence (S_team=0.97, S_adjusted=0.33).
 
@@ -98,7 +98,7 @@ META does NOT produce: code, file edits, bash commands (except git), test runs, 
 
 **Why Sequential for M Execution:** Fast feedback loop. Builder-Validator iterate on inner ring of torus topology.
 
-**Why Parallel+Gate for L/XL Execution:** Speed of parallel + coordination via Coherencer gate. Gravity session lesson: 3 parallel Builders without cross-check → 6pi^5 = two different numbers.
+**Why Parallel+Gate for L/XL Execution:** Speed of parallel + coordination via Coherent gate. Gravity session lesson: 3 parallel Builders without cross-check → 6pi^5 = two different numbers.
 
 **Cost:** ~20 lines added to eradev.md Section VI.
 **Relevant BLs:** BL-28 (agent context), BL-29 (terminology consistency).
@@ -117,14 +117,14 @@ Builder (full artifact)
     ↓
 Validator → Structured Verdict (fixed format, max 10 lines)
     ↓
-Coherencer → Cycle Brief for META (max 20 lines)
+Coherent → Cycle Brief for META (max 20 lines)
     ↓
 META reads ONLY the Cycle Brief
     ↓
 If doubt → Check Agent (disposable, specific questions only)
 ```
 
-#### Structured Verdict Format (Validator → Coherencer)
+#### Structured Verdict Format (Validator → Coherent)
 ```
 TASK: [task-id]
 VERDICT: PASS | PARTIAL | FAIL
@@ -135,7 +135,7 @@ GAPS: [bullets if any]
 NEXT: [what should happen next]
 ```
 
-#### Cycle Brief Format (Coherencer → META)
+#### Cycle Brief Format (Coherent → META)
 ```
 CYCLE: [id]
 COMPLETED: [N] tasks — [ids]
@@ -186,7 +186,7 @@ ANTI-PATTERNS:
 ```
 
 **Essence Audit** (at each RT-3 or meta-reflection):
-Coherencer (as Essence Auditor) checks: "Does what was built still match the Essence Spec?"
+Coherent (as Essence Auditor) checks: "Does what was built still match the Essence Spec?"
 Output: `STATUS: ALIGNED | WATCH | DRIFT | VIOLATION` + 1-3 sentences + recommendation.
 META reads ONLY this audit output.
 

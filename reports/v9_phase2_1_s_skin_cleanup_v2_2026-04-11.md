@@ -84,9 +84,9 @@ author) / count(total in-text ~[N])`. Verdict ladder:
   self-cite, ask: replaceable by a primary source or more recent external cite?
 - **50–70% → PASS WITH NOTES ESCALATED.** Substantial. Builder MUST justify:
   "each self-cite contributes a load-bearing result that cannot be sourced
-  elsewhere." Validator records justification and flags for Coherencer at RT-2.
+  elsewhere." Validator records justification and flags for Coherent at RT-2.
 - **≥70% → FAIL.** Echo chamber. Require restructure OR Validator justification
-  with Coherencer co-sign at RT-2.
+  with Coherent co-sign at RT-2.
 
 **Basis:** Calibrated on the ODTOE corpus (single-author self-cites load-bearing
 by construction) against peer-reviewed physics norm ~30%. Data points: first
@@ -97,7 +97,7 @@ at PASS WITH NOTES ESCALATED under this ladder (see
 
 **Cross-references added:**
 - The C5 row in "The six cite_check checks" table (line 177) now carries the ladder inline: "**Quantitative ladder (Skin-DEF-e):** 0-30% PASS / 30-50% NOTES / 50-70% NOTES ESCALATED / ≥70% FAIL — see C5 L2 judgment block below".
-- Verification block `[failure recovery]` line for C5 extended: "if >30% explain load-bearing role... if ≥70% restructure or attach Coherencer co-signed justification".
+- Verification block `[failure recovery]` line for C5 extended: "if >30% explain load-bearing role... if ≥70% restructure or attach Coherent co-signed justification".
 - Verification block `[success criteria]` line references "C5 verdict uses the quantitative ladder (Skin-DEF-e)".
 - Validator Jidoka Q-list now has Q7 (Skin-DEF-e) asking the Validator to compute the rate and apply the ladder.
 
@@ -146,7 +146,7 @@ at PASS WITH NOTES ESCALATED under this ladder (see
 
 4. **Validator one-line routine:** Read `projects/{PROJECT}/lessons.md` → extract project rule list → apply temporal exception per rule → supplement skin's 6 cite_check sub-checks + 8 config.md checks with project rules.
 
-5. **Applies to:** Validator (primary reader), Coherencer (cross-corpus propagation), Builder (pre-commit), Analyst (RT-1 Check-First preamble).
+5. **Applies to:** Validator (primary reader), Coherent (cross-corpus propagation), Builder (pre-commit), Analyst (RT-1 Check-First preamble).
 
 **Placement rationale:** Between BL budget summary and OOD section — this puts the project-lessons-integration immediately adjacent to the BL inheritance content, so the Validator reading the skin top-to-bottom encounters "inherited BL → article-specific BL → project lessons layer → OOD" as a natural progression. The skin's own BL (BL-A1..A4) continue to live above; project lessons.md rules are explicitly LOWER in the priority stack (skin first, lessons.md second) but HIGHER than the skin's BL-A for project-scoped concerns.
 

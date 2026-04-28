@@ -82,7 +82,7 @@ Concretely (strategic, not tactical):
 
 ## Risks (this recommendation)
 
-- **Freeze-as-theatre** — declaring freeze, then "just one small addition." Mitigation: freeze is a Coherencer-enforced gate, not a META promise.
+- **Freeze-as-theatre** — declaring freeze, then "just one small addition." Mitigation: freeze is a Coherent-enforced gate, not a META promise.
 - **Retirement = loss of memory** — pruned lessons may re-occur. Mitigation: demote, don't delete; archive with provenance.
 - **Operator-artifact session reveals framework was net-negative.** That is the *desired* signal; treat as feature, not failure.
 

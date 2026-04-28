@@ -3,7 +3,7 @@
 > This file contains superseded and archived lessons from lessons.md.
 > Archival preserves the audit trail -- nothing is deleted.
 > Lessons here retain all temporal metadata (valid_from, ended, superseded_by).
-> To recall an archived lesson into T2 session context, Coherencer pulls it at Lambda Audit.
+> To recall an archived lesson into T2 session context, Coherent pulls it at Lambda Audit.
 
 ## retire-pass entry template (BT-1 Phase 2.3 P-cure)
 
@@ -25,7 +25,7 @@ Archive rationale: {one line — what made this retirable. Codified into framewo
 
 ### Compression Pass 2026-04-25 (RT-6, EMP18 CONSOLIDATION mode)
 
-Active count exceeded 50 threshold (54 L-N lessons + 18 EMPs). Per item 9 trigger + L-50 (extending BL beats adding) + EMP18 ψ*-gap freeze rule, Coherencer ran surgical compression on Sessions 1–3 lessons whose content has been codified into framework artifacts (eradev.md, meta.md, BL, Invariants, EMPs, hooks) or superseded by later lessons.
+Active count exceeded 50 threshold (54 L-N lessons + 18 EMPs). Per item 9 trigger + L-50 (extending BL beats adding) + EMP18 ψ*-gap freeze rule, Coherent ran surgical compression on Sessions 1–3 lessons whose content has been codified into framework artifacts (eradev.md, meta.md, BL, Invariants, EMPs, hooks) or superseded by later lessons.
 
 EMPs untouched (immortal).
 

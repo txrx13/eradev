@@ -54,12 +54,12 @@ Plus header block and footer. All present in correct order.
 
 **[AS-4] Vocabulary table >= 22 rows:** PASS. Exactly 22 rows (grep confirmed). Rows 1-22 match spec Section 2 definitions. Builder exercised discretion to not add rows 23-27 (documented in Builder report with BL-11/BL-31 rationale). Within spec bounds (rows 23-27 were FLEXIBLE per spec Section 8).
 
-**[AS-5] Role Focus Overrides -- 5 sub-sections:** PASS. All 5 roles present (Visionary, Analyst, Builder, Validator, Coherencer), each with:
+**[AS-5] Role Focus Overrides -- 5 sub-sections:** PASS. All 5 roles present (Visionary, Analyst, Builder, Validator, Coherent), each with:
 - FIRST focus anchor: present in all 5
 - Artifact definition: present in all 5
 - Primary failure mode: present in all 5
 - Secondary/tertiary failure modes: Builder has 4 failure modes (primary through fourth), Validator has 3 (primary through tertiary) -- matches spec Section 3.3/3.4
-- Jidoka specialization questions: Visionary 4Q, Analyst 5Q, Builder 7Q, Validator 7Q, Coherencer 6Q = 29Q total. All within 3-7 range per role. Verified question content preserves spec meaning.
+- Jidoka specialization questions: Visionary 4Q, Analyst 5Q, Builder 7Q, Validator 7Q, Coherent 6Q = 29Q total. All within 3-7 range per role. Verified question content preserves spec meaning.
 - Analyst 9-part Deliverable Template: present at lines 96-123 as fenced code block with all 9 parts listed.
 
 **[AS-6] Verification Protocol section:** PASS.
@@ -73,7 +73,7 @@ Plus header block and footer. All present in correct order.
 **[AS-7] Examples section -- 3 examples:** PASS.
 - Example 1 (YAML indent P1/P2): lines 371-380, catching=Validator, phase=RT-1, fix=re-indent. Matches spec Section 6.1.
 - Example 2 (.env.example secret P3): lines 382-397, catching=Validator, phase=RT-2, fix=rotate+placeholder+Yokoten+BL-C2. Matches spec Section 6.2.
-- Example 3 (port drift P6): lines 399-408, catching=Coherencer, phase=RT-2, fix=unify. Matches spec Section 6.3.
+- Example 3 (port drift P6): lines 399-408, catching=Coherent, phase=RT-2, fix=unify. Matches spec Section 6.3.
 - All three have B-check lines added (precedent from Phase 2.1 article skin). Structural elements (catching role, phase, fix) preserved verbatim in meaning.
 
 **[AS-8] RT-lite vs full 5-role decision tree:** PASS. Present at lines 297-312 as fenced code block with all 4 branches from spec Section 5.2:
@@ -192,7 +192,7 @@ Independently re-verified each of the Builder's P1-P7 self-check claims:
 
 3. **BL budget arithmetic:** 22 universal + 2 transferred (BL-3, BL-24) + 4 BL-C (C1..C4) = 28 total. BL-8 lifted to vocab row 18 (still active, not counted as separate BL). BL-25 lifted to P5+P6 (still active, not counted as separate BL). Zero pure-N/A. Arithmetic checks out.
 
-4. **Jidoka question coverage across roles:** 29 total questions across 5 roles. Visionary: Q1-Q4 (4). Analyst: Q1-Q5 (5). Builder: Q1-Q7 (7). Validator: Q1-Q7 (7). Coherencer: Q1-Q6 (6). All within the spec's 3-7 range.
+4. **Jidoka question coverage across roles:** 29 total questions across 5 roles. Visionary: Q1-Q4 (4). Analyst: Q1-Q5 (5). Builder: Q1-Q7 (7). Validator: Q1-Q7 (7). Coherent: Q1-Q6 (6). All within the spec's 3-7 range.
 
 5. **Example B-check format:** All 3 examples include B-check with component scores and aggregate. Pre-fix and post-fix scores provided. This is an addition beyond what the spec strictly required but matches Phase 2.1 article skin precedent. No defect.
 
@@ -228,7 +228,7 @@ The artifact `templates/domain_skin.config.md` satisfies all acceptance criteria
 - Cross-skin consistency with plan skin: ZERO collisions
 - Builder report claims independently re-verified: all confirmed
 
-The skin is ready for Phase 2.A Coherencer closing gate and eventual Hansei.
+The skin is ready for Phase 2.A Coherent closing gate and eventual Hansei.
 
 ---
 
@@ -286,4 +286,4 @@ B-check: F=0.93 E=0.93 (1-sigma)=0.92 Lambda=0.90 => B=0.920 GREEN
 *Spec: reports/v9_phase2a_config_skin_spec_2026-04-11.md (787 lines)*
 *Builder report: reports/v9_phase2a_config_skin_builder_2026-04-11.md (191 lines)*
 *Cross-skin sibling: templates/domain_skin.plan.md (540 lines, ZERO collisions)*
-*Next step: Phase 2.A Coherencer closing gate (cross-skin sweep across all 4 new skins)*
+*Next step: Phase 2.A Coherent closing gate (cross-skin sweep across all 4 new skins)*

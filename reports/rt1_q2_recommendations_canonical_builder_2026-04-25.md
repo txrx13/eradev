@@ -21,9 +21,9 @@ BL-19 parity:
 - coherent_EN.md/coherent.md: both gained exactly 8 lines (header + blank + lead-in + 3 bullets + blank + sorting principle). Pre-existing 6-line gap (119 vs 125) unchanged. Symmetric edit.
 
 Validation:
-- Coherencer's 3-artifact canonical model codified verbatim from `reports/rt1_coherent_2026-04-24.md` §4 (table) + §6 step 6 (triage logic).
-- "Rejected" subsection captures Coherencer §4 rejections (NEW recommendations.md, BL_CANDIDATES per-task entries, separate hansei recommendations.md).
-- Coordination clause ("Coherencer at RT-3 ensures recommendations land in correct artifact") aligns with role file Distinction Crystallization mandate.
+- Coherent's 3-artifact canonical model codified verbatim from `reports/rt1_coherent_2026-04-24.md` §4 (table) + §6 step 6 (triage logic).
+- "Rejected" subsection captures Coherent §4 rejections (NEW recommendations.md, BL_CANDIDATES per-task entries, separate hansei recommendations.md).
+- Coordination clause ("Coherent at RT-3 ensures recommendations land in correct artifact") aligns with role file Distinction Crystallization mandate.
 - Cross-link integrity: coherent_EN/RU subsections reference `meta.md §15 Post-task Recommendations Placement` / «meta.md §15 «Размещение рекомендаций после задачи»» — anchors exist in target files.
 
 Security & integrity checklist:
@@ -36,9 +36,9 @@ Blast Radius: LOW (documentation-only, framework spec; no execution path, no beh
 
 B-check:
 - F = 0.95 — read role file, both source RT-1 reports, all 4 target files (EN+RU), §15 surrounding context. Single deduction: didn't audit every existing meta.md §15 reference site for back-link drift (low risk, additive-only edit).
-- E = 0.97 — edit matches Coherencer's canonical model 1:1 (table shape, rejection list, coordination clause). Visionary SKIP follows task instruction literally.
+- E = 0.97 — edit matches Coherent's canonical model 1:1 (table shape, rejection list, coordination clause). Visionary SKIP follows task instruction literally.
 - (1-σ) = 0.95 — no contradictions: REJECT subsection prevents conflict with Visionary's earlier `recommendations.md` proposal (Tier B); aligns with BL "no parallel doc surface" principle. Glossary terms (per-task / reusable insight / live forward) are NEW but disambiguated from "lessons" / "Hansei" / "roadmap" in-context.
-- Λ = 0.92 — applied BL-19 (EN/RU parity), Coherencer Rule on glossary unification, BL-26 (delegation: Builder codifies, doesn't re-judge). Did not regenerate Visionary content (out of scope per task).
+- Λ = 0.92 — applied BL-19 (EN/RU parity), Coherent Rule on glossary unification, BL-26 (delegation: Builder codifies, doesn't re-judge). Did not regenerate Visionary content (out of scope per task).
 
 **B = 0.95 · 0.97 · 0.95 · 0.92 ≈ 0.806 — GREEN.** No component <0.3. No ANDON.
 

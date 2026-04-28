@@ -54,7 +54,7 @@
 | Report | Date | Status | Summary | Source |
 |--------|------|--------|---------|--------|
 | v9_phase1e_phantom_check_2026-04-11.md | 2026-04-11 | active | Phantom Coherence Check (release gate) | Phase 1.E |
-| v9_phase1d_coherencer_2026-04-11.md | 2026-04-11 | active | Coherencer L2 domain gate (BL split) | Phase 1.D |
+| v9_phase1d_coherent_2026-04-11.md | 2026-04-11 | active | Coherent L2 domain gate (BL split) | Phase 1.D |
 | v9_phase1c_builder_2026-04-11.md | 2026-04-11 | active | Phase 1.C Builder (domain schema) | Phase 1.C |
 | v9_phase1b_builder_2026-04-11.md | 2026-04-11 | active | Phase 1.B Builder (eradev.md updates) | Phase 1.B |
 | v9_phase1a_ru_builder_2026-04-11.md | 2026-04-11 | active | Phase 1.A RU Builder (role vocabulary) | Phase 1.A |
@@ -72,13 +72,13 @@
 | rt_en_visionary_2026-04-11.md | 2026-04-11 | active | EN Visionary for v9 RT-1 | v9 RT-1 EN |
 | rt_en_validator_2026-04-11.md | 2026-04-11 | active | EN Validator for v9 RT-1 | v9 RT-1 EN |
 | rt_en_synthesis_2026-04-11.md | 2026-04-11 | active | EN Synthesis for v9 RT-1 | v9 RT-1 EN |
-| rt_en_coherencer_2026-04-11.md | 2026-04-11 | active | EN Coherencer for v9 RT-1 | v9 RT-1 EN |
+| rt_en_coherent_2026-04-11.md | 2026-04-11 | active | EN Coherent for v9 RT-1 | v9 RT-1 EN |
 | rt_en_builder_2026-04-11.md | 2026-04-11 | active | EN Builder for v9 RT-1 | v9 RT-1 EN |
 | rt_en_analyst_2026-04-11.md | 2026-04-11 | active | EN Analyst for v9 RT-1 | v9 RT-1 EN |
 | rt_ru_visionary_2026-04-11.md | 2026-04-11 | active | RU Visionary for v9 RT-1 | v9 RT-1 RU |
 | rt_ru_validator_2026-04-11.md | 2026-04-11 | active | RU Validator for v9 RT-1 | v9 RT-1 RU |
 | rt_ru_synthesis_2026-04-11.md | 2026-04-11 | active | RU Synthesis for v9 RT-1 | v9 RT-1 RU |
-| rt_ru_coherencer_2026-04-11.md | 2026-04-11 | active | RU Coherencer for v9 RT-1 | v9 RT-1 RU |
+| rt_ru_coherent_2026-04-11.md | 2026-04-11 | active | RU Coherent for v9 RT-1 | v9 RT-1 RU |
 | rt_ru_builder_2026-04-11.md | 2026-04-11 | active | RU Builder for v9 RT-1 | v9 RT-1 RU |
 | rt_ru_analyst_2026-04-11.md | 2026-04-11 | active | RU Analyst for v9 RT-1 | v9 RT-1 RU |
 | multi_agent_frameworks_comparison_2026-04-11.md | 2026-04-11 | active | Multi-agent framework comparison (ODTOE mining) | Wave 9 |
@@ -117,22 +117,22 @@
 |--------|------|--------|---------|--------|
 | rt1_analyst.md | 2026-04-04 | stale | v7.1 RT-1 Analyst report | Session 1 RT-1 |
 | rt1_builder.md | 2026-04-04 | stale | v7.1 RT-1 Builder report | Session 1 RT-1 |
-| rt1_coherent.md | 2026-04-04 | stale | v7.1 RT-1 Coherencer report | Session 1 RT-1 |
+| rt1_coherent.md | 2026-04-04 | stale | v7.1 RT-1 Coherent report | Session 1 RT-1 |
 | rt1_validator.md | 2026-04-04 | stale | v7.1 RT-1 Validator report | Session 1 RT-1 |
 | rt1_visionary.md | 2026-04-04 | stale | v7.1 RT-1 Visionary report | Session 1 RT-1 |
 | rt2_analyst.md | 2026-04-04 | stale | v7.1 RT-2 Analyst report | Session 1 RT-2 |
 | rt2_builder.md | 2026-04-04 | stale | v7.1 RT-2 Builder report | Session 1 RT-2 |
-| rt2_coherent.md | 2026-04-04 | stale | v7.1 RT-2 Coherencer report | Session 1 RT-2 |
+| rt2_coherent.md | 2026-04-04 | stale | v7.1 RT-2 Coherent report | Session 1 RT-2 |
 | rt2_validator.md | 2026-04-04 | stale | v7.1 RT-2 Validator report | Session 1 RT-2 |
 | rt2_visionary.md | 2026-04-04 | stale | v7.1 RT-2 Visionary report | Session 1 RT-2 |
 | rt3_analyst.md | 2026-04-04 | stale | v7.1 RT-3 Analyst report | Session 1 RT-3 |
 | rt3_builder.md | 2026-04-04 | stale | v7.1 RT-3 Builder report | Session 1 RT-3 |
-| rt3_coherent.md | 2026-04-04 | stale | v7.1 RT-3 Coherencer report | Session 1 RT-3 |
+| rt3_coherent.md | 2026-04-04 | stale | v7.1 RT-3 Coherent report | Session 1 RT-3 |
 | rt3_validator.md | 2026-04-04 | stale | v7.1 RT-3 Validator report | Session 1 RT-3 |
 | rt3_visionary.md | 2026-04-04 | stale | v7.1 RT-3 Visionary report | Session 1 RT-3 |
 | rt4_analyst.md | 2026-04-04 | stale | v7.1 RT-4 Analyst report | Session 1 RT-4 |
 | rt4_builder.md | 2026-04-04 | stale | v7.1 RT-4 Builder report | Session 1 RT-4 |
-| rt4_coherent.md | 2026-04-04 | stale | v7.1 RT-4 Coherencer report | Session 1 RT-4 |
+| rt4_coherent.md | 2026-04-04 | stale | v7.1 RT-4 Coherent report | Session 1 RT-4 |
 | rt4_validator.md | 2026-04-04 | stale | v7.1 RT-4 Validator report | Session 1 RT-4 |
 | rt4_visionary.md | 2026-04-04 | stale | v7.1 RT-4 Visionary report | Session 1 RT-4 |
 

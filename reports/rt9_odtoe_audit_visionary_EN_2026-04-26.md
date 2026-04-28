@@ -31,9 +31,9 @@ IFR was formulated (per Hansei timeline, all gates declared GREEN). What the IFR
 - **Mitigation**: Either add `B_publication` modality with E-dominant weights for final-pass gate, OR mandate AC includes external-decoder test BEFORE B is computed. The B-formula is honest; the gate stack didn't include the right inputs. Don't change B; change what feeds E.
 
 **R2. Operator-Decision (OD) bundling collapses individual gates** (Blast Radius: ALL XL tasks)
-- Hansei: Coherencer EN P-02 raised "decision needed" on slug-citation → operator's «применить full RT-3» = bundled yes → individual OD never explicitly resolved → Builder defaulted.
+- Hansei: Coherent EN P-02 raised "decision needed" on slug-citation → operator's «применить full RT-3» = bundled yes → individual OD never explicitly resolved → Builder defaulted.
 - **Existing invariant coverage**: BL-34/35 require explicit operator sign-off on OD-1..OD-N for refactor composition. **This pattern is structurally identical** but the invariants only fire on refactor framing. Article-domain inherits no equivalent.
-- **Mitigation**: Generalize the OD-Open list discipline (BL-35 step 6) to ALL Coherencer-flagged "decision needed" items across all domains, regardless of whether refactor framing fired.
+- **Mitigation**: Generalize the OD-Open list discipline (BL-35 step 6) to ALL Coherent-flagged "decision needed" items across all domains, regardless of whether refactor framing fired.
 
 **R3. "GREEN means ready" is a framework-level vocabulary defect** (Blast Radius: framework, all domains)
 - Hansei §10 honest accounting: META declared "GREEN, commit-ready" 2× in error. The vocabulary GREEN ≡ ready is implicit in B≥0.7 conventions (BL-22 Tier mapping, Jidoka self-check). It's never been formally bound to "all domain-specific gates passed."
@@ -60,7 +60,7 @@ All three candidates pass the EMP threshold (≥3 instances, framework-level, cr
 | **1** | **NOW** — Adopt BL-A5 Publication-Readiness Gate as proposed in Hansei §6, but mark as **observation only** until CONSOLIDATION lift. Append to `projects/odtoe-articles/lessons.md` (project-local L-A5..L-A10), NOT yet to global BOOTSTRAP_LESSONS.md. | This session | Hansei action item AI-4/AI-5 | Lift pending — roadmap rule "NO new BL/Invariants until lift declared" |
 | **2** | **NOW** — Spawn dedicated Visual-PDF-Inspection Validator role (sub-mode of existing Validator) for any task with `domain.publish.method` set. T3 first (checklist in validator_EN.md), upgrade to T2 hook post-lift. | Next ODTOE article cycle | Role-file amendment | None — operates within current freeze window since it's mechanical drift cleanup |
 | **3** | **NEXT** — After Session 11 lift: formalize EMP-CANDIDATE-A as EMP20 ("Engineering validity ≠ domain readiness"). Add `domain.publish.method` field to project config schema. Six default methods: `pdf_visual_audit`, `external_decoder_test`, `front_matter_check`, `journal_style_match`, `cross_lang_parity`, `commit_grade_check`. | Post-lift, Session 12+ | EMP + config schema | Requires CONSOLIDATION lift (3/4 conditions met) |
-| **4** | **NEXT** — Generalize OD-Open discipline (currently BL-35 step 6 only) into universal Invariant 19: "Coherencer-flagged 'decision needed' items MUST be elevated by META as enumerated OD-1..OD-N before next Builder spawn, regardless of domain or refactor-framing context." Tier T2 (Coherencer output validator hook). | Post-lift | New Invariant + hook | Lift required (new Invariants frozen) |
+| **4** | **NEXT** — Generalize OD-Open discipline (currently BL-35 step 6 only) into universal Invariant 19: "Coherent-flagged 'decision needed' items MUST be elevated by META as enumerated OD-1..OD-N before next Builder spawn, regardless of domain or refactor-framing context." Tier T2 (Coherent output validator hook). | Post-lift | New Invariant + hook | Lift required (new Invariants frozen) |
 | **5** | **DEFER (v11)** — `B_publication` modality experiment. Hypothesis: w_E=0.40, w_(1-σ)=0.30, w_F=0.20, w_Λ=0.10 for final-pass article gate. Risk: modality proliferation (currently 3, this would be 4). Gate this on whether Recommendations #3/#4 prove insufficient over 4 sessions. May be unnecessary if `domain.publish.method` correctly externalizes the readiness check from the B-formula. | v11 | Optional modality | Recommendations #3 + #4 must ship and be measured first |
 
 **Cross-cutting note**: All 5 recommendations preserve v10's CONSOLIDATION freeze — Recommendation #1 stays project-local, #2 is mechanical, #3-#5 are gated behind lift. The freeze does NOT block this audit's logging or project-local Hansei action items per roadmap "Lessons.md additions ALLOWED (observations, not rules)."
@@ -78,4 +78,4 @@ All three candidates pass the EMP threshold (≥3 instances, framework-level, cr
 
 Caveat per Hansei §10: same B-formula previously declared GREEN-in-error. Treat with structural skepticism per Invariant 18 (proposed). This audit's value is in the **content of recommendations**, not the B-score.
 
-**Status**: audit complete. Awaiting RU-V parallel + Coherencer cross-stack synthesis.
+**Status**: audit complete. Awaiting RU-V parallel + Coherent cross-stack synthesis.

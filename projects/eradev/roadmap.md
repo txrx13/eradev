@@ -55,11 +55,11 @@ Next waves:
 - F4×σ composition lemma (RU-Analyst HIGH)
 - F4 set-theoretic restriction (RU-Validator D1)
 - L9 metric d formalization (RU-Validator D2)
-- Hurwitz Direction A shipping decision OR retire (RU-Coherencer RV-RU-03)
+- Hurwitz Direction A shipping decision OR retire (RU-Coherent RV-RU-03)
 - Per-modality Ω-α calibration (RU-Visionary R-T2)
-- HANSEI_TEMPLATE.md A3 alignment (RU-Coherencer RV-RU-01)
-- Direction C "phase transition" — verify or retire (RU-Coherencer RV-RU-02)
-- Nemawashi BL or retire (RU-Coherencer RV-RU-04)
+- HANSEI_TEMPLATE.md A3 alignment (RU-Coherent RV-RU-01)
+- Direction C "phase transition" — verify or retire (RU-Coherent RV-RU-02)
+- Nemawashi BL or retire (RU-Coherent RV-RU-04)
 
 ## v11 Tier 2 Wave A (in progress 2026-04-26)
 Post-lift framework expansion — first 4 parallel Builders dispatched Session 12:
@@ -68,7 +68,7 @@ Post-lift framework expansion — first 4 parallel Builders dispatched Session 1
 - **B3**: GREEN ≢ ready META amendment — meta.md §15 clarifies green-build does not imply task readiness
 - **B4** (this): roadmap status update (CONDITIONAL LIFT PENDING → LIFTED) + MEMORY drawer file
 
-Wave A success criteria: all 4 Builders produce verified artifacts; Coherencer gate; then Wave B dispatch.
+Wave A success criteria: all 4 Builders produce verified artifacts; Coherent gate; then Wave B dispatch.
 
 ## CONSOLIDATION freeze history
 Original conditions (2026-04-12 declared, 2026-04-26 lifted):

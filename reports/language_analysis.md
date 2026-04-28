@@ -31,7 +31,7 @@
 ## 2. ПРОБЛЕМЫ ТЕКУЩЕГО СМЕШЕНИЯ
 
 ### 2.1. Терминологическое раздвоение
-- eradev.md: "Coherencer" → glossary.md: "Когерент" → coherent.md: "Когерент (Coherent Agent)"
+- eradev.md: "Coherent" → glossary.md: "Когерент" → coherent.md: "Когерент (Coherent Agent)"
 - eradev.md: "Cognitive Coherence" → glossary.md: "когнитивная когерентность"
 - meta.md: "IFR" → visionary.md: "ИКР"
 - Один термин — три формы. Для LLM каждая — отдельный токен с отдельными ассоциациями.
@@ -81,7 +81,7 @@ EraDev уже создал де-факто метаязык:
 ```
 Уровень 1 (инвариантный):  B, S, P_coll, Phi, O_hat — математическая нотация
 Уровень 2 (терминологический): Jidoka, Andon, Round Table — имена собственные
-Уровень 3 (операционный):  [RT-2][Coherencer][S=0.68<0.7] TRIGGER: Kill-Switch L1
+Уровень 3 (операционный):  [RT-2][Coherent][S=0.68<0.7] TRIGGER: Kill-Switch L1
 ```
 
 Уровень 3 — это фактически метаязык EraDev для межагентной коммуникации. Он уже существует, его нужно формализовать.

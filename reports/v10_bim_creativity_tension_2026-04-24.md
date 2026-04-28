@@ -54,7 +54,7 @@ Paper's tentative per-modality B_min (B_text=0.70, B_creative=0.75, B_research=0
 
 ### 4. μ-check gate at RT-1→Builder (C20 + doc_alignment)
 
-**Mechanism:** Coherencer runs μ-check between RT-1 close and Builder spawn. 6 yes/no checks on the Unified Plan. FAIL → block Builder spawn.
+**Mechanism:** Coherent runs μ-check between RT-1 close and Builder spawn. 6 yes/no checks on the Unified Plan. FAIL → block Builder spawn.
 
 **Why it limits creativity:** μ-check rewards **plan conformance to template**, not **plan quality vs. alternatives**. A genuinely better plan that deviates from the template (e.g., a book chapter whose Analyst plan is "Voice guide only, chapter will emerge from drafting" — intentional under-specification because creative work is prospective, not retrospective) will FAIL μ-check because IFR + AC + FM + artifact map are absent. The gate is orthogonal to creativity — it doesn't ask "is the plan good?" it asks "are all fields filled?"
 
@@ -82,7 +82,7 @@ Cross-reference: Bundle C report §4 lists OQ-PT-2 ("P0 override for Invariant #
 
 ### 7. Path-(c) ΔÔ acceptance — SEEMS creativity-friendly, actually isn't
 
-**Mechanism:** Coherencer may accept structural operator divergence (Ô_i ≠ Ô_j) when forced convergence would be fake. This seems like "divergence is OK" — a creativity-friendly stance.
+**Mechanism:** Coherent may accept structural operator divergence (Ô_i ≠ Ô_j) when forced convergence would be fake. This seems like "divergence is OK" — a creativity-friendly stance.
 
 **Why it's actually NOT a creativity escape hatch:** Path-(c) allows divergence BETWEEN agents (BE-Ô and FE-Ô producing different valid specs). It does NOT allow divergence WITHIN an agent — it does not allow an agent to operate under multiple competing Ô on the same artifact (which is what creative exploration requires). The creative writer holding two incompatible drafts in mind simultaneously is INTRA-agent pluralism; path-(c) is INTER-agent pluralism. Different phenomena.
 
@@ -213,7 +213,7 @@ Core tension: **Invariant #17 + F7 B_min + μ-check + Four Habits #1 are all `[U
 
 ### Option B — Modality-conditional BIM (Invariant #17 → [TEXT-ADAPTER] or [CODE-ADAPTER])
 
-- **Cost:** 1-line tag change in CLAUDE.md Invariant #17. Ripple: Four Habits #1 gets same tag. F7 already has v11 per-modality calibration (OQ-PT-3) — pull forward. μ-check gets a modality gate: "if B_modality = creative, μ-check is ADVISORY, not blocking; Coherencer notes deviations but does not block Builder."
+- **Cost:** 1-line tag change in CLAUDE.md Invariant #17. Ripple: Four Habits #1 gets same tag. F7 already has v11 per-modality calibration (OQ-PT-3) — pull forward. μ-check gets a modality gate: "if B_modality = creative, μ-check is ADVISORY, not blocking; Coherent notes deviations but does not block Builder."
 - **Coverage:** code/config/research/plan keep strict BIM; book/article get adaptive version.
 - **Risk:** Creates a pattern where universal invariants get exceptions — slippery slope toward modal fragmentation. Mitigate: invariants 5/6/7 are already [CODE-ADAPTER], this is not a new pattern.
 - **Over-engineering risk:** LOW. Tag change is minimal; μ-check "advisory-for-creative" is a branch in existing logic.
@@ -292,9 +292,9 @@ Ranked by creativity-harm per unit of code/config/research/plan benefit:
 
 1. **CLAUDE.md Invariant #17** — change tag `[UNIVERSAL]` → `[CODE-ADAPTER]` with added clarifier: "applies to code, config, research, plan modalities; creative modalities (book, article, creative prose) operate under modality-aware cycle economics (incubation is not a fix chain)."
 
-2. **eradev.md §IV Four Working Habits** — add an opening paragraph: "These habits derive from τ_cycle primacy (Invariant #17, code/config/research/plan). For B_modality=creative, Habit #1 reads 'short cycles over **unnecessary** polishing', where Coherencer + Validator retain discretion on when polishing is necessary for voice/consistency vs. Muda. The paper's empirical corpus [21] is predominantly proof/code work; creative-modality calibration awaits v11 (OQ-PT-3 + new OQ-PT-8)."
+2. **eradev.md §IV Four Working Habits** — add an opening paragraph: "These habits derive from τ_cycle primacy (Invariant #17, code/config/research/plan). For B_modality=creative, Habit #1 reads 'short cycles over **unnecessary** polishing', where Coherent + Validator retain discretion on when polishing is necessary for voice/consistency vs. Muda. The paper's empirical corpus [21] is predominantly proof/code work; creative-modality calibration awaits v11 (OQ-PT-3 + new OQ-PT-8)."
 
-3. **meta.md §μ-check** — add a bullet: "For B_modality=creative, μ-check is ADVISORY. Coherencer emits `[μ-check ADVISORY: <notes>]` instead of blocking. Bundled with OQ-PT-3 per-modality B_min calibration — v11 upgrade target."
+3. **meta.md §μ-check** — add a bullet: "For B_modality=creative, μ-check is ADVISORY. Coherent emits `[μ-check ADVISORY: <notes>]` instead of blocking. Bundled with OQ-PT-3 per-modality B_min calibration — v11 upgrade target."
 
 4. **templates/unified_plan.md.template** — edit Cross-Layer Contracts section: add a third N/A option: "N/A — creative work with emergent section hand-offs (document the emergence policy in Phase Decomposition)."
 

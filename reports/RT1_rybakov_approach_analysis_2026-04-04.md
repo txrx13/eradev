@@ -95,7 +95,7 @@
 **Добавить:** Обязательство 6: Self-Audit (Splicing) — 5 шагов перед вердиктом: (1) Противоречия между секциями, (2) Двусмысленности, (3) Редтиминг центрального тезиса, (4) Нерелевантный материал, (5) Покрытие acceptance criteria.
 **Почему:** Противоречие 6π⁵ между Section V и Appendix C в gravity session выжило потому что Validator не делал систематический cross-section scan.
 
-### PATCH 5: REQUIRES_VERIFICATION Register в Coherencer
+### PATCH 5: REQUIRES_VERIFICATION Register в Coherent
 **Файл:** `coherent.md` → Crystallization of Distinctions
 **Добавить:** Обязательный реестр REQUIRES_VERIFICATION (макс 25 пунктов): `[RV-N] {Утверждение} | {Секция} | {Почему не верифицировано} | {Что верифицирует}`. Сохраняется как companion artifact.
 **Почему:** «Спиральная щель ~2%» (BL-15) не имеет структурного механизма отслеживания ЧТО ИМЕННО осталось неверифицированным.
@@ -144,7 +144,7 @@
 
 ---
 
-## COHERENCER — Синтез
+## COHERENT — Синтез
 
 ### Терминологические конфликты
 

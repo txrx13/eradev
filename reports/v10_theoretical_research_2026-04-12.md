@@ -99,7 +99,7 @@ Three sub-gaps:
 v9 ROADMAP D2 resolved: "No 6th role in v9." The two functions that an Apophatic role would serve are currently distributed:
 
 - **OOD detection** ("this task is NOT decomposable") -- assigned to Visionary at RT-0 (pre-RT-1 screening)
-- **Flow protection** ("this scope is creeping") -- assigned to Coherencer during RT-2
+- **Flow protection** ("this scope is creeping") -- assigned to Coherent during RT-2
 
 The roadmap states: "Reconsider in v10 if dual-role function fails."
 
@@ -109,9 +109,9 @@ After analyzing the v9 RT protocol and failure modes, I identify **3 scenarios**
 
 **Failure scenario 1: Visionary accepts a composite task.** Visionary's RT-0 check is scope-level: "is this task IN-scope for v9?" A task like "write a meditation script AND a deployment guide for it" is technically text-discrete (both parts are files) but the meditation script sub-task may be OOD depending on its structure. Visionary sees the composite as IN-scope because the whole task produces discrete files. The OOD sub-task enters RT-1 undetected. **Root cause:** Visionary checks the task envelope, not sub-task decomposition.
 
-**Failure scenario 2: Coherencer detects scope creep too late.** Coherencer's flow protection activates at RT-2 (midpoint). If scope creep happens between RT-1 and the first RT-2 checkpoint, Builder has already committed effort on an expanded scope. The Coherencer catches it but the cost is sunk. **Root cause:** Coherencer's flow check is periodic (RT-2), not continuous.
+**Failure scenario 2: Coherent detects scope creep too late.** Coherent's flow protection activates at RT-2 (midpoint). If scope creep happens between RT-1 and the first RT-2 checkpoint, Builder has already committed effort on an expanded scope. The Coherent catches it but the cost is sunk. **Root cause:** Coherent's flow check is periodic (RT-2), not continuous.
 
-**Failure scenario 3: Neither role challenges the PREMISE.** Both Visionary and Coherencer work WITHIN the task frame. Neither is structurally incentivized to ask "should this task exist at all?" or "is this task a symptom of a different problem?" The Bottleneck Protocol (Section XII) provides a mechanism (TRIZ contradiction unpacking + SMD multi-perspective) but it is triggered by BLOCKERS, not by well-formed tasks that should not be done.
+**Failure scenario 3: Neither role challenges the PREMISE.** Both Visionary and Coherent work WITHIN the task frame. Neither is structurally incentivized to ask "should this task exist at all?" or "is this task a symptom of a different problem?" The Bottleneck Protocol (Section XII) provides a mechanism (TRIZ contradiction unpacking + SMD multi-perspective) but it is triggered by BLOCKERS, not by well-formed tasks that should not be done.
 
 ### 2.3 What would an Apophatic role DO?
 
@@ -120,7 +120,7 @@ An Apophatic role would be a **negation-based reviewer** whose core question is:
 1. **Sub-task OOD screening:** decompose the task into atomic sub-tasks and check each against OOD criteria independently. This catches Failure Scenario 1.
 2. **Premise challenge:** at RT-1, ask "what would happen if we do NOT do this task?" If the answer is "nothing bad," the task is optional and should be deprioritized. This addresses Failure Scenario 3.
 3. **Negative specification:** produce a "NOT-list" for each task: "this task does NOT change X, does NOT affect Y, does NOT require Z." This constrains blast radius explicitly.
-4. **Continuous scope monitoring:** unlike Coherencer's RT-2 checkpoint, Apophatic monitoring would be per-Builder-output (after each commit/artifact). This addresses Failure Scenario 2.
+4. **Continuous scope monitoring:** unlike Coherent's RT-2 checkpoint, Apophatic monitoring would be per-Builder-output (after each commit/artifact). This addresses Failure Scenario 2.
 
 ### 2.4 Theoretical impact on P_coll and n_min
 
@@ -128,13 +128,13 @@ If n changes from 5 to 6:
 
 **P_coll impact:** `P_coll(E) = 1 - Product(1 - Bi^k)` with n=6 gives higher P_coll than n=5 at equal B (one more agent contributing). At B=0.5, k=1: P_coll(5) = 1 - 0.5^5 = 0.969; P_coll(6) = 1 - 0.5^6 = 0.984. Marginal gain: +0.015. At B=0.3: P_coll(5) = 0.832; P_coll(6) = 0.882. Marginal gain: +0.050. The marginal value of a 6th role is highest when individual B is low (exactly when you need OOD protection most).
 
-**n_min derivation:** v9 derives n_min = ceil(pi) + 1 = 5 from ODTOE topology (eradev.md Section V). The "+1" is for redundancy. A 6th role does NOT change n_min -- it adds above the minimum. The topology question is whether a 6th role fits the torus: inner ring (Analyst-Builder-Validator) has 3 nodes, outer ring (Visionary-Coherencer-Analyst) has 3 nodes (Analyst bridges). A 6th role could sit on the outer ring (Visionary-Apophatic-Coherencer-Analyst), making the outer ring 4 nodes. This changes R/r from 3/3 = 1 to 4/3 = 1.333, which is NOT phi (1.618). The torus ratio breaks.
+**n_min derivation:** v9 derives n_min = ceil(pi) + 1 = 5 from ODTOE topology (eradev.md Section V). The "+1" is for redundancy. A 6th role does NOT change n_min -- it adds above the minimum. The topology question is whether a 6th role fits the torus: inner ring (Analyst-Builder-Validator) has 3 nodes, outer ring (Visionary-Coherent-Analyst) has 3 nodes (Analyst bridges). A 6th role could sit on the outer ring (Visionary-Apophatic-Coherent-Analyst), making the outer ring 4 nodes. This changes R/r from 3/3 = 1 to 4/3 = 1.333, which is NOT phi (1.618). The torus ratio breaks.
 
 **Alternative topology:** Apophatic as a CHECK FUNCTION, not a role. It does not sit on the torus -- it is a gate applied BEFORE RT-1 (like Visionary's RT-0) and AFTER each Builder artifact (like Validator's verification). This preserves n=5 and the torus topology while adding the negation function.
 
 ### 2.5 Effort estimate
 
-- **As a 6th role:** L -- requires updating eradev.md Section V (n_min derivation), all RT protocols (Section VI), task classification (Section X), CLAUDE.md invariants 1/9/11, all domain skins, Coherencer hierarchy, and 2 new role files (EN + RU). Torus topology disruption.
+- **As a 6th role:** L -- requires updating eradev.md Section V (n_min derivation), all RT protocols (Section VI), task classification (Section X), CLAUDE.md invariants 1/9/11, all domain skins, Coherent hierarchy, and 2 new role files (EN + RU). Torus topology disruption.
 - **As a gate function:** S-M -- add Apophatic Gate to Section IV (after Activation Operator, before RT-1). 1 new subsection in eradev.md + 1 CLAUDE.md invariant update + 1 BL addition. No role file needed. No topology change.
 
 ### 2.6 Risk
@@ -198,7 +198,7 @@ For each level, the smallest useful implementation:
 **L10 (cross-domain Lambda):**
 - Add predicate 5 ("same abstract pattern") to the relevant-lesson predicate in Section III.Omega
 - Add `cross_project` field to temporal metadata in lessons.md
-- Add Coherencer compression protocol for BL_CANDIDATES.md (distill 10+ candidates into abstract patterns)
+- Add Coherent compression protocol for BL_CANDIDATES.md (distill 10+ candidates into abstract patterns)
 - Scope: single operator, 2-3 projects
 
 **L11 (multi-attractor Psi*):**
@@ -377,7 +377,7 @@ rt_graph:
   phases:
     - id: rt1
       type: parallel
-      roles: [visionary, analyst, builder, validator, coherencer]
+      roles: [visionary, analyst, builder, validator, coherent]
       input: raw_task
       output: unified_plan
       gate: all_responses_received
@@ -394,14 +394,14 @@ rt_graph:
 
     - id: rt2
       type: hybrid
-      trigger: coherencer_broadcasts_rt1_synthesis
+      trigger: coherent_broadcasts_rt1_synthesis
       roles: [visionary, analyst, builder, validator]
       input: rt1_synthesis + artifacts
       gate: s_team > 0.5
 
     - id: rt3
       type: parallel
-      roles: [visionary, analyst, builder, validator, coherencer]
+      roles: [visionary, analyst, builder, validator, coherent]
       input: final_artifacts
       output: go_nogo
       gate: "5/5 GO"
@@ -418,7 +418,7 @@ rt_graph:
 **Would META benefit from "executing the graph" instead of hand-coding each phase?**
 
 - **For S/M tasks:** Marginal benefit. META already knows the pattern. The procedural description is 6 lines of text. A declarative graph would be equally compact but requires a graph execution engine.
-- **For L/XL tasks:** Moderate benefit. Multi-team coordination with Coherencer hierarchy (L1/L2/L3) involves conditional branching that is hard to describe procedurally. A graph with explicit gates and dependencies would make the coordination pattern visible.
+- **For L/XL tasks:** Moderate benefit. Multi-team coordination with Coherent hierarchy (L1/L2/L3) involves conditional branching that is hard to describe procedurally. A graph with explicit gates and dependencies would make the coordination pattern visible.
 - **For harness portability (Item 4):** Significant benefit. A declarative graph is harness-agnostic -- any execution engine that can parse YAML and spawn agents can run it. This is the LangGraph connection: LangGraph provides exactly this pattern (state graph with nodes = agents, edges = dependencies).
 - **For debugging/audit:** Significant benefit. "Why did META spawn Builder before Validator responded?" is answerable by inspecting the graph. Currently requires reading META's reasoning trace.
 
@@ -427,7 +427,7 @@ rt_graph:
 **Is the current procedural approach actually fine for v9's scale?**
 
 Yes. v9 operates at max 2 teams (XL RT-1 was the largest: 10 agents in 2 parallel teams). The procedural description handles this. The declarative graph adds value at:
-- 3+ teams (L3 Coherencer hierarchy activated)
+- 3+ teams (L3 Coherent hierarchy activated)
 - Cross-project coordination (L10/L12 scope)
 - Non-standard RT patterns (e.g., a research project that needs RT-1 -> Peer Review -> RT-2 -> Revision -> RT-3, with "Peer Review" being a custom phase)
 
@@ -444,7 +444,7 @@ LangGraph (LangChain's graph-based agent framework) provides:
 Applicable to EraDev:
 - RT-1 = fan-out to 5 role nodes, fan-in to synthesis node
 - Execution = sequential chain (Builder -> Validator), with conditional loop on fix-chain
-- RT-2 = conditional node (triggered by Coherencer, then fan-out to 4 roles)
+- RT-2 = conditional node (triggered by Coherent, then fan-out to 4 roles)
 - RT-3 = fan-out to 5 role nodes, fan-in to go/no-go gate
 
 **What LangGraph does NOT provide:** role-specific prompt loading (EraDev's self-load pattern), hook-based enforcement (Claude Code-specific), B/S_team computation (EraDev-specific math), domain skin selection (EraDev-specific).
@@ -570,7 +570,7 @@ E (Alignment)   = 0.92
   + Cross-item dependency map provided.
   + Honest about v10-achievable vs v11+/aspirational for each item.
   - Item 5 (RT graph) YAML example is conceptual, not validated against
-    actual RT protocol edge cases (e.g., L2/L3 Coherencer multi-team).
+    actual RT protocol edge cases (e.g., L2/L3 Coherent multi-team).
 
 (1-sigma) (Consistency) = 0.90
   + All recommendations cross-checked against 14 CLAUDE.md invariants.
@@ -580,7 +580,7 @@ E (Alignment)   = 0.92
   - Item 4 (cross-harness): Cursor/.cursorrules claim not independently
     verified -- based on general knowledge of Cursor, not documentation.
   - Item 5 (RT graph) schema may conflict with procedural text if both
-    coexist -- needs Coherencer gate at implementation time.
+    coexist -- needs Coherent gate at implementation time.
 
 Lambda (Experience) = 0.82
   + Applied BL-16 (enforcement) to all 5 items -- each recommendation

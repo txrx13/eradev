@@ -4,7 +4,7 @@
 > Compression triggers when count >= 5.
 > Current count: 0
 >
-> Process (Coherencer):
+> Process (Coherent):
 > 1. Read BL_CANDIDATES.md. If fewer than 5 candidates, STOP.
 > 2. Read current BOOTSTRAP_LESSONS.md (or split files).
 > 3. For each candidate: does an existing BL already cover this failure mode?
@@ -13,7 +13,7 @@
 > 4. After merge: grep for all old BL-N references, update them.
 > 5. Cap stays at 30. No exceptions.
 >
-> Full Coherencer compression protocol: reports/v10_omega_compression_decay_spec_2026-04-12.md Section 2
+> Full Coherent compression protocol: reports/v10_omega_compression_decay_spec_2026-04-12.md Section 2
 > Classification taxonomy: PROMOTE / MERGE / DISCARD / DEFER
 >
 > Format per candidate:

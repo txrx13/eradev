@@ -2,13 +2,13 @@
 
 Date: 2026-04-26 | Role: [BUILDER]
 Task: Close phantom decoherence — single Vocabulary Registry for multi-referent terms (Gate, Ready, Composition, τ_cycle).
-Source: RT-11 Coherencer (rt11_meta_audit_coherent_incoherence), token-to-rule ratio ~12:5 (vocabulary bloat, not rules).
+Source: RT-11 Coherent (rt11_meta_audit_coherent_incoherence), token-to-rule ratio ~12:5 (vocabulary bloat, not rules).
 
 ## Activation Operator
 - A_F: read `roles/builder_EN.md`, eradev.md §X.1–§X.3 + insertion site, RU mirror, skill mirror tree, gate/composition scan.
 - A_E: intent = canonical token map (anti-phantom-decoherence), not glossary expansion.
 - A_σ: confirmed Apophatic Gate (§IV), Universality Gate (§IV.659), μ-check (meta.md §14), Composition Hazards Grid (BL-34), V/PR-Gate (skin BL-A1..A5) — referents match corpus.
-- A_Λ: BL-34 + RT-9 amendment + RT-11 Coherencer findings — applied into registry rows.
+- A_Λ: BL-34 + RT-9 amendment + RT-11 Coherent findings — applied into registry rows.
 
 ## Modified artifacts
 1. `eradev.md` — new §X.4 «Vocabulary Registry (canonical token map)» (after §X.3, before §XI TPS).

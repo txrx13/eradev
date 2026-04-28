@@ -23,8 +23,8 @@ Date: 2026-04-25 | Scope: v10 since Bundle A+B+C+D + PTv2 + Q1/Q2/Q3 (commits 43
 | `flux_check` verify-method template / runner | NOT EXIST | MED — exploratory/emergent has rule, no artifact |
 | `reports/baseline-{TASK}-{DATE}.md` template | NOT EXIST (item 5c references it) | LOW — Analyst Check Agent can synthesize one-shot |
 | Rigor Map auto-detector hook (segment glob → level) | NOT EXIST | LOW — currently manual in Analyst |
-| BL-34 grid validator (counts pairs vs N(N-1)/2) | NOT EXIST | LOW — Coherencer manual gate |
-| µ-check runner (binary PASS/FAIL emitter) | PROSE-ONLY, no script | MED — Coherencer eyeballs 7 checks |
+| BL-34 grid validator (counts pairs vs N(N-1)/2) | NOT EXIST | LOW — Coherent manual gate |
+| µ-check runner (binary PASS/FAIL emitter) | PROSE-ONLY, no script | MED — Coherent eyeballs 7 checks |
 | `hooks/` directory | DOES NOT EXIST | LOW — references in BL-33 ladder are aspirational |
 
 `hooks/` absence is the single largest gap: BL-33 enforcement ladder names "type > hook > checklist > docs" but the middle tier has no implementation. All v10 enforcement collapses to checklist + docs.
@@ -46,7 +46,7 @@ eradev.md grew to 1135 lines (+141 since Wave 8). meta.md at 496 lines. Five les
 | Four Habits qualifier prose | LOW — adds ~24 lines for a "sometimes don't apply" message that is already captured in RIGOR_LEVEL | CONSOLIDATE — move qualifiers to §VI.1 FLUX, leave bare habits in §IV |
 | Domain skins × 2 (EN+RU) × 6 types = 12 files | MEDIUM — most projects use code default; 11 files cold | KEEP but FREEZE additions; no 7th skin without RT-1 |
 | 8 verify-methods | MEDIUM — `flux_check`, `doc_alignment`, `structure_check` overlap | CONSOLIDATE — `doc_alignment` + `flux_check` is 2; collapse `structure_check` into `parse` |
-| 51 lessons in eradev/lessons.md | risk: T2 budget bloat | COMPRESSION pass — Coherencer triggered at >50 active (already in 5d) |
+| 51 lessons in eradev/lessons.md | risk: T2 budget bloat | COMPRESSION pass — Coherent triggered at >50 active (already in 5d) |
 
 **Net diminishing returns indicator:** Builder spawn cost (read eradev.md 1135 + meta.md 496 + role file ~100 + project config ~40) ≈ 1770 lines minimum context per agent. Pre-Bundle-D was ~1500. **+18% per-agent context cost** for ~12% net new usable behavior. Not catastrophic, but trending: one more bundle and we hit 2000-line minimums, where bilingual mirrors become genuine load-bearing cost.
 

@@ -11,7 +11,7 @@
 
 - **A_F (Focus):** Read `eradev.md` (Sections V/VI/X/III.2/III.3/VI.1), `meta.md` (§§1a/8/9/10/14 + μ-check), `CLAUDE.md` (Invariants 1-17 + KILL-TEST), `BOOTSTRAP_LESSONS.md` (BL-26/28/29/33/34/35), `templates/unified_plan.md.template`, `templates/rt_graph.schema.md`, `.claude/hooks/*.sh`, `roles/analyst_EN.md` + `roles/coherent_EN.md`, all 6 domain skins for Builder-count exceptions, plus session reports from 2026-04-24 Bundle A/B/C/D (the practice exhibit).
 - **A_E (Alignment):** Operator intent = decide whether to ship clarifying BLs/gates or accept current state. Answer "CLEAR / PARTIAL / FRAGMENTED / MISSING" with concrete file:line citations per axis.
-- **A_σ (Consistency):** Ran cross-reference grep for Builder/Validator/Analyst/Coherencer counts across all framework surfaces + skills mirror (`.claude/skills/eradev/`). Found `.claude/skills/eradev/reference/README_EN.md:148` mirrors `eradev.md:796` — no drift on the table, but skills copy is a second source of truth (see Gap G4 below).
+- **A_σ (Consistency):** Ran cross-reference grep for Builder/Validator/Analyst/Coherent counts across all framework surfaces + skills mirror (`.claude/skills/eradev/`). Found `.claude/skills/eradev/reference/README_EN.md:148` mirrors `eradev.md:796` — no drift on the table, but skills copy is a second source of truth (see Gap G4 below).
 - **A_Λ (Experience):** BL-26 (delegation), BL-28 (prompt context), BL-29 (parallel Builder terminology drift), BL-34 (composition hazards), BL-35 (rework discipline) are the lessons that have shaped composition rules. BL-33 enforcement-tier ladder (T1 > T2 > T3 > T4) is the audit lens for rigor assessment.
 
 Status: all 4 GREEN.
@@ -56,13 +56,13 @@ Scaling formula: `N_teams = ceil(N_modules / 3)`, `I(C) = files * coupling * leg
 | **Analyst** | 0 (implicit) | 1 | 1 | 1 per team? UNCLEAR |
 | **Builder** | **1** (explicit) | 1 | "extra Builders" — **N unspecified** | Multiple, via `N_teams = ceil(N_modules/3)` |
 | **Validator** | **1** (explicit) | 1 | Parallel per Builder? Inferred from `eradev.md:796` | Parallel per Builder (inferred) |
-| **Coherencer** | 0 | 1 (L1) | 1 L1 + 1 L2 | 1 L1 per team + 1 L2 + 1 L3 when `N_teams ≥ 5` |
+| **Coherent** | 0 | 1 (L1) | 1 L1 + 1 L2 | 1 L1 per team + 1 L2 + 1 L3 when `N_teams ≥ 5` |
 
 ### 1.3 Verdict Dimension 1
 
 - **S and M rows:** CLEAR. Absolute counts (2, 5) stated, and `CLAUDE.md` Invariant 1 + KILL-TEST enforce them with blocking rhetoric.
 - **L row "5-8 (team + extra Builders)":** PARTIAL. The range is stated but no rule says how to pick 5 vs 8, and "extra Builders" is singular noun without count. Operator must infer from `N_teams = ceil(N_modules/3)` scaling formula that's written for XL.
-- **XL row "10+ (multiple teams + L2)":** PARTIAL. `N_teams = ceil(N_modules/3)` gives team count but not agents-per-team. If a team = 5 (full quintet), then N_modules=4 → 2 teams → 10 agents — consistent. But the Visionary/Analyst/Coherencer count per team is never explicitly stated (e.g., do you spawn 1 Visionary for the whole task or 1 per team? — see Gap G1).
+- **XL row "10+ (multiple teams + L2)":** PARTIAL. `N_teams = ceil(N_modules/3)` gives team count but not agents-per-team. If a team = 5 (full quintet), then N_modules=4 → 2 teams → 10 agents — consistent. But the Visionary/Analyst/Coherent count per team is never explicitly stated (e.g., do you spawn 1 Visionary for the whole task or 1 per team? — see Gap G1).
 
 ---
 
@@ -75,30 +75,30 @@ Scaling formula: `N_teams = ceil(N_modules / 3)`, `I(C) = files * coupling * leg
 | Phase | Model | Protocol |
 |-------|-------|----------|
 | RT-1 (understanding) | Parallel 5 | All 5 simultaneously, META synthesises |
-| RT-2 (correction) | Hybrid | Coherencer broadcasts → 4 roles parallel → Coherencer re-synthesises |
+| RT-2 (correction) | Hybrid | Coherent broadcasts → 4 roles parallel → Coherent re-synthesises |
 | RT-3 (acceptance) | Parallel 5 | Independent go/no-go, META counts verdicts |
 | Execution M | Sequential pairs | Builder → Validator → iterate (inner torus ring) |
 | Execution S | Sequential pair | Builder fixes → Validator verifies |
-| Execution L/XL | Parallel + gate | **N Builders parallel → Coherencer cross-check gate → Validators parallel** |
+| Execution L/XL | Parallel + gate | **N Builders parallel → Coherent cross-check gate → Validators parallel** |
 
 Justification at `eradev.md:798-801`:
 - Parallel RT-1/RT-3 → independent perspectives prevent confirmation bias (`S_team=0.97 / S_adjusted=0.33` sequential-anchoring evidence).
 - Hybrid RT-2 → shared frame exists from RT-1.
 - Sequential M execution → fast Builder→Validator feedback on inner torus.
-- Parallel+gate L/XL → speed of parallel + Coherencer sync gate.
+- Parallel+gate L/XL → speed of parallel + Coherent sync gate.
 
-**`CLAUDE.md:80` Invariant 11 (Execution Order):** "Builder COMPLETES first, THEN Validator starts. Never parallel. For L/XL: all Builders complete → Coherencer gate → then Validators." — **UNIVERSAL**, blocking.
+**`CLAUDE.md:80` Invariant 11 (Execution Order):** "Builder COMPLETES first, THEN Validator starts. Never parallel. For L/XL: all Builders complete → Coherent gate → then Validators." — **UNIVERSAL**, blocking.
 
 **`CLAUDE.md:82` Invariant 13 (Parallelization):** "Independent tasks/agents MUST be spawned simultaneously with `run_in_background: true`. Sequential only when there is a real dependency." — **UNIVERSAL**.
 
-**`meta.md:157` (agent prompt template):** "Parallelization rule: Independent agents MUST be spawned simultaneously... Coherencer syncs results when all complete."
+**`meta.md:157` (agent prompt template):** "Parallelization rule: Independent agents MUST be spawned simultaneously... Coherent syncs results when all complete."
 
 ### 2.2 Where the documentation is weak
 
 - **"When is the same role allowed to be spawned in parallel?" — IMPLICIT.** Invariant 13 says "independent tasks", and `eradev.md:796` says "N Builders parallel" for L/XL. But no rule explicitly answers: "can I spawn 2 parallel Analysts? 3 parallel Validators?" — see Gap G2. The answer is "yes, if independent" per Invariant 13, but the framework never names N Analysts or N Validators outside Builder context.
 - **Thresholds for N Builders (2 vs 4 vs 8):** NOT defined in framework core. The only numeric rule is `N_teams = ceil(N_modules/3)` which says N_teams, not N_builders-per-team. Since one team = 1 Builder in the Section V "Minimum Viable Team" definition, N_teams ≈ N_Builders — but the framework never closes this loop explicitly.
 - **Domain skins give MORE specific rules than core.** E.g.:
-  - `templates/domain_skin.article.md:314`: "For an XL article (>8000 words, >4 sections), Analyst MAY split work across two Builders by section ownership. File Ownership applies. Coherencer gate is MANDATORY between Builder completion and Validator start."
+  - `templates/domain_skin.article.md:314`: "For an XL article (>8000 words, >4 sections), Analyst MAY split work across two Builders by section ownership. File Ownership applies. Coherent gate is MANDATORY between Builder completion and Validator start."
   - `templates/domain_skin.config.md:321`: "Single Builder for S/M/L configs. Exception: XL multi-tool configs — Analyst may split work across two Builders by tool boundary."
   - `templates/domain_skin.plan.md:298`: "Exception (XL only): >10 phases OR >2 weeks OR >3 named owners — two Builders by phase ownership."
   - `templates/domain_skin.research.md:239`: "Exception (L/XL only): For multi-proof notebooks (>3 independent proofs), two Builders may own different proofs in parallel."
@@ -120,16 +120,16 @@ Justification at `eradev.md:798-801`:
 **`eradev.md:736-745` — RT-1 / RT-2 / RT-3 general:**
 - "Every non-trivial task passes through RT-1, RT-2, RT-3."
 - "All 5 roles see the original task SIMULTANEOUSLY (parallel, not pipeline)."
-- RT-1: Visionary + Analyst + Builder + Validator + Coherencer (5 sentences each, 5 distinct questions).
+- RT-1: Visionary + Analyst + Builder + Validator + Coherent (5 sentences each, 5 distinct questions).
 
-**`eradev.md:788-796`:** table locks RT-1 = parallel 5, RT-2 = hybrid (Coherencer-broadcast + 4 parallel + Coherencer resynth), RT-3 = parallel 5.
+**`eradev.md:788-796`:** table locks RT-1 = parallel 5, RT-2 = hybrid (Coherent-broadcast + 4 parallel + Coherent resynth), RT-3 = parallel 5.
 
 **`eradev.md:803-844` FLUX RT Protocol (v10 Bundle D):**
 
 | Phase | BIM (strict/structured) | FLUX (exploratory/emergent) |
 |---|---|---|
 | RT-0 Visionary solo | IFR past-tense with measurable AC | IFR as DIRECTION with experiential criteria |
-| RT-1 parallel 5-agent | All 5 roles, full Output Formats | **Visionary + Analyst (voice guide + glossary seed) + Builder assignment; Validator + Coherencer DELAYED to post-draft** |
+| RT-1 parallel 5-agent | All 5 roles, full Output Formats | **Visionary + Analyst (voice guide + glossary seed) + Builder assignment; Validator + Coherent DELAYED to post-draft** |
 | μ-check | BLOCKING via `doc_alignment` | ADVISORY via `flux_check` |
 | Build | Short cycles, Jidoka during | **Single agent, free-flow, Jidoka AFTER** |
 | RT-2 | Mid-point sync | Post-segment synthesis |
@@ -137,11 +137,11 @@ Justification at `eradev.md:798-801`:
 
 ### 3.2 RT-0 (Apophatic Gate)
 
-`eradev.md:640-655`: "Gate location: after RT-0 (Visionary solo) and before RT-1. Gate owner: Visionary (primary) + Coherencer (tie-breaker probe)." → RT-0 = 1 agent (Visionary). Clear.
+`eradev.md:640-655`: "Gate location: after RT-0 (Visionary solo) and before RT-1. Gate owner: Visionary (primary) + Coherent (tie-breaker probe)." → RT-0 = 1 agent (Visionary). Clear.
 
 ### 3.3 RT-1 Composition Hazards Gate
 
-`eradev.md:749-765` + `CLAUDE.md:84` Invariant 15: "When the task plan lists ≥2 independent refactors... Visionary MUST author a composition-hazards grid BEFORE Coherencer synthesizes Unified Plan." — blocks Unified Plan synthesis without grid.
+`eradev.md:749-765` + `CLAUDE.md:84` Invariant 15: "When the task plan lists ≥2 independent refactors... Visionary MUST author a composition-hazards grid BEFORE Coherent synthesizes Unified Plan." — blocks Unified Plan synthesis without grid.
 
 ### 3.4 Verdict Dimension 3
 
@@ -169,7 +169,7 @@ When 2+ Builders work in parallel, Analyst MUST assign files:
 **`meta.md:203-210` Cross-Builder Consistency Check (XL tasks):**
 ```
 When 2+ Builders work in parallel on the same task:
-1. After Build phase, Coherencer runs a cross-check: do outputs use the same terminology, conventions, and assumptions?
+1. After Build phase, Coherent runs a cross-check: do outputs use the same terminology, conventions, and assumptions?
 2. Validator spot-checks shared variables, formulas, and interfaces across Builder outputs.
 3. Any inconsistency = YELLOW. Contradictory outputs = RED (Andon).
 ```
@@ -181,13 +181,13 @@ Evidence citation (`meta.md:210`): "Three parallel Builders in the gravity sessi
 
 ### 4.2 What rules DO NOT exist
 
-- **No rule on the UPPER BOUND of parallel Builders.** Session practice ran 4 parallel Builders (Bundle A: math `v10_bundleA_math_builder_2026-04-24.md`, Bundle B: protocol `v10_bundleB_protocol_builder_2026-04-24.md`, Bundle C: discipline `v10_bundleC_discipline_builder_2026-04-24.md`, Bundle D: unified integration `v10_bundleD_unified_integration_2026-04-24.md`). All 4 cite file-level disjointness. But framework never says "3 Builders = need L2 Coherencer, 5 Builders = need L3, >8 Builders = split into teams." The `N_teams = ceil(N_modules / 3)` formula implies at ≥4 Builders you should be in XL territory with L2 Coherencer active. It's there, just not highlighted as a ceiling rule.
+- **No rule on the UPPER BOUND of parallel Builders.** Session practice ran 4 parallel Builders (Bundle A: math `v10_bundleA_math_builder_2026-04-24.md`, Bundle B: protocol `v10_bundleB_protocol_builder_2026-04-24.md`, Bundle C: discipline `v10_bundleC_discipline_builder_2026-04-24.md`, Bundle D: unified integration `v10_bundleD_unified_integration_2026-04-24.md`). All 4 cite file-level disjointness. But framework never says "3 Builders = need L2 Coherent, 5 Builders = need L3, >8 Builders = split into teams." The `N_teams = ceil(N_modules / 3)` formula implies at ≥4 Builders you should be in XL territory with L2 Coherent active. It's there, just not highlighted as a ceiling rule.
 - **No rule for "2 parallel Analysts" or "3 parallel Validators".** Session practice ran multiple parallel Analysts (4 distinct analyses ran on 2026-04-24 day: `v10_conditional_bim_deep_research`, `v10_parallel_trajectories_analysis`, `v10_bim_creativity_tension`, `v10_bim_planning_audit`) — each authorised by "independent inquiry task" operator framing, not by a rule.
 - **No rule for "N Validators per N Builders".** `eradev.md:796` says "Validators parallel" for L/XL, but doesn't close the count: 1 Validator reviews all N Builder outputs, or each Builder gets its own Validator?  Session practice matched 1:1 (Bundle A Validator, Bundle B Validator, Bundle C Validator, Bundle D Validator — all as separate reports), but this was inferred, not rule-driven.
 
 ### 4.3 Verdict Dimension 4
 
-- **File Ownership + Cross-Builder Consistency Check + BL-29:** CLEAR — trio of rules that activate when N_Builders ≥ 2. Enforcement at Analyst (assignment) + Coherencer (terminology gate) + Validator (consistency audit).
+- **File Ownership + Cross-Builder Consistency Check + BL-29:** CLEAR — trio of rules that activate when N_Builders ≥ 2. Enforcement at Analyst (assignment) + Coherent (terminology gate) + Validator (consistency audit).
 - **Upper bound on N_Builders + "how many parallel Validators":** MISSING. Session ran 4 Builders + 4 Validators without a framework rule specifically authorising it; the implicit authority is Invariant 13 ("maximize parallelization for independent tasks") + domain-level overrides.
 - **"When is multi-Builder allowed?":** PARTIAL — domain skins carry the criteria (file count, section count, phase count, proof count) but `eradev.md` / `CLAUDE.md` only reference them via the `N_teams = ceil(N_modules/3)` formula.
 
@@ -212,8 +212,8 @@ Evidence citation (`meta.md:210`): "Three parallel Builders in the gravity sessi
 
 - `eradev.md:814`: "FLUX segments can have a **SINGLE agent** as voice-keeper (typically Builder). `Λ_role = 0` is PERMITTED when voice coherence is load-bearing. ... **Multi-Builder parallel work on a single voice-unit is FORBIDDEN under FLUX** (opposite of structured/strict where parallelism is encouraged)."
 - `eradev.md:808`: "Visionary has MORE authority — creative intent is primary; Analyst's spec is loose."
-- `eradev.md:817`: "Validator's role is ADVISORY: emits `[FLUX ADVISORY: findings]`, does not block commit. Coherencer catches GENUINE incoherence (voice drift, glossary contradictions, narrative contradictions across segments) but ALLOWS legitimate divergence."
-- `eradev.md:824` FLUX RT-1 row: "Visionary + Analyst + Builder assignment; **Validator + Coherencer DELAYED to post-draft**" — i.e., RT-1 agent count drops from 5 to 3 for FLUX.
+- `eradev.md:817`: "Validator's role is ADVISORY: emits `[FLUX ADVISORY: findings]`, does not block commit. Coherent catches GENUINE incoherence (voice drift, glossary contradictions, narrative contradictions across segments) but ALLOWS legitimate divergence."
+- `eradev.md:824` FLUX RT-1 row: "Visionary + Analyst + Builder assignment; **Validator + Coherent DELAYED to post-draft**" — i.e., RT-1 agent count drops from 5 to 3 for FLUX.
 
 **`meta.md:354-365` μ-check modality branch:**
 - strict → μ-check BLOCKING
@@ -223,7 +223,7 @@ Evidence citation (`meta.md:210`): "Three parallel Builders in the gravity sessi
 
 ### 5.3 What's explicit, what's absent
 
-- **EXPLICIT:** FLUX (exploratory/emergent) → 3-agent RT-1 + single-Builder voice-unit forbidden from parallelism + Validator/Coherencer advisory/delayed (`eradev.md:814,824`).
+- **EXPLICIT:** FLUX (exploratory/emergent) → 3-agent RT-1 + single-Builder voice-unit forbidden from parallelism + Validator/Coherent advisory/delayed (`eradev.md:814,824`).
 - **EXPLICIT:** Strict/structured → full 5-agent RT-1 + μ-check BLOCKING + N Builders allowed in parallel (default BIM pattern).
 - **IMPLICIT (gap):** The core `eradev.md:933-938` Section X classification table (S/M/L/XL → 2/5/5-8/10+ agents) is RIGOR_LEVEL-AGNOSTIC. It does not say "adjust agent count for FLUX" — the FLUX override lives in Section VI.1 only. An operator reading Section X alone would apply strict/structured counts to an emergent task and over-provision.
 - **IMPLICIT (gap):** `III.3.3` table `eradev.md:546-552` says RIGOR_LEVEL is "orthogonal" to task size. But the composition changes (3 vs 5 agents at RT-1) are size-like effects. No single table fuses `(size × RIGOR_LEVEL) → agent count`.
@@ -243,9 +243,9 @@ Evidence citation (`meta.md:210`): "Three parallel Builders in the gravity sessi
 2. **M = 5 agents (full team).** `eradev.md:936`, `meta.md:182`, `CLAUDE.md:70,101-103`.
 3. **Execution order within RT: Builder COMPLETES before Validator starts; never parallel.** `CLAUDE.md:80` Invariant 11, `eradev.md:794-795`.
 4. **RT-1 = parallel 5; RT-3 = parallel 5; RT-2 = hybrid broadcast-then-parallel-then-resynthesis.** `eradev.md:788-793`.
-5. **Coherencer hierarchy L1/L2/L3 activation triggers.** `eradev.md:942-945`, `meta.md:167-173`: L1 always; L2 at 2+ teams; L3 at 5+ teams or phase-level.
+5. **Coherent hierarchy L1/L2/L3 activation triggers.** `eradev.md:942-945`, `meta.md:167-173`: L1 always; L2 at 2+ teams; L3 at 5+ teams or phase-level.
 6. **File Ownership + Cross-Builder Consistency Check + BL-29** for multi-Builder work. `eradev.md:947-952`, `meta.md:203-210`, `BOOTSTRAP_LESSONS.md:201-216`.
-7. **FLUX (exploratory/emergent RIGOR_LEVEL) composition:** 3-agent RT-1 (V+A+B), single-Builder voice-unit, Validator/Coherencer advisory/delayed. `eradev.md:814,824`, `meta.md:354-365`.
+7. **FLUX (exploratory/emergent RIGOR_LEVEL) composition:** 3-agent RT-1 (V+A+B), single-Builder voice-unit, Validator/Coherent advisory/delayed. `eradev.md:814,824`, `meta.md:354-365`.
 8. **Composition Hazards Gate (BL-34)** for plans with ≥2 parallel refactors — Visionary grid required before Unified Plan synthesis. `CLAUDE.md:84` Invariant 15, `eradev.md:749-765`, hook `rt1-composition-gate.sh`.
 9. **Invariant 13 — parallelise independent agents; sequential only on real dependencies.** `CLAUDE.md:82`.
 10. **Delegation absolute (BL-26).** META produces no code; every task spawns agents. `CLAUDE.md:70`, `BOOTSTRAP_LESSONS.md:183-188`, hook `enforce-delegation.sh`.
@@ -260,8 +260,8 @@ Evidence citation (`meta.md:210`): "Three parallel Builders in the gravity sessi
 
 ### 6.3 Rules that are MISSING
 
-- **(M1) Explicit per-role-per-task-size table** fusing S/M/L/XL × {Visionary, Analyst, Builder, Validator, Coherencer} into a single matrix. Currently the counts are split across `eradev.md:933-940` (sizes + totals) + `eradev.md:942-945` (Coherencer hierarchy) + `eradev.md:947-952` (multi-Builder file ownership) + domain skins (2-Builder exceptions). Operator has to reconstruct the matrix.
-- **(M2) Upper bound on parallel Builders without L2 activation** — rule derivable from `N_teams = ceil(N_modules/3)` and Section VIII Coherencer L2 at 2+ teams, but not stated explicitly: "≥2 Builders → activate L2 Coherencer" is a latent rule. Session practice at 4 Builders ran without an explicit L2 Coherencer (the RT-2 integration step was author-level).
+- **(M1) Explicit per-role-per-task-size table** fusing S/M/L/XL × {Visionary, Analyst, Builder, Validator, Coherent} into a single matrix. Currently the counts are split across `eradev.md:933-940` (sizes + totals) + `eradev.md:942-945` (Coherent hierarchy) + `eradev.md:947-952` (multi-Builder file ownership) + domain skins (2-Builder exceptions). Operator has to reconstruct the matrix.
+- **(M2) Upper bound on parallel Builders without L2 activation** — rule derivable from `N_teams = ceil(N_modules/3)` and Section VIII Coherent L2 at 2+ teams, but not stated explicitly: "≥2 Builders → activate L2 Coherent" is a latent rule. Session practice at 4 Builders ran without an explicit L2 Coherent (the RT-2 integration step was author-level).
 - **(M3) RIGOR_LEVEL × task-size composition matrix** — Section X is rigor-agnostic; Section VI.1 (FLUX) gives the exploratory/emergent overrides but not the composed product. An operator handling an emergent XL task would need to compose Sections X + VI.1 manually.
 - **(M4) "When to spawn 2 parallel Analysts" / "2 parallel Validators"** as a first-class scaling rule, not just by Invariant-13 generalisation. Session practice uses these routinely (design Analyst + research Analyst, per-Builder Validators) without a rule to cite.
 
@@ -285,23 +285,23 @@ One-liner caveat: per Invariant 13, independent parallel Analysts/Validators bey
 **Gap G2 — Parallel-role enumeration beyond Builders (fixes M4).** Add to `eradev.md:947-952` (near File Ownership) a short sub-section "Parallel per-role patterns" enumerating:
 - 2+ parallel Builders → File Ownership + Cross-Builder Consistency (already present).
 - 2+ parallel Validators → 1 per Builder is default; 1 shared Validator acceptable when all Builders produce a single-merge artifact.
-- 2+ parallel Analysts → disjoint scopes (design vs research vs pre-flight); Coherencer syncs at RT-1 synthesis.
+- 2+ parallel Analysts → disjoint scopes (design vs research vs pre-flight); Coherent syncs at RT-1 synthesis.
 - 2+ parallel Visionaries → FORBIDDEN (Visionary = single team-level Ô per paper §IV.1 / `eradev.md:412`). If domain inquiry needs two perspectives, they are Analysts, not Visionaries.
-- 2+ parallel Coherencers → only across L1/L2/L3 hierarchy; never two L1 Coherencers on the same team.
+- 2+ parallel Coherents → only across L1/L2/L3 hierarchy; never two L1 Coherents on the same team.
 
 ### 7.2 SHOULD-DO (improves clarity)
 
-**Gap G3 — Section X should cite Section VI.1 FLUX override (fixes M3).** One-line addition after `eradev.md:940`: "For exploratory/emergent RIGOR_LEVEL, see Section VI.1 FLUX RT Protocol — RT-1 composition drops from 5 to 3 and Validator/Coherencer are delayed to post-draft." Currently Section X and Section VI.1 live independently; the operator must compose them manually.
+**Gap G3 — Section X should cite Section VI.1 FLUX override (fixes M3).** One-line addition after `eradev.md:940`: "For exploratory/emergent RIGOR_LEVEL, see Section VI.1 FLUX RT Protocol — RT-1 composition drops from 5 to 3 and Validator/Coherent are delayed to post-draft." Currently Section X and Section VI.1 live independently; the operator must compose them manually.
 
 **Gap G4 — Drift risk between `eradev.md:796` and `.claude/skills/eradev/reference/README_EN.md:148`.** Both sources copy the same RT Phase Protocols table. Any future edit must touch BOTH. Either (a) make the skill a symlink/include, or (b) add a pre-commit hook that greps both surfaces for the line "Execution L/XL" and fails on mismatch. Current approach relies on operator vigilance.
 
-**Gap G5 — `L row "5-8"` range should name its endpoints.** `eradev.md:937` "5-8 (team + extra Builders)" should specify: 5 = single team (1 extra Builder merged back to default quintet); 6-7 = 2 Builders; 8 = 2 Builders + 2 Validators + L2 Coherencer active. This removes the ambiguity about when L2 kicks in for L (vs XL-trigger).
+**Gap G5 — `L row "5-8"` range should name its endpoints.** `eradev.md:937` "5-8 (team + extra Builders)" should specify: 5 = single team (1 extra Builder merged back to default quintet); 6-7 = 2 Builders; 8 = 2 Builders + 2 Validators + L2 Coherent active. This removes the ambiguity about when L2 kicks in for L (vs XL-trigger).
 
 ### 7.3 COULD-DO (polish)
 
 **Gap G6 — Move domain-skin 2-Builder exception triggers to a summary table** in `eradev.md` Section X or a new appendix. Right now they're scattered across 5 skins. A one-table reference lets META quickly pick "article >8000 words & >4 sections → 2 Builders" without loading the full skin.
 
-**Gap G7 — Document upper bound on N_Builders before L3 Coherencer.** Currently L3 activates at "5+ teams or phase-level" (`eradev.md:945`, `meta.md:171`). If teams average 3 modules each, 5 teams = 15 modules = ~15 Builders. State this ceiling explicitly so operators don't improvise at 10+ Builders without L3 activation.
+**Gap G7 — Document upper bound on N_Builders before L3 Coherent.** Currently L3 activates at "5+ teams or phase-level" (`eradev.md:945`, `meta.md:171`). If teams average 3 modules each, 5 teams = 15 modules = ~15 Builders. State this ceiling explicitly so operators don't improvise at 10+ Builders without L3 activation.
 
 ---
 
@@ -322,14 +322,14 @@ Session 2026-04-24 ran the following parallel agents (from `reports/`):
 | 4 parallel Builders on disjoint file scopes | Invariant 13 (parallelise independent) + File Ownership (`eradev.md:947-952`) + `N_teams = ceil(N_modules/3)` implied multi-Builder. | **IMPLICIT** — no rule states "4 parallel Builders on framework refactor with disjoint bundle scope = permitted." Inference from composition of three rules. |
 | 4 parallel Validators (1:1 with Builders) | `eradev.md:796` "N Builders parallel → ... → Validators parallel" + Invariant 11 (no B/V overlap). | **IMPLICIT** — the "parallel" descriptor is there, but "1:1 mapping" is not stated. Default session interpretation. |
 | 4 parallel Analyst research reports (earlier in day) | Invariant 13 general parallel-independence principle. | **WEAK** — framework has no explicit multi-Analyst table; authorisation is entirely by the independent-inquiry argument. |
-| Cross-Bundle Coherencer sync (`v10_bundleD_unified_integration_2026-04-24.md` acts as integrator) | `eradev.md:945` L2 Coherencer at 2+ teams. With 4 parallel Builders = 4 teams, L2 should have been explicitly activated. | **PARTIAL** — L2 Coherencer role was implicitly played by the Bundle D Unified Integration Builder; explicit L2 Coherencer agent was not spawned. |
+| Cross-Bundle Coherent sync (`v10_bundleD_unified_integration_2026-04-24.md` acts as integrator) | `eradev.md:945` L2 Coherent at 2+ teams. With 4 parallel Builders = 4 teams, L2 should have been explicitly activated. | **PARTIAL** — L2 Coherent role was implicitly played by the Bundle D Unified Integration Builder; explicit L2 Coherent agent was not spawned. |
 | No Composition Hazards Grid (`reports/composition-hazards-2026-04-24.md` does not exist) | Invariant 15 / BL-34 fires only when "≥2 independent refactors in one release window". | **BORDERLINE** — Bundle A + B + C + D were arguably ≥2 independent refactors, but they were framed as "additive layers of one coordinated release", not as independent refactors. Hook `rt1-composition-gate.sh` did not fire because no RT-1 doc had the trigger tokens. Question: does "Bundle A + B + C" count as 3 independent refactors or 1 coordinated Bundle? If independent → Invariant 15 violation. |
 
 ### 8.3 Verdict on session practice
 
 The session ran 4B + 4V + 4A parallel pattern mostly on the **composition of Invariant 13 (parallelise) + File Ownership + `N_teams` scaling**, with no single rule pointing at the exact pattern. The framework permits the pattern but doesn't canonise it. Two concrete weaknesses emerged:
 
-1. **No explicit L2 Coherencer spawn** for the 4-team parallel work — the Bundle D integration agent implicitly played the L2 role. Should have been an explicit `[COHERENCER]` agent per `eradev.md:945`. This is a mild enforcement gap.
+1. **No explicit L2 Coherent spawn** for the 4-team parallel work — the Bundle D integration agent implicitly played the L2 role. Should have been an explicit `[COHERENT]` agent per `eradev.md:945`. This is a mild enforcement gap.
 2. **Composition Hazards Grid borderline case** — Bundle A (math F-formulas) + Bundle B (protocol + cross-layer contracts) + Bundle C (discipline habits) + Bundle D (unified integration) arguably met BL-34's "≥2 refactors" threshold, but the framing as a single coordinated release prevented the hook trigger. Retrospectively, should a Composition Hazards Grid have been authored? Probability: YES, per BL-34's literal spec. The session narrative of "one coordinated release" may have been the safety buffer that prevented hazards from materialising, but absence of the grid means we don't know that formally.
 
 ---

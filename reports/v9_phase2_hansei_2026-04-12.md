@@ -36,7 +36,7 @@ Article skin passed 3 inspection gates (Analyst spec B=0.904, Builder B=0.927, V
 The roadmap's "PostToolUse hook → background Haiku agent" crashed on a technical reality: Claude Code hooks run shell commands, not agent prompts. Phase 2.C Analyst designed a CronCreate-based alternative that's actually implementable. The roadmap's aspiration was correct (continuous extraction); the mechanism was wrong. This is why Analyst pre-flight matters — verify feasibility before committing to implementation.
 
 ### 4. Memory hierarchy is infrastructure for v10, not v9 feature
-The tiered memory system (T1 anchors / T2 session / T3 wisdom) and temporal triples (valid_from/ended/superseded_by/cross_project) were shipped as v9 infrastructure. But their value activates in v10 when cross-project Ω(H_hist) actually computes against H_hist corpus, and when BL_CANDIDATES.md accumulates enough entries for Coherencer compression to fire. v9 laid the substrate; v10 will grow on it.
+The tiered memory system (T1 anchors / T2 session / T3 wisdom) and temporal triples (valid_from/ended/superseded_by/cross_project) were shipped as v9 infrastructure. But their value activates in v10 when cross-project Ω(H_hist) actually computes against H_hist corpus, and when BL_CANDIDATES.md accumulates enough entries for Coherent compression to fire. v9 laid the substrate; v10 will grow on it.
 
 ### 5. AC-4 was the last gate and the hardest
 Section II.1 (modal B-formula) was proposed in Phase 0.A, referenced by 11 files across 6 locations, but never actually written in eradev.md until Wave 8. For 5 commits, AC-4 was "PARTIAL / FAIL ON MEASUREMENT." The phantom coherence audit surfaced this. Lesson: a referenced section that doesn't exist is a more dangerous phantom than a missing feature.
@@ -74,7 +74,7 @@ B=0.618 for a full Phase 2 cycle is adequate — lower than Phase 2.1.S (0.925) 
 
 ### v10 horizon
 - Cross-project Ω(H_hist) computation (infrastructure ready, corpus not)
-- BL_CANDIDATES.md → Coherencer compression protocol (staging file exists, compression not implemented)
+- BL_CANDIDATES.md → Coherent compression protocol (staging file exists, compression not implemented)
 - Temporal decay on lessons (valid_from dates exist, aging protocol not)
 - Continuous/flow task support (OOD Section II.2 explicitly scopes to v10)
 - Apophatic role, L10-L12, cross-harness parity, declarative RT graph

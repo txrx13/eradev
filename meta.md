@@ -136,7 +136,7 @@ Agents spawned via the Agent tool do NOT inherit EraDev context. Every Agent cal
 3. **File paths**: Explicit paths to files the agent needs to read.
 4. **Output format**: Expected structure (e.g., "=== RESULT [ROLE] ===").
 5. **Project config**: Relevant project constraints and context.
-6. **Agent description**: The `description` field in Agent tool call MUST start with `[ROLE]` tag: `[VISIONARY]`, `[ANALYST]`, `[BUILDER]`, `[VALIDATOR]`, `[COHERENCER]`. This makes the active role visible to the operator.
+6. **Agent description**: The `description` field in Agent tool call MUST start with `[ROLE]` tag: `[VISIONARY]`, `[ANALYST]`, `[BUILDER]`, `[VALIDATOR]`, `[COHERENT]`. This makes the active role visible to the operator.
 
 **Role selection guide:**
 - `[VISIONARY]` — strategic direction, IFR, risk assessment, prioritization, security architecture.
@@ -147,18 +147,18 @@ Agents spawned via the Agent tool do NOT inherit EraDev context. Every Agent cal
   Routes here: "write code for X", "create config", "build feature". Must compile/build before done. Security checklist.
 - `[VALIDATOR]` — verification, code review, test/benchmark execution, edge cases, PASS/BLOCK verdicts.
   Routes here: "run tests", "check results", "review PR", "is this correct?", fix chain detection, revert postmortem.
-- `[COHERENCER]` — cross-agent sync, conflict resolution, documentation (MEMORY/ROADMAP), lessons crystallization.
+- `[COHERENT]` — cross-agent sync, conflict resolution, documentation (MEMORY/ROADMAP), lessons crystallization.
   Routes here: "update docs", "resolve contradiction", "what lessons apply?", stagnation detection, Verification Register.
 
 **Check Agent (6th output type):** Any role can be spawned as a Check Agent for research/verification. Tag with the role that matches the task: [ANALYST] for "how does X work?", [VALIDATOR] for "is X correct?", [VISIONARY] for "should we adopt X?", etc.
 
 **Common mistake:** "запусти и проверь" (run and verify) = [VALIDATOR], not [BUILDER]. Builder CREATES, Validator RUNS and CHECKS. Triggering tests, benchmarks, deploys for verification = Validator territory.
 
-**Parallelization rule (MAX by DEFAULT, Invariant 13):** Independent agents MUST be spawned simultaneously with `run_in_background: true`, at maximum count META can dispatch in a single turn (limited only by API/runtime, not artificial caps). DEFAULT = parallel; sequential ONLY when (a) genuine dependency (output of agent A is input to agent B), or (b) operator explicitly says "по очереди" / "sequential" / "один за другим" / "by stages". Caution about API timeouts is NOT sufficient justification for batching independent agents — operator critique 2026-04-25 ('почему ты 2 5ки RU и EN не запустил параллельно сразу?') confirmed batching independent disjoint-stack agents (e.g., RU + EN parallel teams) is a violation. Wait for completion notifications before spawning DEPENDENT agents only. Coherencer syncs results when all complete. META stays responsive to operator while agents work.
+**Parallelization rule (MAX by DEFAULT, Invariant 13):** Independent agents MUST be spawned simultaneously with `run_in_background: true`, at maximum count META can dispatch in a single turn (limited only by API/runtime, not artificial caps). DEFAULT = parallel; sequential ONLY when (a) genuine dependency (output of agent A is input to agent B), or (b) operator explicitly says "по очереди" / "sequential" / "один за другим" / "by stages". Caution about API timeouts is NOT sufficient justification for batching independent agents — operator critique 2026-04-25 ('почему ты 2 5ки RU и EN не запустил параллельно сразу?') confirmed batching independent disjoint-stack agents (e.g., RU + EN parallel teams) is a violation. Wait for completion notifications before spawning DEPENDENT agents only. Coherent syncs results when all complete. META stays responsive to operator while agents work.
 
 Agent call WITHOUT this prefix = YELLOW on A_F. Repeated violation = RED.
 
-**Why:** In the gravity session, Visionary, Validator, and Coherencer refused to work — insufficient directive. Agents are subprocesses with blank context; they need explicit instructions, not implicit framework knowledge.
+**Why:** In the gravity session, Visionary, Validator, and Coherent refused to work — insufficient directive. Agents are subprocesses with blank context; they need explicit instructions, not implicit framework knowledge.
 
 ### 7c. Bilingual Builder Spawn Discipline (Inv 19 enforcement)
 
@@ -225,7 +225,7 @@ Rule triggers at task size ≥ L; S/M tasks continue to use single-column inerti
 ### Cross-Builder Consistency Check (XL tasks)
 
 When 2+ Builders work in parallel on the same task:
-1. After Build phase, Coherencer runs a cross-check: do outputs use the same terminology, conventions, and assumptions?
+1. After Build phase, Coherent runs a cross-check: do outputs use the same terminology, conventions, and assumptions?
 2. Validator spot-checks shared variables, formulas, and interfaces across Builder outputs.
 3. Any inconsistency = YELLOW. Contradictory outputs = RED (Andon).
 
@@ -315,7 +315,7 @@ Always-print items are unconditional. Trigger-only items are printed at session 
        Source: projects/{PROJECT}/config.md `domain:` block. Absent block → default type=code, B_modality=text, ood_scope=text-discrete.
        If domain.skin is set: loaded templates/domain_skin.{type}.md alongside role files.
 [ ] 6. RT-1 PLANNED (always-print if M+): For M+ tasks, I will spawn 5 Agent calls (V/A/B/Val/C) BEFORE implementation.
-[ ] 9. LAMBDA AUDIT (always-print, compact): Coherencer announces 3 relevant lessons + 2 mega-patterns (BL-4) from projects/{PROJECT}/lessons.md [ACTIVE].
+[ ] 9. LAMBDA AUDIT (always-print, compact): Coherent announces 3 relevant lessons + 2 mega-patterns (BL-4) from projects/{PROJECT}/lessons.md [ACTIVE].
        Print leverage_factor = X.XX (Λ_eff = 0.5·Λ_consulted + 0.5·LF, per eradev.md §II.1 D2-additive).
        LF = operator-domain artifact count / max(1, framework-self artifact count) over the current measurement window.
        framework-self = eradev.md / eradev_RU.md / meta.md / meta_RU.md / CLAUDE.md / roles/ / templates/ / scripts/ / .claude/ / .githooks/.
@@ -329,7 +329,7 @@ Always-print items are unconditional. Trigger-only items are printed at session 
        - **0.05 ≤ LF < 0.10** → YELLOW warning. META MUST emit `[YELLOW: LF=0.XX 14d — framework drift]` after item 9 and REQUIRE operator ACK ("ack" / "proceed" / "понял") BEFORE spawning the first agent. Operator-domain task framing satisfies ACK implicitly (current task touches `projects/{name}/` excluding `projects/eradev/`).
        - **LF < 0.05** → RED. META MUST emit `[RED: LF=0.XX 14d — Λ-effective floor breach]` and BLOCK session start (no agent spawns) until operator explicitly invokes Kill-Switch Level 2 review (operator types `kill-switch-2` / `KS2 review` / `override OD-2`) OR ships ≥1 operator-domain artifact in the next commit. Pure framework-self refactors are NOT permitted to break the floor.
        **Bypasses:** `ERADEV_HOOKS_DISABLED=1` (P0 only, post-incident Hansei mandatory); operator session opener containing `[skip-od2]` (logged to lessons.md). Operator-domain sessions (current task targets `projects/{name}/` non-eradev) are auto-exempt from BLOCK — gate fires on framework-self-only sessions.
-       **BL-3 awareness:** thresholds 0.10 / 0.05 are empirical (Coherencer Tier 1 reading, not validated). If gate fires 2+ times producing operator-friction without catching real drift, STOP, write spec, re-run RT-1.
+       **BL-3 awareness:** thresholds 0.10 / 0.05 are empirical (Coherent Tier 1 reading, not validated). If gate fires 2+ times producing operator-friction without catching real drift, STOP, write spec, re-run RT-1.
        Print intent_ratio = X.XX (META discipline metric, BT-1 Phase 2.2 M-cure).
        intent_ratio = (count of META first-actions that are Agent calls or Check Agent spawns) / max(1, total META first-actions in current measurement window).
        Anchored to ε_meta canonical (CLAUDE.md "META Output Specification"): output types #1 (Agent calls) and #6 (Check Agent) count toward INTENT numerator; types #3-#5 (Synthesis/Lessons/Reports) are OUTPUT-class Edit/Write to ε_meta whitelist (NOT counted as first-action violations); type #2 (Decisions) is text emission (neutral).
@@ -379,7 +379,7 @@ These items remain part of the protocol but are NOT printed in the default 7-ite
        half_life = 180 days (regular) or 360 days (cross_project: true). EMPs are immortal -- skip.
        If any lesson has freshness < 0.3: flag for temporal decay review.
        Review actions: REVALIDATE (reset valid_from) / SUPERSEDE (mark ended) / ARCHIVE (move to lessons_archive.md).
-       If flagged count <= 5: Coherencer reviews inline. If > 5: spawn dedicated decay review pass.
+       If flagged count <= 5: Coherent reviews inline. If > 5: spawn dedicated decay review pass.
        Cross-project scan: for each OTHER project in projects/, read lessons.md,
        filter for cross_project: true AND ended: null, load relevant ones into T2 context.
        Omega computation (v10): after cross-project scan, compute Omega(H_hist).
@@ -390,16 +390,16 @@ These items remain part of the protocol but are NOT printed in the default 7-ite
        If Omega > 2.0: YELLOW -- memory dominance detected, consider fresh thinking.
        If Omega = 1.000 (no relevant cross-project lessons): log, no alarm -- backward compat with v9.
        BL compression check (v10): read BL_CANDIDATES.md header count.
-       If count >= 5: spawn Coherencer with BL compression protocol.
-       Coherencer classifies each candidate (PROMOTE/MERGE/DISCARD/DEFER), executes, logs to lessons.md.
+       If count >= 5: spawn Coherent with BL compression protocol.
+       Coherent classifies each candidate (PROMOTE/MERGE/DISCARD/DEFER), executes, logs to lessons.md.
        BL-3 guard: if compression loops >= 3 iterations, STOP and escalate to META.
-       If lessons.md active count > 50: trigger compression pass (Coherencer, see spec).
+       If lessons.md active count > 50: trigger compression pass (Coherent, see spec).
 [ ] 10. FIX RATE (trigger: every 10 commits)
        Compute fix rate. >50% = STOP for reflection.
 [ ] 11. IDENTITY PERSISTENCE + MEMORY BUDGET (trigger: session-start only, NOT per-task)
        Verify project MEMORY contains META identity record.
        If missing/outdated: write to MEMORY — identity declaration, 6 output types, delegation constraint, session timestamp.
-       Check MEMORY.md line count: if > 200 lines, spawn Coherencer to compress before proceeding.
+       Check MEMORY.md line count: if > 200 lines, spawn Coherent to compress before proceeding.
        The act of writing reinforces identity.
 ```
 
@@ -428,7 +428,7 @@ These items remain part of the protocol but are NOT printed in the default 7-ite
 
 ### μ-check (v10, from ODTOE parallel_trajectories F7)
 
-Between RT-1 close and Builder spawn, Coherencer runs μ-check (mu-check) as a pre-Builder gate:
+Between RT-1 close and Builder spawn, Coherent runs μ-check (mu-check) as a pre-Builder gate:
 
 - All sections in `reports/unified-plan-{TASK_ID}-{DATE}.md` populated (template at `templates/unified_plan.md.template`)?
 - Cross-Layer Contracts table present for multi-layer tasks (or N/A with justification)?
@@ -444,12 +444,12 @@ Between RT-1 close and Builder spawn, Coherencer runs μ-check (mu-check) as a p
 **RIGOR_LEVEL modality branch (v10 Bundle D):** μ-check enforcement intensity is conditional on the effective `rigor_map` level for the task (or per segment for multi-segment tasks — see `templates/unified_plan.md.template` §Rigor Map and `templates/domain_skin.md.template` rigor_map schema):
 - **strict** → μ-check is BLOCKING (full `doc_alignment`; all 7 checks must PASS before Builder spawn).
 - **structured** → μ-check is BLOCKING with N/A-tolerance on Cross-Layer Contracts / User Flow when a segment justifiably lacks those layers; partial populations acceptable with one-line rationale.
-- **exploratory** → μ-check is **ADVISORY**. Coherencer still runs the checklist, emits `[μ-check ADVISORY: findings]`, but Builder is cleared to spawn regardless. Missing sections are documented, not blocking.
-- **emergent** → μ-check is **N/A**. Voice Guide (not Unified Plan) may substitute; Coherencer role becomes post-hoc (see FLUX RT Protocol in `eradev.md` §VI.1).
+- **exploratory** → μ-check is **ADVISORY**. Coherent still runs the checklist, emits `[μ-check ADVISORY: findings]`, but Builder is cleared to spawn regardless. Missing sections are documented, not blocking.
+- **emergent** → μ-check is **N/A**. Voice Guide (not Unified Plan) may substitute; Coherent role becomes post-hoc (see FLUX RT Protocol in `eradev.md` §VI.1).
 
 Short-form rule: `if domain.B_modality == creative OR task.rigor_level ∈ {exploratory, emergent}: μ-check = ADVISORY (warn, don't block)`. For strict/structured: μ-check remains BLOCKING as Bundle B shipped.
 
-**Verify method:** `doc_alignment` (canonical, registered in `templates/domain_skin.md.template` verify registry — v10+) for strict/structured. For exploratory/emergent segments Coherencer runs `flux_check` (advisory) in place of `doc_alignment`. Coherencer-owned operation; runs on the Unified Plan (or Voice Guide) synthesis it just produced. Temporal independence (post-synthesis audit) satisfies the independence-check requirement.
+**Verify method:** `doc_alignment` (canonical, registered in `templates/domain_skin.md.template` verify registry — v10+) for strict/structured. For exploratory/emergent segments Coherent runs `flux_check` (advisory) in place of `doc_alignment`. Coherent-owned operation; runs on the Unified Plan (or Voice Guide) synthesis it just produced. Temporal independence (post-synthesis audit) satisfies the independence-check requirement.
 
 **Rationale:** plan admissibility (the old implicit RT-1 gate) ≠ plan completeness. RT-1 closes when 5 role outputs exist; μ-check closes when those 5 outputs, synthesized into one plan, pass the `doc_alignment` bar. The two gates are sequential, not redundant. The RIGOR_LEVEL branch protects creative/exploratory work from over-specification penalties while keeping the strict/structured gate intact where convergent verification is meaningful.
 
@@ -464,7 +464,7 @@ If exceeds 2x: RED — STOP and formally reclassify. Output:
 === RECLASSIFICATION ===
 Previous: [S/M/L/XL] | New: [S/M/L/XL]
 Trigger: [what caused reclassification — agent count, file count, scope expansion]
-Action: [adjust team size, add RT cycles, escalate Coherencer level]
+Action: [adjust team size, add RT cycles, escalate Coherent level]
 ```
 
 This makes scope changes auditable. Silent reclassification is a BL-18 violation.
@@ -515,16 +515,16 @@ This is not mandatory -- extraction is opt-in per session.
 ### Report Funnel (Information Compression)
 
 ```
-Builder (full artifact) -> Validator (Structured Verdict) -> Coherencer (Cycle Brief) -> META
+Builder (full artifact) -> Validator (Structured Verdict) -> Coherent (Cycle Brief) -> META
 ```
 
 Each level compresses. META reads ONLY the Cycle Brief, never raw output.
 
-**Structured Verdict** (Validator -> Coherencer, max 7 lines):
+**Structured Verdict** (Validator -> Coherent, max 7 lines):
 `TASK: [id] | VERDICT: PASS/PARTIAL/FAIL | MATCH: [0-10] | DRIFT: NONE/LOW/MEDIUM/HIGH`
 `SUMMARY: [1-2 sentences] | GAPS: [bullets] | NEXT: [action]`
 
-**Cycle Brief** (Coherencer -> META, max 10 lines):
+**Cycle Brief** (Coherent -> META, max 10 lines):
 `CYCLE: [id] | COMPLETED: [N] tasks [ids] | PARTIAL: [N] [id+gap] | FAILED: [N] [id+reason]`
 `ESSENCE: ALIGNED/DRIFTING/MISALIGNED + 1 sentence | METRICS: S_session=_ B_mean=_ fix_rate=_`
 `NEXT: [max 3 recommendations]`
@@ -548,7 +548,7 @@ GREEN does NOT signal:
 **Recovery path** if META declared «ready» prematurely:
 - Operator catches → no fix chain triggered (operator authority overrides per L-59)
 - Hansei records «ready-inflation» as observation
-- Coherencer adds to next periodic Tier-claim sweep
+- Coherent adds to next periodic Tier-claim sweep
 
 This amendment closes RT-9 EN-V finding R3 «GREEN means ready is framework vocabulary defect».
 
@@ -570,7 +570,7 @@ This amendment closes RT-9 EN-V finding R3 «GREEN means ready is framework voca
 - New `recommendations.md` per-project — duplicates lessons.md
 - Per-task BL_CANDIDATES.md entries — BL_CANDIDATES is for UNIVERSAL framework rules only, not per-task notes
 
-**Coordination**: Coherencer at RT-3 ensures recommendations land in correct artifact (Hansei nested vs lessons.md vs roadmap Next Steps) per scope.
+**Coordination**: Coherent at RT-3 ensures recommendations land in correct artifact (Hansei nested vs lessons.md vs roadmap Next Steps) per scope.
 
 ### Context Pruning (at every meta-reflection)
 

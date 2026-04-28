@@ -82,7 +82,7 @@ Builder A's 10-file edit is clean and the 3-example structure (code/article/book
    - `projects/odtoe-articles/config.md:24` → `languages: [en, ru]`
    - `projects/plugy/config.md:33` → `languages: [en]`
    - `projects/academic-lab/config.md:21` → `languages: [en]`
-3. `domain.languages` field documented in `templates/domain_skin.md.template` (line 37 schema declaration + line 42 dedicated subsection + line 110 Coherencer role focus update). Conditional BL-19 sync mechanism verified (single-language projects → no-op).
+3. `domain.languages` field documented in `templates/domain_skin.md.template` (line 37 schema declaration + line 42 dedicated subsection + line 110 Coherent role focus update). Conditional BL-19 sync mechanism verified (single-language projects → no-op).
 4. `custom_methods|extensible|registry` matches: 2 in `eradev.md`, 1 in `eradev_RU.md`, 4 in `templates/domain_skin.md.template`. Extensibility documented in all 3 required locations. ≥2 threshold satisfied.
 5. Skin files with substantive residual `ODTOE|plugy` etc. in sweep: **0**. (Confirmed by `grep -l` returning "No files found".)
 6. Skill-mirror exclusion honored — Builder C did not touch `.claude/` (out of scope per v10 two-phase pattern).

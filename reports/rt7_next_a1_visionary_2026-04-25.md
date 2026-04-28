@@ -57,7 +57,7 @@ Spawn RU-Visionary post-Builder/Validator with the same instrument used in `rt5_
 - Builder report at `reports/rt7_next_a1_builder_2026-04-25.md` documenting: pre/post diff vs live, the 7-feature parity table now shows YES/YES/YES, BLOCK reason resolved.
 - **No edits to live `CLAUDE.md`** (it is already v10-correct per Validator).
 
-**Out of scope for Builder**: hook re-deploy, lessons.md updates, roadmap freeze-lift (Coherencer task post-Validator PASS).
+**Out of scope for Builder**: hook re-deploy, lessons.md updates, roadmap freeze-lift (Coherent task post-Validator PASS).
 
 ## 8. Acceptance Criteria & Failure Pre-mortem
 **AC**:

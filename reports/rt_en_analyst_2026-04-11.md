@@ -284,7 +284,7 @@ N7,N8,N9 (template)                    ─────► N1,N2  (software domai
 3. Builder-B: N3, N4 (article domain) — extracts from odtoe-articles/config.md
 4. Builder-C: N5, N6 (knowledge-work skeleton) — net-new content
 
-**All three work in parallel, with Coherencer enforcing consistency against N7 template (File Ownership: each builder owns the 2 files of their domain).**
+**All three work in parallel, with Coherent enforcing consistency against N7 template (File Ownership: each builder owns the 2 files of their domain).**
 
 **Phase 2 — Core Universalization (PARALLEL where possible):**
 5. Builder-E: M1, M2 (eradev.md + RU twin) — independent; starts once N1-N6 exist
@@ -330,7 +330,7 @@ Per Invariant 11 and eradev.md Section X: when 2+ Builders work in parallel, Ana
 
 ### Terminology conflicts (the real risk — BL-29)
 - Three parallel Builders (A, B, C) in Phase 1 must use the **same abstract vocabulary** for domain description. Without coordination, A might call it "Verify Before Act", B might call it "Pre-Generation Check", C might call it "Reality Check".
-- **Mitigation:** N7 DOMAIN_TEMPLATE_EN.md defines the canonical section headers AND required terms. All domain files inherit them by copy. Coherencer checks terminology at end of Phase 1.
+- **Mitigation:** N7 DOMAIN_TEMPLATE_EN.md defines the canonical section headers AND required terms. All domain files inherit them by copy. Coherent checks terminology at end of Phase 1.
 
 ### Loading protocol backward compatibility
 - The new `domains/{domain}_EN.md` loading step adds a 5th mandatory read for every role agent. Context budget impact: +100–300 lines per agent. With Claude Opus 4.6 (1M tokens) this is negligible per LOADING_PROTOCOL.md line 49.
@@ -373,7 +373,7 @@ Per analyst_EN.md Key Rule 1 "Full pipeline in the plan":
    - Verify it self-loads domains/software_EN.md and behaves correctly
    - Give it a mixed task; verify Language Stack routing still works
 
-6. SYNCHRONIZE (Coherencer):
+6. SYNCHRONIZE (Coherent):
    - terminology audit across all new + modified files
    - glossary index updated
    - LOADING_PROTOCOL updated and tested
@@ -428,7 +428,7 @@ Classification ladder from meta.md Section 9:
 Previous: M (implicit in task wording "universalize EraDev")
 New: XL (I(C) = 300, files = 50, teams = 12 builders across 5 phases)
 Trigger: Analyst decomposition revealed 50-file scope and 6 sequential phases
-Action: Invoke L2 Coherencer, mandatory RT-2 gate between Phase 1 and Phase 2,
+Action: Invoke L2 Coherent, mandatory RT-2 gate between Phase 1 and Phase 2,
         optional RT-3 per-phase gate.
 ```
 
@@ -438,7 +438,7 @@ Action: Invoke L2 Coherencer, mandatory RT-2 gate between Phase 1 and Phase 2,
 
 | ID | Risk | Probability | Impact | Mitigation |
 |----|------|-------------|--------|------------|
-| R1 | Terminology drift across parallel domain writers | HIGH | HIGH | N7 template with required canonical terms; Coherencer end-of-Phase-1 audit |
+| R1 | Terminology drift across parallel domain writers | HIGH | HIGH | N7 template with required canonical terms; Coherent end-of-Phase-1 audit |
 | R2 | odtoe-articles project breaks after M23 edit | MEDIUM | CRITICAL | Adversarial test (Phase 5, step 5) before commit; keep backup of config.md |
 | R3 | New `domains/` layer read as optional and ignored (Lambda=0 recurrence) | HIGH | HIGH | Hook enforcement: check agent prompt contains "Read domains/{domain}" |
 | R4 | Bilingual sync drift during 50-file edit | MEDIUM | MEDIUM | BL-19 enforcement; single commit per EN+RU pair |
@@ -544,11 +544,11 @@ Dependencies:
 File Ownership: see section 4. No overlaps. Phase gates enforce ordering.
 
 Pipeline: source(read) → decompose(this report) → produce(Phase 0–5)
-        → build/render(md lint) → adversarial test → synchronize(Coherencer)
+        → build/render(md lint) → adversarial test → synchronize(Coherent)
         → verify(Validator) → deliver(6 commits)
 
 Resource conflicts:
-  - Terminology drift (HIGH) → N7 template + Coherencer audit
+  - Terminology drift (HIGH) → N7 template + Coherent audit
   - odtoe-articles regression (HIGH) → adversarial test before M23 commit
   - Silent domain layer ignorance (HIGH) → hook enforcement in future BL
   - Bilingual drift (MED) → per-commit EN+RU pairing
@@ -557,7 +557,7 @@ Resource conflicts:
 System dependencies: markdown editing only. No new tools. grep delegated
   to Check Agent. cp operational. git operational.
 
-Reclassification: M → XL (I(C)=300). RT-2 mandatory. L2 Coherencer.
+Reclassification: M → XL (I(C)=300). RT-2 mandatory. L2 Coherent.
 
 Scientific-book vs code agents: SAME 5 roles, SAME Activation Operator,
   DIFFERENT domain binding layer. Operator is universal (M̂_meta);

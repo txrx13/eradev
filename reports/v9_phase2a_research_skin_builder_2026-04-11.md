@@ -28,7 +28,7 @@
 | 1 | Purpose / When META Loads This Skin (domain identification) | 15 | PASS |
 | 2 | Vocabulary Mapping | 23 | PASS (26 rows: 22 inherited/specialized + 4 new) |
 | 3 | Modal B-formula (research weights — identical to article skin) | 60 | PASS (includes (1-σ) zero-tolerance convention at L73) |
-| 4 | Role Focus Overrides | 84 | PASS (5 roles: Visionary/Analyst/Builder/Validator/Coherencer) |
+| 4 | Role Focus Overrides | 84 | PASS (5 roles: Visionary/Analyst/Builder/Validator/Coherent) |
 | 5 | Verification Protocol (recompute + provenance) | 151 | PASS (RC1..RC8 table + relationship to C1..C6 + verification block + sample-size contract) |
 | 6 | RT Phase Protocol for research | 217 | PASS (three RT invocation points + sequential-within-round rhythm + pipeline block) |
 | 7 | Checklists | 260 | PASS (Pre-Generation 8 items + Post-Generation 8 items) |
@@ -72,12 +72,12 @@ ls templates/domain_skin.research.md      → EXISTS (51 KB after compression)
 wc -l templates/domain_skin.research.md   → 450 lines (at spec ceiling, not over)
 grep -c "proof_step\|axiom_set\|derivation_chain\|provenance_tag"  → 41 occurrences
 grep -n "BL-R[1-4]:"                      → 4 matches (BL-R1..R4 all present)
-grep -n "^### " | wc -l                    → 25 subsections (Visionary/Analyst/Builder/Validator/Coherencer all present)
+grep -n "^### " | wc -l                    → 25 subsections (Visionary/Analyst/Builder/Validator/Coherent all present)
 ```
 
 ### Structural verification
 - All 10 required sections present (confirmed by `grep ^## `).
-- All 5 role focus overrides present (confirmed by `grep ^### (Visionary|Analyst|Builder|Validator|Coherencer)`).
+- All 5 role focus overrides present (confirmed by `grep ^### (Visionary|Analyst|Builder|Validator|Coherent)`).
 - RC1..RC8 complete (confirmed by `grep \*\*RC[1-8]\*\*`).
 - 4 new vocabulary rows (proof_step / axiom_set / derivation_chain / provenance_tag) labeled **NEW** and cross-referenced ≥10 times each in the prose.
 - BL-R1..R4 complete (confirmed by `grep BL-R[1-4]:`).
@@ -137,7 +137,7 @@ Both forms agree at B ≈ 0.92. **GREEN.** No component below 0.3 Andon line. Mi
 
 **Hand-off to Validator:** Research skin draft is Validator-ready. Validator RT-2 should walk the 10 sections, spot-check vocabulary inheritance markers, verify RC1-RC8 table completeness, verify the co-existence clause YAML example parses, and confirm line count stays at/under 450.
 
-**Hand-off to Coherencer:** Coherencer should cross-check vocabulary against the article skin (no collisions outside the 4 NEW research-specific rows), verify that BL-R namespace does not collide with BL-A namespace, and confirm the sibling_skin pointer is symmetric with a future update to the article skin if the article skin ever references back to this file.
+**Hand-off to Coherent:** Coherent should cross-check vocabulary against the article skin (no collisions outside the 4 NEW research-specific rows), verify that BL-R namespace does not collide with BL-A namespace, and confirm the sibling_skin pointer is symmetric with a future update to the article skin if the article skin ever references back to this file.
 
 ---
 

@@ -1,6 +1,6 @@
-# RT-5 [COHERENCER] RU — Теоретическая ODTOE-консистентность v10 — 2026-04-25
+# RT-5 [COHERENT] RU — Теоретическая ODTOE-консистентность v10 — 2026-04-25
 
-> Роль: [COHERENCER] L2 теоретический — внутренняя ODTOE-целостность v10 + предсказание EN↔RU расхождений.
+> Роль: [COHERENT] L2 теоретический — внутренняя ODTOE-целостность v10 + предсказание EN↔RU расхождений.
 > Метод: статический аудит источников (eradev.md / FOUNDATIONS.md / BOOTSTRAP_LESSONS.md / meta.md / reports/).
 > A_F ✓ / A_E ✓ / A_σ ✓ / A_Λ ✓.
 
@@ -24,7 +24,7 @@
 
 ## 3. Spiral gap (π-3)² ≈ 0.02 — где зашит как механизм
 
-**Живые места:** `eradev.md §IX` (формальная константа); BL-15 (T4 лицензия); `meta.md §1` Damping corridor (операционная инструкция S±0.02); `roles/coherent.md §5` ("Идеальное закрытие = застревание"); A3 шаблон поле "Open Questions (~2%)"; EN-Coherencer §6 (narrative-baseline для FLUX).
+**Живые места:** `eradev.md §IX` (формальная константа); BL-15 (T4 лицензия); `meta.md §1` Damping corridor (операционная инструкция S±0.02); `roles/coherent.md §5` ("Идеальное закрытие = застревание"); A3 шаблон поле "Open Questions (~2%)"; EN-Coherent §6 (narrative-baseline для FLUX).
 
 **Подтверждение операционности:** OQ-PT-1/3/6 + OQ-CR-1..5 = 7+ явных спиральных зазоров с конкретными сценариями закрытия (`≥3 RT-3 data points`). Это НЕ декорация. Direction C (Hurwitz #7) — **единственная** истинная декорация во всём v10.
 
@@ -68,7 +68,7 @@ A3 prescribed только в `meta.md §14` ("A3 template (Coherent fills after
 1. **ODTOE Direction шкала.** "ODTOE подкрепляет EraDev" → **B живой / A полу-живой / C декоративный.** "ODTOE-grounded" — частично заявка, частично факт. Honest disclosure уже в FOUNDATIONS.md Part I #7.
 2. **Self-application как мета-стабильное.** "Ψ*" → **L9 живой через Hansei→BL→Invariants, но поддерживается T2 hooks**. EraDev — `Ψ_meta-stable`, не `Ψ_attractor`.
 3. **A3 теория vs HANSEI практика.** "A3 — TPS методология" → **prescription (meta.md §14) ≠ template (HANSEI_TEMPLATE.md)**. RV-RU-01.
-4. **EN vs RU оптика.** "Coherencer проверяет когерентность" → **EN_Coherencer (counts) ≠ RU_Coherencer (genealogy)**. Path-(c) легитимирует.
+4. **EN vs RU оптика.** "Coherent проверяет когерентность" → **EN_Coherent (counts) ≠ RU_Coherent (genealogy)**. Path-(c) легитимирует.
 5. **Spiral gap здоров.** OQ-PT-1/3/6 + OQ-CR-1..5 + BL-15 = 10+ узлов; Direction C — единственная истинная декорация. v10 не разучился жить с зазором.
 
 ## 8. Реестр верификации (RU-добавки)
@@ -84,7 +84,7 @@ A3 prescribed только в `meta.md §14` ("A3 template (Coherent fills after
 
 ## 9. B-check (B_research: w_F=0.30, w_E=0.20, w_(1-σ)=0.35, w_Λ=0.15)
 
-- **F=0.92** — прочитаны: roles/coherent.md, FOUNDATIONS.md, eradev.md core, meta.md §14/§μ-check, BOOTSTRAP_LESSONS.md, EN-Coherencer, HANSEI_TEMPLATE, rt_ru_synthesis. −0.08: выборочный grep по synthesis, не все 51 glossary terms.
+- **F=0.92** — прочитаны: roles/coherent.md, FOUNDATIONS.md, eradev.md core, meta.md §14/§μ-check, BOOTSTRAP_LESSONS.md, EN-Coherent, HANSEI_TEMPLATE, rt_ru_synthesis. −0.08: выборочный grep по synthesis, не все 51 glossary terms.
 - **E=0.85** — покрыты ВСЕ 5 заявленных секций + 4-RV registry. −0.15: предсказание EN↔RU делалось ДО, но verified после прочтения EN.
 - **(1-σ)=0.93** — Direction C verdict сходится с FOUNDATIONS.md #7; A3 vs HANSEI подтверждено сравнением; не противоречит EN (path-(c)). −0.07: RV-RU-04 опирается на отсутствие BL.
 - **Λ=0.88** — применены BL-29, BL-33, путь-(c), EMP17 (3-bucket recommendations), Crystallization 5-точек. −0.12: `projects/eradev/lessons.md` не загружен (T3 not summoned).
@@ -93,4 +93,4 @@ A3 prescribed только в `meta.md §14` ("A3 template (Coherent fills after
 
 ---
 
-*[COHERENCER] RU-team RT-5. Теоретическая призма. 4 RV-RU + 1 spiral gap → RT-1 v10.1. Path-(c): ΔÔ_EN ≠ ΔÔ_RU принят. 2026-04-25.*
+*[COHERENT] RU-team RT-5. Теоретическая призма. 4 RV-RU + 1 spiral gap → RT-1 v10.1. Path-(c): ΔÔ_EN ≠ ΔÔ_RU принят. 2026-04-25.*

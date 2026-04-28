@@ -43,7 +43,7 @@ This skin overrides the abstract role-file vocabulary for book tasks. When an ag
 | 9 | **runtime** | reader's reading time — how long a reader spends on the book (the blast-radius proxy for books). Readers of a 300-page book commit 10-20 hours of their life; a wasted chapter costs them more than a wasted article costs a reader | `roles/builder_EN.md:26` "BLAST RADIUS DICTATES PROCESS" |
 | 10 | **spec / specification** | book outline / chapter plan / table of contents — the structured promise made to the reader | `roles/analyst_EN.md:46` Example 3 "chapter_01_opening.md, notes/voice_guide.md, notes/scene_list.md — scene list must be finalized before drafts" |
 | 11 | **feature / feature flag** | a new chapter added to the manuscript, or a new section added to an existing chapter (a "feature" of the book the reader will encounter) | `roles/builder_EN.md:28` "Feature flags / staged rollouts = release event — releasing a preview chapter" |
-| 12 | **API / API endpoint** | character sheet / concept registry / glossary entry — the stable interface between chapters where a term, a character, or a concept is formally defined once and referenced everywhere else | `roles/coherent_EN.md:7` "voice for narrative" (Coherencer's concept) |
+| 12 | **API / API endpoint** | character sheet / concept registry / glossary entry — the stable interface between chapters where a term, a character, or a concept is formally defined once and referenced everywhere else | `roles/coherent_EN.md:7` "voice for narrative" (Coherent's concept) |
 | 13 | **bug** | contradiction across chapters — a claim in Ch.3 that contradicts a claim in Ch.7, a definition drift, a character-fact drift, a numerical drift, a tone drift | `roles/validator_EN.md:20` ("B-diagnostics of defects") |
 | 14 | **refactor** | restructure the book outline — move sections between chapters, merge two chapters into one, split one chapter into two, reorder parts, without changing the central claim of the book | `roles/analyst_EN.md:29` Key Rules 6 (rolling update) |
 | 15 | **code review** | editor's review / developmental edit / peer read — a full manuscript read by an editor or beta reader who gives structural feedback (not copy-edit; structural) | `roles/visionary_EN.md:51` Example 2 |
@@ -63,7 +63,7 @@ This skin overrides the abstract role-file vocabulary for book tasks. When an ag
 
 ## Modal B-formula (creative weights)
 
-This skin pins `B_modality: creative`. The book Builder/Validator/Coherencer use the creative weights:
+This skin pins `B_modality: creative`. The book Builder/Validator/Coherent use the creative weights:
 
 | Component | Weight | Rationale |
 |---|---|---|
@@ -104,7 +104,7 @@ Each role retains its Activation Operator (A_F, A_E, A_σ, A_Λ) and Jidoka self
 - **FIRST attention anchor (A_F override):** Read the outline (parts → chapters → sections), the glossary of key terms (if the project has one; if not, DEMAND that the Builder produces one as a pre-condition — BL-29 enforcement for books), and the chapter-to-chapter dependency graph. Then read the target reader profile from Visionary. Do NOT proceed to decomposition until the outline-glossary-dependencies triad is complete.
 - **Artifact definition:** A per-chapter decomposition table: each chapter has a list of *claims to establish*, a list of *terms it defines* (glossary additions), a list of *terms it depends on* (glossary references), a list of *prior-chapter facts it builds on*, and a *length budget* (target word count). The Analyst output is a **table**, not prose.
 - **Primary failure mode in book work:** Skipping the dependency graph step — the Analyst produces a chapter-list but does not check that Ch.5 only depends on concepts introduced in Ch.1-4. If the Builder drafts Ch.5 first and it depends on a concept from Ch.7, the reader is blocked. This is the book-specific manifestation of BL-17 (Check-First = prevention).
-- **Secondary failure mode:** Underestimating the glossary's importance — the Analyst produces an outline without a glossary, which means the Builder is free to invent synonyms for the same concept across chapters. This is a σ failure waiting to happen and the top Coherencer failure mode at RT-2.
+- **Secondary failure mode:** Underestimating the glossary's importance — the Analyst produces an outline without a glossary, which means the Builder is free to invent synonyms for the same concept across chapters. This is a σ failure waiting to happen and the top Coherent failure mode at RT-2.
 - **Jidoka self-check (book specialization):**
   - Q1: "Has the outline-glossary-dependencies triad been read? If NO → A_F=0.0 → Andon."
   - Q2: "For each chapter, is the dependency edge to prior chapters explicit? If Ch.5 depends on Ch.3, does my plan say so?"
@@ -169,21 +169,21 @@ Each role retains its Activation Operator (A_F, A_E, A_σ, A_Λ) and Jidoka self
   - Q6: "For R6 (target reader coverage), did I ask for each chapter: 'does this chapter serve the target reader declared in the outline?' If a chapter is aimed at a different reader profile, I FAIL."
   - Q7 (conditional on bilingual): "For projects declaring `domain.bilingual: true`, did I validate BOTH language versions (not just one)?"
 
-### Coherencer (book focus)
+### Coherent (book focus)
 
-- **FIRST attention anchor (A_F override):** Read the full drafted manuscript plus the glossary. Read the outline. Read any previously published books in the same series (if this is book N in a series — cross-book continuity is the highest level of coherence work and only applies to series). Coherencer cares about *the manuscript's internal coherence as a single artifact*.
-- **Artifact definition:** The book as a coherent whole — every chapter in relation to every other chapter. Coherencer at RT-2 is the role that catches "Ch.3 and Ch.7 contradict on a term" BEFORE Validator runs the R-checks, so Validator's R-check failures are clean signals and not pile-ons.
+- **FIRST attention anchor (A_F override):** Read the full drafted manuscript plus the glossary. Read the outline. Read any previously published books in the same series (if this is book N in a series — cross-book continuity is the highest level of coherence work and only applies to series). Coherent cares about *the manuscript's internal coherence as a single artifact*.
+- **Artifact definition:** The book as a coherent whole — every chapter in relation to every other chapter. Coherent at RT-2 is the role that catches "Ch.3 and Ch.7 contradict on a term" BEFORE Validator runs the R-checks, so Validator's R-check failures are clean signals and not pile-ons.
 - **Primary failure mode in book work:** **Glossary drift** — a key term (e.g., "agent", "consciousness", "observer", "system") is used with different meanings in different chapters. This is BL-29 phantom decoherence applied to books. See Example 1 in Section 6.
 - **Secondary failure mode:** Cross-chapter reference invalidation — Ch.7 says "as we established in Ch.3, X is Y" but Ch.3 actually says X is Z. The reference is stale because one of the chapters was revised without the other.
-- **Tertiary failure mode (book-specific):** Phantom coherence within a manuscript — all chapters AGREE with each other because they were generated in the same session, but they all introduce the same error. This is BL-5 applied to books. Mitigation: Coherencer must perform at least one **independent spot-check** — pick a claim that appears in 2+ chapters and independently verify it, rather than trusting that agreement across chapters means correctness.
+- **Tertiary failure mode (book-specific):** Phantom coherence within a manuscript — all chapters AGREE with each other because they were generated in the same session, but they all introduce the same error. This is BL-5 applied to books. Mitigation: Coherent must perform at least one **independent spot-check** — pick a claim that appears in 2+ chapters and independently verify it, rather than trusting that agreement across chapters means correctness.
 - **Jidoka self-check (book specialization):**
   - Q1: "Does the manuscript use every glossary term exactly as the glossary defines it, in every chapter? (BL-29)"
   - Q2: "Are there any cross-chapter references ('as established in Ch.N') that are now stale because Ch.N was revised?"
   - Q3: "Are there any silent symbol collisions — same word, two meanings — that Ch.1 reader would miss until Ch.7?"
   - Q4: "Are RU and EN versions (if bilingual) structurally parallel — same chapter count, same glossary count, same word count within ±10%? (BL-19 conditional)"
   - Q5: "Independent spot-check: pick 2 claims that appear in ≥2 chapters. Verify them independently of the manuscript text. Do my findings match the manuscript's claims?"
-- **Yokoten rule for books (BL-13 + BL-32 applied):** When a glossary term is updated (e.g., "agent" is renamed or redefined), Coherencer MUST grep the entire manuscript for every occurrence of the OLD term and update each one in the SAME revision pass. A split update (Ch.3 updated, Ch.5 forgotten) is a BL-32 violation.
-- **Bilingual sync rule (BL-19 conditional):** If the project declares `domain.bilingual: true`, Coherencer becomes the ENFORCER of the paired-language rule. Commit is BLOCKED if the paired-language version of a new chapter is missing. Commit is BLOCKED if chapter word counts between paired languages diverge by >50% (suggests one version is incomplete). If the project does NOT declare `domain.bilingual: true`, this rule is INACTIVE — not a violation (BL-19's own text says "when a file has a bilingual counterpart").
+- **Yokoten rule for books (BL-13 + BL-32 applied):** When a glossary term is updated (e.g., "agent" is renamed or redefined), Coherent MUST grep the entire manuscript for every occurrence of the OLD term and update each one in the SAME revision pass. A split update (Ch.3 updated, Ch.5 forgotten) is a BL-32 violation.
+- **Bilingual sync rule (BL-19 conditional):** If the project declares `domain.bilingual: true`, Coherent becomes the ENFORCER of the paired-language rule. Commit is BLOCKED if the paired-language version of a new chapter is missing. Commit is BLOCKED if chapter word counts between paired languages diverge by >50% (suggests one version is incomplete). If the project does NOT declare `domain.bilingual: true`, this rule is INACTIVE — not a violation (BL-19's own text says "when a file has a bilingual counterpart").
 
 ---
 
@@ -196,8 +196,8 @@ This section maps directly to `domain.verify.method: readability (primary) + str
 | # | Check | Who runs it | L1 or L2 | Enforcement mechanism |
 |---|---|---|---|---|
 | **R1** | **Readability (Flesch-Kincaid)** — compute Flesch reading ease AND Flesch-Kincaid grade level per chapter; the whole-book average must be within the target band declared in `config.md`; per-chapter variance must not drop/spike >4 grade levels from the book average | Validator | **L1 per chapter + L2 whole-book** | Automated metric (e.g., `python -c "from textstat import flesch_reading_ease, flesch_kincaid_grade; ..."` or equivalent). The specific metric is project-declared; Flesch is the default for EN. For RU-language books, project MUST declare an RU-appropriate readability metric in `config.md` (e.g., Indeks chitaemosti by Oborneva). |
-| **R2** | **Structural continuity** — every chapter references or builds on prior chapters without contradiction; every claim made in a prior chapter remains valid in all subsequent chapters; cross-chapter references ("as we saw in Ch.3") resolve to real content in the referenced chapter | Coherencer + Validator | **L2 only** (per-chapter cannot catch cross-chapter contradictions) | Semi-automated: grep prior chapters for claims + manual cross-check |
-| **R3** | **Glossary consistency** — every key term is used with the same meaning across all chapters; glossary entries match usage; no shadow-synonyms (different words for the same concept) unless intentional stylistic variation is allowed by the style guide | Coherencer | **L2** | Semi-automated: extract glossary terms + grep every chapter + compare to canonical definition |
+| **R2** | **Structural continuity** — every chapter references or builds on prior chapters without contradiction; every claim made in a prior chapter remains valid in all subsequent chapters; cross-chapter references ("as we saw in Ch.3") resolve to real content in the referenced chapter | Coherent + Validator | **L2 only** (per-chapter cannot catch cross-chapter contradictions) | Semi-automated: grep prior chapters for claims + manual cross-check |
+| **R3** | **Glossary consistency** — every key term is used with the same meaning across all chapters; glossary entries match usage; no shadow-synonyms (different words for the same concept) unless intentional stylistic variation is allowed by the style guide | Coherent | **L2** | Semi-automated: extract glossary terms + grep every chapter + compare to canonical definition |
 | **R4** | **Outline-to-draft fidelity + length budget** — each drafted chapter delivers what the outline promised for that chapter (all claims, all case studies, all sub-sections); each chapter's length is within ±20% of the target length budget; the chapter order matches the outline's order | Validator | **L1 per chapter + L2 for the full length ledger** | Semi-automated: outline parse + per-chapter checklist + word-count command |
 | **R5** | **Citation density (CONDITIONAL — applies only if book has a bibliography)** — if `config.md` declares the book has a bibliography, check: every cited claim has a matching bibliography entry (analog of article C1), every DOI/ISBN is syntactically valid (analog of C3), citation density is within the genre norm declared in `config.md`. If the book has NO bibliography, R5 is SKIPPED — record `R5: N/A (no bibliography)`. | Validator | **L1 for syntactic checks, L2 for density** | Mechanical (grep-based for syntax) + manual (density interpretation) |
 | **R6** | **Target reader coverage** — does each chapter serve the target reader declared in the outline? A chapter that drifts to a different reader profile (too technical, too simple, wrong assumed background) is a FAIL. | Visionary + Validator | **L2** (requires reading the chapter with the reader profile in mind — judgment call, informed by Flesch grade from R1) | Human judgment, informed by Flesch grade (R1) as a quantitative anchor |
@@ -215,7 +215,7 @@ Unlike the article skin's 6 cite_checks, the book R-checks are NOT a subset of a
 [command]: Per-chapter readability: `python -m textstat <chapter.md>` or equivalent.
           Whole-manuscript compile: `pandoc book.md -o book.pdf` (or project-specific
           toolchain — LaTeX via `tectonic book.tex`, Vivliostyle via `vivliostyle
-          book.yml`, etc.). Structural continuity check: Coherencer's cross-chapter
+          book.yml`, etc.). Structural continuity check: Coherent's cross-chapter
           grep + manual review. Full protocol: the 6 R-checks (R1-R6) above.
 [success criteria]: R1 PASS (per-chapter and whole-book Flesch within target band),
                     R2 PASS (no unresolved cross-chapter contradictions or stale refs),
@@ -228,7 +228,7 @@ Unlike the article skin's 6 cite_checks, the book R-checks are NOT a subset of a
 [failure recovery]: R1 fail → simplify chapter vocabulary/sentence length OR update
                     target reader (re-scope via Visionary);
                     R2 fail → resolve the contradiction: revise the older chapter,
-                    the newer chapter, or both — Coherencer decides which is
+                    the newer chapter, or both — Coherent decides which is
                     load-bearing;
                     R3 fail → unify glossary: pick one meaning per term, update
                     every chapter that uses the divergent meaning, re-run R3;
@@ -240,11 +240,11 @@ Unlike the article skin's 6 cite_checks, the book R-checks are NOT a subset of a
                     R6 fail → redraft chapter at correct reader level, OR reassign
                     chapter to a different target reader AND flag for Visionary
                     re-scope.
-[independence check]: Coherencer performs an INDEPENDENT cross-chapter spot-check
+[independence check]: Coherent performs an INDEPENDENT cross-chapter spot-check
                       — pick 2-3 claims that appear in multiple chapters, verify
                       them independently of the manuscript's own computations
                       (e.g., if the book says "according to the Flesch scale,
-                      'easy' means 80-90", the Coherencer independently confirms
+                      'easy' means 80-90", the Coherent independently confirms
                       this against a standard reference). Phantom coherence
                       detection (BL-5) applied to books: if Builder and Validator
                       agree on a claim's value in Ch.3 and Ch.7 but neither
@@ -283,11 +283,11 @@ Code projects use the canonical phase protocol from `eradev.md` Section VI. Arti
 
 2. **RT-1 (mandatory, full 5-role): outline + chapter-by-chapter plan + glossary + dependencies.** Before any chapter drafting. Produces the Analyst deliverable template (Analyst sub-section above). Builder does NOT start writing chapters until RT-1 approves a plan AND a glossary. **The outline and glossary are the two load-bearing artifacts of RT-1** — an RT-1 pass without a glossary is an incomplete pass, even if every other element is present.
 
-3. **RT-per-chapter-cluster (MANDATORY for L/XL, OPTIONAL for M): chapter drafting.** Because books are L/XL by default, drafting is chapter-by-chapter or cluster-by-cluster (e.g., "draft Part I = Ch.1-3 as one cluster"). For each cluster: Builder drafts → Validator runs R1+R4 (per-chapter checks) → Coherencer runs R2+R3 (cross-chapter sentinels, checking the new cluster against prior clusters). A FAIL blocks the next cluster. This is the book-specific analog of the article skin's "section-by-section loop" but scaled to cluster-level because each chapter is bigger than a whole article.
+3. **RT-per-chapter-cluster (MANDATORY for L/XL, OPTIONAL for M): chapter drafting.** Because books are L/XL by default, drafting is chapter-by-chapter or cluster-by-cluster (e.g., "draft Part I = Ch.1-3 as one cluster"). For each cluster: Builder drafts → Validator runs R1+R4 (per-chapter checks) → Coherent runs R2+R3 (cross-chapter sentinels, checking the new cluster against prior clusters). A FAIL blocks the next cluster. This is the book-specific analog of the article skin's "section-by-section loop" but scaled to cluster-level because each chapter is bigger than a whole article.
 
 4. **RT-2 (mandatory, pre-submission/pre-publish): full manuscript gate.** Before the manuscript is submitted to a publisher / uploaded for self-publish / sent to an editor for developmental edit. Runs all 6 R-checks on the full manuscript + BL-19 paired-language check if bilingual.
 
-Four RT invocation points IS more than the article skin's three. This is by design — books need the chapter-cluster sentinel because the manuscript grows over weeks/months and drift compounds. Skipping the RT-per-chapter-cluster is NOT a "simplification" — it's a direct loss of Coherencer's cross-chapter signal in the period when that signal is still cheap to act on.
+Four RT invocation points IS more than the article skin's three. This is by design — books need the chapter-cluster sentinel because the manuscript grows over weeks/months and drift compounds. Skipping the RT-per-chapter-cluster is NOT a "simplification" — it's a direct loss of Coherent's cross-chapter signal in the period when that signal is still cheap to act on.
 
 ### Builder configuration — single, cluster, or split?
 
@@ -307,7 +307,7 @@ The book Builder is a SINGLE agent for M-scale books (<80,000 words, <12 chapter
   9. Commit Chapter C as one commit (BL-24 book adaptation — one commit = one chapter revision pass)
   10. Move to Chapter C+1
 
-**L/XL exception (splitting Builder across chapters):** For an XL book (>120,000 words, >15 chapters), the Analyst plan MAY split work across 2-3 Builders by chapter ownership (Builder A owns Ch.1-6, Builder B owns Ch.7-12, Builder C owns Ch.13-18). File Ownership rule from `roles/analyst_EN.md` Responsibilities 4 applies. **Coherencer gate is MANDATORY between each Builder's completion and the Validator start** — because parallel Builders will drift on terminology unless Coherencer forces a glossary-unification pass between handoffs.
+**L/XL exception (splitting Builder across chapters):** For an XL book (>120,000 words, >15 chapters), the Analyst plan MAY split work across 2-3 Builders by chapter ownership (Builder A owns Ch.1-6, Builder B owns Ch.7-12, Builder C owns Ch.13-18). File Ownership rule from `roles/analyst_EN.md` Responsibilities 4 applies. **Coherent gate is MANDATORY between each Builder's completion and the Validator start** — because parallel Builders will drift on terminology unless Coherent forces a glossary-unification pass between handoffs.
 
 **Rationale for NOT splitting outliner+drafter at chapter level (applies to M-scale books):** Outline + draft live in the same mental model of the book's argument. Splitting them into two agents (outliner agent + drafter agent) at the per-chapter level would cause the drafter to lose the context the outliner had. This is consistent with the v9 principle that role is a focus, not a specialization.
 
@@ -330,7 +330,7 @@ RT-0 (Visionary solo, STRONGLY RECOMMENDED) → thesis + genre-collision + reade
 RT-1 (full 5-role, mandatory) → outline + chapter-by-chapter plan + glossary + dependency DAG
 Builder loop per chapter (in dependency order):
   re-read plan → re-read glossary → grep prior chapters → draft to budget → R1 self-check →
-  R4 self-check → commit chapter → Coherencer spot-review → next chapter
+  R4 self-check → commit chapter → Coherent spot-review → next chapter
 RT-per-cluster (mandatory for L/XL, optional for M) → R1+R2+R3+R4 sentinel on new cluster + prior chapters
 RT-2 (full 5-role, mandatory) → all 6 R-checks on full manuscript + (if bilingual) BL-19 paired-language check
 Commit final manuscript (all chapters together OR per-chapter, per project config)
@@ -338,7 +338,7 @@ Submission / publisher / self-publish → outside EraDev scope (manual operator 
 
 Book pipeline (XL or >120,000 words):
 Same as above, but RT-1 produces a Builder split plan (2-3 Builders by chapter ownership)
-AND mandatory Coherencer gates between each Builder's completion and Validator.
+AND mandatory Coherent gates between each Builder's completion and Validator.
 
 Book pipeline (bilingual, `domain.bilingual: true`):
 Same as default BUT: within each Builder chapter loop, draft chapter in language A,
@@ -380,15 +380,15 @@ Run AFTER Builder completes a chapter draft, BEFORE committing.
 
 ## Examples (3 concrete)
 
-### Example 1: Glossary drift across chapters (Coherencer R3 failure, caught at RT-2)
+### Example 1: Glossary drift across chapters (Coherent R3 failure, caught at RT-2)
 
 - **Input:** "Draft a 10-chapter non-fiction book on multi-agent AI systems, target audience = technical readers with ML background. Outline specifies 'agent' as one of the 5 core terms in the glossary."
 - **Scenario:** Analyst produces the outline + glossary. Glossary defines "agent" as "an LLM-based subprocess with its own context window, spawned by an orchestrator." Builder drafts Ch.1-10 over the course of a long session. In Ch.3, "agent" is used consistently with the glossary ("each orchestrator spawns several agents to handle sub-tasks"). In Ch.7, however, Builder writes about "the agent's autonomous goal-setting behavior" — a passage that reads naturally but implicitly uses "agent" in a different sense (an autonomous human-like decision-maker, closer to reinforcement-learning terminology). Validator runs R1 (readability) per chapter — PASS. Builder commits the manuscript.
-- **What Coherencer finds:** At RT-2, Coherencer runs R3 (glossary consistency) as a manuscript-wide sweep. Coherencer extracts every occurrence of "agent" across all 10 chapters and tags each with its implicit meaning. Ch.1-6 + Ch.8-10 use "agent" in the glossary sense (LLM subprocess). Ch.7 uses it in the RL sense. A reader flipping between Ch.3 and Ch.7 would hit silent cognitive dissonance — same word, two meanings.
-- **Catching role:** **Coherencer** (this is the canonical book Coherencer failure-mode — glossary drift across chapters).
+- **What Coherent finds:** At RT-2, Coherent runs R3 (glossary consistency) as a manuscript-wide sweep. Coherent extracts every occurrence of "agent" across all 10 chapters and tags each with its implicit meaning. Ch.1-6 + Ch.8-10 use "agent" in the glossary sense (LLM subprocess). Ch.7 uses it in the RL sense. A reader flipping between Ch.3 and Ch.7 would hit silent cognitive dissonance — same word, two meanings.
+- **Catching role:** **Coherent** (this is the canonical book Coherent failure-mode — glossary drift across chapters).
 - **Phase:** **RT-2** (manuscript-wide sweep is the first place where cross-chapter drift is catchable; per-chapter R1 and R4 checks don't see it because each chapter is internally consistent).
-- **Fix:** Coherencer invokes a glossary unification pass. Either (a) revise Ch.7 to use "agent" in the glossary sense and introduce a DIFFERENT term for the RL concept (e.g., "autonomous learner"), update the glossary to add the new term, then re-run R3; or (b) update the glossary itself to make "agent" polysemous with two explicit senses, add a note in Ch.7 ("in this chapter, 'agent' is used in the RL sense; see glossary entry 2"), and re-run R3. Coherencer's Yokoten rule applies: after the fix, grep ALL chapters for "agent" one more time to catch any other silent drift.
-- **Why per-chapter checks alone would miss this:** R1 (Flesch) is chapter-local. R4 (outline fidelity) is chapter-local. R6 (target reader) is chapter-local. Only R2 (continuity) and R3 (glossary consistency) are cross-chapter, and only at Validator's L2 or Coherencer's manuscript-wide sweep. This is why books need the RT-per-cluster sentinel — catching glossary drift at cluster-level is cheaper than catching it at RT-2 on the full manuscript.
+- **Fix:** Coherent invokes a glossary unification pass. Either (a) revise Ch.7 to use "agent" in the glossary sense and introduce a DIFFERENT term for the RL concept (e.g., "autonomous learner"), update the glossary to add the new term, then re-run R3; or (b) update the glossary itself to make "agent" polysemous with two explicit senses, add a note in Ch.7 ("in this chapter, 'agent' is used in the RL sense; see glossary entry 2"), and re-run R3. Coherent's Yokoten rule applies: after the fix, grep ALL chapters for "agent" one more time to catch any other silent drift.
+- **Why per-chapter checks alone would miss this:** R1 (Flesch) is chapter-local. R4 (outline fidelity) is chapter-local. R6 (target reader) is chapter-local. Only R2 (continuity) and R3 (glossary consistency) are cross-chapter, and only at Validator's L2 or Coherent's manuscript-wide sweep. This is why books need the RT-per-cluster sentinel — catching glossary drift at cluster-level is cheaper than catching it at RT-2 on the full manuscript.
 
 ### Example 2: Outline-to-draft divergence (Validator R4 failure, caught at RT-per-cluster)
 
@@ -399,7 +399,7 @@ Run AFTER Builder completes a chapter draft, BEFORE committing.
 - **Phase:** **RT-per-cluster** (checkpoint after Builder drafts Ch.5, before Ch.6 starts). Catching at RT-per-cluster is cheaper than catching at RT-2 because only Ch.5 needs revision; at RT-2 the Builder might have already drafted Ch.6-10 on the assumption that Ch.5 established problem Z as the running example.
 - **Fix:** Two options, requiring Visionary arbitration:
   (a) **Redraft Ch.5** to actually cover case study B with problem Y, as the outline promised. This is the default — the outline is the promise and the draft must deliver.
-  (b) **Update the outline** to officially change Ch.5's case study from problem Y to problem Z, AND cascade-check every downstream chapter to see if any of them references "problem Y as covered in Ch.5" (grep-based). If downstream references exist, they must also be updated. This is a scope-creep option and triggers BL-11 review — the Analyst plan changes, Visionary must approve the new outline, and Coherencer must verify cross-chapter consistency post-update.
+  (b) **Update the outline** to officially change Ch.5's case study from problem Y to problem Z, AND cascade-check every downstream chapter to see if any of them references "problem Y as covered in Ch.5" (grep-based). If downstream references exist, they must also be updated. This is a scope-creep option and triggers BL-11 review — the Analyst plan changes, Visionary must approve the new outline, and Coherent must verify cross-chapter consistency post-update.
 - **Why this is a book-specific failure (not an article failure):** In a single article, outline drift affects at most one section. In a book, outline drift in Ch.5 potentially affects Ch.6, Ch.7, and every chapter that references Ch.5's material. The downstream blast radius is why R4 is an L1+L2 check and why the RT-per-cluster sentinel is mandatory for L/XL books.
 
 ### Example 3: Flesch grade drift between chapters (Validator R1 failure, readability variance)
@@ -426,10 +426,10 @@ The book skin inherits all 22 universal BL from `BOOTSTRAP_LESSONS_universal.md`
 | BL | Title | Applicability to book work |
 |---|---|---|
 | BL-1 | Lambda=0.5 as Cold-Start Default | Applies unchanged — a fresh book project starts with Λ=0.5; accumulates as chapters land in the corpus |
-| BL-4 | S_adjusted = S_team × B_mean | Applies unchanged — Coherencer at RT-2 computes S_adjusted from the 5 role B scores |
-| BL-5 | Phantom Coherence Detection | Applies unchanged — book-specific manifestation is "all chapters agree because they were drafted in the same session but all introduce the same error"; mitigation is independent spot-check (see Coherencer tertiary failure mode) |
+| BL-4 | S_adjusted = S_team × B_mean | Applies unchanged — Coherent at RT-2 computes S_adjusted from the 5 role B scores |
+| BL-5 | Phantom Coherence Detection | Applies unchanged — book-specific manifestation is "all chapters agree because they were drafted in the same session but all introduce the same error"; mitigation is independent spot-check (see Coherent tertiary failure mode) |
 | BL-7 | EN for Practical Tasks, RU for Theoretical Depth | Applies unchanged — book drafting is practical (EN role files); deep argument-structure reflection may use RU role files. For RU or EN mono-lingual books, draft in the book's language using the corresponding role file variant |
-| BL-9 | Interface Contracts Between Roles | Applies unchanged — Analyst→Builder contract is the per-chapter claims table + glossary; Builder→Validator contract is the full drafted chapter + R1 self-check + length ledger entry; Validator→Coherencer contract is the R-check results |
+| BL-9 | Interface Contracts Between Roles | Applies unchanged — Analyst→Builder contract is the per-chapter claims table + glossary; Builder→Validator contract is the full drafted chapter + R1 self-check + length ledger entry; Validator→Coherent contract is the R-check results |
 | BL-10 | Multiplicative B Structure | Applies unchanged — weights are `creative` profile (F=0.20, E=0.30, (1-σ)=0.30, Λ=0.20) per `eradev.md` Section II.1 line 118 |
 | BL-11 | Scope Creep is Muda | **Critical for books** — a book is the artifact where scope creep is most tempting ("I have so much more to say about X"). Any mid-draft outline change is scope creep unless Visionary re-approves. See Example 2's "option (b)" trigger |
 | BL-12 | Hansei Targets Process, Not People | Applies unchanged — post-submission Hansei on a book is about why the R-checks missed X, not which Builder wrote X |
@@ -444,7 +444,7 @@ The book skin inherits all 22 universal BL from `BOOTSTRAP_LESSONS_universal.md`
 | BL-26 | META Always Delegates | Applies unchanged — META never drafts book prose directly |
 | BL-28 | Agent Prompt Must Include Explicit Context | Applies unchanged — book-task agent prompts must name the skin file path AND role file path; additionally, prompts must name the outline path and glossary path because those are the Analyst deliverables the Builder reads |
 | BL-29 | Verify Established Terminology Before Generating | **Critical for books** — the Builder MUST re-read the glossary at the start of each chapter-drafting session. This is the dominant book Builder failure mode — glossary drift within a single long Builder session. See Example 1 |
-| BL-30 | Defense-In-Depth | Applies unchanged — book validation has layers: Builder Jidoka (R1 self-check) + Coherencer spot-review (R3 per cluster) + Validator R1-R6 at RT-2 |
+| BL-30 | Defense-In-Depth | Applies unchanged — book validation has layers: Builder Jidoka (R1 self-check) + Coherent spot-review (R3 per cluster) + Validator R1-R6 at RT-2 |
 | BL-31 | Constrain Output Types | Applies unchanged — Builder's output is one chapter (or a cluster of chapters) + length ledger entry + R1 self-check, not free-form prose explanations |
 | BL-32 | Grep After BL Merge | Applies unchanged — if a glossary term is updated, grep every chapter for the old term and update each occurrence. Same discipline as "grep for merged BL references" |
 
@@ -483,7 +483,7 @@ These 4 BL live in this skin file ONLY. They do NOT add to the main 30-BL budget
 - **Source:** Adapted from BL-14 for the book domain. (Note: BL-14 merged into BL-8 in main `BOOTSTRAP_LESSONS.md` 2026-04-20 as part of deployment-event checklist; BL-B3 retains code_adapter provenance since `BOOTSTRAP_LESSONS_code_adapter.md` still defines BL-14.)
 - **Rule:** Before a book is submitted to a publisher / uploaded to a self-publish platform / released as an ARC, Builder MUST document the errata plan: who to contact (publisher, self-publish platform support, beta readers), what an errata notice would say, what the update procedure looks like (new edition, errata sheet, silent digital update, paper insert). If the book cannot accept post-release corrections, that is itself a structural risk that must be logged.
 - **Why:** Books, unlike articles, are typically released into a distribution chain where corrections are hard (printed copies in warehouses, digital copies on reader devices, reviewer copies at publications). A pre-written errata plan executes mechanically under pressure when an error is found post-release. Books have multi-year shelf lives; the errata plan is a living document.
-- **Applies to:** Visionary (approve the errata plan), Builder (write it), Coherencer (store in MEMORY for multi-book series continuity).
+- **Applies to:** Visionary (approve the errata plan), Builder (write it), Coherent (store in MEMORY for multi-book series continuity).
 
 **BL-B4: Bibliography PRE-FLIGHT (CONDITIONAL — book adaptation of BL-22)**
 - **Source:** Adapted from BL-22 for the book domain.
@@ -521,7 +521,7 @@ Agents should escalate these to Visionary RT-0, not auto-proceed. See `eradev.md
 ## Footer
 
 *Last updated: 2026-04-11 (v9 Phase 2.A)*
-*Upstream roles: roles/{role}_EN.md (all 5 roles — Visionary, Analyst, Builder, Validator, Coherencer)*
+*Upstream roles: roles/{role}_EN.md (all 5 roles — Visionary, Analyst, Builder, Validator, Coherent)*
 *Upstream math: eradev.md Section II.1 (B_creative weights: F=0.20, E=0.30, (1-σ)=0.30, Λ=0.20) — line 118*
 *Upstream BL: BOOTSTRAP_LESSONS_universal.md (22 universal BL inherited)*
 *Does NOT inherit: BOOTSTRAP_LESSONS_code_adapter.md (8 code-adapter BL handled individually above)*

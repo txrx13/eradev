@@ -1,6 +1,6 @@
-# RT-5 [COHERENCER] Full-Project Phantom Audit — 2026-04-25
+# RT-5 [COHERENT] Full-Project Phantom Audit — 2026-04-25
 
-> Role: [COHERENCER] L2 (cross-cutting + phantom-coherence sweep)
+> Role: [COHERENT] L2 (cross-cutting + phantom-coherence sweep)
 > Trail: 43c886a → 97dd5c4 → f2ce45a → 0205b40 (Bundle ABCD → PTv2 → Q1+Q2+Q3 → Session 9)
 > Mode: post-hoc audit; no synthesis duty. Activation Operator: A_F/A_E/A_σ/A_Λ all GREEN.
 
@@ -10,9 +10,9 @@
 
 **1.2 "verify" — MEDIUM.** Five ops verbed as "verify": `verify.method` (artifact post-Builder), μ-check (plan RT-1-close), `flux_check` (modal advisory branch), `doc_alignment` (BIM strict/structured branch), 5c BASELINE HEALTH (upstream HEAD pre-RT-1). All gate-distinct (different inputs/timings/verbs); collision is cosmetic. Latent: "Verification register" (RV claim tracker) vs `verify.method` registry (canonical method names) — same root, different artifacts. **Recommended:** glossary stub mapping "verify"→5 ops; defer to v10.1. **Spiral gap, non-blocking.**
 
-**1.3 "recommendations" — LOW (resolved).** Q2 codified 3-bucket model (per-task hansei / lessons append / roadmap forward). Visionary RT-1 §44-45 still proposes `recommendations.md` — REJECTED at f2ce45a per Coherencer §63-65 + EMP17. **Stale Visionary point; do NOT re-mine.** Self-correcting via L-49 fail-soft.
+**1.3 "recommendations" — LOW (resolved).** Q2 codified 3-bucket model (per-task hansei / lessons append / roadmap forward). Visionary RT-1 §44-45 still proposes `recommendations.md` — REJECTED at f2ce45a per Coherent §63-65 + EMP17. **Stale Visionary point; do NOT re-mine.** Self-correcting via L-49 fail-soft.
 
-**1.4 "matrix" / "table" / "registry" — RESOLVED.** Q1 Builder adopted `composition contract` per Coherencer pre-synthesis §3.2; "matrix" only in commentary. Validator confirmed PASS.
+**1.4 "matrix" / "table" / "registry" — RESOLVED.** Q1 Builder adopted `composition contract` per Coherent pre-synthesis §3.2; "matrix" only in commentary. Validator confirmed PASS.
 
 **1.5 NEW "composition contract" vs "composition-hazards" — MEDIUM-NEW.** §X.1 = per-role spawn floor; BL-34 = pairwise refactor-coupling grid. Adjective disambiguation works today but is fragile. **RV-01:** glossary entry on next sweep.
 
@@ -30,7 +30,7 @@
 
 **3.2 Item 5c ↔ μ-check — COMPLEMENT (not overlap).** Different inputs (HEAD vs plan), timings (pre-RT-1 vs RT-1-close), verbs (run-tests vs doc_alignment). No overlap. ✓ Soft hole: 5c's non-executable branch SKIPs — no narrative-baseline parallel for FLUX work. **Spiral gap, defer v11.**
 
-**3.3 4 Habits + path-(c) + Universality Gate — COHERENT.** Habit #2 universal across RIGOR_LEVELs; path-(c) is synthesis exemption (Coherencer §37-48); Gate is mechanical (.githooks). Three layers, no collision. ✓
+**3.3 4 Habits + path-(c) + Universality Gate — COHERENT.** Habit #2 universal across RIGOR_LEVELs; path-(c) is synthesis exemption (Coherent §37-48); Gate is mechanical (.githooks). Three layers, no collision. ✓
 
 **3.4 BL-22 hybrid tag ↔ existing convention — NOVELTY ADMITTED.** First compound `[CODE-ADAPTER + UNIVERSAL]` tag; v9 was strict OR. Documented in BL Gap Map. **RV-03:** codify hybrid-tag rule when 2nd instance appears.
 
@@ -61,7 +61,7 @@ No NEW drift this cycle. **RV-04:** meta_RU.md 70-LOC parity-closure pass at v10
 
 **Verdict: GREEN with 4 RV items (all NON-BLOCKING).**
 
-4-commit v10 trail shipped with **zero true contradictions** and strong internal coherence. Phantom coherence on "verify" is real but cosmetic (5 ops, all gate-distinct). Phantom decoherence on matrix/table/registry was actively prevented by Coherencer pre-synthesis. New collision `composition contract` vs `composition-hazards` is adjective-disambiguated; glossary entry warranted next sweep. EMP15-17 demonstrably load-bearing — Lambda effective.
+4-commit v10 trail shipped with **zero true contradictions** and strong internal coherence. Phantom coherence on "verify" is real but cosmetic (5 ops, all gate-distinct). Phantom decoherence on matrix/table/registry was actively prevented by Coherent pre-synthesis. New collision `composition contract` vs `composition-hazards` is adjective-disambiguated; glossary entry warranted next sweep. EMP15-17 demonstrably load-bearing — Lambda effective.
 
 **Verification Register:**
 | ID | Claim | Verifies it |
@@ -84,4 +84,4 @@ No NEW drift this cycle. **RV-04:** meta_RU.md 70-LOC parity-closure pass at v10
 
 ---
 
-*[COHERENCER] EN-team RT-5. Audit-only; 4 RV items + 1 spiral gap → next RT-1. 2026-04-25.*
+*[COHERENT] EN-team RT-5. Audit-only; 4 RV items + 1 spiral gap → next RT-1. 2026-04-25.*

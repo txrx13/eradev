@@ -18,7 +18,7 @@
 | META execution protocol | present | Section 3 (6-step lookup table protocol) | PASS |
 | DAG constraint | explicit | Section 4: "depends_on MUST NOT create cycles (the graph is a DAG)" | PASS |
 | phases field | present | map with phase_id keys, 8 sub-fields each | PASS |
-| roles field | present | 5-role enum (visionary/analyst/builder/validator/coherencer) | PASS |
+| roles field | present | 5-role enum (visionary/analyst/builder/validator/coherent) | PASS |
 | gates field | present | 11 gate expressions with vocabulary table (Section 1.3) | PASS |
 | modes | present | 3 modes: parallel/sequential/hybrid (Section 1.4) | PASS |
 | dependencies | present | `depends_on` field per phase, DAG enforced | PASS |
@@ -29,10 +29,10 @@
 
 **Edge cases probed:**
 - S-task graph: apophatic_gate marked `optional: true` -- correct (research says optional for S).
-- L/XL graph: `coherencer_cross_check` sits between `execution_parallel` and `validation_parallel` -- matches Invariant 11 (Builder completes, then Validator).
+- L/XL graph: `coherent_cross_check` sits between `execution_parallel` and `validation_parallel` -- matches Invariant 11 (Builder completes, then Validator).
 - `repeat: 3` on execution phases -- within the max 5 constraint. BL-3 safe.
 - `on_fail` actions cover all 3 options (andon/retry/escalate) across different phases -- correct differentiation.
-- `mode: hybrid` used only for RT-2 -- matches eradev.md Section VI (Coherencer broadcasts at RT-2).
+- `mode: hybrid` used only for RT-2 -- matches eradev.md Section VI (Coherent broadcasts at RT-2).
 
 **RT Graph Schema: PASS**
 
@@ -44,12 +44,12 @@
 |-------|----------|--------|--------|
 | `grep` EN + RU | >=2 matches | 4 EN + 7 RU = 11 total | PASS |
 | Gate function (NOT 6th role) | explicit | Line 414 EN: "NOT a role -- it is a pre-RT-1 enforcement checkpoint" | PASS |
-| YES/NO/UNCERTAIN protocol | present | Lines 407-412 EN: YES->RT-1, NO->OOD, UNCERTAIN->Coherencer probe | PASS |
-| Coherencer probe tie-breaker | present | "attempt task decomposition with 3 independent approaches. If >=2 fail -> declare OOD" | PASS |
+| YES/NO/UNCERTAIN protocol | present | Lines 407-412 EN: YES->RT-1, NO->OOD, UNCERTAIN->Coherent probe | PASS |
+| Coherent probe tie-breaker | present | "attempt task decomposition with 3 independent approaches. If >=2 fail -> declare OOD" | PASS |
 | Location: Section IV (after RT-0, before RT-1) | correct | Line 405 EN, within Section IV. Line 418: "after RT-0 and before RT-1" | PASS |
 | n=5 preservation | explicit, no changes to n_min | Line 415: "preserves n_min = 5 (R/r = phi torus ratio unchanged)" | PASS |
 | NO mention of changing n_min or adding a role | verified | grep for n_min/6th role shows only preservation statements | PASS |
-| NOT-list | present | Lines 427-430 EN: not a role, not Validator replacement, not Coherencer replacement | PASS |
+| NOT-list | present | Lines 427-430 EN: not a role, not Validator replacement, not Coherent replacement | PASS |
 | Evaluation criterion | present | Line 432: >20% fire rate -> consider role promotion; <5% -> retire gate | PASS |
 | 3 failure scenarios | present | Lines 422-425: composite OOD, premise validity, negative specification | PASS |
 | BL-19 sync (RU version) | parity check | Lines 408-435 RU mirror EN content faithfully | PASS |
@@ -57,7 +57,7 @@
 **Edge cases probed:**
 - Verified no references to "6th role" or n=6 anywhere in either eradev.md or eradev_RU.md.
 - Gate output enum (PROCEED/OOD-REJECT/PROBE-NEEDED) is self-contained -- no dependency on undefined mechanisms.
-- Gate ownership (Visionary primary, Coherencer tie-breaker) matches existing role responsibilities -- no role scope violation.
+- Gate ownership (Visionary primary, Coherent tie-breaker) matches existing role responsibilities -- no role scope violation.
 
 **Apophatic Gate: PASS**
 
