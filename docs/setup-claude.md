@@ -18,7 +18,7 @@ Then paste this prompt into a new Claude Code session:
 Deploy EraDev ({PROJECT} = basename of current directory):
 
 0. META setup (operational Bash — run directly, not via agent):
-   - Run: mkdir -p .claude/hooks .githooks projects/{PROJECT}
+   - Run: mkdir -p .claude/hooks .githooks eradev/projects/{PROJECT}
    - Run: cp eradev/.claude/hooks/*.sh .claude/hooks/ && chmod +x .claude/hooks/*.sh
    - Run: cp eradev/.claude/settings.json .claude/settings.json
    - Run: cp eradev/.githooks/pre-commit .githooks/pre-commit && chmod +x .githooks/pre-commit
@@ -27,8 +27,8 @@ Deploy EraDev ({PROJECT} = basename of current directory):
 
 1. Spawn [BUILDER] agent:
    - Read eradev/templates/CLAUDE.md.template, replace all {PROJECT} with actual project name, save as ./CLAUDE.md
-   - Create projects/{PROJECT}/config.md (True North, Architecture, Iron Rules)
-   - Create projects/{PROJECT}/lessons.md with header
+   - Create eradev/projects/{PROJECT}/config.md (True North, Architecture, Iron Rules)
+   - Create eradev/projects/{PROJECT}/lessons.md with header
 
 2. AFTER [BUILDER] completes — spawn [VALIDATOR] agent: verify deploy artifacts (all files exist, hooks executable, no literal {PROJECT} in generated files, git hooksPath configured). Report: PASS/BLOCK.
 
@@ -36,8 +36,8 @@ Deploy EraDev ({PROJECT} = basename of current directory):
    1. Read eradev/eradev.md
    2. Read eradev/meta.md
    3. Read eradev/BOOTSTRAP_LESSONS.md
-   4. Read projects/{PROJECT}/config.md (detect domain.type from `domain:` block — default: code)
-   5. Read projects/{PROJECT}/lessons.md
+   4. Read eradev/projects/{PROJECT}/config.md (detect domain.type from `domain:` block — default: code)
+   5. Read eradev/projects/{PROJECT}/lessons.md
    6. IF domain.skin set in config: Read eradev/templates/domain_skin.{type}.md
    Output SESSION BOOTSTRAP checklist (13 items, incl. 5b DOMAIN). Save META identity to memory. Apply Language Stack routing from eradev.md Section 0 for all subsequent tasks.
 
@@ -70,7 +70,7 @@ Additional hooks (not in numbered enforcement chain, but installed):
 
 **Note:** These are runtime enforcement hooks. Separately, EraDev uses a 4-layer file architecture: L0 IMMUTABLE (ODTOE core) / L1 Universal roles / L2 Domain skins / L3 Project instances.
 
-**Domain awareness:** For non-code projects, set `domain:` block in `projects/{PROJECT}/config.md`. Use `domain.skin` to point at `eradev/templates/domain_skin.{type}.md` (types: code, article, book, config, plan, research).
+**Domain awareness:** For non-code projects, set `domain:` block in `eradev/projects/{PROJECT}/config.md`. Use `domain.skin` to point at `eradev/templates/domain_skin.{type}.md` (types: code, article, book, config, plan, research).
 
 ## Update (existing project)
 
@@ -101,8 +101,8 @@ Then paste:
    1. Read eradev/eradev.md
    2. Read eradev/meta.md
    3. Read eradev/BOOTSTRAP_LESSONS.md
-   4. Read projects/{PROJECT}/config.md (detect domain.type)
-   5. Read projects/{PROJECT}/lessons.md
+   4. Read eradev/projects/{PROJECT}/config.md (detect domain.type)
+   5. Read eradev/projects/{PROJECT}/lessons.md
    6. IF domain.skin set: Read eradev/templates/domain_skin.{type}.md
    Output SESSION BOOTSTRAP checklist (13 items). Apply Language Stack routing from eradev.md Section 0 for all subsequent tasks.
 

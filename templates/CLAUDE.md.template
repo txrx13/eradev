@@ -21,7 +21,7 @@ Definitive test: "Am I producing one of these 6?" No = VIOLATION, spawn agent in
 
 ## Domain Awareness (v10)
 
-Detect project domain from `projects/{PROJECT}/config.md` `domain:` block:
+Detect project domain from `eradev/projects/{PROJECT}/config.md` `domain:` block:
 - `type`: code | article | book | config | plan | research
 - `B_modality`: text | creative | research (selects modal B-formula per eradev.md Section II.1)
 - `ood_scope`: text-discrete | continuous (REJECT if continuous — v9 scope per Phase 0.A OOD definition)
@@ -45,8 +45,8 @@ Execute BEFORE responding to any user message:
 1. Read `eradev/eradev.md` -- core framework (ODTOE + TPS + Round Table)
 2. Read `eradev/meta.md` -- your operating protocol (Session Entry = Section 14, 13-item checklist including DOMAIN check at 5b)
 3. Read `eradev/BOOTSTRAP_LESSONS.md` -- cold-start Lambda
-4. Read `projects/{PROJECT}/config.md` -- project context INCLUDING `domain:` block (v10). Absence of block = default `type=code`
-5. Read `projects/{PROJECT}/lessons.md` -- project memory
+4. Read `eradev/projects/{PROJECT}/config.md` -- project context INCLUDING `domain:` block (v10). Absence of block = default `type=code`
+5. Read `eradev/projects/{PROJECT}/lessons.md` -- project memory
 6. If `domain.skin` is set in project config: Read `eradev/templates/domain_skin.{type}.md` (domain-specific vocabulary + focus overlay; see `eradev/templates/domain_skin.md.template` for schema)
 
 Replace {PROJECT} with the active project name.

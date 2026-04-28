@@ -20,7 +20,7 @@ Then paste this prompt into your first Cursor session:
 Deploy EraDev ({PROJECT} = basename of current directory):
 
 0. META setup (operational Bash):
-   - Run: mkdir -p .githooks projects/{PROJECT}
+   - Run: mkdir -p .githooks eradev/projects/{PROJECT}
    - Run: cp eradev/.githooks/pre-commit .githooks/pre-commit && chmod +x .githooks/pre-commit
    - Run: git config core.hooksPath .githooks
    If any command blocked, ask operator to run it in terminal.
@@ -28,8 +28,8 @@ Deploy EraDev ({PROJECT} = basename of current directory):
 1. Spawn [BUILDER] agent:
    - Read eradev/templates/AGENTS.md.template, replace all {PROJECT} with actual project name, save as ./AGENTS.md
    - Run: cp AGENTS.md .cursorrules
-   - Create projects/{PROJECT}/config.md (True North, Architecture, Iron Rules)
-   - Create projects/{PROJECT}/lessons.md with header
+   - Create eradev/projects/{PROJECT}/config.md (True North, Architecture, Iron Rules)
+   - Create eradev/projects/{PROJECT}/lessons.md with header
 
 2. AFTER [BUILDER] completes — spawn [VALIDATOR] agent: verify deploy artifacts (.cursorrules and AGENTS.md exist with no literal {PROJECT}, .githooks/pre-commit executable, git hooksPath configured). Report: PASS/BLOCK.
 
@@ -37,8 +37,8 @@ Deploy EraDev ({PROJECT} = basename of current directory):
    1. Read eradev/eradev.md
    2. Read eradev/meta.md
    3. Read eradev/BOOTSTRAP_LESSONS.md
-   4. Read projects/{PROJECT}/config.md (detect domain.type from `domain:` block — default: code)
-   5. Read projects/{PROJECT}/lessons.md
+   4. Read eradev/projects/{PROJECT}/config.md (detect domain.type from `domain:` block — default: code)
+   5. Read eradev/projects/{PROJECT}/lessons.md
    6. IF domain.skin set in config: Read eradev/templates/domain_skin.{type}.md
    Output SESSION BOOTSTRAP checklist (13 items, incl. 5b DOMAIN). Save META identity to memory. Apply Language Stack routing from eradev.md Section 0 for all subsequent tasks.
 
@@ -81,7 +81,7 @@ Then paste:
 2. AFTER [BUILDER] completes — spawn [VALIDATOR] agent: verify deploy artifacts (.cursorrules matches AGENTS.md, no literal {PROJECT}, pre-commit executable). Report: PASS/BLOCK.
 
 3. AFTER [VALIDATOR] PASS — META loads framework (6-step sequence):
-   1-5. Read eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, projects/{PROJECT}/config.md, projects/{PROJECT}/lessons.md
+   1-5. Read eradev/eradev.md, eradev/meta.md, eradev/BOOTSTRAP_LESSONS.md, eradev/projects/{PROJECT}/config.md, eradev/projects/{PROJECT}/lessons.md
    6. IF domain.skin set: Read eradev/templates/domain_skin.{type}.md
    Output SESSION BOOTSTRAP checklist (13 items). Apply Language Stack routing.
 
