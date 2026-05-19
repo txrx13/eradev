@@ -1,0 +1,233 @@
+================================================================================
+RT-1 VALIDATOR RISK ASSESSMENT — EXECUTIVE SUMMARY
+ODTOE Gravity Article Deep Rewrite (29 Sections)
+Date: 2026-04-05
+================================================================================
+
+ASSESSMENT COMPLETE. THREE COMPREHENSIVE RISK DOCUMENTS GENERATED:
+
+  1. RT1_gravity_rewrite_validator.md
+     - Risk matrix (8 risks, severity levels, mitigation strategies)
+     - Minimum viable rewrite checklist (4 phases, 15-20 hours estimated)
+     - When to escalate to META (ANDON protocol)
+     - Edge cases for constant replacement
+
+  2. RT1_constant_replacement_analysis.md
+     - Deep technical analysis of c → r₀/τ₀ substitution
+     - Formula-by-formula replacement guide
+     - Derivation chain analysis showing where c is ESSENTIAL vs OPTIONAL
+     - Testable distinction between literal vs semantic replacement
+     - Decision tree for when to replace vs keep c
+
+  3. RT1_gravity_7checks_explicit.md
+     - Detailed PASS/FAIL criteria for each of 7 verification checks
+     - Evidence files required (with examples)
+     - Master gate: all checks MUST pass before delivery
+     - Bilingual completion checklist (8 files required)
+
+================================================================================
+KEY FINDINGS
+================================================================================
+
+CRITICAL RISKS (STOP IF NOT RESOLVED):
+  R1: Φ_G parameter lacks theoretical derivation (currently fitted)
+      Action: Produce DERIVATION_Phi_G.md or mark [OPEN] with testable prediction
+      Effort: 4-6 hours
+
+  R3: c → r₀/τ₀ replacement breaks multiple formulas dimensionally
+      Action: Define r₀ and τ₀ in ODTOE_constants_framework.md
+      Action: Map each formula (c as "speed" vs "actualization speed")
+      Effort: 3-5 hours
+
+HIGH RISKS (STRONG LIKELIHOOD OF REPEAT FAILURE):
+  R2: 6π⁵ contradiction (1836.116 vs 29.6) — parallel builders' error
+      Solution: Automated CONSISTENCY_CHECK.sh script + single builder for sections
+
+  R4: 50-digit precision claim unsupported
+      Solution: Add Appendix D with mpmath source + verification code
+
+  R5: EN bilingual parity at 50% (violates BL-19, target ≥80%)
+      Solution: Quantitative gate in Builder prompt, pre-compile Coherencer check
+
+MEDIUM RISKS:
+  R6: Cyrillic transliteration (ОДТОЕ instead of ODTOE) — 84 errors in previous attempt
+  R7: Section numbering gaps or stale references
+  R8: Testable predictions scattered, not collected
+
+================================================================================
+MINIMUM VIABLE REWRITE (15-20 HOURS)
+================================================================================
+
+Phase 1: Preparation (2-3 hours) — MUST COMPLETE BEFORE REWRITING
+  ☐ Task 1.1: Produce DERIVATION_Phi_G.md (axiom → formula or mark [OPEN])
+  ☐ Task 1.2: Produce ODTOE_constants_framework.md (define r₀, τ₀, verify r₀/τ₀=c)
+  ☐ Task 1.3: Audit Section XIII (resolve Φ_G contradiction with Section VII)
+  ☐ Task 1.4: Create CONSISTENCY_CHECK.sh (automated pre-compile verification)
+
+Phase 2: Rewrite (8-10 hours)
+  ☐ Task 2.1: Rewrite Section IV (dimensional analysis)
+  ☐ Task 2.2: Rewrite Section XIII (full derivation with corrected Φ_G)
+  ☐ Task 2.3: Rewrite Section XIV (add Appendix D with mpmath code)
+  ☐ Task 2.4: Add Section XXX (testable predictions inventory)
+  ☐ Task 2.5: Fix Appendix C (correct 6π⁵ = 29.6 error)
+
+Phase 3: Translation & Verification (5-7 hours)
+  ☐ Task 3.1: Produce EN version (maintain ≥80% parity)
+  ☐ Task 3.2: Verify all 7 checks (automated + manual)
+  ☐ Task 3.3: Compile both versions (check warnings)
+
+Phase 4: Final Gate (1-2 hours)
+  ☐ Task 4.1: Run consistency checks (6π⁵, section nums, ОДТОЕ→ODTOE)
+  ☐ Task 4.2: Spot-check formulas (validator recomputes 3 key ones)
+  ☐ Task 4.3: Mark checks complete (attach evidence logs)
+
+================================================================================
+TEAM STRUCTURE RECOMMENDATION
+================================================================================
+
+PREVIOUS APPROACH (FAILED):
+  - 3 Builders working in parallel
+  - Result: contradictions, incomplete EN, terminology errors
+  - Session assessment: S_session ≈ 0.40 (RED)
+
+RECOMMENDED APPROACH:
+  - 1 Primary Builder (RU source, Sections I-XXIX)
+  - 1 Secondary Builder (EN translation only, after RU locked)
+  - 1 Coherencer (consistency checks, terminology audit, bilingual parity)
+  - 1 Validator (7-check gate, evidence collection)
+
+CRITICAL: Do NOT start Phase 2 rewriting until Phase 1 is 100% complete.
+Skipping Phase 1 is why previous session failed (Φ_G remained fitted).
+
+================================================================================
+7-CHECK GATE REQUIREMENTS
+================================================================================
+
+Delivery BLOCKED unless ALL 7 CHECKS PASS with evidence files:
+
+  CHECK 1: Formula Correctness
+    Evidence: ODTOE_gravity_CHECK1_bibliography.txt
+    Requirement: Every [N] citation has source; no dangling references
+
+  CHECK 2: Mathematical Recomputation
+    Evidence: ODTOE_gravity_CHECK2_recomputation.py
+    Requirement: Validator recomputes all formulas; no errors > 10^-45
+
+  CHECK 3: 50-Digit Precision
+    Evidence: Appendix_D_Computational_Verification.tex [in main .tex]
+    Requirement: All constants shown to 50+ digits; source code included
+
+  CHECK 4: No Fitting
+    Evidence: ODTOE_gravity_CHECK4_derivations.md
+    Requirement: Every parameter has derivation chain; no fitted adjustments
+
+  CHECK 5: No AI Markers
+    Evidence: ODTOE_gravity_CHECK5_tone_analysis.txt
+    Requirement: < 1% hedging phrases; tone matches corpus
+
+  CHECK 6: >90% Originality
+    Evidence: ODTOE_gravity_CHECK6_originality_report.txt
+    Requirement: Turnitin score > 90%; no plagiarism detected
+
+  CHECK 7: Internal Consistency
+    Evidence: ODTOE_gravity_CHECK7_consistency.txt
+    Requirement: No contradictions within/across article; 6π⁵ consistent
+
+================================================================================
+CRITICAL MUST-HAVES FOR REWRITE
+================================================================================
+
+1. DERIVATION_Phi_G.md
+   - Full axiom-to-formula chain for coherence correction factor
+   - Or explicit marking as [OPEN] with testable prediction
+   - Cannot proceed without this; failure here blocks entire rewrite
+
+2. ODTOE_constants_framework.md
+   - Defines r₀ (length), τ₀ (time), c_act = r₀/τ₀
+   - Shows these are independent of classical c, or derived separately
+   - Verifies numerical consistency to 50 digits
+   - Cannot substitute c→r₀/τ₀ without this
+
+3. CONSISTENCY_CHECK.sh
+   - Automated script finding 6π⁵ contradictions, missing sections, stale refs
+   - Runs before every compile
+   - Previous session had NO consistency check; 5 errors went undetected
+
+4. Appendix D: Computational Verification
+   - Python mpmath source code
+   - Full output showing constants to 50+ digits
+   - Verification that these match article formulas
+   - Proof of claimed "50-digit precision"
+
+5. Section XXX: Testable Predictions
+   - Extract all [HYPOTHESIS] markers
+   - List T1, T2, ..., Tn with test methods
+   - Show how rewrite changes predictions (if at all)
+   - Distinguishes "new physics" from "same physics, different notation"
+
+================================================================================
+RED FLAGS DURING REWRITE
+================================================================================
+
+STOP IMMEDIATELY (ANDON) if you encounter:
+
+  🚩 A formula using c where neither r₀ nor τ₀ is mentioned
+  🚩 Multiple different definitions of r₀ or τ₀
+  🚩 Numerical value r₀/τ₀ ≠ 299792458 m/s to > 10 ppm
+  🚩 A section claiming to derive G independent of c
+  🚩 Formula with c in exponent/logarithm (dimensional analysis breaks)
+  🚩 Φ_G appearing with two different values (0.857 vs 0.9801)
+  🚩 Any parameter without [FACT/DERIVATION/HYPOTHESIS] marker
+  🚩 EN version dropping below 75% parity (target 80%+)
+
+Escalate to META for guidance before proceeding.
+
+================================================================================
+NEXT STEPS
+================================================================================
+
+1. READ the three comprehensive risk documents:
+   → RT1_gravity_rewrite_validator.md (overview, risks, mitigation)
+   → RT1_constant_replacement_analysis.md (technical deep dive)
+   → RT1_gravity_7checks_explicit.md (check-by-check criteria)
+
+2. DECIDE if rewrite is feasible with available time/resources
+   → Estimated 15-20 hours focused work
+   → Recommend 2-3 sessions, not 1 compressed
+   → Single team (not parallel builders)
+
+3. IF PROCEEDING:
+   a. Start with Phase 1 (preparation) — do NOT skip
+   b. Enforce ANDON protocol if Phase 1 blocked
+   c. Use CONSISTENCY_CHECK.sh before every compile
+   d. Validate against 7-check gate systematically
+   e. Attach evidence files (do NOT ship without them)
+
+4. IF NOT PROCEEDING:
+   a. Mark article as DRAFT (rename ODTOE_gravity_DRAFT.tex)
+   b. Document what would need to happen for rewrite
+   c. Archive risk assessment for future sessions
+   d. Update project roadmap with next steps
+
+================================================================================
+VALIDATOR SIGN-OFF
+================================================================================
+
+Risk assessment completed by: Claude Haiku 4.5 (META-Orchestrator proxy)
+Assessment date: 2026-04-05
+Session: RT-1 (Professional analytical task within EraDev framework)
+
+Three risk documents generated:
+  ✓ RT1_gravity_rewrite_validator.md (main risk matrix + mitigation)
+  ✓ RT1_constant_replacement_analysis.md (c → r₀/τ₀ technical analysis)
+  ✓ RT1_gravity_7checks_explicit.md (7-check gate detailed criteria)
+
+All documents stored in:
+  /sessions/laughing-bold-euler/mnt/odtoe/eradev/reports/
+
+Recommendation: Review all three before authorizing rewrite.
+Budget decision required: 15-20 hour commitment vs 1 compressed session.
+
+================================================================================
+END SUMMARY
+================================================================================

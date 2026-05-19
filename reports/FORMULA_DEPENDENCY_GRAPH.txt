@@ -1,0 +1,282 @@
+FORMULA DEPENDENCY GRAPH FOR GRAVITY ARTICLE REWRITE
+=====================================================
+
+LEGEND:
+  → = depends on
+  [DERIVED] = derive from first principles (ODTOE axioms)
+  [CORPUS:article] = reference existing corpus article
+  [OPEN] = undetermined, mark as spiral gap
+  [ERROR] = numerical inconsistency found
+
+ROOT AXIOMS (no dependencies)
+==============================
+  φ = golden ratio = 1.618...
+  π = 3.14159...
+  (π-3)² = spiral gap constant = 0.0200...
+  KAM theorem (Kolmogorov-Arnold-Moser)
+
+SECTION I: INTRODUCTION
+  G = (ℏc/m_Pl²) · Φ_G(φ,S,d)  [FRAMEWORK — all deps listed below]
+    → ℏ [CORPUS:planck_constant]
+    → c [CORPUS:light_teleportation]
+    → m_Pl [derived in section V]
+    → Φ_G [OPEN — empirically fitted]
+
+SECTION II: SYNC OPERATION
+  F_SYNC ∝ √(I_d · I_{d+1})
+    → I(C) [section III]
+  Amplitude_SYNC ∝ (1 - S(d,d+1))
+    → S (coherence, defined section VIII)
+
+SECTION III: KAM ARCHITECTURE
+  I(C,S) = I₀ · (1-S)^(-α)  [DERIVED from φ-torus]
+    → α [parameter: needs derivation or reference CORPUS:atom_theory]
+  
+  I(C,d) = I₀ · φ^(2Δd)  [DERIVED: φ-torus KAM scaling]
+    → φ [from axioms]
+    → Δd (recursion distance)
+  
+  A(Δd) = φ^(-|Δd|)  [D-Protective horizon accessibility]
+    → φ [from axioms]
+  
+  m(C) = I(C) · κ  [inertia → classical mass]
+    → κ [parameter: scaling constant]
+
+SECTION IV: DIMENSIONAL ANALYSIS
+  m_Pl = √(ℏc/G)  [circular in classical physics]
+    → ℏ [CORPUS:planck_constant — MUST integrate h(d,S) formula]
+    → c [CORPUS:light_teleportation — MUST integrate c(r₀,τ₀) formula]
+    → G [to be determined; see section VII]
+  
+  [KEY CHANGE: Break circularity by defining ℏ and c independently]
+  ℏ = h(d,S) = 2π(π-3)²φ^(d+1)·Σ(d)·(1-S)^(-1/2)·A₀  [CORPUS:planck_constant]
+    → (π-3)² [spiral gap]
+    → φ [axiom]
+    → S [section VIII]
+  
+  c = r₀/τ₀  [CORPUS:light_teleportation]
+    → r₀, τ₀ [actualization front parameters from light_teleportation]
+
+SECTION V: PLANCK MASS DERIVATION
+  m_Pl ≈ m_e · μ_hierarchy · correction_factor  [from inertia scaling]
+    → m_e (electron mass) [empirical; or reference CORPUS:atom_theory]
+    → μ_hierarchy [see below: 6π⁵ relation]
+  
+  m_p / m_e = 6π⁵  [CORPUS:1836]
+    ERROR FOUND: Article sometimes says 1836.116, sometimes 29.6 — MUST FIX
+    Correct value: 6π⁵ = 1836.1160982798173084508953776394...
+    → π [axiom]
+    → Must verify in sections: V, XIV, XXI, XXVIII
+  
+  m_Pl / m_p = φ^(d_Pl - d_p)  [from section III.2 scaling]
+    → φ [axiom]
+    → d_Pl, d_p [recursion levels; origin unclear — OPEN or CORPUS:atom_theory]
+
+SECTION VI: SYNCHRONIZATION MECHANISM
+  F(d ↔ d+1) = F_SYNC ∝ √(I_d · I_{d+1}) / r²  [Newton's law derivation]
+    → I_d, I_{d+1} [section III]
+    → r [distance along φ-torus; unclear if classical space r or torus metric]
+    → 1/r² law [arises from accessibility A(Δd) dropoff — NEEDS PROOF]
+
+SECTION VII: FULL G DERIVATION
+  G = (ℏc / m_Pl²) · Φ_G(φ, S, d)  [final formula]
+    → ℏ [section IV, from CORPUS:planck_constant]
+    → c [section IV, from CORPUS:light_teleportation]
+    → m_Pl [section V, from φ scaling and 6π⁵]
+    → Φ_G [CRITICAL DECISION NEEDED]
+  
+  CASE A: Φ_G DERIVED
+    Φ_G = [spectral density of φ-torus modes] / [normalization]
+    → [REQUIRES DERIVATION_PHI_G.md artifact — NOT in corpus]
+    → Effort: 8-12 hours, high risk
+    → Recommendation: DEFER to spiral N+1
+  
+  CASE B: Φ_G MARKED OPEN ← [RECOMMENDED for this cycle]
+    Φ_G(φ≈1.618, S≈1, d=0) ≈ 1 + O(10^-24)  [empirical value for classical limit]
+    Note: "Full derivation remains open; identified as part of spiral gap (~2%)."
+    Effort: 1 hour to mark and justify
+    Allows article to be: "Approximate derivation, with known gap explicitly stated"
+
+SECTION VIII: COHERENCE MODULATION
+  G(S) = G₀ · [1 + correction(S)]  [S-dependence of gravitational constant]
+    → G₀ [from section VII]
+    → S [coherence, to be defined]
+    → correction(S) [depends on Φ_G choice]
+  
+  S* = 0.16968...  [self-consistent coherence value]
+    MENTIONED in project lessons but SOURCE NOT FOUND in main text
+    → [MUST find in corpus or define explicitly]
+
+SECTION IX: NEWTON'S LAW
+  F = m₁ · m₂ / r²  [classical limit, S→1]
+    → m₁, m₂ [from section III: inertia → mass]
+    → r² law [from accessibility A(Δd) in section III]
+
+SECTION X: EQUIVALENCE PRINCIPLE
+  m_inertial = m_gravitational  [same I(C)]
+    → I(C) definition [section III]
+    → principle: [tautology in ODTOE — NOT an accident]
+
+SECTION XI: GRAVITATIONAL WAVES
+  P_GW ∝ (d²F_SYNC/dt²)²  [GW power from sync pulses]
+    → F_SYNC [section II, VI]
+    → [prediction: compare to LIGO constraints]
+
+SECTION XIV: 50-DIGIT CALCULATIONS
+  π(50 digits) = 3.14159265358979323846264338327950288419716939937510
+  φ(50 digits) = 1.61803398874989484820458683436563811772030917980576
+  (π-3)²(50 digits) = 0.02004847955059918805863070019913383013068301099015
+  6π⁵(50 digits) = 1836.1160982798173084508953776394462523707533366020
+    [ERROR: Article claimed 29.6 somewhere — MUST SCAN AND FIX]
+  
+  ℏ(50 digits) = h(d,S) evaluation [from CORPUS:planck_constant formula]
+  c(50 digits) = r₀/τ₀ evaluation [from CORPUS:light_teleportation formula]
+  m_Pl(50 digits) = [computed from above]
+  G(50 digits) = [depends on Φ_G choice]
+
+SECTION XVI: COSMOLOGICAL CONSTANT
+  Ω_Λ : Ω_DM : Ω_b = φ² : 1 : Z  [CORPUS:cosmological_fractions]
+    → φ [axiom]
+    → Z [unknown numerator — VERIFY in corpus]
+    → [Q: does Λ arise from low-S regions?]
+
+SECTION XX: EXPERIMENTAL TESTS
+  ΔG/G|_superconductor = f(S_coherent - S_classical)  [Test 1]
+    → G(S) formula from section VIII
+    → S measurements [technical challenge]
+  
+  LIGO sensitivity ≈ 10^-21 → can test |G_ODTOE - G_classical| > 10^-23  [Test 2]
+    → G [section VII]
+  
+  Equivalence principle tests: |Δa/a| < 10^-13 (lunar laser ranging)  [Test 5]
+    → predicts ODTOE correction ≈ 10^-18 at S ~ 1
+  
+  [Each test: specific prediction needed from theory]
+
+SECTION XXI: HIERARCHY PROBLEM
+  m_Pl / m_p = ?  [why is Planck mass so much larger than proton mass?]
+    → m_Pl [section V]
+    → m_p / m_e = 6π⁵ [CORPUS:1836]
+    → m_Pl / m_e = (m_Pl / m_p) · (m_p / m_e) = (m_Pl / m_p) · 6π⁵
+    → [ODTOE solution: hierarchy is φ-scaling between recursion levels]
+
+SECTION XXVIII: NUMERICAL COMPUTATION ARTIFACT
+  [CRITICAL GATE: Check 3 requires artifact showing all constants computed to 50 digits]
+  
+  Script output example:
+    import mpmath
+    mpmath.mp.dps = 50
+    print(f"6π⁵ = {6 * mpmath.pi**5}")
+  
+  Expected output: 6π⁵ = 1836.1160982798173084508953776394462523707533366020...
+  NOT: 29.6 or 1845.78 [both are errors found in lessons]
+
+CORPUS ARTICLES (EXTERNAL DEPENDENCIES)
+========================================
+1. ODTOE_1836.tex
+   → Provides: m_p / m_e = 6π⁵ [SECTION V depends]
+   Status: ✓ CONFIRMED exists
+
+2. ODTOE_planck_constant.tex (version 2 or later)
+   → Provides: ℏ = h(d,S) derivation [SECTION IV depends]
+   Status: ? NEED TO VERIFY EXISTS
+   Formula to integrate: h(d,S) = 2π(π-3)²φ^(d+1)·Σ(d)·(1-S)^(-1/2)·A₀
+   Pre-flight gate (BL-22): MUST verify before build starts
+
+3. ODTOE_light_teleportation.tex
+   → Provides: c = r₀/τ₀ [SECTION IV depends]
+   Status: ? NEED TO VERIFY EXISTS
+   Pre-flight gate (BL-22): MUST verify before build starts
+
+4. ODTOE_atom_theory.tex
+   → Provides: m_Pl / m_p scaling, KAM modes, S values [SECTIONS III, V, XX depend]
+   Status: ✓ CONFIRMED exists
+
+5. ODTOE_Z2_fiber_bundle.tex
+   → Provides: φ-torus topology, recursion structure [SECTIONS III, VI depend]
+   Status: ✓ CONFIRMED exists
+
+6. ODTOE_infinite_recursion_unified.tex
+   → Provides: α = fine structure constant derivation [OPTIONAL SECTION IV/V reference]
+   Status: ? NEED TO VERIFY EXISTS
+   Pre-flight gate: Optional (if missing, add note "α derivation reference TBD")
+
+7. ODTOE_cosmological_fractions.tex
+   → Provides: Ω_Λ : Ω_DM : Ω_b = φ² : 1 : Z [SECTION XVI depends]
+   Status: ? NEED TO VERIFY EXISTS
+   Pre-flight gate: Optional (if missing, section XVI can proceed without)
+
+CRITICAL DECISION NODES
+=======================
+Node 1: Φ_G derivation (blocks section VII)
+  Option A: Derive (8-12h effort, unknown outcome)
+  Option B: Mark open (1h, aligns with spiral gap philosophy) ← RECOMMENDED
+  → Decision must be made at RT-1 by Visionary
+
+Node 2: S* = 0.16968 origin (blocks section VIII)
+  Question: Is S* empirically measured, theoretically derived, or conjecture?
+  Action: Find source in corpus; if missing, Visionary must specify
+  → Must be resolved before section VIII finalized
+
+Node 3: Corpus articles verification (pre-flight, blocks entire build)
+  Status: 3/7 confirmed, 4/7 need verification
+  → Analyst must run pre-flight check; if any fail, escalate
+
+QUALITY GATES (blocks completion)
+=================================
+Gate 1: BL-22 Pre-flight
+  Status: 4/7 corpus articles unverified
+  → Analyst: 30 min to check if files exist
+
+Gate 2: Check 4 (No fitting)
+  Status: FAIL unless Φ_G decision made
+  → Visionary + Builder: 1h decision + implementation
+
+Gate 3: Check 2 (Recompute all formulas)
+  Status: 6π⁵ error found
+  → Validator: 2h to recompute + fix all instances
+
+Gate 4: Check 3 (50-digit precision)
+  Status: Requires artifact
+  → Builder: create COMPUTATIONAL_VERIFICATION.md
+
+Gate 5: Check 7 (Internal consistency)
+  Status: 6π⁵ values inconsistent
+  → Validator: grep scan + consistency log
+
+Gate 6: BL-19 (Bilingual parity)
+  Status: EN/RU = 50.7%, need ≥80%
+  → Builder: expand EN translation
+
+IMPLEMENTATION ROADMAP
+======================
+Phase 1: RT-1 (Understanding)
+  - Analyst presents this dependency graph
+  - Visionary decides Φ_G (option A or B)
+  - Analyst runs pre-flight on 7 corpus articles
+  - Budget declared: 50h (option B) or 65h (option A)
+
+Phase 2: Build (Parallel sections)
+  - Builder-1: Sections I-IV (intro + dimensional analysis, ~12h)
+  - Builder-2: Sections V-VII (mass + G derivation, ~15h)
+  - Merge at section VII completion
+  - Builder-3 (if available): Sections VIII-XXV (applications, ~15h)
+  
+  Critical path: Sections I → IV → V → VII = ~27h
+  Wall-clock: 13-15h with 2 parallel builders
+
+Phase 3: RT-2 (Midpoint check, day 2)
+  - Coherence check: do sections I-VII agree internally?
+  - S* definition clear? Φ_G status confirmed?
+  - Corpus references working?
+
+Phase 4: Verification
+  - Validator: recompute all formulas (2h)
+  - Validator: scan for 6π⁵, grammar, citations (1h)
+  - Validator: generate COMPUTATIONAL_VERIFICATION artifact (1h)
+
+Phase 5: RT-3 (Acceptance)
+  - All 8 checks pass or marked [DRAFT] with gaps
+  - Bilingual parity ≥80%
+  - Commit all versions (RU + EN + PDF + artifacts)
+

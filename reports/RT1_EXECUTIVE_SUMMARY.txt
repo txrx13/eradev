@@ -1,0 +1,130 @@
+GRAVITY ARTICLE REWRITE — EXECUTIVE SUMMARY
+============================================
+
+TASK: Deep rewrite of ODTOE_gravity.tex to replace classical physics constants
+      with ODTOE-derived formulas.
+
+ARTIFACT: RT1_gravity_rewrite_analyst.md (37 KB, 344 lines)
+OUTPUT: Detailed section-by-section rewrite plan with dependencies, scope, and quality gates
+
+KEY FINDINGS
+============
+
+1. SCOPE ANALYSIS
+   - Current structure: 31 sections in .tex, 29 logical sections in flow
+   - Actions required:
+     * KEEP unchanged: ~2-3 sections (8 hours total)
+     * EXPAND (add references): ~8 sections (16 hours)
+     * MAJOR REWRITE: ~5 sections (25 hours)
+     * MOVE/REORGANIZE: ~3 sections (3 hours)
+     * VERIFY ONLY: ~2 sections (2 hours)
+   - Total effort: 50-55 hours (option B: mark Φ_G as open question)
+   - Critical path: 25-30 hours wall-clock (with 2 parallel builders)
+
+2. CRITICAL PROBLEMS IDENTIFIED
+   a) Coherence factor Φ_G appears empirically fitted (Check 4 violation)
+      → Decision needed: derive it (8-12h, risky) or mark as open question (1h, safer)
+      → Recommendation: MARK OPEN (option B) for this cycle
+   
+   b) 6π⁵ numerical error found (value inconsistency: 29.6 vs 1836.116)
+      → Must be verified and corrected in all sections (I, V, XIV, XXI, XXVIII)
+   
+   c) Constants used without derivation:
+      - c = speed of light → should be c = r₀/τ₀ (from light_teleportation article)
+      - ℏ = Planck constant → should be h(d,S) (from planck_constant article)
+      - Both need explicit integration into sections IV-V
+   
+   d) Self-consistent coherence value S* = 0.16968 not referenced
+      → Should appear in section III or VIII with clear definition
+   
+   e) Fine structure constant α (α⁻¹ = 137.036) not mentioned
+      → Should be referenced in section IV or V
+
+3. FORMULA DEPENDENCIES (critical path)
+   START
+   ├─ Section I-III: Foundation (KAM, φ-torus, inertia concept)
+   └─→ Section IV: Dimensional analysis (uses c, ℏ from corpus)
+       └─→ Section V: Planck mass (uses 6π⁵ from ODTOE_1836)
+           └─→ Section VI-VII: Full G derivation
+               └─→ All subsequent sections (VIII-XXV depend on final G)
+
+4. CORPUS ARTICLES REQUIRED
+   ✓ ODTOE_1836.tex (m_p/m_e = 6π⁵)
+   ? ODTOE_planck_constant.tex (ℏ derivation) — NEED TO VERIFY EXISTS
+   ? ODTOE_light_teleportation.tex (c derivation) — NEED TO VERIFY EXISTS
+   ? ODTOE_infinite_recursion_unified.tex (α derivation) — NEED TO VERIFY EXISTS
+   ✓ ODTOE_atom_theory.tex
+   ✓ ODTOE_Z2_fiber_bundle.tex
+   ? ODTOE_cosmological_fractions.tex — NEED TO VERIFY EXISTS
+   NEW: DERIVATION_PHI_G.md (IF choosing option A for Φ_G)
+
+5. QUALITY GATES & CHECKS
+   Check 1 (Bibliography): All formulas must cite source
+   Check 2 (Recompute): ALL constants verified independently
+   Check 3 (50-digit precision): Artifact COMPUTATIONAL_VERIFICATION.md required
+   Check 4 (No fitting): CRITICAL — Φ_G decision blocks this
+   Check 5 (AI markers): Scan for hedging language
+   Check 6 (Originality): >90% required
+   Check 7 (Consistency): 6π⁵ error must be fixed
+   Check 8 (Epistemic markers): Add [FACT/DERIVATION/HYPOTHESIS/OPEN] throughout
+
+6. BILINGUAL PARITY (BL-19 enforcement)
+   Current: RU/EN ratio = 1934:981 = 50.7% — FAIL (gate requires ≥80%)
+   Action: EN version must be expanded to full translation during rewrite
+
+7. DECISION POINTS FOR RT-1 TEAM
+   
+   a) CRITICAL: Φ_G coherence factor
+      Choice A: Derive (8-12h, unknown effort, risky)
+      Choice B: Mark as open, cite spiral gap (~2%) [RECOMMENDED]
+      → Blocks section VII completion
+   
+   b) PRIORITY: Corpus article pre-flight (BL-22 gate)
+      Must verify all 7 corpus articles exist before proceeding
+      If any missing → escalate before build starts
+   
+   c) STRATEGY: Parallelization
+      Builder-1: Sections I-IV (intro + dimensional setup)
+      Builder-2: Sections V-VII (mass + coherence + G derivation)
+      Then merge, remaining sections in parallel (VIII+)
+
+DELIVERABLES (on completion)
+=============================
+1. ODTOE_gravity.tex (rewritten RU, 31→29 sections cleaned)
+2. ODTOE_gravity_EN.tex (full EN translation, ≥80% parity)
+3. ODTOE_gravity.pdf + gravity_EN.pdf (compiled)
+4. COMPUTATIONAL_VERIFICATION.md (50-digit constants proof)
+5. CONSISTENCY_CHECK.log (grep audit for errors)
+6. DERIVATION_PHI_G.md [IF option A chosen]
+
+TEAM RECOMMENDATION
+===================
+Analyst (2h) → Visionary (1h decision) → Builder×2 (25h each) → Validator (8h) → Coherencer (5h)
+Total: ~50 hours effort, 25-30 hours wall-clock
+Session classification: L (large) → 5-8 agents, 3 RT cycles
+
+CRITICAL PATH BLOCKERS
+======================
+1. Φ_G decision (Visionary, RT-1)
+2. Corpus verification (Analyst pre-flight, ~30min)
+3. 6π⁵ error audit (Validator, ~1h)
+4. Section VII completion (Builders, hard dependency)
+
+ANALYST CONFIDENCE
+==================
+B-diagnostic: F=0.95, E=0.92, 1-sigma=0.98, Lambda=0.88
+Overall: B = 0.756 (solid)
+Banality: 8/10 (analysis is specific, traces dependencies, identifies novel problems)
+
+NEXT STEPS
+==========
+1. Visionary reviews executive summary + section plan
+2. Visionary decides: Φ_G option A or B (default: B)
+3. Analyst runs corpus article pre-flight (30 min) → PRE-FLIGHT GATE PASS/FAIL
+4. IF PASS: Proceed to RT-1 full team assembly
+5. IF FAIL: Escalate (missing corpus articles)
+6. RT-1: All 5 roles confirm plan + budget + team assignment
+7. Build phase: 2-3 day sprint (parallel sections + merge)
+8. RT-2: Midpoint review (coherence check)
+9. RT-3: Final acceptance (7 checks gate)
+
