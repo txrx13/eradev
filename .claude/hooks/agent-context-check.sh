@@ -46,8 +46,13 @@ if ! echo "$PROMPT" | grep -qiE "${ROLE_FILE_PATTERN}"; then
 fi
 
 # Check 5b: Role tag in description matches role file path in prompt
+# Extraction regex accepts optional numeric suffix (e.g., [BUILDER-13]) for parallel-agent orientation.
+# Suffix is stripped before file-stem matching — role identity is the stem alone.
 DESCRIPTION=$(echo "$INPUT" | jq -r '.tool_input.description // empty')
-ROLE_TAG=$(echo "$DESCRIPTION" | grep -oiE '\[(visionary|analyst|builder|validator|coherent)\]' | head -1 | tr '[:upper:]' '[:lower:]' | tr -d '[]')
+ROLE_TAG=$(echo "$DESCRIPTION" | grep -oiE '\[(visionary|analyst|builder|validator|coherent)(-[0-9]+)?\]' | head -1 | tr '[:upper:]' '[:lower:]' | tr -d '[]')
+
+# Strip trailing -<digits> suffix to recover bare role stem for file-path matching
+ROLE_TAG=$(echo "$ROLE_TAG" | sed -E 's/-[0-9]+$//')
 
 if [ -n "$ROLE_TAG" ]; then
   EXPECTED_FILE_STEM="$ROLE_TAG"

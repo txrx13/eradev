@@ -14,8 +14,10 @@ fi
 DESCRIPTION=$(echo "$INPUT" | jq -r '.tool_input.description // empty')
 
 # Check [ROLE] tag at start of description
-if ! echo "$DESCRIPTION" | grep -qE '^\[(VISIONARY|ANALYST|BUILDER|VALIDATOR|COHERENT)\]'; then
-  echo "BLOCKED: Agent description must start with [ROLE] tag. Got: '$DESCRIPTION'. Use: [VISIONARY], [ANALYST], [BUILDER], [VALIDATOR], [COHERENT]. (BL-28, Invariant 9)" >&2
+# Accepts optional numeric suffix for parallel-agent orientation: [BUILDER-1], [BUILDER-13], etc.
+# Suffix is purely a UI/orientation aid — role stem is what matters for enforcement.
+if ! echo "$DESCRIPTION" | grep -qE '^\[(VISIONARY|ANALYST|BUILDER|VALIDATOR|COHERENT)(-[0-9]+)?\]'; then
+  echo "BLOCKED: Agent description must start with [ROLE] tag (optionally with numeric suffix). Got: '$DESCRIPTION'. Use: [VISIONARY], [ANALYST], [BUILDER], [VALIDATOR], [COHERENT] — or [BUILDER-1], [BUILDER-13] etc. for parallel agents. (BL-28, Invariant 9)" >&2
   exit 2
 fi
 
