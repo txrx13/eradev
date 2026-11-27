@@ -4,7 +4,7 @@
 
 EraDev is a framework for multi-agent development of text-discrete artifacts (code, scientific articles, books, plans, research, configs), synthesizing **12 theoretical foundations**:
 
-- **Core**: ODTOE (Observer-Dependent Theory of Everything, by A. Pankratov) for coherence math (B, S_team, P_coll, Ω); Toyota Production System for operational discipline (Jidoka, Andon, Hansei, Yokoten, A3, Kaizen, Coaching Kata); Theory of Constraints (Goldratt) for bottleneck protocols; TRIZ + IFR (Altshuller) for framing tasks via contradiction resolution.
+- **Core**: ODTOE (Operator-Dependent Framework for System Coherence, by A. Pankratov) for coherence math (B, S_team, P_coll, Ω); Toyota Production System for operational discipline (Jidoka, Andon, Hansei, Yokoten, A3, Kaizen, Coaching Kata); Theory of Constraints (Goldratt) for bottleneck protocols; TRIZ + IFR (Altshuller) for framing tasks via contradiction resolution.
 - **Mathematical substrate**: KAM theorem (Kolmogorov-Arnold-Moser) grounds `R/r = φ` as the most stable toroidal orbit; Hurwitz theorem grounds `n_min = ⌈π⌉+1 = 5` as an invariant; Hofstadter's strange loop grounds L9 self-modification via `Ψ* = Φ(Ψ*)`.
 - **Multi-agent inspirations**: MetaGPT and Google's PaperOrchestra (5-role decomposition — independent convergence on the same attractor); AutoAgent (EMP7 "optimization without orientation is hill-climbing into fog"); MemPalace (memory hierarchy Wings/Rooms/Closets/Drawers -> T1/T2/T3); ECC (background instinct extraction via CronCreate); LangGraph (declarative RT schema; engine deferred to v11).
 

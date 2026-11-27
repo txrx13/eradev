@@ -20,3 +20,9 @@ README.md  # public-facing entry point names framework author A. Pankratov once 
 README_EN.md  # same rationale as README.md — author attribution in the foundations paragraph only.
 eradev.md  # Named contributor attributions for formulas F3/F4/F6/F7/F10/F11 per BL-32 audit trail (analogous to FOUNDATIONS.md entry). v10 Bundle A imports from Pankratov 2026 ODTOE_parallel_trajectories carry source-paper citations as load-bearing attribution. Quarterly Validator review ensures edits remain formula attribution (not new narrative).
 eradev_RU.md  # RU mirror of eradev.md — same BL-32 provenance rationale. Bilingual sync requires matching allowlist entry for the RU file.
+
+src/
+benchmarks/
+tests/
+LICENSE
+README_RU.md

@@ -14,7 +14,7 @@ Insert new bibliography entries at L-35 first-citation position; minimal shift o
 For `ODTOE_hyletic_extension.{tex,EN.tex}`:
 - **Insert** `Bugaev N.V. (1893). Foundations of Evolutionary Monadology // Voprosy Filosofii i Psikhologii. Kn. 17. P. 26–44.` at first-citation position (line 87 RU / 90 EN — currently overloaded onto `~[14, цит. по §I]`).
 - **Insert** `Pankratov A.S. The Unified Operator of ODTOE. Preprint (2026).` at first-citation position (line 100 RU / 103 EN — currently `~[11]` collision with Maldacena).
-- **Insert** `Pankratov A.S. Observer-Dependent Theory of Everything (ODTOE). Preprint (2026).` at first-citation position (line 181 RU / 184 EN — currently `~[1\textsubscript{ODTOE}]` placeholder).
+- **Insert** `Pankratov A.S. Operator-Dependent Framework for System Coherence (ODTOE). Preprint (2026).` at first-citation position (line 181 RU / 184 EN — currently `~[1\textsubscript{ODTOE}]` placeholder).
 - **Delete** orphan entry [4] DeWitt-Graham (never cited in body).
 - Subsequent entries renumber +1 / +2 / +3 / −1 per insertion/deletion as appropriate.
 - Body cite remap: `~[11, §IV.x]` (unified_operator semantic) → keep at new [11]; original `~[11]` Maldacena → shift to next available index. `~[1_ODTOE]` → new ODTOE_article index. `~[14, цит. по §I]` etc → new Bugaev index.

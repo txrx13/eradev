@@ -12,3 +12,9 @@ projects/*
 !projects/README.md
 !projects/README_EN.md
 !projects/eradev/
+
+__pycache__/
+*.pyc
+.claude/settings.local.json
+eradev-skill.zip
+.DS_Store

@@ -1,105 +1,82 @@
-# EraDev v10 — META-Orchestration
+# EraDev — Multi-Agent LLM Orchestration & Phantom-Coherence Detection Framework
 
-## Что такое EraDev
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+[![Python 3.9+](https://img.shields.io/badge/Python-3.9%2B-3776AB.svg)](./src/eradev_coherence)
+[![Architecture](https://img.shields.io/badge/Agents-5--Role%20Round%20Table-0F294A.svg)](#4-task-classification)
 
-EraDev -- фреймворк мультиагентной разработки текстово-дискретных артефактов (код, научные статьи, книги, планы, исследования, конфигурации), синтезирующий **12 теоретических оснований**:
+**Author:** Anton S. Pankratov (`BFB ONE FZ-LLC`, UAE | [ORCID `0009-0002-4870-2995`](https://orcid.org/0009-0002-4870-2995))  
+**Languages:** **English** (`README.md`) | [Русский (`README_RU.md`)](./README_RU.md)
 
-- **Ядро**: ODTOE (Observer-Dependent Theory of Everything, автор -- A. Pankratov) даёт математику когерентности (B, S_team, P_coll, Ω); Toyota Production System -- операционную дисциплину (Jidoka, Andon, Hansei, Yokoten, A3, Kaizen, Coaching Kata); Theory of Constraints (Goldratt) -- протоколы поиска узкого места; TRIZ + IFR (Altshuller) -- формулировку задач через разрешение противоречий.
-- **Математический субстрат**: теорема KAM (Kolmogorov-Arnold-Moser) обосновывает `R/r = φ` как самую стабильную тороидальную орбиту; теорема Hurwitz -- инвариант `n_min = ⌈π⌉+1 = 5`; strange loop (Hofstadter) -- самомодификацию на L9 через `Ψ* = Φ(Ψ*)`.
-- **Мультиагентные источники**: MetaGPT и Google PaperOrchestra (5-ролевое разложение -- независимо сошлись на том же аттракторе); AutoAgent (EMP7 "оптимизация без ориентации = восхождение в тумане"); MemPalace (иерархия памяти Wings/Rooms/Closets/Drawers -> T1/T2/T3); ECC (фоновое извлечение инстинктов через CronCreate); LangGraph (декларативная схема RT, в v10 только схема, движок отложен на v11).
+**EraDev** is an open-source engineering framework and reference Python toolkit for coordinating multi-agent Large Language Model (LLM) software teams without context bloat or collective hallucination (*phantom coherence*). It combines a **5-Role Adversarial Round-Table Protocol** (*Visionary, Analyst, Builder, Validator, Coherent*), **3-Layer Deterministic Runtime Hooks**, and the quality-adjusted coherence metric **`S_adjusted = S_team · B_bar`**.
 
-META-Orchestrator (Level 9) координирует пять специализированных ролей (Визионер, Аналитик, Строитель, Валидатор, Когерент) через протокол Round Table. Universality Gate (v10) механически обеспечивает разделение: фреймворк остаётся универсальным, проектные специфики живут в `projects/{PROJECT}/`.
+### Python Reference SDK (`src/eradev_coherence`)
 
-Качество каждого агента измеряется формулой `B = F · E · (1-σ) · Λ` -- зануление любого компонента зануляет результат (мультипликативный Weak Link Principle).
+Zero external dependencies (standard library `math` / `dataclasses`):
 
-Полная генеалогия источников, именных вкладов и методологических заимствований -- в [FOUNDATIONS.md](./FOUNDATIONS.md).
+```bash
+# Run empirical benchmark reproduction (ETU "LETI" NNB-2026 multi-agent study)
+PYTHONPATH=src python3 benchmarks/run_leti_nnb2026_benchmarks.py
 
-**Ключевые свойства v10:**
-
-- **3-layer runtime enforcement** -- CLAUDE.md (авто-загрузка) + PreToolUse hook (блокирует Edit/Write из главной сессии) + memory persistence (идентичность сохраняется между сессиями)
-- **4-layer file architecture (v9)** -- L0 IMMUTABLE (ODTOE core) / L1 Universal roles / L2 Domain skins / L3 Project instances
-- **6 output types** -- META производит только: Agent calls, Decisions, Synthesis, Lessons, Reports, Check Agent. Всё остальное = нарушение.
-- **19 invariants** -- с тегами [UNIVERSAL] / [CODE-ADAPTER] для адаптации под не-кодовые домены (#17 — τ_cycle primacy, ODTOE_parallel_trajectories F3; #18 — evidence-bearing Validator handoff; #19 — bilingual prompt language-purity).
-- **6-step loading sequence** -- eradev.md, meta.md, BOOTSTRAP_LESSONS.md, config.md, lessons.md + условный шаг 6 (domain skin).
-- **13-item session bootstrap** -- включая 5b DOMAIN (выбор модальной B-формулы).
-- **Domain skins (v9)** -- 6 типов доменов: code, article, book, config, plan, research. Каждый со своей B-модальностью и методом верификации.
-- **Self-loading agents (v9)** -- Invariant 12: агенты загружают свой role file самостоятельно, META не внедряет содержимое в промпт.
-- **v10 features** -- Omega(H_hist) computation (cross-project Lambda amplification), temporal decay (freshness model), BL compression (auto-cleanup candidates), Apophatic Gate (pre-RT-1 checkpoint), /extract skill.
-- **Report Funnel** -- Hansei, proposals и аналитические отчёты генерируются через reports/ артефакты по meta-reflection triggers.
-- **30 уроков холодного старта** (BL-1..BL-32, gaps at 23/27) -- накопленный опыт Lambda bootstrap.
-
----
-
-## Структура файлов
-
+# Run unit tests
+PYTHONPATH=src python3 -m unittest discover -s tests -v
 ```
-eradev/
-├── README.md                       # Этот файл -- входная точка (RU)
-├── README_EN.md                    # Входная точка (EN)
-├── CLAUDE.md                       # Auto-Bootstrap для Claude Code (19 invariants, 6-step loading)
-├── LOADING_PROTOCOL.md             # Порядок загрузки файлов агентом
-├── BOOTSTRAP_LESSONS.md            # 30 уроков холодного старта (BL-1..BL-32)
-├── eradev.md                       # Конституция (EN): ODTOE, TPS, Round Table, формулы
-├── eradev_RU.md                    # Конституция (RU)
-├── glossary.md                     # Билингвальный глоссарий ODTOE -> EraDev (44 термина)
-├── glossary_EN.md                  # Глоссарий (EN)
-├── interfaces.md                   # Интерфейсные контракты ролей (5 схем передачи)
-├── roles/
-│   ├── visionary.md / _EN.md       # Роль: Визионер
-│   ├── analyst.md / _EN.md         # Роль: Аналитик
-│   ├── builder.md / _EN.md         # Роль: Строитель
-│   ├── validator.md / _EN.md       # Роль: Валидатор
-│   └── coherent.md / _EN.md        # Роль: Когерент
-├── meta.md / meta_RU.md            # Meta-Agent: спиральная память, самомодификация
-├── CHECKLIST.md / _EN.md           # Универсальный чеклист верификации
-├── MEMORY_TEMPLATE.md / _EN.md     # Шаблон проектной памяти
-├── .claude/
-│   ├── hooks/                      # PreToolUse enforcement hook (блокирует Edit/Write)
-│   └── settings.json               # Конфигурация hooks
-├── docs/
-│   ├── setup-claude.md             # Claude Code setup guide
-│   ├── setup-cursor.md             # Cursor setup guide
-│   ├── setup-codex.md              # Codex/Jules setup guide
-│   └── setup-windsurf.md           # Windsurf setup guide
-├── templates/
-│   ├── CLAUDE.md.template          # Шаблон CLAUDE.md для проектов
-│   ├── CLAUDE.md.universal         # Универсальный CLAUDE.md (без проекта)
-├── projects/
-│   ├── {name}/                     # Внешние проекты (config.md + lessons.md)
-│   └── eradev/                     # Саморазвитие фреймворка
-└── reports/
-    ├── HANSEI_TEMPLATE.md          # Шаблон Hansei-рефлексии
-    └── *.md                        # RT-отчёты, proposals, hansei-артефакты
+
+```python
+from eradev_coherence import AgentScore, evaluate_round_table
+
+# Detect "Phantom Coherence": 5 agents agree closely (S_team = 0.970) around a weak solution (B_bar = 0.346)
+verdict = evaluate_round_table([
+    AgentScore("visionary", F=0.72, E=0.70, sigma=0.22, lam=0.88),
+    AgentScore("analyst",   F=0.75, E=0.68, sigma=0.24, lam=0.89),
+    AgentScore("builder",   F=0.70, E=0.72, sigma=0.25, lam=0.90),
+    AgentScore("validator", F=0.74, E=0.69, sigma=0.23, lam=0.89),
+    AgentScore("coherent",  F=0.71, E=0.71, sigma=0.22, lam=0.88),
+])
+print(verdict.s_team, verdict.s_adjusted, verdict.phantom_coherence)
+# -> S_team=0.985, S_adjusted=0.343, phantom_coherence=True (escalates to human/red-team gate!)
 ```
 
 ---
 
-## Enforcement: 3-Layer Runtime Defense (BL-30)
+## What is EraDev
 
-META-Orchestrator никогда не пишет код напрямую. Это обеспечивается тремя runtime-уровнями:
+EraDev is a framework for multi-agent development of text-discrete artifacts (code, scientific articles, books, plans, research, configs), synthesizing **12 theoretical foundations**:
 
-| Уровень | Механизм | Что делает |
-|---------|----------|------------|
-| 1. CLAUDE.md | Авто-загрузка при старте сессии | Задаёт роль, 6 output types, KILL-TEST |
-| 2. PreToolUse hook | `.claude/hooks/enforce-delegation.sh` | Блокирует Edit/Write из главной сессии |
-| 3. Memory persistence | MEMORY.md identity record | Сохраняет роль между сессиями |
+- **Core**: ODTOE (Operator-Dependent Framework for System Coherence, by A. Pankratov) for coherence math (B, S_team, P_coll, Ω); Toyota Production System for operational discipline (Jidoka, Andon, Hansei, Yokoten, A3, Kaizen, Coaching Kata); Theory of Constraints (Goldratt) for bottleneck protocols; TRIZ + IFR (Altshuller) for framing tasks via contradiction resolution.
+- **Mathematical substrate**: KAM theorem (Kolmogorov-Arnold-Moser) grounds `R/r = φ` as the most stable toroidal orbit; Hurwitz theorem grounds `n_min = ⌈π⌉+1 = 5` as an invariant; Hofstadter's strange loop grounds L9 self-modification via `Ψ* = Φ(Ψ*)`.
+- **Multi-agent inspirations**: MetaGPT and Google's PaperOrchestra (5-role decomposition — independent convergence on the same attractor); AutoAgent (EMP7 "optimization without orientation is hill-climbing into fog"); MemPalace (memory hierarchy Wings/Rooms/Closets/Drawers -> T1/T2/T3); ECC (background instinct extraction via CronCreate); LangGraph (declarative RT schema; engine deferred to v11).
 
-**4-layer file architecture (v9):** L0 IMMUTABLE (ODTOE core) / L1 Universal roles / L2 Domain skins / L3 Project instances -- отдельная концепция от runtime enforcement.
+A META-Orchestrator (Level 9) coordinates five specialized roles (Visionary, Analyst, Builder, Validator, Coherent) through the Round Table protocol. The Universality Gate (v10) mechanically enforces the split: the framework stays universal, project specifics live in `projects/{PROJECT}/`.
 
-**KILL-TEST:** Первое действие после загрузки ОБЯЗАНО быть Agent call. Если META пытается edit/write/code -- нарушение, перечитать CLAUDE.md.
+See [FOUNDATIONS.md](./FOUNDATIONS.md) for the full genealogy of sources, named contributors, and methodological borrows.
+
+**v10 key properties:**
+
+- **3-layer runtime enforcement:** CLAUDE.md (auto-bootstrap) + PreToolUse hook (blocks direct Edit/Write from META) + memory persistence (identity survives across sessions)
+- **4-layer file architecture (v9):** L0 IMMUTABLE (ODTOE core) / L1 Universal roles / L2 Domain skins / L3 Project instances
+- **6 output types:** Agent calls, Decisions, Synthesis, Lessons, Reports, Check Agent. Anything else = VIOLATION.
+- **19 invariants** tagged [UNIVERSAL] / [CODE-ADAPTER] for cross-domain adaptation (#17 — τ_cycle primacy, ODTOE_parallel_trajectories F3; #18 — evidence-bearing Validator handoff; #19 — bilingual prompt language-purity).
+- **6-step loading sequence:** eradev.md, meta.md, BOOTSTRAP_LESSONS.md, config.md, lessons.md + conditional step 6 (domain skin).
+- **13-item session bootstrap** including 5b DOMAIN (modal B-formula selection).
+- **Domain skins (v9):** 6 domain types: code, article, book, config, plan, research. Each with its own B-modality and verification method.
+- **Self-loading agents (v9):** Invariant 12: agents self-load their role file, META does not embed content.
+- **v10 features:** Omega(H_hist) computation (cross-project Lambda amplification), temporal decay (freshness model), BL compression (auto-cleanup candidates), Apophatic Gate (pre-RT-1 checkpoint), /extract skill.
+- **Report Funnel:** Builder (full artifact) -> Validator (Structured Verdict, 7 lines) -> Coherent (Cycle Brief, 10 lines) -> META. Each level compresses; META never reads raw output.
+
+Each agent's quality is measured by `B = F * E * (1-sigma) * Lambda` -- zeroing any component zeroes the entire result.
 
 ---
 
-## Быстрый старт по агентам
+## Quick Start by Agent
 
-| Агент | Guide | Hooks | Config file |
+| Agent | Guide | Hooks | Config file |
 |-------|-------|-------|------------|
 | **Claude Code** | [docs/setup-claude.md](docs/setup-claude.md) | Full (Edit/Write/Bash block) | `CLAUDE.md` |
 | **Cursor** | [docs/setup-cursor.md](docs/setup-cursor.md) | Text-only | `.cursorrules` |
 | **Codex / Jules** | [docs/setup-codex.md](docs/setup-codex.md) | Text-only | `AGENTS.md` |
 | **Windsurf** | [docs/setup-windsurf.md](docs/setup-windsurf.md) | Hooks support | `.windsurfrules` |
 
-**Универсальный промт** (для любого агента без специфичной настройки):
+**Universal prompt** (for any agent without specific setup):
 
 ```
 You are the META-ORCHESTRATOR (EraDev Level 9).
@@ -116,86 +93,149 @@ RULES: S-tasks = Builder+Validator. M+ = 5-role RT-1. 19 invariants ([UNIVERSAL]
        Bash: operational direct, diagnostic delegate. Session bootstrap: 13 items (incl. 5b DOMAIN).
 KILL-TEST: first action = agent call.
 
-Task: [описание задачи]
+Task: [task description]
 ```
 
-Подробные инструкции -- в guides выше. Для deploy нового проекта: `docs/setup-{agent}.md` guides.
+Detailed instructions in guides above. For new project deploy: `docs/setup-{agent}.md` guides.
 
 ---
 
-## Быстрый старт (для человека)
+## File Structure
 
-### 1. Инициализация проекта
+```
+eradev/
+├── README.md                    # Entry point (RU)
+├── README_EN.md                 # Entry point (EN) -- this file
+├── CLAUDE.md                    # Auto-bootstrap for Claude Code sessions
+├── LOADING_PROTOCOL.md          # Agent file loading sequence
+├── BOOTSTRAP_LESSONS.md         # 30 cold-start lessons (BL-1..BL-32, gaps at 23/27)
+├── eradev.md                    # Core constitution (EN): ODTOE, TPS, Round Table
+├── eradev_RU.md                 # Core constitution (RU)
+├── glossary.md                  # Bilingual glossary (44 terms)
+├── glossary_EN.md               # Glossary (EN)
+├── interfaces.md                # Role Interface Contracts (5 handoff schemas)
+├── roles/
+│   ├── visionary.md / _EN.md    # Role: Visionary
+│   ├── analyst.md / _EN.md      # Role: Analyst
+│   ├── builder.md / _EN.md      # Role: Builder
+│   ├── validator.md / _EN.md    # Role: Validator
+│   └── coherent.md / _EN.md     # Role: Coherent
+├── meta.md / meta_RU.md         # Meta-Agent: spiral memory, self-modification
+├── CHECKLIST.md / _EN.md        # Universal verification checklist
+├── MEMORY_TEMPLATE.md / _EN.md  # Project memory template
+├── .claude/
+│   ├── hooks/enforce-delegation.sh  # PreToolUse hook (blocks META from Edit/Write)
+│   └── settings.json                # Hook wiring config
+├── docs/
+│   ├── setup-claude.md          # Claude Code setup guide
+│   ├── setup-cursor.md          # Cursor setup guide
+│   ├── setup-codex.md           # Codex/Jules setup guide
+│   └── setup-windsurf.md        # Windsurf setup guide
+├── templates/
+│   ├── CLAUDE.md.template       # CLAUDE.md template for new projects
+│   ├── CLAUDE.md.universal      # Universal variant (no project paths)
+├── reports/
+│   ├── HANSEI_TEMPLATE.md       # Structured Hansei reflection template
+│   └── *.md                     # Round Table and analytical reports
+└── projects/
+    ├── README.md / _EN.md       # Project structure description
+    ├── {name}/                  # External projects (config.md + lessons.md)
+    └── eradev/                  # EraDev self-improvement project
+```
 
-Скопируйте файлы ядра (`eradev.md`, роли, `glossary.md`) в рабочую директорию. Создайте `projects/{name}/config.md` с описанием проекта: технологический стек, True North, известные ограничения.
+---
 
-### 2. Определите True North
+## 3-Layer Runtime Enforcement
 
-True North -- это не цель, а направление. Сформулируйте его как идеальное состояние, к которому стремится проект. Запишите в `projects/{name}/config.md`.
+| Layer | Mechanism | What it does |
+|-------|-----------|--------------|
+| **CLAUDE.md** | Auto-loaded by Claude Code at session start | Installs META identity, loading sequence, invariants, KILL-TEST |
+| **PreToolUse hook** | `.claude/hooks/enforce-delegation.sh` | Blocks Edit/Write calls from main session (non-agent). Forces delegation. |
+| **Memory persistence** | MEMORY.md entries | META identity + LOAD sequence survive across sessions. Checked at each start. |
 
-### 3. Запустите Round Table (RT-1)
+**4-layer file architecture (v9):** L0 IMMUTABLE (ODTOE core) / L1 Universal roles / L2 Domain skins / L3 Project instances -- a separate concept from runtime enforcement.
 
-Все пять ролей получают одну задачу одновременно (параллельный старт). Каждый агент проходит оператор активации перед ответом:
+Without all three runtime layers, META drifts back to solo Builder behavior within 2-3 tasks (BL-16: knowledge without enforcement = Lambda zero).
 
-1. **A_F (Фокус)** -- загрузить релевантные файлы
-2. **A_E (Согласование)** -- сверить задачу с ИКР
-3. **A_sigma (Непротиворечивость)** -- проверить на конфликты
-4. **A_Lambda (Опыт)** -- прочитать MEMORY.md
+---
 
-### 4. Классификация задач
+## Quick Start (for humans)
 
-| Размер | Критерий | Команды | Агенты |
-|--------|----------|---------|--------|
-| S | <=3 файла, 1 модуль | 1 | 2 (Строитель + Валидатор) |
-| M | 1 модуль, несколько файлов | 1 | 5 (полная пятёрка) |
-| L | 2-3 модуля | ceil(N_modules/3) | 5 * N_teams |
-| XL | 4+ модуля | ceil(N_modules/3) | 5 * N_teams + L2/L3 Когеренты |
+### 1. Project Initialization
+Create `projects/{name}/config.md` with: technology stack, True North, known constraints.
+
+### 2. Define True North
+Not a goal but a direction. Formulate as the ideal state the project strives toward.
+
+### 3. Launch Round Table (RT-1)
+All five roles receive the same task simultaneously. Each agent runs the Activation Operator:
+1. **A_F (Focus)** -- load relevant files
+2. **A_E (Alignment)** -- verify task against IFR
+3. **A_sigma (Consistency)** -- check for conflicts
+4. **A_Lambda (Experience)** -- read project memory
+
+### 4. Task Classification
+
+| Size | Criteria | Teams | Agents |
+|------|----------|-------|--------|
+| S | <=3 files, 1 module | 1 | 2 (Builder + Validator) |
+| M | 1 module, multiple files | 1 | 5 (full quintet) |
+| L | 2-3 modules | ceil(N_modules/3) | 5 * N_teams |
+| XL | 4+ modules | ceil(N_modules/3) | 5 * N_teams + L2/L3 Coherents |
 
 ### 5. RT Phase Protocols
 
-| Режим | Когда | Как |
-|-------|-------|-----|
-| Parallel | RT-1 (расширение) | 5 Agent calls одновременно, каждый независим |
-| Hybrid | RT-2 (конвергенция) | Builder + Validator параллельно, Coherent после |
-| Sequential | RT-3 (фиксация) | Последовательно: Validator -> Coherent -> META synthesis |
+| Phase | Model | Protocol |
+|-------|-------|----------|
+| **RT-1** (understanding) | Parallel 5 | All agents receive raw task simultaneously. No agent sees another's output. META synthesizes. |
+| **RT-2** (correction) | Hybrid | Coherent broadcasts RT-1 synthesis -> 4 roles assess in parallel -> re-synthesis. |
+| **RT-3** (acceptance) | Parallel 5 | Independent go/no-go from each role. No groupthink. META counts verdicts. |
+| **Execution M** | Sequential pairs | Builder -> Validator -> iterate. |
+| **Execution L/XL** | Parallel + gate | N Builders parallel -> Coherent cross-check -> Validators parallel. |
 
-Пропорция по золотому сечению: Round Table ~38% времени, Build ~62%.
+### 6. Development Cycle
 
-### 6. Завершение цикла (RT-3)
+```
+RT-1 (expansion) -> Build (compression) -> RT-2 (expansion) -> Build (compression) -> RT-3 (fixation)
+```
 
-- Заполните Hansei-шаблон (`reports/HANSEI_TEMPLATE.md`)
-- Зафиксируйте 3-5 ключевых различений
-- Обновите lessons.md проекта
-- Оставьте спиральный зазор ~2% -- открытые вопросы для следующего витка
+Golden ratio proportion: Round Table ~38%, Build ~62%.
 
----
-
-## Ссылки на файлы ядра
-
-| Файл | Назначение |
-|------|-----------|
-| `eradev.md` | Конституция фреймворка: ODTOE, TPS, Round Table, формулы |
-| `meta.md` | Meta-Agent: 1a (Output Spec), Sec 15 (I/O Protocol), Sec 16 (Reflection Triggers), спиральная память, самомодификация |
-| `roles/visionary.md` | Промпт Визионера: стратегия, True North, Zone Detection |
-| `roles/analyst.md` | Промпт Аналитика: декомпозиция, File Ownership, pipeline |
-| `roles/builder.md` | Промпт Строителя: реализация, Security Checklist, паттерны |
-| `roles/validator.md` | Промпт Валидатора: проверка, обратная связь, шкала диссонанса |
-| `roles/coherent.md` | Промпт Когерента: синхронизация, L1/L2/L3, Kill-Switch |
-| `CLAUDE.md` | Auto-Bootstrap: 19 invariants, 6-step loading, Domain Awareness, KILL-TEST |
-| `BOOTSTRAP_LESSONS.md` | 30 уроков холодного старта (BL-1..BL-32) |
-| `glossary.md` | Единый глоссарий терминов ODTOE -> EraDev |
-| `LOADING_PROTOCOL.md` | Agent Loading Protocol: порядок загрузки файлов |
+### 7. Cycle Completion (RT-3)
+- Fill A3 crystallization template
+- Record 3-5 key distinctions
+- Update project lessons.md
+- Leave spiral gap ~2% -- open questions for next iteration
 
 ---
 
-## Принципы
+## Core File References
 
-- **Мультипликативность**: B = F * E * (1-sigma) * Lambda. Ноль в любом компоненте = ноль на выходе.
-- **Андон**: право и обязанность остановиться при обнаружении проблемы.
-- **Hansei**: рефлексия процесса, а не результата. Не "код плохой", а "почему процесс привёл к плохому коду".
-- **Yokoten**: урок из одного инцидента обобщается на все аналогичные случаи.
-- **Спиральный зазор**: каждый цикл оставляет ~2% незамкнутости, питающей следующий виток.
-- **Defense-in-Depth**: одного уровня enforcement недостаточно (BL-30). Всегда минимум 3 слоя.
+| File | Purpose |
+|------|---------|
+| `CLAUDE.md` | Auto-bootstrap: META identity, loading sequence, invariants, KILL-TEST |
+| `eradev.md` | Framework constitution: ODTOE, TPS, Round Table, formulas, protocols |
+| `meta.md` | Meta-Agent protocol: Sec 1a (Output Spec), Sec 15 (I/O Protocol), Sec 16 (Reflection Triggers) |
+| `roles/visionary.md` | Visionary: strategy, True North, Zone Detection |
+| `roles/analyst.md` | Analyst: decomposition, File Ownership, pipeline |
+| `roles/builder.md` | Builder: implementation, Security Checklist, patterns |
+| `roles/validator.md` | Validator: verification, feedback, dissonance scale |
+| `roles/coherent.md` | Coherent: synchronization, L1/L2/L3, Kill-Switch |
+| `glossary.md` | Bilingual glossary (44 terms, canonical forms) |
+| `interfaces.md` | Role Interface Contracts (5 handoff schemas with YAML) |
+| `LOADING_PROTOCOL.md` | Agent loading sequence (META 6-step + role 4-step) |
+| `BOOTSTRAP_LESSONS.md` | 30 cold-start lessons (BL-1..BL-32) for Lambda bootstrap |
+| `reports/HANSEI_TEMPLATE.md` | Structured Hansei reflection template |
+
+---
+
+## Principles
+
+- **Multiplicativity**: B = F * E * (1-sigma) * Lambda. Zero in any component = zero output.
+- **Andon**: right and obligation to stop upon discovering a problem.
+- **Hansei**: reflect on process, not result. Not "code is bad" but "why did the process produce bad code."
+- **Yokoten**: lesson from one incident generalized to all analogous cases.
+- **Spiral gap**: each cycle leaves ~2% openness that feeds the next iteration.
 
 ---
 

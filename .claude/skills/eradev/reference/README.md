@@ -4,7 +4,7 @@
 
 EraDev -- фреймворк мультиагентной разработки текстово-дискретных артефактов (код, научные статьи, книги, планы, исследования, конфигурации), синтезирующий **12 теоретических оснований**:
 
-- **Ядро**: ODTOE (Observer-Dependent Theory of Everything, автор -- A. Pankratov) даёт математику когерентности (B, S_team, P_coll, Ω); Toyota Production System -- операционную дисциплину (Jidoka, Andon, Hansei, Yokoten, A3, Kaizen, Coaching Kata); Theory of Constraints (Goldratt) -- протоколы поиска узкого места; TRIZ + IFR (Altshuller) -- формулировку задач через разрешение противоречий.
+- **Ядро**: ODTOE (Operator-Dependent Framework for System Coherence, автор -- A. Pankratov) даёт математику когерентности (B, S_team, P_coll, Ω); Toyota Production System -- операционную дисциплину (Jidoka, Andon, Hansei, Yokoten, A3, Kaizen, Coaching Kata); Theory of Constraints (Goldratt) -- протоколы поиска узкого места; TRIZ + IFR (Altshuller) -- формулировку задач через разрешение противоречий.
 - **Математический субстрат**: теорема KAM (Kolmogorov-Arnold-Moser) обосновывает `R/r = φ` как самую стабильную тороидальную орбиту; теорема Hurwitz -- инвариант `n_min = ⌈π⌉+1 = 5`; strange loop (Hofstadter) -- самомодификацию на L9 через `Ψ* = Φ(Ψ*)`.
 - **Мультиагентные источники**: MetaGPT и Google PaperOrchestra (5-ролевое разложение -- независимо сошлись на том же аттракторе); AutoAgent (EMP7 "оптимизация без ориентации = восхождение в тумане"); MemPalace (иерархия памяти Wings/Rooms/Closets/Drawers -> T1/T2/T3); ECC (фоновое извлечение инстинктов через CronCreate); LangGraph (декларативная схема RT, в v10 только схема, движок отложен на v11).
 

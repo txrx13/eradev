@@ -26,7 +26,7 @@ document enumerates all of them with file citations.
 
 ## Part I — Theoretical Foundations (13)
 
-### 1. ODTOE (Observer-Dependent Theory of Everything)
+### 1. ODTOE (Operator-Dependent Framework for System Coherence)
 **Source:** Pankratov theoretical corpus (160+ articles, separate research program).
 **Where:** `eradev.md` header; `eradev.md` §I-III; `eradev.md` §XVI glossary mapping.
 **Provides:** Coherence math substrate — 20+ formal terms (Ψ, Ô, ι, Φ, Ψ*, B, S, P_coll, T(C), D(η), φ-based topology) re-interpreted as agent concepts. Formula `B = F·E·(1-σ)·Λ`, `S_team`, `S_adjusted`, `P_coll`, `Ω(H_hist)`, 5-role topology.
